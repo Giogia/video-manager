@@ -3,8 +3,8 @@ import "reflect-metadata"
 import express from 'express'
 import mongoose  from 'mongoose'
 
-import { buildSchema } from "type-graphql"
-import { graphqlHTTP } from 'express-graphql' 
+import { buildSchema } from 'type-graphql'
+import { createYoga }  from 'graphql-yoga'
 
 import { VideoResolver } from '../resolvers/video'
 
@@ -20,9 +20,9 @@ async function start() {
       emitSchemaFile: true,
    })
 
-   app.use('/graphql', graphqlHTTP({
-      schema, 
-      graphiql:true
+   app.use('/graphql', createYoga({
+      schema,
+      graphiql: {title: 'API Playground'}
    }))
    
    app.listen(3000, () => {
