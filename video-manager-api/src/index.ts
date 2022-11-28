@@ -1,14 +1,14 @@
 import "reflect-metadata"
 
 import express from 'express'
-import mongoose  from 'mongoose'
+import mongoose from 'mongoose'
 
 import { buildSchema } from 'type-graphql'
-import { createYoga }  from 'graphql-yoga'
+import { createYoga } from 'graphql-yoga'
 
 import { VideoResolver } from '../resolvers/video'
 
-async function loadDB(){
+async function loadDB() {
    await mongoose.connect(process.env.MONGO_DB_URL!)
 }
 
@@ -22,9 +22,9 @@ async function start() {
 
    app.use('/graphql', createYoga({
       schema,
-      graphiql: {title: 'API Playground'}
+      graphiql: { title: 'API Playground' }
    }))
-   
+
    app.listen(3000, () => {
       console.log('Listening on port 3000')
       loadDB()

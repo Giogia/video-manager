@@ -12,7 +12,7 @@ export class VideoResolver {
 
     @Query(() => Video)
     async getVideo(@Arg("id") id: number): Promise<Video | null | undefined> {
-        return await VideoModel.findOne({"id": id})
+        return await VideoModel.findOne({ "id": id })
     }
 
     @Mutation(() => Video)
@@ -25,7 +25,7 @@ export class VideoResolver {
         } as Video)
 
         await video.save()
-            
+
         return video
     }
 
@@ -34,8 +34,8 @@ export class VideoResolver {
         @Arg("id") id: number,
         @Arg("input") input: VideoInput
     ): Promise<Video> {
-        const updatedVideo = await VideoModel.findOneAndUpdate({"id": id}, input)
-        
+        const updatedVideo = await VideoModel.findOneAndUpdate({ "id": id }, input)
+
         if (!updatedVideo) throw new Error("Video not found")
 
         await updatedVideo.save()

@@ -18,10 +18,10 @@ export class Video {
 
 @InputType()
 export class VideoInput implements Pick<Video, "name" | "seconds"> {
-    @Field({nullable: true})
+    @Field({ nullable: true })
     name!: string
 
-    @Field({nullable: true})
+    @Field({ nullable: true })
     seconds!: number
 }
 
