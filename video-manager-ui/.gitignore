@@ -104,7 +104,7 @@ dist
 .tern-port
 
 # Visual Studio Code
-.vscode
+.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -113,3 +113,12 @@ dist
 
 # Local History for Visual Studio Code
 .history/
+
+# Yarn
+.yarn/*
+!.yarn/cache/*
+!.yarn/patches
+!.yarn/plugins
+# !.yarn/releases
+!.yarn/sdks
+!.yarn/versions
