@@ -9,7 +9,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "relay": "relay-compiler"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -50,7 +51,9 @@
     "@storybook/testing-library": "^0.0.13",
     "@storybook/theming": "^6.5.14",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "babel-plugin-relay": "^14.1.0",
     "prop-types": "^15.8.1",
+    "relay-compiler": "^14.1.0",
     "storybook": "^6.5.14",
     "storybook-dark-mode": "^1.1.2",
     "webpack": "^5.75.0"
