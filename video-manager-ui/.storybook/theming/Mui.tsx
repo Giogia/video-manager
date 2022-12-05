@@ -27,12 +27,11 @@ const createThemeFromMUITheme = (muiTheme, baseTheme) => {
   return {
     base: palette.mode,
 
-    colorPrimary: palette.primary.main,
-    colorSecondary: palette.secondary.main,
+    colorSecondary: palette.primary.main,
 
     // UI
-    appBg: palette.background.default,
-    appContentBg: palette.background.paper,
+    appBg: palette.background.paper,
+    appContentBg: palette.background.default,
     appBorderColor: palette.background.paper,
     appBorderRadius: shape.borderRadius,
 
@@ -46,7 +45,7 @@ const createThemeFromMUITheme = (muiTheme, baseTheme) => {
 
     // Toolbar default and active colors
     barTextColor: palette.text.primary,
-    barSelectedColor: palette.text.secondary,
+    barSelectedColor: palette.primary.main,
     barBg: palette.background.default,
 
     ...baseTheme
