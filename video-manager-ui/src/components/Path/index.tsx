@@ -23,6 +23,7 @@ export const Path = ({ path }: PathProps) => {
     <Breadcrumbs
       aria-label='breadcrumb'
       itemsAfterCollapse={5}
+      sx={{ paddingLeft: 2 }}
     >
       {levels
         .map((link, i) => (
