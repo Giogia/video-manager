@@ -2,10 +2,12 @@ import React from 'react'
 import IconButton from '@mui/material/IconButton'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
+import FolderIcon from '@mui/icons-material/Folder'
 
 const buttons = {
   'add-folder': <CreateNewFolderIcon />,
-  'add-video': <UploadFileIcon />
+  'add-video': <UploadFileIcon />,
+  'folder': <FolderIcon fontSize='large'/>
 }
 
 interface ButtonProps {

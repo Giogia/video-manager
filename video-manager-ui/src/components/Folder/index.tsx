@@ -1,7 +1,7 @@
 import React from 'react'
-import FolderIcon from '@mui/icons-material/Folder'
 import Grid from '@mui/material/Grid'
 
+import { Button } from '../Button'
 import { Name } from '../Name'
 
 interface FolderProps {
@@ -22,10 +22,7 @@ export const Folder = ({ defaultName }: FolderProps) => {
       width='max-content'
     >
       <Grid item>
-        <FolderIcon
-          color='action'
-          fontSize='large'
-        />
+        <Button type='folder' />
       </Grid>
       <Grid item>
         <Name defaultName={defaultName} />
