@@ -35,7 +35,7 @@ export const Explorer = ({ content, path }: ExplorerProps) => {
           </CardActions>
         )}
       />
-      <CardContent>
+      <CardContent sx={{ overflow: 'auto' }}>
         <Grid container gap={4}>
           {content &&
             content.map(item => (
