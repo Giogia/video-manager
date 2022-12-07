@@ -1,10 +1,10 @@
 import React from 'react'
-import Breadcrumbs from '@mui/material/Breadcrumbs'
+import BreadcrumbsMui from '@mui/material/Breadcrumbs'
 import Link from '@mui/material/Link'
 
 const SEPARATOR = '/'
 
-interface PathProps {
+interface BreadcrumbsProps {
   /**
    * Current Directory
    */
@@ -14,13 +14,13 @@ interface PathProps {
 /**
  * UI component to navigate parent directories
  */
-export const Path = ({ path }: PathProps) => {
+export const Breadcrumbs = ({ path }: BreadcrumbsProps) => {
 
   const levels = path.split(SEPARATOR)
   const href = (level: number) => levels.slice(0, level + 1).join(SEPARATOR)
 
   return (
-    <Breadcrumbs
+    <BreadcrumbsMui
       aria-label='breadcrumb'
       itemsAfterCollapse={5}
       sx={{ paddingLeft: 2 }}
@@ -30,10 +30,11 @@ export const Path = ({ path }: PathProps) => {
           <Link
             underline='hover'
             href={href(i)}
+            key={i}
           >
             {link}
           </Link>
         ))}
-    </Breadcrumbs>
+    </BreadcrumbsMui>
   )
 }

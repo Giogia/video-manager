@@ -6,7 +6,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Grid from '@mui/material/Grid'
 
 import { Button } from '../Button'
-import { Path } from '../Path'
+import { Breadcrumbs } from '../Breadcrumbs'
 
 interface ExplorerProps {
   /**
@@ -29,7 +29,7 @@ export const Explorer = ({ content, path }: ExplorerProps) => {
       height: '100%'
     }}>
       <CardHeader
-        title={<Path path={path} />}
+        title={<Breadcrumbs path={path} />}
         action={(
           <CardActions>
             <Button type='add-video' />
