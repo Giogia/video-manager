@@ -1,13 +1,13 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import { Name } from './'
+import { Name as NameComponent } from './'
 
 export default {
   title: 'Name',
-  component: Name,
-} as ComponentMeta<typeof Name>
+  component: NameComponent,
+} as ComponentMeta<typeof NameComponent>
 
-const Template: ComponentStory<typeof Name> = (args) => <Name {...args} />
+const Template: ComponentStory<typeof NameComponent> = (args) => <NameComponent {...args} />
 
-export const Base = Template.bind({})
+export const Name = Template.bind({})

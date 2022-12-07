@@ -1,13 +1,13 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import { Folder } from './'
+import { Folder as FolderComponent } from './'
 
 export default {
   title: 'Folder',
-  component: Folder,
-} as ComponentMeta<typeof Folder>
+  component: FolderComponent,
+} as ComponentMeta<typeof FolderComponent>
 
-const Template: ComponentStory<typeof Folder> = (args) => <Folder {...args} />
+const Template: ComponentStory<typeof FolderComponent> = (args) => <FolderComponent {...args} />
 
-export const Base = Template.bind({})
+export const Folder = Template.bind({})

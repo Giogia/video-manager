@@ -28,8 +28,6 @@ export const Header = ({ name, theme, handleTheme }: HeaderProps) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: 6,
-      paddingBottom: 0
     }}>
       <Typography
         variant='overline'

@@ -26,16 +26,22 @@ function App() {
         bgcolor: background.default,
         height: '100vh',
       }}>
-        <Header theme={mode} handleTheme={handleTheme} />
+        <Box
+          padding={8}
+          paddingBottom={0}
+        >
+          <Header theme={mode} handleTheme={handleTheme} />
+        </Box>
         <Box
           flex={1}
           overflow='auto'
-          padding={4}
+          padding={6}
+          paddingBottom={8}
         >
           <Explorer content={content} path={path} />
         </Box>
       </Box>
-    </ThemeProvider>
+    </ThemeProvider >
   )
 }
 
