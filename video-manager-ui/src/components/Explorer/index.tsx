@@ -25,7 +25,9 @@ interface ExplorerProps {
 export const Explorer = ({ content, path }: ExplorerProps) => {
 
   return (
-    <Card variant='outlined'>
+    <Card variant='outlined' sx={{
+      height: '100%'
+    }}>
       <CardHeader
         title={<Path path={path} />}
         action={(
@@ -35,7 +37,10 @@ export const Explorer = ({ content, path }: ExplorerProps) => {
           </CardActions>
         )}
       />
-      <CardContent sx={{ overflow: 'auto' }}>
+      <CardContent sx={{
+        height: '100%',
+        overflow: 'auto'
+      }}>
         <Grid container gap={4}>
           {content &&
             content.map(item => (
@@ -46,7 +51,7 @@ export const Explorer = ({ content, path }: ExplorerProps) => {
           }
         </Grid>
       </CardContent>
-    </Card >
+    </Card>
   )
 }
 

@@ -28,9 +28,13 @@ export const Header = ({ name, theme, handleTheme }: HeaderProps) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '24px 0'
+      padding: 6,
+      paddingBottom: 0
     }}>
-      <Typography variant='h6'>
+      <Typography
+        variant='overline'
+        color="textPrimary"
+      >
         {name}
       </Typography>
       <Button

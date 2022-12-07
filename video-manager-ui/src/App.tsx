@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { ThemeProvider } from '@mui/material'
-import Container from '@mui/material/Container'
+import { Box, ThemeProvider } from '@mui/material'
 
 import { Header } from './components/Header'
+import { Folder } from './components/Folder'
 import { Explorer } from './components/Explorer'
 import { lightTheme } from './themes/light.theme'
 import { darkTheme } from './themes/dark.theme'
@@ -14,20 +14,28 @@ function App() {
 
   const handleTheme = () => setTheme(mode === 'dark' ? lightTheme : darkTheme)
 
+  // Example Content
+  const content = Array.from({ length: 100 }).map((_, i) => <Folder />)
+  const path = window.location.pathname
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <ThemeProvider theme={theme}>
-          <Container sx={{
-            height: '100vh',
-            bgcolor: background.default
-          }}>
-            <Header theme={mode} handleTheme={handleTheme} />
-            <Explorer content={[]} path='/' />
-          </Container>
-        </ThemeProvider>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        bgcolor: background.default,
+        height: '100vh',
+      }}>
+        <Header theme={mode} handleTheme={handleTheme} />
+        <Box
+          flex={1}
+          overflow='auto'
+          padding={4}
+        >
+          <Explorer content={content} path={path} />
+        </Box>
+      </Box>
+    </ThemeProvider>
   )
 }
 
