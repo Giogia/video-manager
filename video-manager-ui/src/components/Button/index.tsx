@@ -24,7 +24,7 @@ interface ButtonProps {
    */
   type: keyof typeof buttons
   /**
-   * Button dimensions
+   * Button dimension
    */
   size?: 'small' | 'medium' | 'large'
 }
