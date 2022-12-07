@@ -4,7 +4,7 @@ export const lightTheme = createTheme({
     palette: {
         mode: 'light',
         background: {
-            paper: 'whitesmoke',
+            paper: '#fafafa',
             default: 'white'
         }
     }
