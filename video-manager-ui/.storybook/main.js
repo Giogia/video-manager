@@ -8,10 +8,14 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/preset-create-react-app",
-    // "storybook-dark-mode"
+    "storybook-addon-material-ui",
+    "storybook-dark-mode",
   ],
   "framework": "@storybook/react",
   "core": {
     "builder": "@storybook/builder-webpack5"
+  },
+  "features": {
+    "interactionsDebugger": true,
   }
 }

@@ -34,9 +34,7 @@ export const parameters = {
       date: /Date$/,
     },
   },
-  docs: {
-    container: withDocsTheme
-  },
+  viewMode: 'docs',
   darkMode: {
     current: 'light',
     light: lightMuiTheme,
