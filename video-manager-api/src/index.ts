@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 import { buildSchema } from 'type-graphql'
 import { createYoga } from 'graphql-yoga'
 
+import { DirectoryResolver } from '../resolvers/directory'
 import { VideoResolver } from '../resolvers/video'
 
 async function loadDB() {
@@ -16,7 +17,7 @@ async function start() {
    const app = express()
 
    const schema = await buildSchema({
-      resolvers: [VideoResolver],
+      resolvers: [DirectoryResolver, VideoResolver],
       emitSchemaFile: true,
    })
 
