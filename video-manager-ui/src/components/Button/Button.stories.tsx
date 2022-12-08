@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { expect } from '@storybook/jest'
 import { within, userEvent } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
 
 import { Button as ButtonComponent } from '.'
 
@@ -16,9 +16,11 @@ export default {
 const Template: ComponentStory<typeof ButtonComponent> = (args) => <ButtonComponent {...args} />
 
 export const Button = Template.bind({})
+
 Button.args = {
   type: 'add-folder'
 }
+
 Button.play = async ({ args, canvasElement }) => {
   const canvas = within(canvasElement)
   await userEvent.click(canvas.getByRole('button'))

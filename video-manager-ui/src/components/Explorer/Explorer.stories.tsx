@@ -15,6 +15,7 @@ export default {
 const Template: ComponentStory<typeof ExplorerComponent> = (args) => <ExplorerComponent {...args} />
 
 export const Explorer = Template.bind({})
+
 Explorer.args = {
   content: Array.from({ length: 12 }).map(() => <Folder />)
 }
