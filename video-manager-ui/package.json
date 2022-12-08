@@ -4,14 +4,24 @@
   "description": "",
   "author": "Giovanni Tommasi",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "relay": "relay-compiler",
+    "start": "yarn run relay && react-scripts start",
+    "build": "yarn run relay && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "test-storybook": "test-storybook --browsers chromium firefox webkit",
-    "relay": "relay-compiler"
+    "test-storybook": "test-storybook --browsers chromium firefox webkit"
+  },
+  "relay": {
+    "src": "./src",
+    "schema": "./schema.gql",
+    "language": "typescript",
+    "exclude": [
+      "**/node_modules/**",
+      "**/__mocks__/**",
+      "**/__generated__/**"
+    ]
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -27,6 +37,7 @@
     "@types/node": "^18.11.10",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
+    "@types/react-relay": "^14.1.2",
     "classnames": "^2.3.2",
     "graphql": "^16.6.0",
     "graphql-relay": "^0.10.0",
@@ -34,6 +45,7 @@
     "react-dom": "^18.2.0",
     "react-relay": "^14.1.0",
     "react-scripts": "5.0.1",
+    "relay-runtime": "^14.1.0",
     "typescript": "^4.9.3",
     "web-vitals": "^3.1.0"
   },

@@ -1,9 +1,11 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import { RelayEnvironmentProvider } from 'react-relay'
 
 import './index.css'
 
 import App from './App'
+import environment from './environment'
 import reportWebVitals from './reportWebVitals'
 
 const root = createRoot(
@@ -12,7 +14,9 @@ const root = createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <RelayEnvironmentProvider environment={environment}>
+      <App />
+    </RelayEnvironmentProvider>
   </React.StrictMode>
 )
 

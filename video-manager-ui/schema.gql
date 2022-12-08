@@ -1,0 +1,40 @@
+type Directory {
+  children: [Directory!]!
+  name: String!
+  path: String!
+}
+
+input DirectoryInput {
+  name: String!
+  path: String!
+}
+
+type Mutation {
+  addDirectory(input: DirectoryInput!): Result!
+  createVideo(input: VideoInput!): Video!
+  removeDirectory(input: DirectoryInput!): Result!
+  renameDirectory(input: DirectoryInput!, name: String!): Directory!
+  updateVideo(id: Float!, input: VideoInput!): Video!
+}
+
+type Query {
+  getDirectories: [Directory!]!
+  getDirectory(input: DirectoryInput!): Directory!
+  getVideo(id: Float!): Video!
+  getVideos: [Video!]!
+}
+
+type Result {
+  acknowledged: Boolean!
+}
+
+type Video {
+  id: Float!
+  name: String!
+  seconds: Float!
+}
+
+input VideoInput {
+  name: String
+  seconds: Float
+}
