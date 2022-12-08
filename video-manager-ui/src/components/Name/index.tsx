@@ -39,7 +39,7 @@ export const Name = ({ defaultName }: NameProps) => {
             autoFocus
             value={name}
             variant='standard'
-            inputProps={{ sx: { fontSize: 12 } }}
+            inputProps={{ sx: { fontSize: 12, marginTop: -0.25}}}
             multiline
             maxRows={4}
             onBlur={() => setIsNamedFocused(false)}
