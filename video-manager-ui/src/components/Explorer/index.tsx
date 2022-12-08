@@ -25,7 +25,7 @@ interface ExplorerProps {
 }
 
 /**
- * UI component for identifying a directory
+ * UI component for exploring a directory
  */
 export const Explorer = ({ content, path }: ExplorerProps) => (
   <Card variant='outlined' sx={{ height: '100%' }}>
