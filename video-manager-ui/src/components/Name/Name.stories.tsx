@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { Name as NameComponent } from './'
 
 export default {
-  title: 'Name',
+  title: 'Fundamentals/Name',
   component: NameComponent,
 } as ComponentMeta<typeof NameComponent>
 

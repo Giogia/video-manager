@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'
 import { Header as HeaderComponent } from '.'
 
 export default {
-  title: 'Header',
+  title: 'Composed/Header',
   component: HeaderComponent,
   args: {
     theme: 'light',

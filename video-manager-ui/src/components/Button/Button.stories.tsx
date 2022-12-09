@@ -6,7 +6,7 @@ import { expect } from '@storybook/jest'
 import { Button as ButtonComponent } from '.'
 
 export default {
-  title: 'Button',
+  title: 'Fundamentals/Button',
   component: ButtonComponent,
   argTypes: {
     action: { action: true }

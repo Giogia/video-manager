@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { Breadcrumbs as BreadcrumbsComponent } from '.'
 
 export default {
-  title: 'Breadcrumbs',
+  title: 'Fundamentals/Breadcrumbs',
   component: BreadcrumbsComponent,
   args: {
     path: 'home/giovanni/developer/video-manager'

@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { Folder as FolderComponent } from './'
 
 export default {
-  title: 'Folder',
+  title: 'Composed/Folder',
   component: FolderComponent,
 } as ComponentMeta<typeof FolderComponent>
 
