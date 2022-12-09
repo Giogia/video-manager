@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import env from "react-dotenv"
 import { Box, ThemeProvider } from '@mui/material'
 import { loadQuery } from 'react-relay'
 
@@ -10,8 +11,8 @@ import { lightTheme } from './themes/light.theme'
 import { darkTheme } from './themes/dark.theme'
 
 const explorerQueryRef = loadQuery<ExplorerQuery>(environment, ExplorerSchema, {
-  path: '/',
-  name: 'root'
+  path: env.DEFAULT_PATH,
+  name: env.DEFAULT_FOLDER
 })
 
 function App() {

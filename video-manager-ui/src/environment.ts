@@ -1,8 +1,7 @@
+import env from "react-dotenv"
 import { Variables } from 'react-relay'
 import { GraphQLResponse, ObservableFromValue } from 'relay-runtime'
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
-
-export const GRAPHQL_URL = 'http://localhost:4000/graphql'
 
 const store = new Store(new RecordSource())
 
@@ -11,7 +10,7 @@ const network = Network.create((
     variables: Variables
 ): ObservableFromValue<GraphQLResponse> => {
 
-    return fetch(GRAPHQL_URL, {
+    return fetch(env.GRAPHQL_URL, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
