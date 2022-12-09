@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof ButtonComponent> = (args) => <ButtonCompon
 export const Button = Template.bind({})
 
 Button.args = {
-  type: 'add-folder'
+  type: 'folder'
 }
 
 Button.play = async ({ args, canvasElement }) => {

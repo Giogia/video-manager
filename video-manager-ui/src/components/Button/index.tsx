@@ -7,11 +7,11 @@ import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 
 const buttons = {
-  'add-folder': CreateNewFolderIcon,
-  'add-video': UploadFileIcon,
   'folder': FolderIcon,
-  'light': LightModeIcon,
-  'dark': DarkModeIcon,
+  'add-folder': CreateNewFolderIcon,
+  'upload-video': UploadFileIcon,
+  'light-theme': LightModeIcon,
+  'dark-theme': DarkModeIcon,
 }
 
 interface ButtonProps {
@@ -37,7 +37,10 @@ export const Button = ({ action, size, type }: ButtonProps) => {
 
   return (
     <IconButton onClick={action}>
-      <Icon fontSize={size} />
+      <Icon
+        fontSize={size}
+        titleAccess={type.replace('-', ' ')}
+      />
     </IconButton>
   )
 }

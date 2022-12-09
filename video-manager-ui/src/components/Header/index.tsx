@@ -37,7 +37,7 @@ export const Header = ({ name, theme, handleTheme }: HeaderProps) => {
       </Typography>
       <Button
         action={handleTheme}
-        type={theme}
+        type={`${theme}-theme`}
       />
     </Box>
   )
