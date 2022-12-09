@@ -22,26 +22,24 @@ interface HeaderProps {
 /**
  * UI component for identifying a directory
  */
-export const Header = ({ name, theme, handleTheme }: HeaderProps) => {
-  return (
-    <Box sx={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    }}>
-      <Typography
-        variant='overline'
-        color="textPrimary"
-      >
-        {name}
-      </Typography>
-      <Button
-        action={handleTheme}
-        type={`${theme}-theme`}
-      />
-    </Box>
-  )
-}
+export const Header = ({ name, theme, handleTheme }: HeaderProps) => (
+  <Box sx={{
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }}>
+    <Typography
+      variant='overline'
+      color="textPrimary"
+    >
+      {name}
+    </Typography>
+    <Button
+      action={handleTheme}
+      type={`${theme}-theme`}
+    />
+  </Box>
+)
 
 Header.defaultProps = {
   name: 'Video Manager'
