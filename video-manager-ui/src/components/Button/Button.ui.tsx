@@ -6,7 +6,7 @@ import FolderIcon from '@mui/icons-material/Folder'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 
-const buttons = {
+const icons = {
   'folder': FolderIcon,
   'add-folder': CreateNewFolderIcon,
   'upload-video': UploadFileIcon,
@@ -26,7 +26,7 @@ interface ButtonProps {
   /**
    * Button icon
    */
-  type: keyof typeof buttons
+  icon: keyof typeof icons
   /**
    * Button dimension
    */
@@ -36,8 +36,8 @@ interface ButtonProps {
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ action, size, type, disabled }: ButtonProps) => {
-  const Icon = buttons[type]
+export const Button = ({ action, size, icon, disabled }: ButtonProps) => {
+  const Icon = icons[icon]
 
   return (
     <IconButton
@@ -46,7 +46,7 @@ export const Button = ({ action, size, type, disabled }: ButtonProps) => {
     >
       <Icon
         fontSize={size}
-        titleAccess={type.replace('-', ' ')}
+        titleAccess={icon.replace('-', ' ')}
       />
     </IconButton>
   )

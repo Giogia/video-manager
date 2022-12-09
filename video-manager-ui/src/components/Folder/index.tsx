@@ -22,7 +22,7 @@ export const Folder = ({ defaultName }: FolderProps) => {
       width='max-content'
     >
       <Grid item>
-        <Button type='folder' size='large' />
+        <Button icon='folder' size='large' />
       </Grid>
       <Grid item>
         <Name defaultName={defaultName} />

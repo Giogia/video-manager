@@ -37,8 +37,8 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
       title={<Breadcrumbs path={path} />}
       action={(
         <CardActions>
-          <Button type='upload-video' />
-          <AddFolderButton/>
+          <Button icon='upload-video' />
+          <AddFolderButton />
         </CardActions>
       )}
     />

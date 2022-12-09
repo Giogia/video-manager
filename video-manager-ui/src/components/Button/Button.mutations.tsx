@@ -26,7 +26,7 @@ export const AddFolderButton = () => {
   const [commitMutation, isMutationInFlight] = useMutation<ButtonAddFolderMutation>(addFolder)
 
   return <Button
-    type='add-folder'
+    icon='add-folder'
     disabled={isMutationInFlight}
     action={() => commitMutation({
       variables: {
