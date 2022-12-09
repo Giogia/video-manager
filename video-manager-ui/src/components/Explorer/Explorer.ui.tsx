@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import Grid from '@mui/material/Grid'
 
-import { Button } from '../Button'
+import { AddFolderButton, Button } from '../Button'
 import { Breadcrumbs } from '../Breadcrumbs'
 
 interface ExplorerProps {
@@ -15,11 +15,11 @@ interface ExplorerProps {
    */
   content: ReactNode
   /**
-   * Is the explorer on error?
+   * Whether the explorer is on error
    */
   error: boolean
   /**
-   * Is the explorer loading?
+   * Whether the explorer is loading
    */
   loading: boolean
   /**
@@ -38,7 +38,7 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
       action={(
         <CardActions>
           <Button type='upload-video' />
-          <Button type='add-folder' />
+          <AddFolderButton/>
         </CardActions>
       )}
     />

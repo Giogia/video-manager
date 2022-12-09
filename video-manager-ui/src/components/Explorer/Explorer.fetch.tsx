@@ -1,8 +1,9 @@
 import React, { Suspense } from 'react'
 import { graphql } from 'babel-plugin-relay/macro'
 import { PreloadedQuery, usePreloadedQuery } from 'react-relay'
-import { ExplorerQuery } from './__generated__/ExplorerQuery.graphql'
 import { withErrorBoundary } from 'react-error-boundary'
+
+import { ExplorerQuery } from './__generated__/ExplorerQuery.graphql'
 
 import { Explorer } from '.'
 import { ExplorerLoading } from './Explorer.loading'
