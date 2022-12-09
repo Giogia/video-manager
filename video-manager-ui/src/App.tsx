@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react'
+import React, { useState } from 'react'
 import { Box, ThemeProvider } from '@mui/material'
 import { loadQuery } from 'react-relay'
 
@@ -23,29 +23,27 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Suspense fallback={'Loading...'}>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          bgcolor: background.default,
-          height: '100vh',
-        }}>
-          <Box
-            padding={8}
-            paddingBottom={0}
-          >
-            <Header theme={mode} handleTheme={handleTheme} />
-          </Box>
-          <Box
-            flex={1}
-            overflow='auto'
-            padding={6}
-            paddingBottom={8}
-          >
-            <ExplorerWithFetch queryRef={explorerQueryRef} />
-          </Box>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        bgcolor: background.default,
+        height: '100vh',
+      }}>
+        <Box
+          padding={8}
+          paddingBottom={0}
+        >
+          <Header theme={mode} handleTheme={handleTheme} />
         </Box>
-      </Suspense>
+        <Box
+          flex={1}
+          overflow='auto'
+          padding={6}
+          paddingBottom={8}
+        >
+            <ExplorerWithFetch queryRef={explorerQueryRef} />
+        </Box>
+      </Box>
     </ThemeProvider >
   )
 }
