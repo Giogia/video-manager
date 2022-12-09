@@ -22,7 +22,9 @@ export const Breadcrumbs = ({ path }: BreadcrumbsProps) => {
   return (
     <BreadcrumbsMui
       aria-label='breadcrumb'
-      itemsAfterCollapse={5}
+      itemsBeforeCollapse={2}
+      itemsAfterCollapse={2}
+      separator='›'
       sx={{ paddingLeft: 2 }}
     >
       {levels
