@@ -6,6 +6,7 @@ import { Folder as FolderComponent } from './'
 export default {
   title: 'Composed/Folder',
   component: FolderComponent,
+  args:{...FolderComponent.defaultProps}
 } as ComponentMeta<typeof FolderComponent>
 
 const Template: ComponentStory<typeof FolderComponent> = (args) => <FolderComponent {...args} />
