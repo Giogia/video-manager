@@ -1,7 +1,7 @@
-import {Button} from './Button.ui'
+import { ButtonWithLoading } from './Button.loading'
 import { AddFolderButton } from './Button.mutations'
 
 export {
-  Button,
+  ButtonWithLoading as Button,
   AddFolderButton
 }

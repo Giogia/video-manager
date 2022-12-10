@@ -4,7 +4,7 @@ import { graphql } from 'babel-plugin-relay/macro'
 
 import { ButtonAddFolderMutation } from './__generated__/ButtonAddFolderMutation.graphql'
 
-import { Button } from '.'
+import { Button, ButtonProps } from './Button.ui'
 
 /**
  * Add folder logic
@@ -22,12 +22,12 @@ const addFolder = (
 /**
  * Component Wrapper for creating new folders
  */
-export const AddFolderButton = () => {
+export const AddFolderButton = ({disabled}: Partial<ButtonProps>) => {
   const [commitMutation, isMutationInFlight] = useMutation<ButtonAddFolderMutation>(addFolder)
 
   return <Button
     icon='add-folder'
-    disabled={isMutationInFlight}
+    disabled={disabled || isMutationInFlight}
     action={() => commitMutation({
       variables: {
         path: window.location.pathname,
@@ -35,5 +35,4 @@ export const AddFolderButton = () => {
       }
     })}
   />
-
 }

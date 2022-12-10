@@ -10,16 +10,16 @@ export default {
   component: ButtonComponent,
   argTypes: {
     action: { action: true }
+  },
+  args: {
+    ...ButtonComponent.defaultProps,
+    icon: 'folder'
   }
 } as ComponentMeta<typeof ButtonComponent>
 
 const Template: ComponentStory<typeof ButtonComponent> = (args) => <ButtonComponent {...args} />
 
 export const Button = Template.bind({})
-
-Button.args = {
-  icon: 'folder'
-}
 
 Button.play = async ({ args, canvasElement }) => {
   const canvas = within(canvasElement)

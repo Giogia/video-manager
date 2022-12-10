@@ -14,7 +14,7 @@ const icons = {
   'dark-theme': DarkModeIcon,
 }
 
-interface ButtonProps {
+export interface ButtonProps {
   /**
    * Button functionality
    */
