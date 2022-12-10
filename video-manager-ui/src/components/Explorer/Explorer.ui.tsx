@@ -34,18 +34,23 @@ interface ExplorerProps {
 export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
   <Card variant='outlined' sx={{ height: '100%' }}>
     <CardHeader
-      title={<Breadcrumbs path={path} />}
+      title={<Breadcrumbs
+        path={path}
+        loading={loading} />
+      }
       action={(
         <CardActions>
-          <Button icon='upload-video' />
-          <AddFolderButton />
+          <Button icon='upload-video' disabled={loading || error} />
+          <AddFolderButton disabled={loading || error} />
         </CardActions>
       )}
+      sx={{paddingLeft: 6}}
     />
     <CardContent sx={{
       height: '100%',
       overflow: 'auto',
-      ...(loading || error) && {
+      padding: 6,
+      ...error && {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -55,8 +60,8 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
     }}>
       {content && Array.isArray(content) ?
         <Grid container gap={4}>
-          {content.map(item =>
-            <Grid item>{item}</Grid>
+          {content.map((item, i) =>
+            <Grid item key={i}>{item}</Grid>
           )}
         </Grid> :
         <>{content}</>

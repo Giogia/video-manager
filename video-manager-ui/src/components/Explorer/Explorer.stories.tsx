@@ -11,10 +11,9 @@ export default {
   title: 'Composed/Explorer',
   component: ExplorerComponent,
   args: {
+    ...ExplorerComponent.defaultProps,
     path: 'home/giovanni/developer/video-manager',
     content: Array.from({ length: 12 }).map(() => <Folder />),
-    error: false,
-    loading: false
   }
 } as ComponentMeta<typeof ExplorerComponent>
 
