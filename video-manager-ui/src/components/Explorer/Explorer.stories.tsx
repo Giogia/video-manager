@@ -3,9 +3,9 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
 import { Explorer as ExplorerComponent } from './'
-import { Folder } from '../Folder'
 import { ExplorerError } from './Explorer.error'
 import { ExplorerLoading } from './Explorer.loading'
+import { Folder } from '../Folder'
 
 export default {
   title: 'Composed/Explorer',

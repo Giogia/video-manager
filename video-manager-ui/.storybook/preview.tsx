@@ -5,9 +5,9 @@ import '@fontsource/roboto/700.css'
 import '@fontsource/material-icons'
 
 import { withMuiTheme, lightMuiTheme, darkMuiTheme } from './theming/Mui'
-import { withDocsTheme } from './theming/Docs'
+import { withRelayEnvironment } from './theming/Relay'
 
-export const decorators = [withMuiTheme]
+export const decorators = [withMuiTheme, withRelayEnvironment]
 
 export const globalTypes = {
   theme: {
