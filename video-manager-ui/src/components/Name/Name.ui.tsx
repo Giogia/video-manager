@@ -8,12 +8,20 @@ export interface NameProps {
    * Folder contents
   */
   defaultName: string
+  /**
+   * Whether the name is editable
+   */
+  editable?: boolean
+  /**
+   * Action on name changed
+   */
+  onChange?: (newName: string, oldName: string) => void
 }
 
 /**
  * UI component for a modifiable input
  */
-export const Name = ({ defaultName }: NameProps) => {
+export const Name = ({ defaultName, editable, onChange }: NameProps) => {
 
   const [name, setName] = React.useState(defaultName)
   const [isNameFocused, setIsNamedFocused] = React.useState(false)
@@ -30,7 +38,7 @@ export const Name = ({ defaultName }: NameProps) => {
           <Typography
             variant='caption'
             gutterBottom
-            onClick={() => setIsNamedFocused(true)}
+            onClick={() => setIsNamedFocused(editable!)}
           >
             {defaultName}
           </Typography>
@@ -46,7 +54,10 @@ export const Name = ({ defaultName }: NameProps) => {
             onBlur={() => setIsNamedFocused(false)}
             onChange={({ target }) => setName(target.value)}
             onKeyDown={({ code, shiftKey }) => {
-              if (code === 'Enter' && !shiftKey) setIsNamedFocused(false)
+              if (code === 'Enter' && !shiftKey) {
+                setIsNamedFocused(false)
+                onChange && onChange(name, defaultName)
+              }
             }}
           />
         )
@@ -57,5 +68,5 @@ export const Name = ({ defaultName }: NameProps) => {
 
 Name.defaultProps = {
   defaultName: 'Name',
-  loading: false
+  editable: true
 }

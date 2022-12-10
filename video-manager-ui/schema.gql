@@ -13,7 +13,7 @@ type Mutation {
   addDirectory(input: DirectoryInput!): Result!
   createVideo(input: VideoInput!): Video!
   removeDirectory(input: DirectoryInput!): Result!
-  renameDirectory(input: DirectoryInput!, name: String!): Directory!
+  renameDirectory(input: DirectoryInput!, name: String!): Result!
   updateVideo(id: Float!, input: VideoInput!): Video!
 }
 
