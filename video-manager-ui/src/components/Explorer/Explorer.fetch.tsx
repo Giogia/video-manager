@@ -1,12 +1,11 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { graphql } from 'babel-plugin-relay/macro'
 import { PreloadedQuery, usePreloadedQuery } from 'react-relay'
 import { withErrorBoundary } from 'react-error-boundary'
 
 import { ExplorerQuery } from './__generated__/ExplorerQuery.graphql'
 
-import { Explorer } from '.'
-import { ExplorerLoading } from './Explorer.loading'
+import { Explorer } from './Explorer.ui'
 import { ExplorerError } from './Explorer.error'
 import { Folder } from '../Folder'
 
@@ -26,7 +25,7 @@ const query = (
   `
 )
 
-interface WithFetchProps {
+export interface WithFetchProps {
     /**
      * Query reference for data fetching
     */
@@ -40,19 +39,17 @@ export const ExplorerWithFetch = withErrorBoundary(({ queryRef }: WithFetchProps
     const { getDirectory: { path, children } } = usePreloadedQuery<ExplorerQuery>(query, queryRef)
 
     return (
-        <Suspense fallback={<ExplorerLoading />}>
-            <Explorer
-                path={path}
-                content={
-                    children.map(({ name }) =>
-                        <Folder
-                            defaultName={name}
-                            key={name}
-                        />
-                    )
-                }
-            />
-        </Suspense>
+        <Explorer
+            path={path}
+            content={
+                children.map(({ name }) =>
+                    <Folder
+                        defaultName={name}
+                        key={name}
+                    />
+                )
+            }
+        />
     )
 }, {
     FallbackComponent: ExplorerError,

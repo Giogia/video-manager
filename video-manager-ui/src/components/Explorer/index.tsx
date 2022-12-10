@@ -1,7 +1,5 @@
-import { Explorer } from "./Explorer.ui"
-import { ExplorerWithFetch } from "./Explorer.fetch"
+import { ExplorerWithFetchLoading } from "./Explorer.loading"
 
 export {
-  Explorer,
-  ExplorerWithFetch
+  ExplorerWithFetchLoading as Explorer,
 }

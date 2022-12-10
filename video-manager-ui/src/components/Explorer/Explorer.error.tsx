@@ -1,7 +1,7 @@
 import React from 'react'
 import Chip from "@mui/material/Chip"
 
-import { Explorer } from "."
+import { Explorer } from "./Explorer.ui"
 
 /**
  * Component wrapper for error stage

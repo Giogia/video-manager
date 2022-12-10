@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
-import { Explorer } from "."
+import { Explorer } from "./Explorer.ui"
+import { ExplorerWithFetch, WithFetchProps } from './Explorer.fetch'
 import { Folder } from '../Folder'
 
 /**
- * Component wrapper for loading stage
+ * Component wrappers for loading stage
  */
 export const ExplorerLoading = () => (
     <Explorer loading
@@ -14,4 +15,18 @@ export const ExplorerLoading = () => (
             )
         }
     />
+)
+
+export const ExplorerWithFetchLoading = (props: WithFetchProps) => (
+    <Suspense fallback={
+        <Explorer loading
+            content={
+                Array.from({ length: 10 }).map((_, i) =>
+                    <Folder loading />
+                )
+            }
+        />
+    }>
+        <ExplorerWithFetch {...props} />
+    </Suspense>
 )

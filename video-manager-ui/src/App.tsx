@@ -6,7 +6,7 @@ import { loadQuery } from 'react-relay'
 import ExplorerSchema, { ExplorerQuery } from './components/Explorer/__generated__/ExplorerQuery.graphql'
 import environment from './environment'
 import { Header } from './components/Header'
-import { ExplorerWithFetch } from './components/Explorer'
+import { Explorer } from './components/Explorer'
 import { lightTheme } from './themes/light.theme'
 import { darkTheme } from './themes/dark.theme'
 
@@ -42,7 +42,7 @@ function App() {
           padding={6}
           paddingBottom={8}
         >
-            <ExplorerWithFetch queryRef={explorerQueryRef} />
+          <Explorer queryRef={explorerQueryRef} />
         </Box>
       </Box>
     </ThemeProvider >

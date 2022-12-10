@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import { Explorer as ExplorerComponent } from './'
+import { Explorer as ExplorerComponent } from './Explorer.ui'
 import { ExplorerError } from './Explorer.error'
 import { ExplorerLoading } from './Explorer.loading'
 import { Folder } from '../Folder'
