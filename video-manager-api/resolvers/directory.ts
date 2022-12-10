@@ -71,11 +71,11 @@ export class DirectoryResolver {
         return { acknowledged }
     }
 
-    @Mutation(() => Directory)
+    @Mutation(() => Result)
     async renameDirectory(
         @Arg("input") { path, name }: DirectoryInput,
         @Arg("name") newName: string
-    ): Promise<Directory | null> {
+    ): Promise<Result> {
 
         const updatedDirectory = await DirectoryModel.findOneAndUpdate({ path: combinePath(path, name) }, {
             name: newName,
@@ -84,9 +84,9 @@ export class DirectoryResolver {
 
         if (updatedDirectory) {
             await updatedDirectory.save()
-            return updatedDirectory
+            return { acknowledged: true }
         }
 
-        return null
+        return { acknowledged: false }
     }
 }
