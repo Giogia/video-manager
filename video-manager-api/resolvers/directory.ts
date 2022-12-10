@@ -64,11 +64,13 @@ export class DirectoryResolver {
         const parentDirectory = await DirectoryModel.findOne({ path })
 
         if (parentDirectory) {
-            parentDirectory.children = parentDirectory.children.filter(child => child.path === path)
+            parentDirectory.children = parentDirectory.children.filter(
+                child => child.path === path
+            )
             await parentDirectory.save()
         }
 
-        return { acknowledged }
+        return { acknowledged: acknowledged }
     }
 
     @Mutation(() => Result)
@@ -77,16 +79,24 @@ export class DirectoryResolver {
         @Arg("name") newName: string
     ): Promise<Result> {
 
-        const updatedDirectory = await DirectoryModel.findOneAndUpdate({ path: combinePath(path, name) }, {
+        const update = {
             name: newName,
             path: combinePath(path, newName)
-        })
-
-        if (updatedDirectory) {
-            await updatedDirectory.save()
-            return { acknowledged: true }
         }
 
-        return { acknowledged: false }
+        const { acknowledged } = await DirectoryModel.updateOne({
+            path: combinePath(path, name)
+        }, update)
+
+        const parentDirectory = await DirectoryModel.findOne({ path })
+
+        if (parentDirectory) {
+            parentDirectory.children = parentDirectory.children.map(
+                child => child.name === name ? { ...child, ...update } : child
+            )
+            await parentDirectory.save()
+        }
+
+        return { acknowledged }
     }
 }
