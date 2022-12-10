@@ -15,7 +15,21 @@ export class DirectoryResolver {
     @Query(() => Directory)
     async getDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
-        return await DirectoryModel.findOne({ path: combinePath(path, name) })
+        const directory = await DirectoryModel.findOne({ path: combinePath(path, name) })
+
+        if (!directory && !name && path === '/') {
+            const rootDirectory = new DirectoryModel({
+                path,
+                name,
+                children: []
+            } as Directory)
+
+            await rootDirectory.save()
+
+            return rootDirectory
+        }
+
+        return directory
     }
 
     @Mutation(() => Result)
