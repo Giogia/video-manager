@@ -12,7 +12,7 @@ export default {
   component: ExplorerComponent,
   args: {
     ...ExplorerComponent.defaultProps,
-    path: 'home/giovanni/developer/video-manager',
+    path: '/home/giovanni/developer/video-manager',
     content: Array.from({ length: 12 }).map(() => <Folder />),
   }
 } as ComponentMeta<typeof ExplorerComponent>
