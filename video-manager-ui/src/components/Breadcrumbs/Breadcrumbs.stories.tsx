@@ -8,7 +8,7 @@ export default {
   component: BreadcrumbsComponent,
   args: {
     ...BreadcrumbsComponent.defaultProps,
-    path: 'home/giovanni/developer/video-manager'
+    path: '/home/giovanni/developer/video-manager'
   }
 } as ComponentMeta<typeof BreadcrumbsComponent>
 

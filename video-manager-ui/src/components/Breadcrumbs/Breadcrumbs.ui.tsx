@@ -24,7 +24,6 @@ export const Breadcrumbs = ({ path }: BreadcrumbsProps) => {
       aria-label='breadcrumb'
       itemsBeforeCollapse={2}
       itemsAfterCollapse={2}
-      separator='›'
     >
       {levels
         .map((link, i) => (
