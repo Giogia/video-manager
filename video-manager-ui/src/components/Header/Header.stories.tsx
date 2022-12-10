@@ -8,6 +8,7 @@ export default {
   title: 'Composed/Header',
   component: HeaderComponent,
   args: {
+    ...HeaderComponent.defaultProps,
     theme: 'light',
     handleTheme: action('change theme')
   }
