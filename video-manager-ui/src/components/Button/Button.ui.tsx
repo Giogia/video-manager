@@ -1,5 +1,6 @@
 import React, { MouseEvent } from 'react'
 import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
 import FolderIcon from '@mui/icons-material/Folder'
@@ -31,28 +32,37 @@ export interface ButtonProps {
    * Button dimension
    */
   size?: 'small' | 'medium' | 'large'
+  /**
+   * Whether to show a button description on hover
+   */
+  tooltip: boolean
 }
 
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ action, size, icon, disabled }: ButtonProps) => {
+export const Button = ({ action, size, icon, disabled, tooltip }: ButtonProps) => {
   const Icon = icons[icon]
+  const title = icon.replace('-', ' ')
 
   return (
-    <IconButton
-      disabled={disabled}
-      onClick={action}
-    >
-      <Icon
-        fontSize={size}
-        titleAccess={icon.replace('-', ' ')}
-      />
-    </IconButton>
+    <Tooltip title={tooltip && title}>
+      <span>
+        <IconButton
+          disabled={disabled}
+          onClick={action}
+        >
+          <Icon
+            fontSize={size}
+          />
+        </IconButton>
+      </span>
+    </Tooltip>
   )
 }
 
 Button.defaultProps = {
   disabled: false,
-  size: 'medium'
+  size: 'medium',
+  tooltip: true
 }

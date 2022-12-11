@@ -30,6 +30,7 @@ export const Folder = ({ defaultName, loading }: FolderProps) => {
           icon='folder'
           size='large'
           loading={loading}
+          tooltip={false}
         />
       </Grid>
       <Grid item>
