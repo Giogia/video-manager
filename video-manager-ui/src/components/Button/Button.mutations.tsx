@@ -22,7 +22,7 @@ const addFolder = (
 /**
  * Component Wrapper for creating new folders
  */
-export const AddFolderButton = ({disabled}: Partial<ButtonProps>) => {
+export const AddFolderButton = ({ disabled }: Partial<ButtonProps>) => {
   const [commitMutation, isMutationInFlight] = useMutation<ButtonAddFolderMutation>(addFolder)
 
   return <Button

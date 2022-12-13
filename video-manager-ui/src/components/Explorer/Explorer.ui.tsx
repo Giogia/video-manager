@@ -17,11 +17,11 @@ interface ExplorerProps {
   /**
    * Whether the explorer is on error
    */
-  error: boolean
+  error?: boolean
   /**
    * Whether the explorer is loading
    */
-  loading: boolean
+  loading?: boolean
   /**
    * Position in file system
    */
@@ -34,17 +34,19 @@ interface ExplorerProps {
 export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
   <Card variant='outlined' sx={{ height: '100%' }}>
     <CardHeader
-      title={<Breadcrumbs
-        path={path}
-        loading={loading} />
+      title={
+        <Breadcrumbs
+          path={path}
+          loading={loading}
+        />
       }
-      action={(
+      action={
         <CardActions>
           <Button icon='upload-video' disabled={loading || error} />
           <AddFolderButton disabled={loading || error} />
         </CardActions>
-      )}
-      sx={{paddingLeft: 6}}
+      }
+      sx={{ paddingLeft: 6 }}
     />
     <CardContent sx={{
       height: '100%',
@@ -58,11 +60,16 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
         gap: 2
       }
     }}>
-      {content && Array.isArray(content) ?
+      {content &&
+        Array.isArray(content) ?
         <Grid container gap={4}>
-          {content.map((item, i) =>
-            <Grid item key={i}>{item}</Grid>
-          )}
+          {
+            content.map((item, i) =>
+              <Grid item key={i}>
+                {item}
+              </Grid>
+            )
+          }
         </Grid> :
         <>{content}</>
       }

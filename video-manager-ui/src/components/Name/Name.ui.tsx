@@ -7,7 +7,7 @@ export interface NameProps {
   /**
    * Folder contents
   */
-  defaultName: string
+  name: string
   /**
    * Whether the name is editable
    */
@@ -21,7 +21,7 @@ export interface NameProps {
 /**
  * UI component for a modifiable input
  */
-export const Name = ({ defaultName, editable, onChange }: NameProps) => {
+export const Name = ({ name: defaultName, editable, onChange }: NameProps) => {
 
   const [name, setName] = React.useState(defaultName)
   const [isNameFocused, setIsNamedFocused] = React.useState(false)
@@ -40,7 +40,7 @@ export const Name = ({ defaultName, editable, onChange }: NameProps) => {
             gutterBottom
             onClick={() => setIsNamedFocused(editable!)}
           >
-            {defaultName}
+            {name}
           </Typography>
         ) :
         (
@@ -67,6 +67,6 @@ export const Name = ({ defaultName, editable, onChange }: NameProps) => {
 }
 
 Name.defaultProps = {
-  defaultName: 'Name',
+  name: 'Name',
   editable: true
 }

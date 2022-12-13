@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7dabc4be117a1442af5a17052587f535>>
+ * @generated SignedSource<<e426091abdb31cfc3ffbd617f8dd507c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type ExplorerQuery$variables = {
   name: string;
   path: string;
@@ -16,7 +17,7 @@ export type ExplorerQuery$variables = {
 export type ExplorerQuery$data = {
   readonly getDirectory: {
     readonly children: ReadonlyArray<{
-      readonly name: string;
+      readonly " $fragmentSpreads": FragmentRefs<"Folder_name">;
     }>;
     readonly path: string;
   };
@@ -39,59 +40,29 @@ v1 = {
 },
 v2 = [
   {
-    "alias": null,
-    "args": [
+    "fields": [
       {
-        "fields": [
-          {
-            "kind": "Variable",
-            "name": "name",
-            "variableName": "name"
-          },
-          {
-            "kind": "Variable",
-            "name": "path",
-            "variableName": "path"
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "input"
-      }
-    ],
-    "concreteType": "Directory",
-    "kind": "LinkedField",
-    "name": "getDirectory",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "path",
-        "storageKey": null
+        "kind": "Variable",
+        "name": "name",
+        "variableName": "name"
       },
       {
-        "alias": null,
-        "args": null,
-        "concreteType": "Directory",
-        "kind": "LinkedField",
-        "name": "children",
-        "plural": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
+        "kind": "Variable",
+        "name": "path",
+        "variableName": "path"
       }
     ],
-    "storageKey": null
+    "kind": "ObjectValue",
+    "name": "input"
   }
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "path",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -101,7 +72,36 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "ExplorerQuery",
-    "selections": (v2/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
+        "concreteType": "Directory",
+        "kind": "LinkedField",
+        "name": "getDirectory",
+        "plural": false,
+        "selections": [
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Directory",
+            "kind": "LinkedField",
+            "name": "children",
+            "plural": true,
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "Folder_name"
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -113,19 +113,50 @@ return {
     ],
     "kind": "Operation",
     "name": "ExplorerQuery",
-    "selections": (v2/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
+        "concreteType": "Directory",
+        "kind": "LinkedField",
+        "name": "getDirectory",
+        "plural": false,
+        "selections": [
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Directory",
+            "kind": "LinkedField",
+            "name": "children",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "51cf71ba07c964dc73dc45e970eda2f3",
+    "cacheID": "3b571015768d173b27fb531da5364bf2",
     "id": null,
     "metadata": {},
     "name": "ExplorerQuery",
     "operationKind": "query",
-    "text": "query ExplorerQuery(\n  $path: String!\n  $name: String!\n) {\n  getDirectory(input: {path: $path, name: $name}) {\n    path\n    children {\n      name\n    }\n  }\n}\n"
+    "text": "query ExplorerQuery(\n  $path: String!\n  $name: String!\n) {\n  getDirectory(input: {path: $path, name: $name}) {\n    path\n    children {\n      ...Folder_name\n    }\n  }\n}\n\nfragment Folder_name on Directory {\n  name\n}\n"
   }
 };
 })();
 
-(node as any).hash = "22aa9cf9c88e5b238a044fbc0ae5ab9a";
+(node as any).hash = "c3dde007922c01064e0840c8004939ef";
 
 export default node;

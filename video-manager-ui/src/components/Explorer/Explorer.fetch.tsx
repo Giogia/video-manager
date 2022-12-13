@@ -7,7 +7,7 @@ import { ExplorerQuery } from './__generated__/ExplorerQuery.graphql'
 
 import { Explorer } from './Explorer.ui'
 import { ExplorerError } from './Explorer.error'
-import { Folder } from '../Folder'
+import { FolderWithFetch } from '../Folder'
 
 /**
  * Data fetching logic
@@ -18,7 +18,7 @@ const query = (
       getDirectory(input: {path: $path, name: $name}){
         path
         children {
-          name
+            ...Folder_name
         }
       }
     }
@@ -28,7 +28,7 @@ const query = (
 export interface WithFetchProps {
     /**
      * Query reference for data fetching
-    */
+     */
     queryRef: PreloadedQuery<ExplorerQuery>
 }
 
@@ -42,10 +42,10 @@ export const ExplorerWithFetch = withErrorBoundary(({ queryRef }: WithFetchProps
         <Explorer
             path={path}
             content={
-                children.map(({ name }) =>
-                    <Folder
-                        defaultName={name}
-                        key={name}
+                children.map((child, i) =>
+                    <FolderWithFetch
+                        fragmentRef={child}
+                        key={i}
                     />
                 )
             }
@@ -54,4 +54,4 @@ export const ExplorerWithFetch = withErrorBoundary(({ queryRef }: WithFetchProps
 }, {
     FallbackComponent: ExplorerError,
     onError(error, info) { }
-}) 
+})
