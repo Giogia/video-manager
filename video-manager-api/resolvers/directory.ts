@@ -1,7 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql"
 
 import { Directory, DirectoryInput, DirectoryModel, Result } from "../schema/directory"
-import { combinePath } from "../utils/path"
+import { combinePath, isRoot } from "../utils/path"
 
 @Resolver(() => Directory)
 export class DirectoryResolver {
@@ -35,42 +35,54 @@ export class DirectoryResolver {
     @Mutation(() => Result)
     async addDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Result> {
 
-        const parentDirectory = await DirectoryModel.findOne({ path })
+        try {
+            const directory = new DirectoryModel({
+                path: combinePath(path, name),
+                name,
+                children: []
+            } as Directory)
 
-        const directory = new DirectoryModel({
-            path: combinePath(path, name),
-            name,
-            children: []
-        } as Directory)
+            const saved = await directory.save()
 
-        if (parentDirectory) {
-            parentDirectory.children.push(directory)
-            await parentDirectory.save()
-        }
+            if (saved && !isRoot(name, path)) {
 
-        if (parentDirectory || (!parentDirectory && path === '/')) {
-            await directory.save()
+                const parentDirectory = await DirectoryModel.findOne({ path })
+
+                if (parentDirectory) {
+                    parentDirectory.children.push(directory)
+                    await parentDirectory.save()
+                }
+            }
+
             return { acknowledged: true }
-        }
 
-        return { acknowledged: false }
+        } catch (e) {
+            return { acknowledged: false }
+        }
     }
 
     @Mutation(() => Result)
     async removeDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Result> {
 
-        const { acknowledged } = await DirectoryModel.deleteOne({ path: combinePath(path, name) })
+        try {
+            const { acknowledged } = await DirectoryModel.deleteOne({ path: combinePath(path, name) })
 
-        const parentDirectory = await DirectoryModel.findOne({ path })
+            if (acknowledged && !isRoot(name, path)) {
+                const parentDirectory = await DirectoryModel.findOne({ path })
 
-        if (parentDirectory) {
-            parentDirectory.children = parentDirectory.children.filter(
-                child => child.path === path
-            )
-            await parentDirectory.save()
+                if (parentDirectory) {
+                    parentDirectory.children = parentDirectory.children.filter(
+                        child => child.name !== name
+                    )
+                    await parentDirectory.save()
+                }
+            }
+
+            return { acknowledged }
+
+        } catch (e) {
+            return { acknowledged: false }
         }
-
-        return { acknowledged: acknowledged }
     }
 
     @Mutation(() => Result)
@@ -84,19 +96,28 @@ export class DirectoryResolver {
             path: combinePath(path, newName)
         }
 
-        const { acknowledged } = await DirectoryModel.updateOne({
-            path: combinePath(path, name)
-        }, update)
+        try {
+            const { acknowledged } = await DirectoryModel.updateOne({
+                path: combinePath(path, name)
+            }, update)
 
-        const parentDirectory = await DirectoryModel.findOne({ path })
+            if (acknowledged) {
+                const parentDirectory = await DirectoryModel.findOne({ path })
 
-        if (parentDirectory) {
-            parentDirectory.children = parentDirectory.children.map(
-                child => child.name === name ? { ...child, ...update } : child
-            )
-            await parentDirectory.save()
+                if (parentDirectory) {
+                    parentDirectory.children = parentDirectory.children.map(
+                        child => child.name === name ?
+                            { ...child, ...update } :
+                            child
+                    )
+                    await parentDirectory.save()
+                }
+            }
+
+            return { acknowledged }
+
+        } catch (e) {
+            return { acknowledged: false }
         }
-
-        return { acknowledged }
     }
 }

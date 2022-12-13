@@ -1,17 +1,18 @@
-import { prop as Property, getModelForClass } from "@typegoose/typegoose"
+import { prop, index, getModelForClass } from "@typegoose/typegoose"
 import { Field, ObjectType, InputType } from "type-graphql"
 
+@index({ path: 1, name: 1 }, { unique: true })
 @ObjectType()
 export class Directory {
-    @Property()
+    @prop()
     @Field()
     path!: string
 
-    @Property()
+    @prop()
     @Field()
     name!: string
 
-    @Property()
+    @prop()
     @Field(() => [Directory])
     children!: Directory[]
 }
@@ -27,7 +28,7 @@ export class DirectoryInput implements Pick<Directory, "name" | "path"> {
 
 @ObjectType()
 export class Result {
-    @Property()
+    @prop()
     @Field()
     acknowledged!: boolean
 }
