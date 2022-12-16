@@ -3,6 +3,7 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
+import DeleteIcon from '@mui/icons-material/Delete';
 import FolderIcon from '@mui/icons-material/Folder'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
@@ -11,6 +12,7 @@ const icons = {
   'folder': FolderIcon,
   'add-folder': CreateNewFolderIcon,
   'upload-video': UploadFileIcon,
+  'delete': DeleteIcon,
   'light-theme': LightModeIcon,
   'dark-theme': DarkModeIcon,
 }
@@ -23,7 +25,7 @@ export interface ButtonProps {
   /**
    * Whether the button is active
    */
-  disabled: boolean
+  disabled?: boolean
   /**
    * Button icon
    */
