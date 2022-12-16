@@ -10,7 +10,7 @@ export const FolderWithDnd = ({ ...props }: FolderProps) => {
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'Folder',
-    collect: (monitor) => ({ isDragging: !!monitor.isDragging() })
+    collect: monitor => ({ isDragging: !!monitor.isDragging() })
   }))
 
   return (
