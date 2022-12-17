@@ -11,7 +11,7 @@ import { lightTheme } from './themes/light.theme'
 import { darkTheme } from './themes/dark.theme'
 
 const explorerQueryRef = loadQuery<ExplorerQuery>(environment, ExplorerSchema, {
-  path: env.DEFAULT_PATH,
+  path: window.location.pathname,
   name: env.DEFAULT_FOLDER
 })
 
@@ -31,7 +31,7 @@ function App() {
         height: '100vh',
       }}>
         <Box
-          padding={8}
+          padding={6}
           paddingBottom={0}
         >
           <Header theme={mode} handleTheme={handleTheme} />
@@ -39,8 +39,7 @@ function App() {
         <Box
           flex={1}
           overflow='auto'
-          padding={6}
-          paddingBottom={8}
+          padding={4}
         >
           <Explorer queryRef={explorerQueryRef} />
         </Box>

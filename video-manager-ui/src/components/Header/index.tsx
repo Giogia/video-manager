@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
 import { Button } from '../Button'
+import { DeleteFolderChip } from '../Chip'
 
 interface HeaderProps {
   /**
@@ -23,22 +24,31 @@ interface HeaderProps {
  * UI component for identifying a directory
  */
 export const Header = ({ name, theme, handleTheme }: HeaderProps) => (
-  <Box sx={{
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  }}>
-    <Typography
-      variant='overline'
-      color="textPrimary"
-    >
-      {name}
-    </Typography>
-    <Button
-      action={handleTheme}
-      icon={`${theme}-theme`}
-    />
-  </Box>
+  <>
+    <Box sx={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    }}>
+      <Typography
+        variant='overline'
+        color="textPrimary"
+      >
+        {name}
+      </Typography>
+      <Button
+        action={handleTheme}
+        icon={`${theme}-theme`}
+      />
+    </Box>
+    <Box sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      <DeleteFolderChip />
+    </Box>
+  </>
 )
 
 Header.defaultProps = {

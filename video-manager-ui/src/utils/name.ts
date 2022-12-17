@@ -8,6 +8,4 @@ const formatName = (text: string): string => text
     .map((word: string) => capitalize(word))
     .join(' ')
 
-export {
-    formatName
-}
+export { formatName }
