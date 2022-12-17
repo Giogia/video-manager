@@ -3,6 +3,7 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 
 import { Icon, icons } from '../Icon'
+import { formatName } from '../../utils/name'
 
 export interface ButtonProps {
   /**
@@ -30,25 +31,23 @@ export interface ButtonProps {
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ action, size, icon, disabled, tooltip }: ButtonProps) => {
-  const title = icon.replace('-', ' ')
-
-  return (
-    <Tooltip title={tooltip && title}>
-      <span>
-        <IconButton
-          disabled={disabled}
-          onClick={action}
-        >
-          <Icon
-            id={icon}
-            size={size}
-          />
-        </IconButton>
-      </span>
-    </Tooltip>
-  )
-}
+export const Button = ({ action, size, icon, disabled, tooltip }: ButtonProps) => (
+  <Tooltip title={tooltip &&
+    formatName(icon)
+  }>
+    <span>
+      <IconButton
+        disabled={disabled}
+        onClick={action}
+      >
+        <Icon
+          id={icon}
+          size={size}
+        />
+      </IconButton>
+    </span>
+  </Tooltip>
+)
 
 Button.defaultProps = {
   disabled: false,
