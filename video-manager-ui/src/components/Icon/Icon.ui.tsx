@@ -5,6 +5,8 @@ import FolderIcon from '@mui/icons-material/Folder'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 
+import { SvgIconComponent } from '@mui/icons-material'
+
 export const icons = {
   'folder': FolderIcon,
   'add-folder': CreateNewFolderIcon,
@@ -27,7 +29,7 @@ export interface IconProps {
 
 export const Icon = ({ id, size }: IconProps) => {
 
-  const Icon = icons[id]
+  const Icon = icons[id] as SvgIconComponent
 
   return (
     <Icon
