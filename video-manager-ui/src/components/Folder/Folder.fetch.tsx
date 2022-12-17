@@ -5,7 +5,7 @@ import { useFragment } from 'react-relay'
 import { Folder_name$key } from './__generated__/Folder_name.graphql'
 
 import { FolderProps } from './Folder.ui'
-import { FolderWithDnd } from './Folder.dnd'
+import { FolderWithDrag } from './Folder.drag'
 
 export interface WithFetchProps {
   /**
@@ -32,7 +32,7 @@ export const FolderWithFetch = ({ fragmentRef, ...props }: FolderProps & WithFet
   const { name } = useFragment<Folder_name$key>(fragment, fragmentRef!)
 
   return (
-    <FolderWithDnd
+    <FolderWithDrag
       {...props}
       name={name}
     />
@@ -40,5 +40,5 @@ export const FolderWithFetch = ({ fragmentRef, ...props }: FolderProps & WithFet
 }
 
 FolderWithFetch.defaultProps = {
-  ...FolderWithDnd.defaultProps
+  ...FolderWithDrag.defaultProps
 }

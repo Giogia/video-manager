@@ -6,7 +6,7 @@ import { Folder, FolderProps } from './Folder.ui'
 /**
  * Component Wrapper for dragging a folder
  */
-export const FolderWithDnd = ({ ...props }: FolderProps) => {
+export const FolderWithDrag = ({ ...props }: FolderProps) => {
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'Folder',
@@ -25,6 +25,6 @@ export const FolderWithDnd = ({ ...props }: FolderProps) => {
   )
 }
 
-FolderWithDnd.defaultProps = {
+FolderWithDrag.defaultProps = {
   ...Folder.defaultProps
 }
