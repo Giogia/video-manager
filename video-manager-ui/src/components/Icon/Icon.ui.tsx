@@ -6,6 +6,7 @@ import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 
 import { SvgIconComponent } from '@mui/icons-material'
+import { SvgIconProps } from '@mui/material'
 
 export const icons = {
   'folder': FolderIcon,
@@ -27,12 +28,13 @@ export interface IconProps {
   size?: 'small' | 'medium' | 'large'
 }
 
-export const Icon = ({ id, size }: IconProps) => {
+export const Icon = ({ id, size, ...props }: IconProps & SvgIconProps) => {
 
   const Icon = icons[id] as SvgIconComponent
 
   return (
     <Icon
+      {...props}
       fontSize={size}
     />
   )
