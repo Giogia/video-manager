@@ -1,9 +1,9 @@
 import React from 'react'
 import { graphql } from 'babel-plugin-relay/macro'
-import { PreloadedQuery, usePreloadedQuery } from 'react-relay'
+import { useFragment } from 'react-relay'
 import { withErrorBoundary } from 'react-error-boundary'
 
-import { ExplorerQuery } from './__generated__/ExplorerQuery.graphql'
+import { Explorer_directory$key } from './__generated__/Explorer_directory.graphql'
 
 import { Explorer } from './Explorer.ui'
 import { ExplorerError } from './Explorer.error'
@@ -12,15 +12,14 @@ import { FolderWithFetch } from '../Folder'
 /**
  * Data fetching logic
  */
-const query = (
+const fragment = (
     graphql`
-    query ExplorerQuery($path: String!, $name: String!) {
-      getDirectory(input: {path: $path, name: $name}){
+    fragment Explorer_directory on Directory{
+        id
         path
-        children {
+        children{
             ...Folder_name
         }
-      }
     }
   `
 )
@@ -29,14 +28,14 @@ export interface WithFetchProps {
     /**
      * Query reference for data fetching
      */
-    queryRef: PreloadedQuery<ExplorerQuery>
+    fragmentRef: Explorer_directory$key
 }
 
 /**
  * Component wrapper fetching data
  */
-export const ExplorerWithFetch = withErrorBoundary(({ queryRef }: WithFetchProps) => {
-    const { getDirectory: { path, children } } = usePreloadedQuery<ExplorerQuery>(query, queryRef)
+export const ExplorerWithFetch = withErrorBoundary(({ fragmentRef }: WithFetchProps) => {
+    const { path, children } = useFragment<Explorer_directory$key>(fragment, fragmentRef)
 
     return (
         <Explorer

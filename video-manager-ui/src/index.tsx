@@ -6,9 +6,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import './index.css'
 
-import App from './App'
 import environment from './environment'
 import reportWebVitals from './reportWebVitals'
+import { AppWithRouter } from './App.router'
 
 const root = createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,7 +18,7 @@ root.render(
   <React.StrictMode>
     <RelayEnvironmentProvider environment={environment}>
       <DndProvider backend={HTML5Backend}>
-      <App />
+      <AppWithRouter />
       </DndProvider>
     </RelayEnvironmentProvider>
   </React.StrictMode>

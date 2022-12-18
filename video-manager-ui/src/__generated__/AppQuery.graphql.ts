@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e426091abdb31cfc3ffbd617f8dd507c>>
+ * @generated SignedSource<<28ffe5789bc12b760ba37371901bd0d5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,21 +10,20 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ExplorerQuery$variables = {
+export type AppQuery$variables = {
   name: string;
   path: string;
 };
-export type ExplorerQuery$data = {
+export type AppQuery$data = {
   readonly getDirectory: {
-    readonly children: ReadonlyArray<{
-      readonly " $fragmentSpreads": FragmentRefs<"Folder_name">;
-    }>;
+    readonly id: string;
     readonly path: string;
+    readonly " $fragmentSpreads": FragmentRefs<"Explorer_directory">;
   };
 };
-export type ExplorerQuery = {
-  response: ExplorerQuery$data;
-  variables: ExplorerQuery$variables;
+export type AppQuery = {
+  response: AppQuery$data;
+  variables: AppQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -60,6 +59,13 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "path",
   "storageKey": null
 };
@@ -71,7 +77,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "ExplorerQuery",
+    "name": "AppQuery",
     "selections": [
       {
         "alias": null,
@@ -82,21 +88,11 @@ return {
         "plural": false,
         "selections": [
           (v3/*: any*/),
+          (v4/*: any*/),
           {
-            "alias": null,
             "args": null,
-            "concreteType": "Directory",
-            "kind": "LinkedField",
-            "name": "children",
-            "plural": true,
-            "selections": [
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "Folder_name"
-              }
-            ],
-            "storageKey": null
+            "kind": "FragmentSpread",
+            "name": "Explorer_directory"
           }
         ],
         "storageKey": null
@@ -112,7 +108,7 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "ExplorerQuery",
+    "name": "AppQuery",
     "selections": [
       {
         "alias": null,
@@ -123,6 +119,7 @@ return {
         "plural": false,
         "selections": [
           (v3/*: any*/),
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -147,16 +144,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3b571015768d173b27fb531da5364bf2",
+    "cacheID": "1c8317dc366b9eda1d0799304640aac4",
     "id": null,
     "metadata": {},
-    "name": "ExplorerQuery",
+    "name": "AppQuery",
     "operationKind": "query",
-    "text": "query ExplorerQuery(\n  $path: String!\n  $name: String!\n) {\n  getDirectory(input: {path: $path, name: $name}) {\n    path\n    children {\n      ...Folder_name\n    }\n  }\n}\n\nfragment Folder_name on Directory {\n  name\n}\n"
+    "text": "query AppQuery(\n  $path: String!\n  $name: String!\n) {\n  getDirectory(input: {path: $path, name: $name}) {\n    id\n    path\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder_name\n  }\n}\n\nfragment Folder_name on Directory {\n  name\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c3dde007922c01064e0840c8004939ef";
+(node as any).hash = "9709dfe9d163eab1300e7aaa2a448519";
 
 export default node;

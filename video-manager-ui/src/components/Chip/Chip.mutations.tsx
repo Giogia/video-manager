@@ -13,7 +13,7 @@ const deleteFolder = (
   graphql`
     mutation ChipDeleteFolderMutation($path: String!, $name: String!) {
       removeDirectory(input: {path: $path, name: $name}){
-        acknowledged
+        ...Explorer_directory
       }
     }
   `
@@ -27,7 +27,7 @@ export const DeleteFolderChip = () => {
 
   return <ChipWithDrop
     icon='delete'
-    action={({name}) => commitMutation({
+    action={({ name }) => commitMutation({
       variables: {
         path: window.location.pathname,
         name

@@ -13,7 +13,7 @@ const addFolder = (
   graphql`
     mutation ButtonAddFolderMutation($path: String!, $name: String!) {
       addDirectory(input: {path: $path, name: $name}){
-        acknowledged
+        ...Explorer_directory
       }
     }
   `

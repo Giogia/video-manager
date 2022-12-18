@@ -13,7 +13,7 @@ const renameFolder = (
   graphql`
     mutation NameRenameFolderMutation($path: String!, $oldName: String!, $newName: String!) {
       renameDirectory(input: {path: $path, name: $oldName}, name: $newName){
-        acknowledged
+        ...Explorer_directory
       }
     }
   `

@@ -18,15 +18,9 @@ export const ExplorerLoading = () => (
 )
 
 export const ExplorerWithFetchLoading = (props: WithFetchProps) => (
-    <Suspense fallback={
-        <Explorer loading
-            content={
-                Array.from({ length: 10 }).map((_, i) =>
-                    <Folder loading />
-                )
-            }
-        />
-    }>
+    <Suspense
+        fallback={<ExplorerLoading />}
+    >
         <ExplorerWithFetch {...props} />
     </Suspense>
 )

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<547505cf5d6b0934f717123ec7b6e11e>>
+ * @generated SignedSource<<b2a50e2721dfbb8458d8698d42a711b5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type NameRenameFolderMutation$variables = {
   newName: string;
   oldName: string;
@@ -16,7 +17,7 @@ export type NameRenameFolderMutation$variables = {
 };
 export type NameRenameFolderMutation$data = {
   readonly renameDirectory: {
-    readonly acknowledged: boolean;
+    readonly " $fragmentSpreads": FragmentRefs<"Explorer_directory">;
   };
 };
 export type NameRenameFolderMutation = {
@@ -42,44 +43,25 @@ v2 = {
 },
 v3 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "fields": [
-          {
-            "kind": "Variable",
-            "name": "name",
-            "variableName": "oldName"
-          },
-          {
-            "kind": "Variable",
-            "name": "path",
-            "variableName": "path"
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "input"
-      },
+    "fields": [
       {
         "kind": "Variable",
         "name": "name",
-        "variableName": "newName"
-      }
-    ],
-    "concreteType": "Result",
-    "kind": "LinkedField",
-    "name": "renameDirectory",
-    "plural": false,
-    "selections": [
+        "variableName": "oldName"
+      },
       {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "acknowledged",
-        "storageKey": null
+        "kind": "Variable",
+        "name": "path",
+        "variableName": "path"
       }
     ],
-    "storageKey": null
+    "kind": "ObjectValue",
+    "name": "input"
+  },
+  {
+    "kind": "Variable",
+    "name": "name",
+    "variableName": "newName"
   }
 ];
 return {
@@ -92,7 +74,24 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "NameRenameFolderMutation",
-    "selections": (v3/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v3/*: any*/),
+        "concreteType": "Directory",
+        "kind": "LinkedField",
+        "name": "renameDirectory",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "Explorer_directory"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Mutation",
     "abstractKey": null
   },
@@ -105,19 +104,63 @@ return {
     ],
     "kind": "Operation",
     "name": "NameRenameFolderMutation",
-    "selections": (v3/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v3/*: any*/),
+        "concreteType": "Directory",
+        "kind": "LinkedField",
+        "name": "renameDirectory",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "path",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Directory",
+            "kind": "LinkedField",
+            "name": "children",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "9b1f974fd21deab81736041e6896e0d3",
+    "cacheID": "4e6836f7845b671b7c1c6bdf2f9ece0b",
     "id": null,
     "metadata": {},
     "name": "NameRenameFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation NameRenameFolderMutation(\n  $path: String!\n  $oldName: String!\n  $newName: String!\n) {\n  renameDirectory(input: {path: $path, name: $oldName}, name: $newName) {\n    acknowledged\n  }\n}\n"
+    "text": "mutation NameRenameFolderMutation(\n  $path: String!\n  $oldName: String!\n  $newName: String!\n) {\n  renameDirectory(input: {path: $path, name: $oldName}, name: $newName) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder_name\n  }\n}\n\nfragment Folder_name on Directory {\n  name\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c019e98de6abd74ef58c06020d094557";
+(node as any).hash = "2888c921dcd8cbad67084f2ab46654fd";
 
 export default node;

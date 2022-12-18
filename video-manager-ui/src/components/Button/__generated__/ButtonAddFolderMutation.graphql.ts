@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5f65e59d069fb29ad27ec37fc801cad9>>
+ * @generated SignedSource<<c62116ca8df83b6be78d8660be2c4297>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,13 +9,14 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type ButtonAddFolderMutation$variables = {
   name: string;
   path: string;
 };
 export type ButtonAddFolderMutation$data = {
   readonly addDirectory: {
-    readonly acknowledged: boolean;
+    readonly " $fragmentSpreads": FragmentRefs<"Explorer_directory">;
   };
 };
 export type ButtonAddFolderMutation = {
@@ -36,39 +37,20 @@ v1 = {
 },
 v2 = [
   {
-    "alias": null,
-    "args": [
+    "fields": [
       {
-        "fields": [
-          {
-            "kind": "Variable",
-            "name": "name",
-            "variableName": "name"
-          },
-          {
-            "kind": "Variable",
-            "name": "path",
-            "variableName": "path"
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "input"
+        "kind": "Variable",
+        "name": "name",
+        "variableName": "name"
+      },
+      {
+        "kind": "Variable",
+        "name": "path",
+        "variableName": "path"
       }
     ],
-    "concreteType": "Result",
-    "kind": "LinkedField",
-    "name": "addDirectory",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "acknowledged",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "ObjectValue",
+    "name": "input"
   }
 ];
 return {
@@ -80,7 +62,24 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "ButtonAddFolderMutation",
-    "selections": (v2/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
+        "concreteType": "Directory",
+        "kind": "LinkedField",
+        "name": "addDirectory",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "Explorer_directory"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Mutation",
     "abstractKey": null
   },
@@ -92,19 +91,63 @@ return {
     ],
     "kind": "Operation",
     "name": "ButtonAddFolderMutation",
-    "selections": (v2/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
+        "concreteType": "Directory",
+        "kind": "LinkedField",
+        "name": "addDirectory",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "path",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Directory",
+            "kind": "LinkedField",
+            "name": "children",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "a80fdfa0c888da698e914193bb002758",
+    "cacheID": "344f1f0ae71e34d70bbf998ad78f29de",
     "id": null,
     "metadata": {},
     "name": "ButtonAddFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation ButtonAddFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  addDirectory(input: {path: $path, name: $name}) {\n    acknowledged\n  }\n}\n"
+    "text": "mutation ButtonAddFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  addDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder_name\n  }\n}\n\nfragment Folder_name on Directory {\n  name\n}\n"
   }
 };
 })();
 
-(node as any).hash = "314d1fc1e138ad58eb321cb19859ed4f";
+(node as any).hash = "c817ec2eaf756a671e0a74c3e08bd92d";
 
 export default node;
