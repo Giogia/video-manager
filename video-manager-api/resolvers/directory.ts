@@ -17,7 +17,7 @@ export class DirectoryResolver {
 
         const directory = await DirectoryModel.findOne({ path: combinePath(path, name) })
 
-        if (!directory && !name && path === '/') {
+        if (!directory && isRoot(path, name)) {
             const rootDirectory = new DirectoryModel({
                 path,
                 name,
@@ -45,7 +45,7 @@ export class DirectoryResolver {
             const saved = await directory.save()
 
             if (saved) {
-                if (!isRoot(name, path)) {
+                if (!isRoot(path, name)) {
                     const parentDirectory = await DirectoryModel.findOne({ path })
 
                     if (parentDirectory) {
@@ -72,7 +72,7 @@ export class DirectoryResolver {
 
             if (acknowledged) {
 
-                if (!isRoot(name, path)) {
+                if (!isRoot(path, name)) {
                     const parentDirectory = await DirectoryModel.findOne({ path })
 
                     if (parentDirectory) {

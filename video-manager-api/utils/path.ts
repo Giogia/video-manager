@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-export const isRoot = (name: string, path: string) => (!name && path === '/')
+export const isRoot = (path: string, name: string) => (!name && path === '/')
 
 export const combinePath = (path: string, name: string) => {
 
