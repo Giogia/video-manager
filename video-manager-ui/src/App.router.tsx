@@ -1,6 +1,7 @@
 import React from 'react'
 import env from "react-dotenv"
 import { loadQuery } from 'react-relay'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
 import AppSchema, { AppQuery } from './__generated__/AppQuery.graphql'
 
@@ -18,8 +19,15 @@ const appQueryRef = loadQuery<AppQuery>(environment, AppSchema, {
 export const AppWithRouter = () => {
 
   return (
-    <AppWithFetch
-      queryRef={appQueryRef}
-    />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={
+          <AppWithFetch queryRef={appQueryRef} />
+        } />
+        <Route path="*" element={
+          <Navigate to="/" replace />
+        } />
+      </Routes>
+    </BrowserRouter>
   )
 }
