@@ -15,10 +15,10 @@ input DirectoryInput {
 }
 
 type Mutation {
-  addDirectory(input: DirectoryInput!): Result!
+  addDirectory(input: DirectoryInput!): Directory!
   createVideo(input: VideoInput!): Video!
-  removeDirectory(input: DirectoryInput!): Result!
-  renameDirectory(input: DirectoryInput!, name: String!): Result!
+  removeDirectory(input: DirectoryInput!): Directory!
+  renameDirectory(input: DirectoryInput!, name: String!): Directory!
   updateVideo(id: Float!, input: VideoInput!): Video!
 }
 
@@ -27,10 +27,6 @@ type Query {
   getDirectory(input: DirectoryInput!): Directory!
   getVideo(id: Float!): Video!
   getVideos: [Video!]!
-}
-
-type Result {
-  acknowledged: Boolean!
 }
 
 type Video {

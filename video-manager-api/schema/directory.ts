@@ -26,11 +26,4 @@ export class DirectoryInput implements Pick<Directory, "name" | "path"> {
     name!: string
 }
 
-@ObjectType()
-export class Result {
-    @prop()
-    @Field()
-    acknowledged!: boolean
-}
-
 export const DirectoryModel = getModelForClass(Directory)

@@ -1,6 +1,6 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql"
 
-import { Directory, DirectoryInput, DirectoryModel, Result } from "../schema/directory"
+import { Directory, DirectoryInput, DirectoryModel } from "../schema/directory"
 import { combinePath, isRoot } from "../utils/path"
 
 @Resolver(() => Directory)
@@ -32,8 +32,8 @@ export class DirectoryResolver {
         return directory
     }
 
-    @Mutation(() => Result)
-    async addDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Result> {
+    @Mutation(() => Directory)
+    async addDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
         try {
             const directory = new DirectoryModel({
@@ -44,52 +44,59 @@ export class DirectoryResolver {
 
             const saved = await directory.save()
 
-            if (saved && !isRoot(name, path)) {
+            if (saved) {
+                if (!isRoot(name, path)) {
+                    const parentDirectory = await DirectoryModel.findOne({ path })
 
-                const parentDirectory = await DirectoryModel.findOne({ path })
+                    if (parentDirectory) {
+                        parentDirectory.children.push(directory)
+                        await parentDirectory.save()
 
-                if (parentDirectory) {
-                    parentDirectory.children.push(directory)
-                    await parentDirectory.save()
+                        return parentDirectory
+                    }
                 }
+                return directory
             }
-
-            return { acknowledged: true }
-
-        } catch (e) {
-            return { acknowledged: false }
+            return null
+        }
+        catch (e) {
+            return null
         }
     }
 
-    @Mutation(() => Result)
-    async removeDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Result> {
+    @Mutation(() => Directory)
+    async removeDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
         try {
             const { acknowledged } = await DirectoryModel.deleteOne({ path: combinePath(path, name) })
 
-            if (acknowledged && !isRoot(name, path)) {
-                const parentDirectory = await DirectoryModel.findOne({ path })
+            if (acknowledged) {
 
-                if (parentDirectory) {
-                    parentDirectory.children = parentDirectory.children.filter(
-                        child => child.name !== name
-                    )
-                    await parentDirectory.save()
+                if (!isRoot(name, path)) {
+                    const parentDirectory = await DirectoryModel.findOne({ path })
+
+                    if (parentDirectory) {
+                        parentDirectory.children = parentDirectory.children.filter(
+                            child => child.name !== name
+                        )
+                        await parentDirectory.save()
+
+                        return parentDirectory
+                    }
                 }
             }
-
-            return { acknowledged }
-
-        } catch (e) {
-            return { acknowledged: false }
+            return null
+        }
+        catch (e) {
+            return null
         }
     }
 
-    @Mutation(() => Result)
+    @Mutation(() => Directory)
     async renameDirectory(
         @Arg("input") { path, name }: DirectoryInput,
         @Arg("name") newName: string
-    ): Promise<Result> {
+    ): Promise<Directory | null> {
 
         const update = {
             name: newName,
@@ -111,13 +118,14 @@ export class DirectoryResolver {
                             child
                     )
                     await parentDirectory.save()
+
+                    return parentDirectory
                 }
             }
-
-            return { acknowledged }
-
-        } catch (e) {
-            return { acknowledged: false }
+            return null
+        }
+        catch (e) {
+            return null
         }
     }
 }
