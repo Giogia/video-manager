@@ -4,6 +4,9 @@ import { Field, ObjectType, InputType } from "type-graphql"
 @index({ path: 1, name: 1 }, { unique: true })
 @ObjectType()
 export class Directory {
+    @Field()
+    readonly id?: string
+
     @prop()
     @Field()
     path!: string
