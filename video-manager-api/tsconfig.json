@@ -5,7 +5,7 @@
         "jsx": "preserve",
         "strict": true,
         "esModuleInterop": true,
-        "lib": ["es2018", "esnext.asynciterable"],
+        "lib": ["es2021", "esnext.asynciterable"],
 
         // TypeGraphQL
         "emitDecoratorMetadata": true,

@@ -4,5 +4,5 @@ export const isRoot = (name: string, path: string) => (!name && path === '/')
 
 export const combinePath = (path: string, name: string) => {
 
-    return join(path, name.replace(" ", "").toLowerCase())
+    return join(path, name.replaceAll(" ", "").toLowerCase())
 }
