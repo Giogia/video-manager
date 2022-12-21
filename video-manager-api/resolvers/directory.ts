@@ -15,7 +15,7 @@ export class DirectoryResolver {
     @Query(() => Directory)
     async getDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
-        const directory = await DirectoryModel.findOne({ path: combinePath(path, name) })
+        const directory = await DirectoryModel.findOne({ path: name? combinePath(path, name) : path })
 
         if (!directory && isRoot(path, name)) {
             const rootDirectory = new DirectoryModel({

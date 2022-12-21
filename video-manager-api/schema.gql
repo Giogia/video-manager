@@ -11,7 +11,7 @@ type Directory {
 }
 
 input DirectoryInput {
-  name: String!
+  name: String
   path: String!
 }
 

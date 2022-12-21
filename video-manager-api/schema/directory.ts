@@ -25,7 +25,7 @@ export class DirectoryInput implements Pick<Directory, "name" | "path"> {
     @Field()
     path!: string
 
-    @Field()
+    @Field({nullable: true})
     name!: string
 }
 
