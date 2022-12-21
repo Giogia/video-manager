@@ -27,6 +27,13 @@ export const Header = ({ name, theme, handleTheme }: HeaderProps) => (
   <>
     <Box sx={{
       display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      <DeleteFolderChip />
+    </Box>
+    <Box sx={{
+      display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
     }}>
@@ -40,13 +47,6 @@ export const Header = ({ name, theme, handleTheme }: HeaderProps) => (
         action={handleTheme}
         icon={`${theme}-theme`}
       />
-    </Box>
-    <Box sx={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <DeleteFolderChip />
     </Box>
   </>
 )
