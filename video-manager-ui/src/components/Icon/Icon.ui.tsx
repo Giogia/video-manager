@@ -1,7 +1,8 @@
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from '@mui/icons-material/Delete'
 import FolderIcon from '@mui/icons-material/Folder'
+import HomeIcon from '@mui/icons-material/Home'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 
@@ -13,6 +14,7 @@ export const icons = {
   'add-folder': CreateNewFolderIcon,
   'upload-video': UploadFileIcon,
   'delete': DeleteIcon,
+  'home': HomeIcon,
   'light-theme': LightModeIcon,
   'dark-theme': DarkModeIcon,
 }
