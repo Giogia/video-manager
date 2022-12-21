@@ -31,6 +31,7 @@ export const ChipWithDrop = ({ action, ...props }: ChipProps & WithDropProps) =>
         {...props}
         color={isOver ? 'error' : 'default'}
         sx={{
+          padding: 2,
           opacity: isDragging ? 1 : 0,
           transition: 'opacity 0.2s ease-in-out',
         }}

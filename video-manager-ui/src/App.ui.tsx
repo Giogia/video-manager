@@ -39,7 +39,7 @@ export const App = ({ explorerRef }: AppProps) => {
         <Box
           flex={1}
           overflow='auto'
-          padding={4}
+          padding={3}
         >
           <Explorer fragmentRef={explorerRef!} />
         </Box>

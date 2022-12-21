@@ -46,7 +46,7 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
           <AddFolderButton disabled={loading || error} />
         </CardActions>
       }
-      sx={{ paddingLeft: 6 }}
+      sx={{ padding: 4 }}
     />
     <CardContent sx={{
       height: '100%',
