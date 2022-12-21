@@ -1,5 +1,5 @@
-import { Header } from "./Header.ui"
+import { HeaderWithDrop } from "./Header.drop"
 
 export {
-  Header
+  HeaderWithDrop as Header
 }

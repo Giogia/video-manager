@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import { Header as HeaderComponent } from '.'
+import { Header as HeaderComponent } from './Header.ui'
 
 export default {
   title: 'Composed/Header',
