@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b2a50e2721dfbb8458d8698d42a711b5>>
+ * @generated SignedSource<<756bca36c1d9fad0e55c6547952e0ace>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -63,7 +63,14 @@ v3 = [
     "name": "name",
     "variableName": "newName"
   }
-];
+],
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "path",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -120,13 +127,7 @@ return {
             "name": "id",
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "path",
-            "storageKey": null
-          },
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -141,7 +142,8 @@ return {
                 "kind": "ScalarField",
                 "name": "name",
                 "storageKey": null
-              }
+              },
+              (v4/*: any*/)
             ],
             "storageKey": null
           }
@@ -151,12 +153,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4e6836f7845b671b7c1c6bdf2f9ece0b",
+    "cacheID": "3d59e8b6a48442d5c3df3019a6cd3559",
     "id": null,
     "metadata": {},
     "name": "NameRenameFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation NameRenameFolderMutation(\n  $path: String!\n  $oldName: String!\n  $newName: String!\n) {\n  renameDirectory(input: {path: $path, name: $oldName}, name: $newName) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder_name\n  }\n}\n\nfragment Folder_name on Directory {\n  name\n}\n"
+    "text": "mutation NameRenameFolderMutation(\n  $path: String!\n  $oldName: String!\n  $newName: String!\n) {\n  renameDirectory(input: {path: $path, name: $oldName}, name: $newName) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
   }
 };
 })();

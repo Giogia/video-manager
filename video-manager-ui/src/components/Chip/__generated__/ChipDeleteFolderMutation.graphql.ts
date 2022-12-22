@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3617ae022c1b7cc2669fdb7430df84c5>>
+ * @generated SignedSource<<0e1d46662bf02e1994a1602f86ec9e82>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -52,7 +52,14 @@ v2 = [
     "kind": "ObjectValue",
     "name": "input"
   }
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "path",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -107,13 +114,7 @@ return {
             "name": "id",
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "path",
-            "storageKey": null
-          },
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -128,7 +129,8 @@ return {
                 "kind": "ScalarField",
                 "name": "name",
                 "storageKey": null
-              }
+              },
+              (v3/*: any*/)
             ],
             "storageKey": null
           }
@@ -138,12 +140,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f2975bc6fe595c54b3fb8292d572d9d2",
+    "cacheID": "c5a89fcd2d95fe4f1e40206b6bff2db4",
     "id": null,
     "metadata": {},
     "name": "ChipDeleteFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation ChipDeleteFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  removeDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder_name\n  }\n}\n\nfragment Folder_name on Directory {\n  name\n}\n"
+    "text": "mutation ChipDeleteFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  removeDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
   }
 };
 })();

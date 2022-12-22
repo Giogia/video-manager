@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
+import { PreloadedQuery } from 'react-relay'
 import { Box, ThemeProvider } from '@mui/material'
 
-import { Explorer_directory$key } from './components/Explorer/__generated__/Explorer_directory.graphql'
+import { ExplorerQuery } from './components/Explorer/__generated__/ExplorerQuery.graphql'
 
 import { Header } from './components/Header'
 import { Explorer } from './components/Explorer'
 import { lightTheme } from './themes/light.theme'
 import { darkTheme } from './themes/dark.theme'
 
+
 export interface AppProps {
   /**
    * explorer fragment reference
    */
-  explorerRef?: Explorer_directory$key
+  explorerRef?: PreloadedQuery<ExplorerQuery>
 }
 
 export const App = ({ explorerRef }: AppProps) => {
@@ -41,7 +43,7 @@ export const App = ({ explorerRef }: AppProps) => {
           overflow='auto'
           padding={3}
         >
-          <Explorer fragmentRef={explorerRef!} />
+          <Explorer queryRef={explorerRef!} />
         </Box>
       </Box>
     </ThemeProvider >

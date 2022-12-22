@@ -6,19 +6,23 @@ import { Name } from '../Name'
 
 export interface FolderProps {
   /**
-   * Folder contents
-  */
-  name: string
-  /**
    * Whether the folder is loading
    */
   loading: boolean
+  /**
+   * Folder contents
+   */
+  name: string
+  /**
+   * Opeartion called when folder is clicked
+   */
+  onClick?: (e: MouseEvent) => void
 }
 
 /**
  * UI component for identifying a directory
  */
-export const Folder = ({ name, loading }: FolderProps) => {
+export const Folder = ({ name, loading, onClick }: FolderProps) => {
   return (
     <Grid container
       direction='column'
@@ -27,6 +31,7 @@ export const Folder = ({ name, loading }: FolderProps) => {
     >
       <Grid item>
         <Button
+          action={onClick}
           icon='folder'
           size='large'
           loading={loading}

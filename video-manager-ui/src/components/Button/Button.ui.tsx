@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react'
+import React from 'react'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 
@@ -9,7 +9,7 @@ export interface ButtonProps {
   /**
    * Button functionality
    */
-  action?: (e: MouseEvent) => void
+  action?: (e: any) => void
   /**
    * Whether the button is active
    */

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<069246699e87b556156fed122b5f1086>>
+ * @generated SignedSource<<caf2715fafe836081a091214d08ea3a7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Explorer_directory$data = {
   readonly children: ReadonlyArray<{
-    readonly " $fragmentSpreads": FragmentRefs<"Folder_name">;
+    readonly " $fragmentSpreads": FragmentRefs<"Folder">;
   }>;
   readonly id: string;
   readonly path: string;
@@ -54,7 +54,7 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "Folder_name"
+          "name": "Folder"
         }
       ],
       "storageKey": null
@@ -64,6 +64,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "164566e2770f9068dfb0fd09dd73f93c";
+(node as any).hash = "71b1777da0ff60329e4a60c0bcbd9c48";
 
 export default node;

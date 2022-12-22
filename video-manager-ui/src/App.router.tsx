@@ -3,12 +3,12 @@ import env from "react-dotenv"
 import { loadQuery } from 'react-relay'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
-import AppSchema, { AppQuery } from './__generated__/AppQuery.graphql'
+import ExplorerSchema, { ExplorerQuery } from './components/Explorer/__generated__/ExplorerQuery.graphql'
 
 import environment from './environment'
-import { AppWithFetch } from './App.fetch'
+import { App } from './App.ui'
 
-const appQueryRef = loadQuery<AppQuery>(environment, AppSchema, {
+const appQueryRef = loadQuery<ExplorerQuery>(environment, ExplorerSchema, {
   path: window.location.pathname,
   name: env.DEFAULT_FOLDER
 })
@@ -16,18 +16,15 @@ const appQueryRef = loadQuery<AppQuery>(environment, AppSchema, {
 /**
  * Component wrapper handling route data
  */
-export const AppWithRouter = () => {
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={
-          <AppWithFetch queryRef={appQueryRef} />
-        } />
-        <Route path="*" element={
-          <Navigate to="/" replace />
-        } />
-      </Routes>
-    </BrowserRouter>
-  )
-}
+export const AppWithRouter = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="*" element={
+        <App explorerRef={appQueryRef} />
+      } />
+      {/* <Route path="*" element={
+        <Navigate to="/" replace />
+      } /> */}
+    </Routes>
+  </BrowserRouter>
+)

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<28ffe5789bc12b760ba37371901bd0d5>>
+ * @generated SignedSource<<03eadb5b72b95439516a5556ed9f5ed8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,20 +10,18 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppQuery$variables = {
+export type ExplorerQuery$variables = {
   name: string;
   path: string;
 };
-export type AppQuery$data = {
+export type ExplorerQuery$data = {
   readonly getDirectory: {
-    readonly id: string;
-    readonly path: string;
     readonly " $fragmentSpreads": FragmentRefs<"Explorer_directory">;
   };
 };
-export type AppQuery = {
-  response: AppQuery$data;
-  variables: AppQuery$variables;
+export type ExplorerQuery = {
+  response: ExplorerQuery$data;
+  variables: ExplorerQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -59,13 +57,6 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "path",
   "storageKey": null
 };
@@ -77,7 +68,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "AppQuery",
+    "name": "ExplorerQuery",
     "selections": [
       {
         "alias": null,
@@ -87,8 +78,6 @@ return {
         "name": "getDirectory",
         "plural": false,
         "selections": [
-          (v3/*: any*/),
-          (v4/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -108,7 +97,7 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "AppQuery",
+    "name": "ExplorerQuery",
     "selections": [
       {
         "alias": null,
@@ -118,8 +107,14 @@ return {
         "name": "getDirectory",
         "plural": false,
         "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
           (v3/*: any*/),
-          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -134,7 +129,8 @@ return {
                 "kind": "ScalarField",
                 "name": "name",
                 "storageKey": null
-              }
+              },
+              (v3/*: any*/)
             ],
             "storageKey": null
           }
@@ -144,16 +140,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1c8317dc366b9eda1d0799304640aac4",
+    "cacheID": "28aed03f27cdb05549d1de53c519d454",
     "id": null,
     "metadata": {},
-    "name": "AppQuery",
+    "name": "ExplorerQuery",
     "operationKind": "query",
-    "text": "query AppQuery(\n  $path: String!\n  $name: String!\n) {\n  getDirectory(input: {path: $path, name: $name}) {\n    id\n    path\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder_name\n  }\n}\n\nfragment Folder_name on Directory {\n  name\n}\n"
+    "text": "query ExplorerQuery(\n  $path: String!\n  $name: String!\n) {\n  getDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9709dfe9d163eab1300e7aaa2a448519";
+(node as any).hash = "ac34ddd6e07199ebce1fd96e21afb1cd";
 
 export default node;

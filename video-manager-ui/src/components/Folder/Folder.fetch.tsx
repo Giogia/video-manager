@@ -2,16 +2,16 @@ import React from 'react'
 import { graphql } from 'babel-plugin-relay/macro'
 import { useFragment } from 'react-relay'
 
-import { Folder_name$key } from './__generated__/Folder_name.graphql'
+import { Folder$key } from './__generated__/Folder.graphql'
 
 import { FolderProps } from './Folder.ui'
-import { FolderWithDrag } from './Folder.drag'
+import { FolderWithRouter } from './Folder.router'
 
 export interface WithFetchProps {
   /**
    * name fragment reference
    */
-  fragmentRef?: Folder_name$key
+  fragmentRef?: Folder$key
 }
 
 /**
@@ -19,8 +19,9 @@ export interface WithFetchProps {
  */
 const fragment = (
   graphql`
-    fragment Folder_name on Directory{
+    fragment Folder on Directory{
       name  
+      path
     }
   `
 )
@@ -29,16 +30,17 @@ const fragment = (
  * Component wrapper fetching data
  */
 export const FolderWithFetch = ({ fragmentRef, ...props }: FolderProps & WithFetchProps) => {
-  const { name } = useFragment<Folder_name$key>(fragment, fragmentRef!)
+  const { name, path } = useFragment<Folder$key>(fragment, fragmentRef!)
 
   return (
-    <FolderWithDrag
+    <FolderWithRouter
       {...props}
       name={name}
+      path={path}
     />
   )
 }
 
 FolderWithFetch.defaultProps = {
-  ...FolderWithDrag.defaultProps
+  ...FolderWithRouter.defaultProps
 }
