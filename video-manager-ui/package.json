@@ -84,9 +84,7 @@
   },
   "react-dotenv": {
     "whitelist": [
-      "GRAPHQL_URL",
-      "DEFAULT_PATH",
-      "DEFAULT_FOLDER"
+      "GRAPHQL_URL"
     ]
   },
   "eslintConfig": {

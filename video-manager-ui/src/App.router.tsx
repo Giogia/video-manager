@@ -1,5 +1,4 @@
 import React from 'react'
-import env from "react-dotenv"
 import { loadQuery } from 'react-relay'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
@@ -9,8 +8,7 @@ import environment from './environment'
 import { App } from './App.ui'
 
 const appQueryRef = loadQuery<ExplorerQuery>(environment, ExplorerSchema, {
-  path: window.location.pathname,
-  name: env.DEFAULT_FOLDER
+  path: window.location.pathname
 })
 
 /**

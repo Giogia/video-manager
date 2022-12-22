@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<03eadb5b72b95439516a5556ed9f5ed8>>
+ * @generated SignedSource<<008fafd4472c0fff44a6be55f733c98a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,6 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ExplorerQuery$variables = {
-  name: string;
   path: string;
 };
 export type ExplorerQuery$data = {
@@ -25,24 +24,16 @@ export type ExplorerQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "name"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "path"
-},
-v2 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "path"
+  }
+],
+v1 = [
   {
     "fields": [
-      {
-        "kind": "Variable",
-        "name": "name",
-        "variableName": "name"
-      },
       {
         "kind": "Variable",
         "name": "path",
@@ -53,7 +44,7 @@ v2 = [
     "name": "input"
   }
 ],
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -62,17 +53,14 @@ v3 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "ExplorerQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "Directory",
         "kind": "LinkedField",
         "name": "getDirectory",
@@ -92,16 +80,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ExplorerQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "Directory",
         "kind": "LinkedField",
         "name": "getDirectory",
@@ -114,7 +99,7 @@ return {
             "name": "id",
             "storageKey": null
           },
-          (v3/*: any*/),
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -130,7 +115,7 @@ return {
                 "name": "name",
                 "storageKey": null
               },
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           }
@@ -140,16 +125,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "28aed03f27cdb05549d1de53c519d454",
+    "cacheID": "bef5416d45cc895c79e55d2fe5e4c181",
     "id": null,
     "metadata": {},
     "name": "ExplorerQuery",
     "operationKind": "query",
-    "text": "query ExplorerQuery(\n  $path: String!\n  $name: String!\n) {\n  getDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
+    "text": "query ExplorerQuery(\n  $path: String!\n) {\n  getDirectory(input: {path: $path}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ac34ddd6e07199ebce1fd96e21afb1cd";
+(node as any).hash = "5beb06e624cd4cf6163acfaf4bc6c50d";
 
 export default node;
