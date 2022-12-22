@@ -10,7 +10,15 @@ import { DirectoryResolver } from '../resolvers/directory'
 import { VideoResolver } from '../resolvers/video'
 
 async function loadDB() {
-   await mongoose.connect(process.env.MONGO_DB_URL!)
+   try {
+      await mongoose.connect(process.env.MONGO_DB_URL!)
+   }
+   catch {
+      setTimeout(() => {
+         console.log("Reconnecting...")
+         loadDB()
+      }, 30 * 1000)
+   }
 }
 
 async function start() {
