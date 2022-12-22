@@ -1,3 +1,4 @@
+import { GraphQLError } from "graphql"
 import { Arg, Mutation, Query, Resolver } from "type-graphql"
 
 import { Directory, DirectoryInput, DirectoryModel } from "../schema/directory"
@@ -9,27 +10,48 @@ export class DirectoryResolver {
     @Query(() => [Directory])
     async getDirectories(): Promise<Directory[]> {
 
-        return await DirectoryModel.find({})
+        try {
+            return await DirectoryModel.find({})
+        }
+        catch (e) {
+            throw new GraphQLError(`
+            Cannot return directories. 
+            Got error from database operation: 
+                
+            "${e}"`)
+        }
     }
 
     @Query(() => Directory)
     async getDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
-        const directory = await DirectoryModel.findOne({ path: name? combinePath(path, name) : path })
+        const directoryName = name ? combinePath(path, name) : path
 
-        if (!directory && isRoot(path, name)) {
-            const rootDirectory = new DirectoryModel({
-                path,
-                name,
-                children: []
-            } as Directory)
+        try {
+            const directory = await DirectoryModel.findOne({ path: directoryName })
 
-            await rootDirectory.save()
+            if (!directory && isRoot(path, name)) {
+                const rootDirectory = new DirectoryModel({
+                    path,
+                    name,
+                    children: []
+                } as Directory)
 
-            return rootDirectory
+                await rootDirectory.save()
+
+                return rootDirectory
+            }
+
+
+            return directory
         }
+        catch (e) {
+            throw new GraphQLError(`
+            Cannot return directory: ${directoryName}.
+            Got error from database:
 
-        return directory
+            "${e}"`)
+        }
     }
 
     @Mutation(() => Directory)
@@ -60,7 +82,11 @@ export class DirectoryResolver {
             return null
         }
         catch (e) {
-            return null
+            throw new GraphQLError(`
+            Cannot add directory: ${combinePath(path, name)}.
+            Got error from database:
+
+            "${e}"`)
         }
     }
 
@@ -125,7 +151,11 @@ export class DirectoryResolver {
             return null
         }
         catch (e) {
-            return null
+            throw new GraphQLError(`
+            Cannot rename directory: ${combinePath(path, name)}.
+            Got error from database:
+
+            "${e}"`)
         }
     }
 }
