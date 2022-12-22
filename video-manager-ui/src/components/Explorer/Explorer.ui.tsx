@@ -57,6 +57,7 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        height: 'min-content',
         gap: 2
       }
     }}>

@@ -15,7 +15,9 @@ export const ExplorerError = ({ error, resetErrorBoundary }: Record<string, any>
         <Explorer error
             content={
                 <>
-                    <pre>{error.message}</pre>
+                    <pre style={{ whiteSpace: 'pre-line' }}>
+                        {error.message}
+                    </pre>
                     <Chip
                         label="Try Again"
                         onClick={() => {
