@@ -18,7 +18,7 @@ root.render(
   <React.StrictMode>
     <RelayEnvironmentProvider environment={environment}>
       <DndProvider backend={HTML5Backend}>
-      <AppWithRouter />
+        <AppWithRouter />
       </DndProvider>
     </RelayEnvironmentProvider>
   </React.StrictMode>

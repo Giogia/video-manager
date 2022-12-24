@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid'
 
 import { AddFolderButton, Button } from '../Button'
 import { Breadcrumbs } from '../Breadcrumbs'
+import { DeleteFolderChip } from '../Chip'
 
 interface ExplorerProps {
   /**
@@ -41,7 +42,8 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
         />
       }
       action={
-        <CardActions>
+        <CardActions sx={{ gap: 2 }}>
+          <DeleteFolderChip />
           <Button icon='upload-video' disabled={loading || error} />
           <AddFolderButton disabled={loading || error} />
         </CardActions>
