@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
@@ -23,8 +23,10 @@ export interface NameProps {
  */
 export const Name = ({ name: defaultName, editable, onChange }: NameProps) => {
 
-  const [name, setName] = React.useState(defaultName)
-  const [isNameFocused, setIsNamedFocused] = React.useState(false)
+  const [name, setName] = useState(defaultName)
+  const [isNameFocused, setIsNamedFocused] = useState(false)
+
+  useEffect(() => setName(defaultName), [defaultName])
 
   return (
     <Box
