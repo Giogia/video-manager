@@ -12,8 +12,8 @@ export class Directory {
     path!: string
 
     @prop()
-    @Field()
-    name!: string
+    @Field({ nullable: true })
+    name?: string
 
     @prop()
     @Field(() => [Directory])
@@ -25,8 +25,8 @@ export class DirectoryInput implements Pick<Directory, "name" | "path"> {
     @Field()
     path!: string
 
-    @Field({nullable: true})
-    name!: string
+    @Field({ nullable: true })
+    name?: string
 }
 
 export const DirectoryModel = getModelForClass(Directory)

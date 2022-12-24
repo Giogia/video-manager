@@ -6,7 +6,7 @@
 type Directory {
   children: [Directory!]!
   id: String!
-  name: String!
+  name: String
   path: String!
 }
 
