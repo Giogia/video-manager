@@ -26,7 +26,6 @@ const fragment = (
     graphql`
     fragment Explorer_directory on Directory{
         id
-        path
         children{
             ...Folder
         }
@@ -46,11 +45,11 @@ export interface WithFetchProps {
  */
 export const ExplorerWithFetch = withErrorBoundary(({ queryRef }: WithFetchProps) => {
     const { getDirectory } = usePreloadedQuery<ExplorerQuery>(query, queryRef)
-    const { path, children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
+    const { children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
 
     return (
         <Explorer
-            path={path}
+            path={window.location.pathname}
             content={
                 children.map((child, i) =>
                     <FolderWithFetch

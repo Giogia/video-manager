@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<87b1e666362ddfffb8c0c4eb8576bb4e>>
+ * @generated SignedSource<<f4027bdee146bd391f36d4bdd7d54cb6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -52,14 +52,7 @@ v2 = [
     "kind": "ObjectValue",
     "name": "input"
   }
-],
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "path",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -114,7 +107,6 @@ return {
             "name": "id",
             "storageKey": null
           },
-          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -130,7 +122,13 @@ return {
                 "name": "name",
                 "storageKey": null
               },
-              (v3/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "path",
+                "storageKey": null
+              }
             ],
             "storageKey": null
           }
@@ -140,12 +138,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "47363e391b60762a254723b1d41b2ae9",
+    "cacheID": "10afd1290e3bf4323e82ec1bfacc60dc",
     "id": null,
     "metadata": {},
     "name": "ButtonAddFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation ButtonAddFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  addDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
+    "text": "mutation ButtonAddFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  addDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
   }
 };
 })();

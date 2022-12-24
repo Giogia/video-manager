@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<caf2715fafe836081a091214d08ea3a7>>
+ * @generated SignedSource<<df721172b40310da7c541930fe382aa3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,6 @@ export type Explorer_directory$data = {
     readonly " $fragmentSpreads": FragmentRefs<"Folder">;
   }>;
   readonly id: string;
-  readonly path: string;
   readonly " $fragmentType": "Explorer_directory";
 };
 export type Explorer_directory$key = {
@@ -39,13 +38,6 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "path",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
       "concreteType": "Directory",
       "kind": "LinkedField",
       "name": "children",
@@ -64,6 +56,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "71b1777da0ff60329e4a60c0bcbd9c48";
+(node as any).hash = "7ebd0ebef857671943f86d07eaa1df81";
 
 export default node;

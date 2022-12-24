@@ -35,7 +35,7 @@ export const FolderWithFetch = ({ fragmentRef, ...props }: FolderProps & WithFet
   return (
     <FolderWithRouter
       {...props}
-      name={name}
+      name={name!}
       path={path}
     />
   )

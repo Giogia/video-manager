@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0e1d46662bf02e1994a1602f86ec9e82>>
+ * @generated SignedSource<<1571ec2b1b547b811013f587d6f4213a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -52,14 +52,7 @@ v2 = [
     "kind": "ObjectValue",
     "name": "input"
   }
-],
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "path",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -114,7 +107,6 @@ return {
             "name": "id",
             "storageKey": null
           },
-          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -130,7 +122,13 @@ return {
                 "name": "name",
                 "storageKey": null
               },
-              (v3/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "path",
+                "storageKey": null
+              }
             ],
             "storageKey": null
           }
@@ -140,12 +138,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c5a89fcd2d95fe4f1e40206b6bff2db4",
+    "cacheID": "164833cb392027920887b3d2ed849ea9",
     "id": null,
     "metadata": {},
     "name": "ChipDeleteFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation ChipDeleteFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  removeDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  path\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
+    "text": "mutation ChipDeleteFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  removeDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
   }
 };
 })();

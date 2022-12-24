@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<19ccb46123aa944445c8709abf6747dd>>
+ * @generated SignedSource<<e65faa2634a27b57fbe4e8b15b418261>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Folder$data = {
-  readonly name: string;
+  readonly name: string | null;
   readonly path: string;
   readonly " $fragmentType": "Folder";
 };
