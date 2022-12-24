@@ -6,8 +6,10 @@ import '@fontsource/material-icons'
 
 import { withMuiTheme, lightMuiTheme, darkMuiTheme } from './theming/Mui'
 import { withRelayEnvironment } from './theming/Relay'
+import { withRouter } from './theming/Router'
+import { withDnd } from './theming/Dnd'
 
-export const decorators = [withMuiTheme, withRelayEnvironment]
+export const decorators = [withMuiTheme, withRelayEnvironment, withRouter, withDnd]
 
 export const globalTypes = {
   theme: {
