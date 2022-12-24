@@ -31,8 +31,7 @@ export const Name = ({ name: defaultName, editable, onChange }: NameProps) => {
   return (
     <Box
       textAlign='center'
-      maxWidth='100px'
-      width='fit-content'
+      width='80px'
       sx={{ wordBreak: 'break-all' }}
     >
       {!isNameFocused ?
