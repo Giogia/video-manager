@@ -45,8 +45,9 @@ export const App = ({ explorerRef }: AppProps) => {
           <Header theme={mode} handleTheme={handleTheme} />
         </Box>
         <Box
-          flex={1}
-          overflow='auto'
+          overflow='hidden'
+          position='relative'
+          height='100%'
           padding={4}
         >
           <Explorer queryRef={explorerRef!} />

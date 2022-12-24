@@ -33,7 +33,11 @@ interface ExplorerProps {
  * UI component for exploring a directory
  */
 export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
-  <Card variant='outlined' sx={{ height: '100%' }}>
+  <Card variant='outlined' sx={{
+    position: 'relative',
+    overflow: 'hidden',
+    height: '100%',
+  }}>
     <CardHeader
       title={
         <Breadcrumbs
@@ -44,14 +48,15 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
       action={
         <CardActions sx={{ gap: 2 }}>
           <DeleteFolderChip />
-          <Button icon='upload-video' disabled={loading || error} />
           <AddFolderButton disabled={loading || error} />
+          <Button icon='upload-video' disabled={loading || error} />
         </CardActions>
       }
       sx={{ padding: 4 }}
     />
     <CardContent sx={{
       height: '100%',
+      flex: 1,
       overflow: 'auto',
       padding: 6,
       ...error && {
