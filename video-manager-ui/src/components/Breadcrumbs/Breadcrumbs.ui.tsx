@@ -52,7 +52,3 @@ export const Breadcrumbs = ({ path }: BreadcrumbsProps) => {
     </BreadcrumbsMui>
   )
 }
-
-Breadcrumbs.defaultProps = {
-  onClick: () => { }
-}
