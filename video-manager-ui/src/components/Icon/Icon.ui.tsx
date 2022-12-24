@@ -1,5 +1,5 @@
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
-import UploadFileIcon from '@mui/icons-material/UploadFile'
+import UploadFileIcon from '@mui/icons-material/VideoCameraBack'
 import DeleteIcon from '@mui/icons-material/Delete'
 import FolderIcon from '@mui/icons-material/Folder'
 import HomeIcon from '@mui/icons-material/Home'
