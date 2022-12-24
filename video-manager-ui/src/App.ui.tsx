@@ -18,11 +18,16 @@ export interface AppProps {
 }
 
 export const App = ({ explorerRef }: AppProps) => {
-  const [theme, setTheme] = useState(lightTheme)
+
+  const defaultMode = localStorage.getItem('theme')
+
+  const [theme, setTheme] = useState(defaultMode === 'dark' ? darkTheme : lightTheme)
 
   const { palette: { mode, background } } = theme
 
   const handleTheme = () => setTheme(mode === 'dark' ? lightTheme : darkTheme)
+
+  localStorage.setItem('theme', mode)
 
   return (
     <ThemeProvider theme={theme}>
@@ -34,6 +39,7 @@ export const App = ({ explorerRef }: AppProps) => {
       }}>
         <Box
           padding={6}
+          paddingTop={4}
           paddingBottom={0}
         >
           <Header theme={mode} handleTheme={handleTheme} />
@@ -41,7 +47,7 @@ export const App = ({ explorerRef }: AppProps) => {
         <Box
           flex={1}
           overflow='auto'
-          padding={3}
+          padding={4}
         >
           <Explorer queryRef={explorerRef!} />
         </Box>
