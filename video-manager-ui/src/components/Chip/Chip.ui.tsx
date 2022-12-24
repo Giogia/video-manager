@@ -17,7 +17,7 @@ export interface ChipProps {
   /**
    * Color of the chip
    */
-  color?: 'error' | 'default'
+  color?: 'warning' | 'default'
   /**
    * Style to apply to chip
    */

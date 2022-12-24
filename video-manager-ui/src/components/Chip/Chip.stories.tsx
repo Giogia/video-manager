@@ -7,7 +7,8 @@ export default {
   title: 'Fundamentals/Chip',
   component: ChipComponent,
   args: {
-    icon: 'delete'
+    icon: 'delete',
+    tooltip: 'Drag here an element to delete'
   }
 } as ComponentMeta<typeof ChipComponent>
 

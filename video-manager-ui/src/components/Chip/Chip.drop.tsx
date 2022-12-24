@@ -29,7 +29,7 @@ export const ChipWithDrop = ({ action, ...props }: ChipProps & WithDropProps) =>
     <Box ref={drop}>
       <Chip
         {...props}
-        color={isOver ? 'error' : 'default'}
+        color={isOver ? 'warning' : 'default'}
         disabled={!isDragging}
         sx={{
           ...props.sx,
