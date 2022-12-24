@@ -22,31 +22,29 @@ export interface FolderProps {
 /**
  * UI component for identifying a directory
  */
-export const Folder = ({ name, loading, onClick }: FolderProps) => {
-  return (
-    <Grid container
-      direction='column'
-      alignItems='center'
-      width='max-content'
-    >
-      <Grid item>
-        <Button
-          action={onClick}
-          icon='folder'
-          size='large'
-          loading={loading}
-          tooltip={false}
-        />
-      </Grid>
-      <Grid item>
-        <Name
-          name={name}
-          loading={loading}
-        />
-      </Grid>
+export const Folder = ({ name, loading, onClick }: FolderProps) => (
+  <Grid container
+    direction='column'
+    alignItems='center'
+    width='max-content'
+  >
+    <Grid item>
+      <Button
+        action={onClick}
+        icon='folder'
+        size='large'
+        loading={loading}
+        tooltip={false}
+      />
     </Grid>
-  )
-}
+    <Grid item>
+      <Name
+        name={name}
+        loading={loading}
+      />
+    </Grid>
+  </Grid>
+)
 
 Folder.defaultProps = {
   name: 'New Folder',
