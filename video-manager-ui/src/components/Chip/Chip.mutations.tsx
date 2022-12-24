@@ -27,6 +27,7 @@ export const DeleteFolderChip = () => {
 
   return <ChipWithDrop
     icon='delete'
+    tooltip='Drag here an element to delete'
     action={({ name }) => commitMutation({
       variables: {
         path: window.location.pathname,

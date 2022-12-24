@@ -30,12 +30,16 @@ export const ChipWithDrop = ({ action, ...props }: ChipProps & WithDropProps) =>
       <Chip
         {...props}
         color={isOver ? 'error' : 'default'}
+        disabled={!isDragging}
         sx={{
-          padding: 2,
-          opacity: isDragging ? 1 : 0,
-          transition: 'opacity 0.2s ease-in-out',
+          ...props.sx,
+          transition: 'opacity 0.2s ease-in-out'
         }}
       />
     </Box >
   )
+}
+
+ChipWithDrop.defaultProps = {
+  ...Chip.defaultProps
 }
