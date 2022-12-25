@@ -1,10 +1,15 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
 
 import { Button } from '../Button'
 import { Name } from '../Name'
 
 export interface FolderProps {
+  /**
+   * Whether the folder is loading
+   */
+  count?: number
   /**
    * Whether the folder is loading
    */
@@ -22,7 +27,7 @@ export interface FolderProps {
 /**
  * UI component for identifying a directory
  */
-export const Folder = ({ name, loading, onClick }: FolderProps) => (
+export const Folder = ({ name, loading, onClick, count }: FolderProps) => (
   <Grid container
     direction='column'
     alignItems='center'
@@ -43,6 +48,16 @@ export const Folder = ({ name, loading, onClick }: FolderProps) => (
         loading={loading}
       />
     </Grid>
+    {count !== undefined &&
+      <Grid item>
+        <Typography
+          variant='caption'
+          sx={{ fontSize: 9, opacity: 0.75 }}
+        >
+          {`${count > 0 ? count : 'no'} items`}
+        </Typography>
+      </Grid>
+    }
   </Grid>
 )
 
