@@ -42,7 +42,6 @@ export class DirectoryResolver {
                 return rootDirectory
             }
 
-
             return directory
         }
         catch (e) {
