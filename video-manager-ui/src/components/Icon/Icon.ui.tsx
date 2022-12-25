@@ -30,6 +30,9 @@ export interface IconProps {
   size?: 'small' | 'medium' | 'large'
 }
 
+/**
+ * Primary UI component for rendering shapes, drawings and logos
+ */
 export const Icon = ({ id, size, ...props }: IconProps & SvgIconProps) => {
 
   const Icon = icons[id] as SvgIconComponent

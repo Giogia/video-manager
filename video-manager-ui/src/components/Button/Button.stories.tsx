@@ -3,10 +3,10 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
-import { Button as ButtonComponent } from '.'
+import { Button as ButtonComponent } from './Button.ui'
 
 export default {
-  title: 'Fundamentals/Button',
+  title: 'Primary/Button',
   component: ButtonComponent,
   argTypes: {
     action: { action: true }

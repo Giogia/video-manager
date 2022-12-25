@@ -20,7 +20,7 @@ export interface HeaderProps {
 }
 
 /**
- * UI component for identifying a directory
+ * UI component for switching theme and access app info
  */
 export const Header = ({ name, theme, handleTheme }: HeaderProps) => (
   <Box sx={{

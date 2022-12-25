@@ -19,7 +19,7 @@ export interface NameProps {
 }
 
 /**
- * UI component for a modifiable input
+ * Primary UI component for user typewriting
  */
 export const Name = ({ name: defaultName, editable, onChange }: NameProps) => {
 

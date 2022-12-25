@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { Chip as ChipComponent } from './Chip.ui'
 
 export default {
-  title: 'Fundamentals/Chip',
+  title: 'Primary/Chip',
   component: ChipComponent,
   args: {
     icon: 'delete',

@@ -16,7 +16,7 @@ export interface BreadcrumbsProps {
 }
 
 /**
- * UI component to navigate parent directories
+ * Primary UI component for directories navigation
  */
 export const Breadcrumbs = ({ path }: BreadcrumbsProps) => {
 

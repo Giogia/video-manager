@@ -1,13 +1,12 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import { Breadcrumbs as BreadcrumbsComponent } from '.'
+import { Breadcrumbs as BreadcrumbsComponent } from './Breadcrumbs.ui'
 
 export default {
-  title: 'Fundamentals/Breadcrumbs',
+  title: 'Primary/Breadcrumbs',
   component: BreadcrumbsComponent,
   args: {
-    ...BreadcrumbsComponent.defaultProps,
     path: '/home/giovanni/developer/video-manager'
   }
 } as ComponentMeta<typeof BreadcrumbsComponent>

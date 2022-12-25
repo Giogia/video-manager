@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { Icon as IconComponent } from '.'
 
 export default {
-  title: 'Fundamentals/Icon',
+  title: 'Primary/Icon',
   component: IconComponent,
   argTypes: {
     action: { action: true }
