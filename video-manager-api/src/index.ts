@@ -31,7 +31,7 @@ async function start() {
 
    app.use('/graphql', createYoga({
       schema,
-      graphiql: { title: 'API Playground' }
+      graphiql: { title: 'API Documentation' }
    }))
 
    app.listen(4000, () => {
