@@ -2,8 +2,8 @@ import "reflect-metadata"
 import { graphql, GraphQLSchema } from "graphql"
 import { buildSchema } from 'type-graphql'
 
-import { DirectoryModel } from '../schema/directory'
-import { DirectoryResolver } from '../resolvers/directory'
+import { DirectoryModel } from '../../schema/directory'
+import { DirectoryResolver } from '../directory'
 
 const mockingoose = require("mockingoose")
 
