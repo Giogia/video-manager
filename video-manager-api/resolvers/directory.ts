@@ -94,7 +94,9 @@ export class DirectoryResolver {
     async removeDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
         try {
-            const { acknowledged } = await DirectoryModel.deleteOne({ path: combinePath(path, name) })
+            const paths = await this.getChildren(combinePath(path, name))
+
+            const { acknowledged } = await DirectoryModel.deleteMany({ path: { $in: paths } })
 
             if (acknowledged) {
 
@@ -130,9 +132,7 @@ export class DirectoryResolver {
         }
 
         try {
-            const { acknowledged } = await DirectoryModel.updateOne({
-                path: combinePath(path, name)
-            }, update)
+            const { acknowledged } = await DirectoryModel.updateOne({ path: combinePath(path, name) }, update)
 
             if (acknowledged) {
                 const parentDirectory = await DirectoryModel.findOne({ path })
@@ -157,5 +157,17 @@ export class DirectoryResolver {
 
             "${e}"`)
         }
+    }
+
+    getChildren = async (root: string, paths: string[] = []) => {
+        const { path, children = [] } = await DirectoryModel.findOne({ path: root }) || {}
+
+        path && paths.push(path)
+
+        for (const child of children) {
+            await this.getChildren(child.path, paths)
+        }
+
+        return paths
     }
 }
