@@ -143,7 +143,7 @@ export class DirectoryResolver {
                     )
                     await parentDirectory.save()
 
-                    return parentDirectory
+                    return await this.composeDirectory(path)
                 }
             }
             return null
