@@ -92,7 +92,7 @@ export class DirectoryResolver {
     async removeDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
         try {
-            const { paths } = await this.getChildren(combinePath(path, name))
+            const { paths } = await this.getChildren(combinePath(path, name), true)
 
             const { acknowledged } = await DirectoryModel.deleteMany({ path: { $in: paths } })
 
