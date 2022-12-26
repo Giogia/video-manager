@@ -16,8 +16,8 @@ export class Directory {
     name?: string
 
     @prop()
-    @Field(() => [Directory])
-    children!: Directory[]
+    @Field(() => [Directory, String])
+    children!: (Directory | string)[]
 }
 
 @InputType()

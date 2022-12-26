@@ -25,10 +25,10 @@ export class DirectoryResolver {
     @Query(() => Directory)
     async getDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
-        const directoryName = name ? combinePath(path, name) : path
+        const directoryName = combinePath(path, name)
 
         try {
-            const directory = await DirectoryModel.findOne({ path: directoryName })
+            const directory = await this.composeDirectory(directoryName)
 
             if (!directory && isRoot(path, name)) {
                 const rootDirectory = new DirectoryModel({
@@ -41,7 +41,6 @@ export class DirectoryResolver {
 
                 return rootDirectory
             }
-
             return directory
         }
         catch (e) {
@@ -60,7 +59,7 @@ export class DirectoryResolver {
             const directory = new DirectoryModel({
                 path: combinePath(path, name),
                 name,
-                children: []
+                children: [] as string[]
             } as Directory)
 
             const saved = await directory.save()
@@ -70,13 +69,13 @@ export class DirectoryResolver {
                     const parentDirectory = await DirectoryModel.findOne({ path })
 
                     if (parentDirectory) {
-                        parentDirectory.children.push(directory)
+                        parentDirectory.children.push(combinePath(path, name))
                         await parentDirectory.save()
 
-                        return parentDirectory
+                        return await this.composeDirectory(path)
                     }
                 }
-                return directory
+                return await this.composeDirectory(combinePath(path, name))
             }
             return null
         }
@@ -93,7 +92,7 @@ export class DirectoryResolver {
     async removeDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
         try {
-            const paths = await this.getChildren(combinePath(path, name))
+            const { paths } = await this.getChildren(combinePath(path, name))
 
             const { acknowledged } = await DirectoryModel.deleteMany({ path: { $in: paths } })
 
@@ -104,11 +103,11 @@ export class DirectoryResolver {
 
                     if (parentDirectory) {
                         parentDirectory.children = parentDirectory.children.filter(
-                            child => child.name !== name
+                            child => child !== combinePath(path, name)
                         )
                         await parentDirectory.save()
 
-                        return parentDirectory
+                        return await this.composeDirectory(path)
                     }
                 }
             }
@@ -138,8 +137,8 @@ export class DirectoryResolver {
 
                 if (parentDirectory) {
                     parentDirectory.children = parentDirectory.children.map(
-                        child => child.name === name ?
-                            { ...child, ...update } :
+                        child => child === combinePath(path, name) ?
+                            update.path :
                             child
                     )
                     await parentDirectory.save()
@@ -158,15 +157,56 @@ export class DirectoryResolver {
         }
     }
 
-    getChildren = async (root: string, paths: string[] = []) => {
-        const { path, children = [] } = await DirectoryModel.findOne({ path: root }) || {}
+    composeDirectory = async (path: string) => {
+        try {
 
-        path && paths.push(path)
+            const directory = await DirectoryModel.findOne({ path })
+
+            const { nodes } = await this.getChildren(path)
+
+            if (directory) {
+                directory.children = nodes.length > 0 ? nodes : []
+            }
+
+            return directory
+
+        }
+        catch (e) {
+            throw new GraphQLError(`${e}`)
+        }
+    }
+
+    getChildren = async (
+        root: string,
+        addRoot = false,
+        nodes: Directory[] = [],
+        paths: string[] = [],
+    ) => {
+
+        const node = await DirectoryModel.findOne({ path: root })
+
+        const { path, children = [] } = node || {}
+
+        addRoot && path && paths.push(path)
+        addRoot && node && nodes.push(node)
 
         for (const child of children) {
-            await this.getChildren(child.path, paths)
+
+            const found = nodes.find(({ children =[] }) => children.includes(child))
+            const isChild = !!node && !!found
+
+            if (isChild) found.children = found.children.filter(path => !(path === child))
+
+            await this.getChildren(
+                child as string,
+                true,
+                isChild ?
+                    found.children as Directory[] :
+                    nodes,
+                paths
+            )
         }
 
-        return paths
+        return { nodes, paths }
     }
 }
