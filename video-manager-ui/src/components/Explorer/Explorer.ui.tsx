@@ -37,6 +37,7 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
     position: 'relative',
     overflow: 'hidden',
     height: '100%',
+    border: 'transparent'
   }}>
     <CardHeader
       title={
