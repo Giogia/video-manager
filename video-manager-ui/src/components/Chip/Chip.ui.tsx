@@ -15,10 +15,6 @@ export interface ChipProps {
    */
   icon: keyof typeof icons
   /**
-   * Color of the chip
-   */
-  color?: 'warning' | 'default'
-  /**
    * Style to apply to chip
    */
   sx?: object
@@ -31,15 +27,13 @@ export interface ChipProps {
 /**
  * Primary UI component for user interaction
  */
-export const Chip = ({ icon, color, disabled, tooltip, sx }: ChipProps) => (
+export const Chip = ({ icon, disabled, tooltip, sx }: ChipProps) => (
   <Tooltip title={tooltip}>
     <span>
       <MuiChip
         icon={<Icon id={icon} />}
         label={formatName(icon)}
         disabled={disabled}
-        color={color}
-        variant='outlined'
         sx={sx}
       />
     </span>

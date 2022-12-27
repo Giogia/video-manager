@@ -47,12 +47,10 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
         />
       }
       action={
-        <CardActions sx={{ gap: 3 }}>
+        <CardActions sx={{ gap: 2 }} >
           <DeleteFolderChip />
-          <CardActions sx={{ gap: 2 }} >
-            <Button icon='upload-video' disabled={loading || error} />
-            <AddFolderButton disabled={loading || error} />
-          </CardActions>
+          <Button icon='upload-video' disabled={loading || error} />
+          <AddFolderButton disabled={loading || error} />
         </CardActions>
       }
       sx={{ padding: 4 }}
