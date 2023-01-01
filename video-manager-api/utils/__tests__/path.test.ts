@@ -1,4 +1,4 @@
-import { isRoot, combinePath } from "../path"
+import { isRoot, combinePath, startsWith } from "../path"
 
 describe('Path utils', () => {
 
@@ -44,4 +44,20 @@ describe('Path utils', () => {
             expect(combinePath('/test', ' te st ')).toEqual('/test/test')
         })
     })
+
+    describe('startsWith', () => {
+
+        test('return correct regex with root', () => {
+            expect(startsWith('/', true)).toEqual(/^\//)
+            expect(startsWith('/test', true)).toEqual(/^\/test/)
+            expect(startsWith('/test/test', true)).toEqual(/^\/test\/test/)
+        })
+
+        test('return correct regex without root', () => {
+            expect(startsWith('/', false)).toEqual(/^\//)
+            expect(startsWith('/test', false)).toEqual(/^\/test\//)
+            expect(startsWith('/test/test', false)).toEqual(/^\/test\/test\//)
+        })
+    })
+
 })

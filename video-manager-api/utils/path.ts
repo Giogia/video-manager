@@ -7,3 +7,7 @@ export const combinePath = (path: string, name: string | undefined) => (
         join(path, name.replaceAll(" ", "").toLowerCase()) :
         path
 )
+
+export const startsWith = (path: string, addRoot = true) => new RegExp(
+    `^${path}${addRoot || path == '/' ? '' : '/'}`
+)
