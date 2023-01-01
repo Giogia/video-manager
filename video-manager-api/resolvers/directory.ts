@@ -2,7 +2,7 @@ import { GraphQLError } from "graphql"
 import { Arg, Mutation, Query, Resolver } from "type-graphql"
 
 import { Directory, DirectoryInput, DirectoryModel } from "../schema/directory"
-import { combinePath, isRoot } from "../utils/path"
+import { combinePath, isRoot, startsWith } from "../utils/path"
 
 @Resolver(() => Directory)
 export class DirectoryResolver {
@@ -55,6 +55,8 @@ export class DirectoryResolver {
     @Mutation(() => Directory)
     async addDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
+        const directoryName = combinePath(path, name)
+
         try {
             const directory = new DirectoryModel({
                 path: combinePath(path, name),
@@ -69,19 +71,19 @@ export class DirectoryResolver {
                     const parentDirectory = await DirectoryModel.findOne({ path })
 
                     if (parentDirectory) {
-                        parentDirectory.children.push(combinePath(path, name))
+                        parentDirectory.children.push(directoryName)
                         await parentDirectory.save()
 
                         return await this.composeDirectory(path)
                     }
                 }
-                return await this.composeDirectory(combinePath(path, name))
+                return await this.composeDirectory(directoryName)
             }
             return null
         }
         catch (e) {
             throw new GraphQLError(`
-            Cannot add directory: ${combinePath(path, name)}.
+            Cannot add directory: ${directoryName}.
             Got error from database:
 
             "${e}"`)
@@ -91,19 +93,20 @@ export class DirectoryResolver {
     @Mutation(() => Directory)
     async removeDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
+        const directoryName = combinePath(path, name)
+
         try {
-            const { paths } = await this.getChildren(combinePath(path, name), true)
+            if (!isRoot(path, name)) {
 
-            const { acknowledged } = await DirectoryModel.deleteMany({ path: { $in: paths } })
+                const { acknowledged } = await DirectoryModel.deleteMany({ path: startsWith(directoryName) })
 
-            if (acknowledged) {
+                if (acknowledged) {
 
-                if (!isRoot(path, name)) {
                     const parentDirectory = await DirectoryModel.findOne({ path })
 
                     if (parentDirectory) {
                         parentDirectory.children = parentDirectory.children.filter(
-                            child => child !== combinePath(path, name)
+                            child => child !== directoryName
                         )
                         await parentDirectory.save()
 
@@ -119,6 +122,64 @@ export class DirectoryResolver {
     }
 
     @Mutation(() => Directory)
+    async moveDirectory(
+        @Arg("input") { path, name }: DirectoryInput,
+        @Arg("path") newPath: string
+    ): Promise<Directory | null> {
+
+        const directoryName = combinePath(path, name)
+        const newDirectoryName = combinePath(newPath, name)
+
+        try {
+
+            const directory = await DirectoryModel.findOne({ path: directoryName })
+            const directories = await DirectoryModel.find({ path: startsWith(directoryName, false) })
+
+            if (directory &&
+                directory.children.length == directories.length) {
+
+                directory.path = directory.path.replace(path, newPath)
+
+                const parentDirectory = await DirectoryModel.findOne({ path })
+                const newParentDirectory = await DirectoryModel.findOne({ path: newPath })
+
+                if (parentDirectory && newParentDirectory) {
+
+                    newParentDirectory.children.push(newDirectoryName)
+                    parentDirectory.children = parentDirectory.children.filter(
+                        child => child !== directoryName
+                    )
+
+                    for (const child of directories) {
+                        child.path = child.path.replace(path, newPath)
+                        parentDirectory.children = parentDirectory.children.map(
+                            nephew => (nephew as string).replace(path, newPath)
+                        )
+                    }
+
+                    await directory.save()
+                    await parentDirectory.save()
+                    await newParentDirectory.save()
+
+                    for (const childDirectory of directories) {
+                        await childDirectory.save()
+                    }
+
+                    return await this.composeDirectory(path)
+                }
+            }
+            return null
+        }
+        catch (e) {
+            throw new GraphQLError(`
+            Cannot rename directory: ${directoryName}.
+            Got error from database:
+
+            "${e}"`)
+        }
+    }
+
+    @Mutation(() => Directory)
     async renameDirectory(
         @Arg("input") { path, name }: DirectoryInput,
         @Arg("name") newName: string
@@ -129,15 +190,17 @@ export class DirectoryResolver {
             path: combinePath(path, newName)
         }
 
+        const directoryName = combinePath(path, name)
+
         try {
-            const { acknowledged } = await DirectoryModel.updateOne({ path: combinePath(path, name) }, update)
+            const { acknowledged } = await DirectoryModel.updateOne({ path: directoryName }, update)
 
             if (acknowledged) {
                 const parentDirectory = await DirectoryModel.findOne({ path })
 
                 if (parentDirectory) {
                     parentDirectory.children = parentDirectory.children.map(
-                        child => child === combinePath(path, name) ?
+                        child => child === directoryName ?
                             update.path :
                             child
                     )
@@ -150,7 +213,7 @@ export class DirectoryResolver {
         }
         catch (e) {
             throw new GraphQLError(`
-            Cannot rename directory: ${combinePath(path, name)}.
+            Cannot rename directory: ${directoryName}.
             Got error from database:
 
             "${e}"`)
@@ -192,7 +255,7 @@ export class DirectoryResolver {
 
         for (const child of children) {
 
-            const found = nodes.find(({ children =[] }) => children.includes(child))
+            const found = nodes.find(({ children = [] }) => children.includes(child))
             const isChild = !!node && !!found
 
             if (isChild) found.children = found.children.filter(path => !(path === child))

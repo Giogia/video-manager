@@ -18,6 +18,7 @@ input DirectoryInput {
 type Mutation {
   addDirectory(input: DirectoryInput!): Directory!
   createVideo(input: VideoInput!): Video!
+  moveDirectory(input: DirectoryInput!, path: String!): Directory!
   removeDirectory(input: DirectoryInput!): Directory!
   renameDirectory(input: DirectoryInput!, name: String!): Directory!
   updateVideo(id: Float!, input: VideoInput!): Video!
