@@ -7,21 +7,6 @@ import { combinePath, isRoot, startsWith } from "../utils/path"
 @Resolver(() => Directory)
 export class DirectoryResolver {
 
-    @Query(() => [Directory])
-    async getDirectories(): Promise<Directory[]> {
-
-        try {
-            return await DirectoryModel.find({})
-        }
-        catch (e) {
-            throw new GraphQLError(`
-            Cannot return directories. 
-            Got error from database operation: 
-                
-            "${e}"`)
-        }
-    }
-
     @Query(() => Directory)
     async getDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
@@ -71,7 +56,7 @@ export class DirectoryResolver {
                     const parentDirectory = await DirectoryModel.findOne({ path })
 
                     if (parentDirectory) {
-                        parentDirectory.children.push(directoryName)
+                        parentDirectory.children.push(name!)
                         await parentDirectory.save()
 
                         return await this.composeDirectory(path)
@@ -98,7 +83,7 @@ export class DirectoryResolver {
         try {
             if (!isRoot(path, name)) {
 
-                const { acknowledged } = await DirectoryModel.deleteMany({ path: startsWith(directoryName) })
+                const { acknowledged } = await DirectoryModel.deleteMany({ path: startsWith(directoryName, true) })
 
                 if (acknowledged) {
 
@@ -106,7 +91,7 @@ export class DirectoryResolver {
 
                     if (parentDirectory) {
                         parentDirectory.children = parentDirectory.children.filter(
-                            child => child !== directoryName
+                            child => child !== name
                         )
                         await parentDirectory.save()
 
@@ -128,12 +113,11 @@ export class DirectoryResolver {
     ): Promise<Directory | null> {
 
         const directoryName = combinePath(path, name)
-        const newDirectoryName = combinePath(newPath, name)
 
         try {
 
             const directory = await DirectoryModel.findOne({ path: directoryName })
-            const directories = await DirectoryModel.find({ path: startsWith(directoryName, false) })
+            const directories = await DirectoryModel.find({ path: startsWith(directoryName) })
 
             if (directory &&
                 directory.children.length == directories.length) {
@@ -145,16 +129,13 @@ export class DirectoryResolver {
 
                 if (parentDirectory && newParentDirectory) {
 
-                    newParentDirectory.children.push(newDirectoryName)
+                    newParentDirectory.children.push(name!)
                     parentDirectory.children = parentDirectory.children.filter(
-                        child => child !== directoryName
+                        child => child !== name
                     )
 
-                    for (const child of directories) {
-                        child.path = child.path.replace(path, newPath)
-                        parentDirectory.children = parentDirectory.children.map(
-                            nephew => (nephew as string).replace(path, newPath)
-                        )
+                    for (const childDirectory of directories) {
+                        childDirectory.path = childDirectory.path.replace(path, newPath)
                     }
 
                     await directory.save()
@@ -185,26 +166,38 @@ export class DirectoryResolver {
         @Arg("name") newName: string
     ): Promise<Directory | null> {
 
-        const update = {
-            name: newName,
-            path: combinePath(path, newName)
-        }
-
         const directoryName = combinePath(path, name)
+        const newDirectoryName = combinePath(path, newName)
 
         try {
-            const { acknowledged } = await DirectoryModel.updateOne({ path: directoryName }, update)
+            const directory = await DirectoryModel.findOne({ path: directoryName })
+            const directories = await DirectoryModel.find({ path: startsWith(directoryName) })
 
-            if (acknowledged) {
+            if (directory &&
+                directory.children.length == directories.length) {
+
+                directory.name = newName
+                directory.path = newDirectoryName
+
                 const parentDirectory = await DirectoryModel.findOne({ path })
 
                 if (parentDirectory) {
                     parentDirectory.children = parentDirectory.children.map(
-                        child => child === directoryName ?
-                            update.path :
+                        child => child === name ?
+                            newName! :
                             child
                     )
+
+                    for (const childDirectory of directories) {
+                        childDirectory.path = childDirectory.path.replace(directoryName, newDirectoryName)
+                    }
+
+                    await directory.save()
                     await parentDirectory.save()
+
+                    for (const childDirectory of directories) {
+                        await childDirectory.save()
+                    }
 
                     return await this.composeDirectory(path)
                 }
@@ -258,10 +251,12 @@ export class DirectoryResolver {
             const found = nodes.find(({ children = [] }) => children.includes(child))
             const isChild = !!node && !!found
 
-            if (isChild) found.children = found.children.filter(path => !(path === child))
+            if (isChild) found.children = found.children.filter(
+                name => !(name === child)
+            )
 
             await this.getChildren(
-                child as string,
+                combinePath(root, child as string),
                 true,
                 isChild ?
                     found.children as Directory[] :

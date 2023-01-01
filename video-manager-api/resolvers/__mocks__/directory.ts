@@ -9,7 +9,7 @@ export const root: Directory = {
 export const parentDirectory: Directory = {
     name: 'parent',
     path: '/parent',
-    children: ['/parent/dir']
+    children: ['dir']
 }
 
 export const newParentDirectory: Directory = {
@@ -21,7 +21,7 @@ export const newParentDirectory: Directory = {
 export const directory: Directory = {
     name: 'dir',
     path: '/parent/dir',
-    children: ['/parent/dir/child']
+    children: ['child']
 }
 
 export const child: Directory = {

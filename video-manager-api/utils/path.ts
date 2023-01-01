@@ -8,6 +8,6 @@ export const combinePath = (path: string, name: string | undefined) => (
         path
 )
 
-export const startsWith = (path: string, addRoot = true) => new RegExp(
+export const startsWith = (path: string, addRoot = false) => new RegExp(
     `^${path}${addRoot || path == '/' ? '' : '/'}`
 )

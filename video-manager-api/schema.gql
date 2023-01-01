@@ -25,7 +25,6 @@ type Mutation {
 }
 
 type Query {
-  getDirectories: [Directory!]!
   getDirectory(input: DirectoryInput!): Directory!
   getVideo(id: Float!): Video!
   getVideos: [Video!]!
