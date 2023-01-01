@@ -5217,15 +5217,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mockingoose@npm:^2.16.2":
-  version: 2.16.2
-  resolution: "mockingoose@npm:2.16.2"
-  peerDependencies:
-    mongoose: ">=4.9.10"
-  checksum: d4c84b732d5f7a88d04c99e603b712564215823105c268043c0d07f1fc9d76ed700bd2c1b581692eff39338bdb10eeb568a977fd2ede9c567c17dd150766ff37
-  languageName: node
-  linkType: hard
-
 "mongodb-connection-string-url@npm:^2.5.4":
   version: 2.6.0
   resolution: "mongodb-connection-string-url@npm:2.6.0"
@@ -6724,7 +6715,6 @@ __metadata:
     graphql-yoga: ^3.1.0
     jest: ^29.3.1
     jest-watch-typeahead: ^2.2.1
-    mockingoose: ^2.16.2
     mongoose: ^6.7.3
     nodemon: ^2.0.20
     reflect-metadata: ^0.1.13
