@@ -29,7 +29,7 @@ export const Rename = ({ editable, ...props }: NameProps) => {
     {...props}
     editable={editable && !isMutationInFlight}
     onChange={(newName: string, oldName: string) =>
-      commitMutation({
+      newName !== oldName && commitMutation({
         variables: {
           path: window.location.pathname,
           oldName,

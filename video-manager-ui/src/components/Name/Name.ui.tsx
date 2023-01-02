@@ -32,6 +32,11 @@ export const Name = ({ name: defaultName, editable, onChange, error }: NameProps
 
   useEffect(() => setName(defaultName), [defaultName])
 
+  const editName = () => {
+    setIsFocused(false)
+    onChange && onChange(name, defaultName)
+  }
+
   return (
     <Box
       textAlign='center'
@@ -59,14 +64,9 @@ export const Name = ({ name: defaultName, editable, onChange, error }: NameProps
             maxRows={4}
             error={!!error}
             helperText={error}
-            onBlur={() => setIsFocused(false)}
+            onBlur={editName}
             onChange={({ target }) => setName(target.value)}
-            onKeyDown={({ code, shiftKey }) => {
-              if (code === 'Enter' && !shiftKey) {
-                setIsFocused(false)
-                onChange && onChange(name, defaultName)
-              }
-            }}
+            onKeyDown={({ code, shiftKey }) => (code === 'Enter' && !shiftKey) && editName()}
           />
         )
       }
