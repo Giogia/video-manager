@@ -22,12 +22,16 @@ export interface FolderProps {
    * Opeartion called when folder is clicked
    */
   onClick?: (e: MouseEvent) => void
+  /**
+   * Whether the folder has been selected
+   */
+  selected?: boolean
 }
 
 /**
  * UI component for identifying a directory
  */
-export const Folder = ({ name, loading, onClick, count }: FolderProps) => (
+export const Folder = ({ name, loading, onClick, selected, count }: FolderProps) => (
   <Grid container
     direction='column'
     alignItems='center'
@@ -36,6 +40,7 @@ export const Folder = ({ name, loading, onClick, count }: FolderProps) => (
     <Grid item>
       <Button
         action={onClick}
+        disabled={selected}
         icon='folder'
         size='large'
         loading={loading}
@@ -46,6 +51,7 @@ export const Folder = ({ name, loading, onClick, count }: FolderProps) => (
       <Name
         name={name}
         loading={loading}
+        editable={!selected}
       />
     </Grid>
     {count !== undefined &&
@@ -63,5 +69,6 @@ export const Folder = ({ name, loading, onClick, count }: FolderProps) => (
 
 Folder.defaultProps = {
   name: 'New Folder',
-  loading: false
+  loading: false,
+  selected: false
 }
