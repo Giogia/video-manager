@@ -6,8 +6,18 @@ import { buildSchema } from "type-graphql"
 
 import { Directory, DirectoryModel } from "../../schema/directory"
 import { DirectoryResolver } from "../directory"
-import { child, directory, newParentDirectory, parentDirectory, root } from "../__mocks__/directory"
 import { combinePath } from "../../utils/path"
+import * as mocks from "../__mocks__/directory"
+
+const {
+    root,
+    parentDirectory,
+    newParentDirectory,
+    directory,
+    siblingDirectory,
+    childDirectory,
+    siblingChildDirectory
+} = mocks
 
 
 const loadDatabase = async (dbName = 'video-manager-tests') => {
@@ -61,11 +71,11 @@ describe('Resolvers', () => {
 
             await addDirectory(directory)
             await addDirectory(parentDirectory)
-            await addDirectory(child)
+            await addDirectory(childDirectory)
 
             const getDirectoryQuery = `#graphql
                 query {
-                    getDirectory(input: { path: "/parent", name: "dir" }){
+                    getDirectory(input: { path: "/parent", name: "Dir" }){
                         name
                         path
                         children {
@@ -82,7 +92,7 @@ describe('Resolvers', () => {
 
             const { data } = await graphql(schema, getDirectoryQuery)
 
-            expect(data).toEqual({ getDirectory: { ...directory, children: [child] } })
+            expect(data).toEqual({ getDirectory: { ...directory, children: [childDirectory] } })
         })
     })
 
@@ -94,7 +104,7 @@ describe('Resolvers', () => {
 
             const addDirectoryMutation = `#graphql
                 mutation {
-                    addDirectory(input: { path: "/parent/dir", name: "child" }){
+                    addDirectory(input: { path: "/parent/dir", name: "Child" }){
                         name
                         path
                         children {
@@ -111,7 +121,7 @@ describe('Resolvers', () => {
 
             const { data } = await graphql(schema, addDirectoryMutation)
 
-            expect(data).toEqual({ addDirectory: { ...directory, children: [child] } })
+            expect(data).toEqual({ addDirectory: { ...directory, children: [childDirectory] } })
         })
     })
 
@@ -123,7 +133,7 @@ describe('Resolvers', () => {
 
             const removeDirectoryMutation = `#graphql
                 mutation {
-                    removeDirectory(input: { path: "/parent", name: "dir" }){
+                    removeDirectory(input: { path: "/parent", name: "Dir" }){
                         name
                         path
                         children {
@@ -138,7 +148,7 @@ describe('Resolvers', () => {
 
             expect(data).toEqual({ removeDirectory: { ...parentDirectory, children: [] } })
             expect(await findDirectory(directory)).toEqual(null)
-            expect(await findDirectory(child)).toEqual(null)
+            expect(await findDirectory(childDirectory)).toEqual(null)
         })
     })
 
@@ -148,11 +158,11 @@ describe('Resolvers', () => {
             await addDirectory(directory)
             await addDirectory(parentDirectory)
             await addDirectory(newParentDirectory)
-            await addDirectory(child)
+            await addDirectory(childDirectory)
 
             const moveDirectoryMutation = `#graphql
                 mutation {
-                    moveDirectory(input: {path: "/parent", name: "dir"}, path: "/new-parent") {
+                    moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
                         name
                         path
                         children {
@@ -163,12 +173,100 @@ describe('Resolvers', () => {
                 }
             `
 
-            const { data } = await graphql(schema, moveDirectoryMutation)
+            const { data: parentData } = await graphql(schema, moveDirectoryMutation)
 
-            expect(data).toEqual({ moveDirectory: { ...parentDirectory, children: [] } })
-            expect(await findDirectory(newParentDirectory)).toMatchObject({
-                ...newParentDirectory,
-                children: [directory.name]
+            expect(parentData).toEqual({ moveDirectory: { ...parentDirectory, children: [] } })
+
+            const getNewParentDirectoryQuery = `#graphql
+                query {
+                    getDirectory(input: { path: "/", name: "New Parent" }){
+                        name
+                        path
+                        children {
+                            name
+                            path
+                            children {
+                                name
+                                path
+                                children {
+                                    name
+                                    path
+                                }
+                            }
+                        }
+                    }
+                }
+            `
+
+            const { data: newParentData } = await graphql(schema, getNewParentDirectoryQuery)
+
+            const newDirectoryPath = combinePath(newParentDirectory.path, directory.name)
+            const newChildPath = combinePath(newDirectoryPath, childDirectory.name)
+
+            expect(newParentData).toEqual({
+                getDirectory: {
+                    ...newParentDirectory,
+                    children: [{
+                        ...directory, path: newDirectoryPath,
+                        children: [{
+                            ...childDirectory,
+                            path: newChildPath
+                        }]
+                    }]
+                }
+            })
+        })
+
+        it('return parent directory without child, moves directory down one level', async () => {
+
+            await addDirectory(parentDirectory)
+            await addDirectory(directory)
+            await addDirectory(siblingDirectory)
+            await addDirectory(childDirectory)
+            await addDirectory(siblingChildDirectory)
+
+            const moveDirectoryMutation = `#graphql
+                mutation {
+                    moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/parent/sibling") {
+                        name
+                        path
+                        children {
+                            name
+                            path
+                            children {
+                                name 
+                                path
+                                children {
+                                    name
+                                    path
+                                    children {
+                                        name
+                                        path
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            `
+
+            const { data: parentData } = await graphql(schema, moveDirectoryMutation)
+
+            const newDirectoryPath = combinePath(siblingDirectory.path, directory.name)
+            const newChildPath = combinePath(newDirectoryPath, childDirectory.name)
+
+            expect(parentData).toEqual({
+                moveDirectory: {
+                    ...parentDirectory, children: [{
+                        ...siblingDirectory, children: [
+                            siblingChildDirectory, {
+                                ...directory,
+                                path: newDirectoryPath,
+                                children: [{ ...childDirectory, path: newChildPath }]
+                            }
+                        ]
+                    }]
+                }
             })
         })
     })
@@ -178,13 +276,13 @@ describe('Resolvers', () => {
 
             await addDirectory(directory)
             await addDirectory(parentDirectory)
-            await addDirectory(child)
+            await addDirectory(childDirectory)
 
             const newName = "New Name"
 
             const renameDirectoryMutation = `#graphql
                 mutation {
-                    renameDirectory(input: {path: "/parent", name: "dir"}, name: "New Name") {
+                    renameDirectory(input: {path: "/parent", name: "Dir"}, name: "New Name") {
                         name
                         path
                         children {
@@ -213,8 +311,8 @@ describe('Resolvers', () => {
                         name: newName,
                         path: combinePath(parentDirectory.path, newName),
                         children: [{
-                            ...child,
-                            path: child.path.replace(
+                            ...childDirectory,
+                            path: childDirectory.path.replace(
                                 combinePath(parentDirectory.path, directory.name),
                                 combinePath(parentDirectory.path, newName)
                             )

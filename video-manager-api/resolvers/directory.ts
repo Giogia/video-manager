@@ -2,7 +2,7 @@ import { GraphQLError } from "graphql"
 import { Arg, Mutation, Query, Resolver } from "type-graphql"
 
 import { Directory, DirectoryInput, DirectoryModel } from "../schema/directory"
-import { combinePath, isRoot, startsWith } from "../utils/path"
+import { combinePath, isRoot, replacePath, startsWith } from "../utils/path"
 
 @Resolver(() => Directory)
 export class DirectoryResolver {
@@ -122,7 +122,7 @@ export class DirectoryResolver {
             if (directory &&
                 directory.children.length == directories.length) {
 
-                directory.path = directory.path.replace(path, newPath)
+                directory.path = replacePath(directory.path, path, newPath)
 
                 const parentDirectory = await DirectoryModel.findOne({ path })
                 const newParentDirectory = await DirectoryModel.findOne({ path: newPath })
@@ -135,7 +135,7 @@ export class DirectoryResolver {
                     )
 
                     for (const childDirectory of directories) {
-                        childDirectory.path = childDirectory.path.replace(path, newPath)
+                        childDirectory.path = replacePath(childDirectory.path, path, newPath)
                     }
 
                     await directory.save()
@@ -189,7 +189,7 @@ export class DirectoryResolver {
                     )
 
                     for (const childDirectory of directories) {
-                        childDirectory.path = childDirectory.path.replace(directoryName, newDirectoryName)
+                        childDirectory.path = replacePath(childDirectory.path, directoryName, newDirectoryName)
                     }
 
                     await directory.save()
@@ -205,11 +205,7 @@ export class DirectoryResolver {
             return null
         }
         catch (e) {
-            throw new GraphQLError(`
-            Cannot rename directory: ${directoryName}.
-            Got error from database:
-
-            "${e}"`)
+            throw new GraphQLError(`Cannot rename directory: ${directoryName}. Name already exists`)
         }
     }
 

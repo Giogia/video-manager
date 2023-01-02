@@ -7,25 +7,37 @@ export const root: Directory = {
 }
 
 export const parentDirectory: Directory = {
-    name: 'parent',
+    name: 'Parent',
     path: '/parent',
-    children: ['dir']
+    children: ['Dir', 'Sibling']
 }
 
 export const newParentDirectory: Directory = {
-    name: 'new-parent',
-    path: '/new-parent',
+    name: 'New Parent',
+    path: '/newparent',
     children: []
 }
 
 export const directory: Directory = {
-    name: 'dir',
+    name: 'Dir',
     path: '/parent/dir',
-    children: ['child']
+    children: ['Child']
 }
 
-export const child: Directory = {
-    name: 'child',
+export const siblingDirectory: Directory = {
+    name: 'Sibling',
+    path: '/parent/sibling',
+    children: ['Sibling Child']
+}
+
+export const childDirectory: Directory = {
+    name: 'Child',
     path: '/parent/dir/child',
+    children: []
+}
+
+export const siblingChildDirectory: Directory = {
+    name: 'Sibling Child',
+    path: '/parent/sibling/siblingchild',
     children: []
 }
