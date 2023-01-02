@@ -16,9 +16,11 @@ export interface WithDropProps {
  */
 export const FolderWithDrop = ({ action, ...props }: FolderProps & WithDropProps) => {
 
+  const { name } = props
+
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'Folder',
-    drop: item => action && action(item, props.name),
+    drop: item => action && action(item, name),
     collect: monitor => ({ isOver: !!monitor.isOver() })
   }))
 

@@ -31,12 +31,14 @@ export const MoveFolderFolder = ({ ...props }: FolderProps) => {
 
   return <FolderWithDrop
     {...props}
-    action={({ name }, targetName) => commitMutation({
-      variables: {
-        path,
-        name,
-        newPath: combinePath(path, targetName)
-      }
-    })}
+    action={({ name }, targetName) =>
+      name !== targetName && commitMutation({
+        variables: {
+          path,
+          name,
+          newPath: combinePath(path, targetName)
+        }
+      })
+    }
   />
 }
