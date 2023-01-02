@@ -13,6 +13,10 @@ export interface NameProps {
    */
   editable?: boolean
   /**
+   * Name validation error
+   */
+  error?: string
+  /**
    * Action on name changed
    */
   onChange?: (newName: string, oldName: string) => void
@@ -21,10 +25,10 @@ export interface NameProps {
 /**
  * Primary UI component for user typewriting
  */
-export const Name = ({ name: defaultName, editable, onChange }: NameProps) => {
+export const Name = ({ name: defaultName, editable, onChange, error }: NameProps) => {
 
   const [name, setName] = useState(defaultName)
-  const [isNameFocused, setIsNamedFocused] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
 
   useEffect(() => setName(defaultName), [defaultName])
 
@@ -34,29 +38,32 @@ export const Name = ({ name: defaultName, editable, onChange }: NameProps) => {
       width='80px'
       sx={{ wordBreak: 'break-all' }}
     >
-      {!isNameFocused ?
+      {!isFocused && !error ?
         (
           <Typography
             variant='caption'
             gutterBottom
-            onClick={() => setIsNamedFocused(editable!)}
+            onClick={() => setIsFocused(editable!)}
+            sx={{ opacity: editable ? 1 : 0.5 }}
           >
             {name}
           </Typography>
         ) :
         (
           <TextField
-            autoFocus
+            autoFocus={!error}
             value={name}
             variant='standard'
             inputProps={{ sx: { fontSize: 12, marginTop: -0.25 } }}
             multiline
             maxRows={4}
-            onBlur={() => setIsNamedFocused(false)}
+            error={!!error}
+            helperText={error}
+            onBlur={() => setIsFocused(false)}
             onChange={({ target }) => setName(target.value)}
             onKeyDown={({ code, shiftKey }) => {
               if (code === 'Enter' && !shiftKey) {
-                setIsNamedFocused(false)
+                setIsFocused(false)
                 onChange && onChange(name, defaultName)
               }
             }}
@@ -69,5 +76,5 @@ export const Name = ({ name: defaultName, editable, onChange }: NameProps) => {
 
 Name.defaultProps = {
   name: 'Name',
-  editable: true
+  editable: true,
 }
