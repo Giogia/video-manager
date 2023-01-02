@@ -1,4 +1,4 @@
-import { isRoot, combinePath, startsWith } from "../path"
+import { isRoot, combinePath, startsWith, replacePath } from "../path"
 
 describe('Path utils', () => {
 
@@ -42,6 +42,18 @@ describe('Path utils', () => {
             expect(combinePath('/test', 'test ')).toEqual('/test/test')
             expect(combinePath('/test', ' test ')).toEqual('/test/test')
             expect(combinePath('/test', ' te st ')).toEqual('/test/test')
+        })
+    })
+
+    describe('replacePath', () => {
+
+        test('replace root path correctly', () => {
+            expect(replacePath('/dir', '/', '/newparent')).toEqual('/newparent/dir')
+            expect(replacePath('/newparent/dir', '/newparent', '/')).toEqual('/dir')
+        })
+
+        test('replace path correctly', () => {
+            expect(replacePath('/parent/dir', '/parent', '/newparent')).toEqual('/newparent/dir')
         })
     })
 
