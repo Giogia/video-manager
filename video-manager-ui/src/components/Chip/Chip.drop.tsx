@@ -1,6 +1,6 @@
 import React from 'react'
-import { useDrop } from 'react-dnd'
 import Box from '@mui/material/Box'
+import { useDrop } from 'react-dnd'
 
 import { Chip, ChipProps } from './Chip.ui'
 
@@ -33,11 +33,13 @@ export const ChipWithDrop = ({ action, ...props }: ChipProps & WithDropProps) =>
         sx={{
           ...props.sx,
           padding: 2.1,
-          paddingLeft: 1,
-          paddingRight: 1,
+          paddingLeft: isOver ? 3 : 1,
+          paddingRight: isOver ? 3 : 1,
           backgroundColor: isDragging ? 'background.default' : 'transparent',
           color: isOver ? 'error.light' : 'default',
-          transition: 'background-color, opacity 0.15s ease-in-out'
+          transitionProperty: 'padding, background-color, opacity',
+          transitionDuration: '0.15s',
+          transitionTimingFunction: 'ease-in-out'
         }}
       />
     </Box >
