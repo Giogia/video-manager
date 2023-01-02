@@ -1,11 +1,9 @@
 
-const capitalize = (word: string): string =>
+export const capitalize = (word: string): string =>
     word.charAt(0).toUpperCase() +
     word.slice(1)
 
-const formatName = (text: string): string => text
+export const formatName = (text: string): string => text
     .split('-')
     .map((word: string) => capitalize(word))
     .join(' ')
-
-export { formatName }
