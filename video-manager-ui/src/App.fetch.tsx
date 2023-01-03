@@ -10,9 +10,11 @@ import { App } from './App.ui'
 /**
  * Initial query depending on route
  */
-const appQueryRef = (path: string) => loadQuery<ExplorerQuery>(environment, ExplorerSchema, {
-  path
-})
+const appQueryRef = (path: string) => loadQuery<ExplorerQuery>(
+  environment,
+  ExplorerSchema,
+  { path }
+)
 
 /**
  * Component wrapper fetching route data
