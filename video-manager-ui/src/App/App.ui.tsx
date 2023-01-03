@@ -8,14 +8,12 @@ import { Header } from '../components/Header'
 import { Explorer } from '../components/Explorer'
 import { getBrowserTheme, toggleMuiTheme } from '../utils/theme'
 
-
 export interface AppProps {
   /**
    * explorer fragment reference
    */
   explorerQueryRef: PreloadedQuery<ExplorerQuery>
 }
-
 
 export const App = ({ explorerQueryRef }: AppProps) => {
 

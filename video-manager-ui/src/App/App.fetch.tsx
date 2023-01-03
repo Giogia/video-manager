@@ -7,7 +7,6 @@ import ExplorerSchema, { ExplorerQuery } from '../components/Explorer/__generate
 import environment from '../environment'
 import { App } from './App.ui'
 
-
 /**
  * Initial query depending on route
  */
@@ -16,7 +15,6 @@ const appQueryRef = (path: string) => loadQuery<ExplorerQuery>(
   ExplorerSchema,
   { path }
 )
-
 
 /**
  * Component wrapper fetching route data
