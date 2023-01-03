@@ -27,10 +27,10 @@ export const App = ({ explorerQueryRef }: AppProps) => {
   return (
     <ThemeProvider theme={muiTheme}>
       <Box
-        display={'flex'}
-        flexDirection={'column'}
+        display='flex'
+        flexDirection='column'
         bgcolor={background.default}
-        height={'100vh'}
+        height='100vh'
       >
         <Box
           padding={6}
