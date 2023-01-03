@@ -23,11 +23,11 @@ export interface HeaderProps {
  * UI component for switching theme and access app info
  */
 export const Header = ({ name, theme, handleTheme }: HeaderProps) => (
-  <Box sx={{
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  }}>
+  <Box
+    display='flex'
+    justifyContent='space-between'
+    alignItems='center'
+  >
     <Typography
       variant='overline'
       color="textPrimary"
