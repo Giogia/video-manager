@@ -11,8 +11,7 @@ import { ExplorerWithFetch, WithFetchProps } from './Explorer.fetch'
  */
 export const ExplorerError = ({ error, resetErrorBoundary }: Record<string, any>) => {
 
-    const { source: { errors } } = error
-    const [{ message }] = errors
+    const [{ message }] = error?.source?.errors || [{}]
 
     const navigate = useNavigate()
 
@@ -21,7 +20,7 @@ export const ExplorerError = ({ error, resetErrorBoundary }: Record<string, any>
             content={
                 <>
                     <pre style={{ whiteSpace: 'pre-line' }}>
-                        {message}
+                        {message || error.message}
                     </pre>
                     <Chip
                         label="Try Again"
