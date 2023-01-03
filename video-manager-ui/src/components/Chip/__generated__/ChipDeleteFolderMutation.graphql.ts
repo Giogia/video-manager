@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1571ec2b1b547b811013f587d6f4213a>>
+ * @generated SignedSource<<371420cc4541aa668f1ea0389d7c9e9a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -52,7 +52,14 @@ v2 = [
     "kind": "ObjectValue",
     "name": "input"
   }
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -100,13 +107,7 @@ return {
         "name": "removeDirectory",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -115,6 +116,7 @@ return {
             "name": "children",
             "plural": true,
             "selections": [
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -128,6 +130,18 @@ return {
                 "kind": "ScalarField",
                 "name": "path",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Directory",
+                "kind": "LinkedField",
+                "name": "children",
+                "plural": true,
+                "selections": [
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -138,12 +152,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "164833cb392027920887b3d2ed849ea9",
+    "cacheID": "9e3d1860a4da980ddd67c03664556409",
     "id": null,
     "metadata": {},
     "name": "ChipDeleteFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation ChipDeleteFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  removeDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
+    "text": "mutation ChipDeleteFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  removeDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  path\n  children {\n    id\n  }\n}\n"
   }
 };
 })();

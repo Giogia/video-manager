@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<52e9cf9b84f6ed524aca0a2b5dd9b985>>
+ * @generated SignedSource<<0a8f991378ac3529c029c15cf9339280>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -63,7 +63,14 @@ v3 = [
     "name": "name",
     "variableName": "newName"
   }
-];
+],
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -113,13 +120,7 @@ return {
         "name": "renameDirectory",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -128,6 +129,7 @@ return {
             "name": "children",
             "plural": true,
             "selections": [
+              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -141,6 +143,18 @@ return {
                 "kind": "ScalarField",
                 "name": "path",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Directory",
+                "kind": "LinkedField",
+                "name": "children",
+                "plural": true,
+                "selections": [
+                  (v4/*: any*/)
+                ],
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -151,12 +165,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f19614917606ee88ddac26930c15db75",
+    "cacheID": "714f1a4c39f1d9454b4a94ab7044ed27",
     "id": null,
     "metadata": {},
     "name": "NameRenameFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation NameRenameFolderMutation(\n  $path: String!\n  $oldName: String!\n  $newName: String!\n) {\n  renameDirectory(input: {path: $path, name: $oldName}, name: $newName) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
+    "text": "mutation NameRenameFolderMutation(\n  $path: String!\n  $oldName: String!\n  $newName: String!\n) {\n  renameDirectory(input: {path: $path, name: $oldName}, name: $newName) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  path\n  children {\n    id\n  }\n}\n"
   }
 };
 })();

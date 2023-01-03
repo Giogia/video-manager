@@ -60,7 +60,7 @@ export const Folder = ({ name, loading, onClick, selected, count }: FolderProps)
           variant='caption'
           sx={{ fontSize: 9, opacity: 0.75 }}
         >
-          {`${count > 0 ? count : 'no'} items`}
+          {`${count ? count : 'no'} item${count !== 1 ? 's' : ''}`}
         </Typography>
       </Grid>
     }

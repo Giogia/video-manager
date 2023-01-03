@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7e1511dc29bcf2910e120d7992a1aaeb>>
+ * @generated SignedSource<<ce96d5f025a172ed6752b6b31043e885>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -43,7 +43,14 @@ v1 = [
     "kind": "ObjectValue",
     "name": "input"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -85,13 +92,7 @@ return {
         "name": "getDirectory",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -100,6 +101,7 @@ return {
             "name": "children",
             "plural": true,
             "selections": [
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -113,6 +115,18 @@ return {
                 "kind": "ScalarField",
                 "name": "path",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Directory",
+                "kind": "LinkedField",
+                "name": "children",
+                "plural": true,
+                "selections": [
+                  (v2/*: any*/)
+                ],
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -123,12 +137,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "095db976de9e20b98cabe35b1b647978",
+    "cacheID": "0442aabe2da156633ca2f8489b9516bf",
     "id": null,
     "metadata": {},
     "name": "ExplorerQuery",
     "operationKind": "query",
-    "text": "query ExplorerQuery(\n  $path: String!\n) {\n  getDirectory(input: {path: $path}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
+    "text": "query ExplorerQuery(\n  $path: String!\n) {\n  getDirectory(input: {path: $path}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  path\n  children {\n    id\n  }\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<73f55558ce84c15c4478cada58244ed6>>
+ * @generated SignedSource<<37071adf1a164d3804581b159717cebb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -63,7 +63,14 @@ v3 = [
     "name": "path",
     "variableName": "newPath"
   }
-];
+],
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -113,13 +120,7 @@ return {
         "name": "moveDirectory",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -128,6 +129,7 @@ return {
             "name": "children",
             "plural": true,
             "selections": [
+              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -141,6 +143,18 @@ return {
                 "kind": "ScalarField",
                 "name": "path",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Directory",
+                "kind": "LinkedField",
+                "name": "children",
+                "plural": true,
+                "selections": [
+                  (v4/*: any*/)
+                ],
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -151,12 +165,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0e57611fabba01084d3e775a44a10406",
+    "cacheID": "f18405bee91a694ab31d6c33d8ba5ae4",
     "id": null,
     "metadata": {},
     "name": "FolderMoveFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation FolderMoveFolderMutation(\n  $path: String!\n  $name: String!\n  $newPath: String!\n) {\n  moveDirectory(input: {path: $path, name: $name}, path: $newPath) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  name\n  path\n}\n"
+    "text": "mutation FolderMoveFolderMutation(\n  $path: String!\n  $name: String!\n  $newPath: String!\n) {\n  moveDirectory(input: {path: $path, name: $name}, path: $newPath) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  path\n  children {\n    id\n  }\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e65faa2634a27b57fbe4e8b15b418261>>
+ * @generated SignedSource<<f6e6ff806fe0b6b831a37681fbf75538>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,10 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Folder$data = {
+  readonly children: ReadonlyArray<{
+    readonly id: string;
+  }>;
+  readonly id: string;
   readonly name: string | null;
   readonly path: string;
   readonly " $fragmentType": "Folder";
@@ -20,12 +24,21 @@ export type Folder$key = {
   readonly " $fragmentSpreads": FragmentRefs<"Folder">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "Folder",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -39,12 +52,25 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "path",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Directory",
+      "kind": "LinkedField",
+      "name": "children",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/)
+      ],
+      "storageKey": null
     }
   ],
   "type": "Directory",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "844154ae208bedf7f605ce526f0d090d";
+(node as any).hash = "933840c67593e962cb75b55748826f4b";
 
 export default node;
