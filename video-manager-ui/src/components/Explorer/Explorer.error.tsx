@@ -1,13 +1,18 @@
 import React from 'react'
 import Chip from "@mui/material/Chip"
 import { useNavigate } from 'react-router'
+import { ErrorBoundary } from 'react-error-boundary'
 
 import { Explorer } from "./Explorer.ui"
+import { ExplorerWithFetch, WithFetchProps } from './Explorer.fetch'
 
 /**
  * Component wrapper for error stage
  */
 export const ExplorerError = ({ error, resetErrorBoundary }: Record<string, any>) => {
+
+    const { source: { errors } } = error
+    const [{ message }] = errors
 
     const navigate = useNavigate()
 
@@ -16,7 +21,7 @@ export const ExplorerError = ({ error, resetErrorBoundary }: Record<string, any>
             content={
                 <>
                     <pre style={{ whiteSpace: 'pre-line' }}>
-                        {error.message}
+                        {message}
                     </pre>
                     <Chip
                         label="Try Again"
@@ -30,3 +35,14 @@ export const ExplorerError = ({ error, resetErrorBoundary }: Record<string, any>
         />
     )
 }
+
+/**
+ * Component wrapper handling errors
+ */
+export const ExplorerWithError = ({ ...props }: WithFetchProps) => (
+    <ErrorBoundary
+        FallbackComponent={ExplorerError}
+    >
+        <ExplorerWithFetch {...props} />
+    </ErrorBoundary>
+)

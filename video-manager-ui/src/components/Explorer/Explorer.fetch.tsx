@@ -1,13 +1,11 @@
 import React from 'react'
 import { graphql } from 'babel-plugin-relay/macro'
 import { PreloadedQuery, usePreloadedQuery, useFragment } from 'react-relay'
-import { withErrorBoundary } from 'react-error-boundary'
 
 import { Explorer_directory$key } from './__generated__/Explorer_directory.graphql'
 import { ExplorerQuery } from './__generated__/ExplorerQuery.graphql'
 
 import { Explorer } from './Explorer.ui'
-import { ExplorerError } from './Explorer.error'
 import { FolderWithFetch } from '../Folder'
 
 /**
@@ -43,7 +41,7 @@ export interface WithFetchProps {
 /**
  * Component wrapper fetching data
  */
-export const ExplorerWithFetch = withErrorBoundary(({ queryRef }: WithFetchProps) => {
+export const ExplorerWithFetch = ({ queryRef }: WithFetchProps) => {
     const { getDirectory } = usePreloadedQuery<ExplorerQuery>(query, queryRef)
     const { children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
 
@@ -60,7 +58,4 @@ export const ExplorerWithFetch = withErrorBoundary(({ queryRef }: WithFetchProps
             }
         />
     )
-}, {
-    FallbackComponent: ExplorerError,
-    onError(error, info) { }
-})
+}
