@@ -59,6 +59,9 @@ export const Video = ({ name, source, selected }: VideoProps) => {
           width: '100%',
           top: 0,
           left: 0,
+          padding: 0,
+          paddingLeft: 0,
+          paddingRight: 0,
           zIndex: 10000
         }
       }}>
