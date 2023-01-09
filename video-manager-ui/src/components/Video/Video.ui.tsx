@@ -1,6 +1,8 @@
-import React, { useState, SyntheticEvent } from 'react'
-import Grid from '@mui/material/Grid'
+import React, { useState, Fragment, useMemo } from 'react'
+import Button from '@mui/material/Button'
 import CardMedia from '@mui/material/CardMedia'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
 
 import { Name } from '../Name'
 import { getVideo, isVideoPlaying } from '../../utils/video'
@@ -15,6 +17,10 @@ export interface VideoProps {
    */
   name: string
   /**
+   * Video dimension
+   */
+  size?: string
+  /**
    * Whether the video has been selected
    */
   selected?: boolean
@@ -23,19 +29,21 @@ export interface VideoProps {
 /**
  * UI component for identifying a directory
  */
-export const Video = ({ name, source, selected }: VideoProps) => {
+export const Video = ({ name, source, size, selected }: VideoProps) => {
 
-  const [fullScreen, toggleSize] = useState(false)
+  const [fullscreen, toggleSize] = useState(false)
 
-  const id = `${name}-video-${Math.random()}`
+  const id = useMemo(() => `${name}-video-${Math.random()}`, [name])
 
-  const onClick = (e: SyntheticEvent) => {
+  const Wrapper = fullscreen ? Fragment : Button
+
+  const onClick = (e: any) => {
     e.preventDefault()
-    toggleSize(!fullScreen)
+    toggleSize(!fullscreen)
 
     const video = getVideo(id)
 
-    fullScreen && isVideoPlaying(video) ?
+    fullscreen && isVideoPlaying(video) ?
       video.pause() :
       video.play()
   }
@@ -47,45 +55,58 @@ export const Video = ({ name, source, selected }: VideoProps) => {
       width='max-content'
     >
       <Grid item sx={{
-        padding: 1.5,
-        paddingLeft: 2.5,
-        paddingRight: 2.5,
         position: 'relative',
         height: 50,
-        width: 80,
-        ...fullScreen && {
+        width: 70,
+        ...fullscreen && {
           position: 'absolute',
           height: '100%',
           width: '100%',
           top: 0,
           left: 0,
-          padding: 0,
-          paddingLeft: 0,
-          paddingRight: 0,
-          zIndex: 10000
+          zIndex: 10000,
         }
       }}>
-        <CardMedia
-          id={id}
-          component='video'
-          controls={fullScreen}
-          src={source}
-          onClick={onClick}
-          sx={{
-            borderRadius: 0.5,
-            backgroundColor: 'black',
-            height: '100%',
-            width: '100%'
-          }}
+        <Wrapper disabled={selected}>
+          <CardMedia
+            id={id}
+            component='video'
+            controls={fullscreen}
+            src={source}
+            onClick={onClick}
+            sx={{
+              borderRadius: 0.5,
+              height: '100%',
+              width: '100%',
+              backgroundColor: fullscreen ?
+                'black' :
+                'background.default',
+            }}
+          />
+        </Wrapper>
+      </Grid>
+      <Grid item sx={{
+        ...fullscreen && {
+          position: 'absolute',
+          top: 4,
+          left: 4,
+          zIndex: 10001,
+          color: 'white'
+        }
+      }}>
+        <Name
+          name={name}
+          editable={!selected && !fullscreen}
         />
       </Grid>
-      {
-        !fullScreen &&
+      {!fullscreen &&
         <Grid item>
-          <Name
-            name={name}
-            editable={!selected}
-          />
+          <Typography
+            variant='caption'
+            sx={{ fontSize: 9, opacity: 0.75 }}
+          >
+            {size}
+          </Typography>
         </Grid>
       }
     </Grid >
@@ -94,5 +115,6 @@ export const Video = ({ name, source, selected }: VideoProps) => {
 
 Video.defaultProps = {
   name: 'New Video',
+  size: '-',
   selected: false
 }
