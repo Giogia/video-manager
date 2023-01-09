@@ -70,5 +70,6 @@ export const Folder = ({ name, loading, onClick, selected, count }: FolderProps)
 Folder.defaultProps = {
   name: 'New Folder',
   loading: false,
-  selected: false
+  selected: false,
+  count: 0
 }
