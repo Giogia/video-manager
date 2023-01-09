@@ -16,7 +16,7 @@ export interface WithDropProps {
  */
 export const LinkWithDrop = ({ action, ...props }: LinkProps & WithDropProps) => {
 
-  const { href } = props
+  const { href, selected } = props
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'Folder',
@@ -28,7 +28,7 @@ export const LinkWithDrop = ({ action, ...props }: LinkProps & WithDropProps) =>
     <Box ref={drop}>
       <Link
         {...props}
-        selected={isOver}
+        selected={selected || isOver}
       />
     </Box >
   )

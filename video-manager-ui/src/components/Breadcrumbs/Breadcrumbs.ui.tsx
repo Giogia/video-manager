@@ -30,9 +30,10 @@ export const Breadcrumbs = ({ path }: BreadcrumbsProps) => {
         .map((link, i) => (
           <Link
             name={link}
+            key={i}
             href={href(i)}
             isRoot={!link && i === 0}
-            key={i}
+            selected={i === levels.length - 1}
           />
         ))}
     </BreadcrumbsMui>

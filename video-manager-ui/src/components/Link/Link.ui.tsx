@@ -33,7 +33,7 @@ export const Link = ({ name, href, isRoot, selected }: LinkProps) => {
 
   return (
     <LinkMui
-      underline='hover'
+      underline={selected ? 'none' : 'hover'}
       onClick={() => navigate(href)}
     >
       {isRoot ?
