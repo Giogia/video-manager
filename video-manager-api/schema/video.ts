@@ -1,28 +1,40 @@
-import { prop as Property, getModelForClass } from "@typegoose/typegoose"
+import { prop, index, getModelForClass } from "@typegoose/typegoose"
 import { Field, ObjectType, InputType } from "type-graphql"
 
+@index({ path: 1, name: 1 }, { unique: true })
 @ObjectType()
 export class Video {
-    @Property()
     @Field()
-    id!: number
+    readonly id?: string
 
-    @Property()
+    @prop()
     @Field()
-    name!: string
+    path!: string
 
-    @Property()
+    @prop()
     @Field()
-    seconds!: number
+    name?: string
+
+    @prop()
+    @Field()
+    url?: string
+
+    @prop()
+    @Field()
+    size!: number
+
+    @prop()
+    @Field()
+    duration!: number
 }
 
 @InputType()
-export class VideoInput implements Pick<Video, "name" | "seconds"> {
-    @Field({ nullable: true })
-    name!: string
+export class VideoInput implements Pick<Video, "name" | "path"> {
+    @Field()
+    path!: string
 
     @Field({ nullable: true })
-    seconds!: number
+    name?: string
 }
 
 export const VideoModel = getModelForClass(Video)

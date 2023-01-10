@@ -14,32 +14,4 @@ export class VideoResolver {
     async getVideo(@Arg("id") id: number): Promise<Video | null | undefined> {
         return await VideoModel.findOne({ "id": id })
     }
-
-    @Mutation(() => Video)
-    async createVideo(@Arg("input") input: VideoInput): Promise<Video> {
-
-        const video = new VideoModel({
-            ...input,
-            id: await VideoModel.countDocuments({}) + 1,
-            seconds: 0
-        } as Video)
-
-        await video.save()
-
-        return video
-    }
-
-    @Mutation(() => Video)
-    async updateVideo(
-        @Arg("id") id: number,
-        @Arg("input") input: VideoInput
-    ): Promise<Video> {
-        const updatedVideo = await VideoModel.findOneAndUpdate({ "id": id }, input)
-
-        if (!updatedVideo) throw new Error("Video not found")
-
-        await updatedVideo.save()
-
-        return updatedVideo
-    }
 }
