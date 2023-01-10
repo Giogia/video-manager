@@ -8,7 +8,7 @@ import { combinePath, isRoot, replacePath, startsWith } from "../utils/path"
 export class DirectoryResolver {
 
     @Query(() => Directory)
-    async getDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
+    async getDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory> {
 
         const directoryName = combinePath(path, name)
 
@@ -26,14 +26,13 @@ export class DirectoryResolver {
 
                 return rootDirectory
             }
+
+            if (!directory) throw new GraphQLError('Directory does not exists.')
+
             return directory
         }
         catch (e) {
-            throw new GraphQLError(`
-            Cannot return directory: ${directoryName}.
-            Got error from database:
-
-            "${e}"`)
+            throw new GraphQLError(`Cannot return directory ${directoryName}. \n\n ${e}`)
         }
     }
 
@@ -64,14 +63,10 @@ export class DirectoryResolver {
                 }
                 return await this.composeDirectory(directoryName)
             }
-            return null
+            throw new GraphQLError('Directory name already exists')
         }
         catch (e) {
-            throw new GraphQLError(`
-            Cannot add directory: ${directoryName}.
-            Got error from database:
-
-            "${e}"`)
+            throw new GraphQLError(`Cannot add directory ${directoryName}. \n\n ${e}`)
         }
     }
 
@@ -99,10 +94,10 @@ export class DirectoryResolver {
                     }
                 }
             }
-            return null
+            throw new GraphQLError('Directory is root')
         }
         catch (e) {
-            return null
+            throw new GraphQLError(`Cannot remove directory ${directoryName}. \n\n ${e}`)
         }
     }
 
@@ -120,7 +115,7 @@ export class DirectoryResolver {
             const directories = await DirectoryModel.find({ path: startsWith(directoryName) })
 
             if (directory &&
-                directory.children.length == directories.length) {
+                directory.children.length <= directories.length) {
 
                 directory.path = replacePath(directory.path, path, newPath)
 
@@ -149,14 +144,10 @@ export class DirectoryResolver {
                     return await this.composeDirectory(path)
                 }
             }
-            return null
+            throw new GraphQLError('Directory does not exists')
         }
         catch (e) {
-            throw new GraphQLError(`
-            Cannot rename directory: ${directoryName}.
-            Got error from database:
-
-            "${e}"`)
+            throw new GraphQLError(`Cannot move directory ${directoryName}. \n\n ${e}`)
         }
     }
 
@@ -174,7 +165,7 @@ export class DirectoryResolver {
             const directories = await DirectoryModel.find({ path: startsWith(directoryName) })
 
             if (directory &&
-                directory.children.length == directories.length) {
+                directory.children.length <= directories.length) {
 
                 directory.name = newName
                 directory.path = newDirectoryName
@@ -202,10 +193,10 @@ export class DirectoryResolver {
                     return await this.composeDirectory(path)
                 }
             }
-            return null
+            throw new GraphQLError('Directory does not exists')
         }
         catch (e) {
-            throw new GraphQLError(`Cannot rename directory: ${directoryName}. Name already exists`)
+            throw new GraphQLError(`Cannot rename directory ${directoryName}. \n\n ${e}`)
         }
     }
 
@@ -220,11 +211,12 @@ export class DirectoryResolver {
                 directory.children = nodes.length > 0 ? nodes : []
             }
 
-            return directory
+            if (!directory) throw new GraphQLError('Directory does not exists.')
 
+            return directory
         }
         catch (e) {
-            throw new GraphQLError(`${e}`)
+            throw new GraphQLError(`Cannot compose directory from path: ${path}. \n\n ${e}`)
         }
     }
 

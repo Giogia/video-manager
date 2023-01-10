@@ -269,6 +269,67 @@ describe('Resolvers', () => {
                 }
             })
         })
+
+        it('return parent directory without child, moves directory up one level', async () => {
+
+            await addDirectory(parentDirectory)
+            await addDirectory(directory)
+            await addDirectory(siblingDirectory)
+            await addDirectory(childDirectory)
+            await addDirectory(siblingChildDirectory)
+
+            const moveDirectoryMutation = `#graphql
+                mutation {
+                    moveDirectory(input: {path: "/parent/dir", name: "Child"}, path: "/parent") {
+                        name
+                        path
+                        children {
+                            name
+                            path
+                        }
+                    }
+                }
+            `
+
+            const { data: parentData } = await graphql(schema, moveDirectoryMutation)
+
+            expect(parentData).toEqual({ moveDirectory: { ...directory, children: [] } })
+
+            const getNewParentDirectoryQuery = `#graphql
+                query {
+                    getDirectory(input: { path: "/", name: "Parent" }){
+                        name
+                        path
+                        children {
+                            name
+                            path
+                            children {
+                                name
+                                path
+                                children {
+                                    name
+                                    path
+                                }
+                            }
+                        }
+                    }
+                }
+            `
+
+            const { data: newParentData } = await graphql(schema, getNewParentDirectoryQuery)
+
+            const newChildPath = combinePath(parentDirectory.path, childDirectory.name)
+
+            expect(newParentData).toEqual({
+                getDirectory: {
+                    ...parentDirectory, children: [
+                        { ...directory, children: [] },
+                        { ...siblingDirectory, children: [siblingChildDirectory] },
+                        { ...childDirectory, path: newChildPath }
+                    ]
+                }
+            })
+        })
     })
 
     describe('renameDirectory', () => {
