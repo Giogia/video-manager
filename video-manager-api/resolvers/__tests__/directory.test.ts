@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import mongoose from "mongoose"
 
-import { graphql, GraphQLSchema } from "graphql"
+import { graphql, GraphQLError, GraphQLSchema } from "graphql"
 import { buildSchema } from "type-graphql"
 
 import { Directory, DirectoryModel } from "../../schema/directory"
@@ -94,6 +94,28 @@ describe('Resolvers', () => {
 
             expect(data).toEqual({ getDirectory: { ...directory, children: [childDirectory] } })
         })
+
+        it('returns error if directory does not exists', async () => {
+
+            await addDirectory(parentDirectory)
+
+            const getDirectoryQuery = `#graphql
+                query {
+                    getDirectory(input: { path: "/parent", name: "Dir" }){
+                        name
+                        path
+                        children {
+                            name
+                            path
+                        }
+                    }
+                }
+            `
+
+            const { errors } = await graphql(schema, getDirectoryQuery)
+
+            expect(errors).toEqual([new GraphQLError('Cannot return directory /parent/dir. \n\n Directory does not exists.')])
+        })
     })
 
     describe('addDirectory', () => {
@@ -122,6 +144,50 @@ describe('Resolvers', () => {
             const { data } = await graphql(schema, addDirectoryMutation)
 
             expect(data).toEqual({ addDirectory: { ...directory, children: [childDirectory] } })
+        })
+
+        it('returns parent directory with added child numbered if name already exis', async () => {
+
+            await addDirectory(parentDirectory)
+            await addDirectory(directory)
+            await addDirectory(childDirectory)
+
+            const addDirectoryMutation = `#graphql
+                mutation {
+                    addDirectory(input: { path: "/parent/dir", name: "Child" }){
+                        name
+                        path
+                        children {
+                            name
+                            path
+                            children {
+                                name
+                                path
+                            }
+                        }
+                    }
+                }
+            `
+
+            const { data: data1 } = await graphql(schema, addDirectoryMutation)
+            const { data: data2 } = await graphql(schema, addDirectoryMutation)
+
+            expect(data1).toEqual({
+                addDirectory: {
+                    ...directory, children: [childDirectory,
+                        { ...childDirectory, name: 'Child 1', path: '/parent/dir/child1' }
+                    ]
+                }
+            })
+
+            expect(data2).toEqual({
+                addDirectory: {
+                    ...directory, children: [childDirectory,
+                        { ...childDirectory, name: 'Child 1', path: '/parent/dir/child1' },
+                        { ...childDirectory, name: 'Child 2', path: '/parent/dir/child2' }
+                    ]
+                }
+            })
         })
     })
 
