@@ -55,7 +55,7 @@ export class DirectoryResolver {
             } as Directory)
 
             await directory.save().catch(() => {
-                throw new GraphQLError('Directory already exists')
+                throw new GraphQLError('Directory already exists.')
             })
 
             if (!isRoot(path, name)) {
@@ -83,9 +83,9 @@ export class DirectoryResolver {
         try {
             if (!isRoot(path, name)) {
 
-                const { acknowledged } = await DirectoryModel.deleteMany({ path: startsWith(directoryName, true) })
+                const { deletedCount } = await DirectoryModel.deleteMany({ path: startsWith(directoryName, true) })
 
-                if (acknowledged) {
+                if (deletedCount > 0) {
 
                     const parentDirectory = await DirectoryModel.findOne({ path })
 
@@ -98,8 +98,9 @@ export class DirectoryResolver {
                         return await this.composeDirectory(path)
                     }
                 }
+                throw new GraphQLError(`Directory does not exists.`)
             }
-            throw new GraphQLError('Directory is root')
+            throw new GraphQLError('Directory is root.')
         }
         catch (e) {
             throw new GraphQLError(`Cannot remove directory ${directoryName}. \n\n ${e}`)

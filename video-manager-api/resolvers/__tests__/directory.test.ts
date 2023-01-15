@@ -216,6 +216,51 @@ describe('Resolvers', () => {
             expect(await findDirectory(directory)).toEqual(null)
             expect(await findDirectory(childDirectory)).toEqual(null)
         })
+
+        it('returns error if directory does not exists', async () => {
+
+            await addDirectory(parentDirectory)
+
+            const removeDirectoryMutation = `#graphql
+                mutation {
+                    removeDirectory(input: { path: "/parent", name: "Dir" }){
+                        name
+                        path
+                        children {
+                            name
+                            path
+                        }
+                    }
+                }
+            `
+
+            const { errors } = await graphql(schema, removeDirectoryMutation)
+
+            expect(errors).toEqual([new GraphQLError('Cannot remove directory /parent/dir. \n\n Directory does not exists.')])
+        })
+
+
+        it('returns error if directory does not exists', async () => {
+
+            await addDirectory(parentDirectory)
+
+            const removeDirectoryMutation = `#graphql
+                mutation {
+                    removeDirectory(input: { path: "/", name: "" }){
+                        name
+                        path
+                        children {
+                            name
+                            path
+                        }
+                    }
+                }
+            `
+
+            const { errors } = await graphql(schema, removeDirectoryMutation)
+
+            expect(errors).toEqual([new GraphQLError('Cannot remove directory /. \n\n Directory is root.')])
+        })
     })
 
     describe('moveDirectory', () => {
