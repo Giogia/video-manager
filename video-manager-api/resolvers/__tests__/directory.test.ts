@@ -396,6 +396,52 @@ describe('Resolvers', () => {
                 }
             })
         })
+
+        it('returns error if directory does not exists', async () => {
+
+            await addDirectory(parentDirectory)
+            await addDirectory(newParentDirectory)
+
+            const moveDirectoryMutation = `#graphql
+                mutation {
+                    moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
+                        name
+                        path
+                        children {
+                            name
+                            path
+                        }
+                    }
+                }
+            `
+
+            const { errors } = await graphql(schema, moveDirectoryMutation)
+
+            expect(errors).toEqual([new GraphQLError('Cannot move directory /parent/dir. \n\n Directory does not exists.')])
+        })
+
+        it('returns error if target directory does not exists', async () => {
+
+            await addDirectory(parentDirectory)
+            await addDirectory(directory)
+
+            const moveDirectoryMutation = `#graphql
+                mutation {
+                    moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
+                        name
+                        path
+                        children {
+                            name
+                            path
+                        }
+                    }
+                }
+            `
+
+            const { errors } = await graphql(schema, moveDirectoryMutation)
+
+            expect(errors).toEqual([new GraphQLError('Cannot move directory /parent/dir. \n\n Directory /newparent does not exists.')])
+        })
     })
 
     describe('renameDirectory', () => {
