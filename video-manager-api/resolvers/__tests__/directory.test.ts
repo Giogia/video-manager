@@ -239,7 +239,6 @@ describe('Resolvers', () => {
             expect(errors).toEqual([new GraphQLError('Cannot remove directory /parent/dir. \n\n Directory does not exists.')])
         })
 
-
         it('returns error if directory does not exists', async () => {
 
             await addDirectory(parentDirectory)
@@ -538,6 +537,28 @@ describe('Resolvers', () => {
                     }]
                 }
             })
+        })
+
+        it('returns error if directory does not exists', async () => {
+
+            await addDirectory(parentDirectory)
+
+            const renameDirectoryMutation = `#graphql
+                mutation {
+                    renameDirectory(input: {path: "/parent", name: "Dir"}, name: "New Name") {
+                        name
+                        path
+                        children {
+                            name
+                            path
+                        }
+                    }
+                }
+            `
+
+            const { errors } = await graphql(schema, renameDirectoryMutation)
+
+            expect(errors).toEqual([new GraphQLError('Cannot rename directory /parent/dir. \n\n Directory does not exists.')])
         })
     })
 })

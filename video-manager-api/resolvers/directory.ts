@@ -200,7 +200,7 @@ export class DirectoryResolver {
                     return await this.composeDirectory(path)
                 }
             }
-            throw new GraphQLError('Directory does not exists')
+            throw new GraphQLError('Directory does not exists.')
         }
         catch (e) {
             throw new GraphQLError(`Cannot rename directory ${directoryName}. \n\n ${e}`)
