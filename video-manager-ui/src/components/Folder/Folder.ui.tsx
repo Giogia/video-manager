@@ -54,7 +54,7 @@ export const Folder = ({ name, loading, onClick, selected, count }: FolderProps)
         editable={!selected}
       />
     </Grid>
-    {count !== undefined &&
+    {count !== undefined && !loading &&
       <Grid item>
         <Typography
           variant='caption'

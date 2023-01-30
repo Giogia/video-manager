@@ -12,6 +12,7 @@ import { VideoResolver } from '../resolvers/video'
 async function loadDB() {
    try {
       await mongoose.connect(process.env.MONGO_DB_URL!)
+      console.log("Connected to Database")
    }
    catch {
       setTimeout(() => {

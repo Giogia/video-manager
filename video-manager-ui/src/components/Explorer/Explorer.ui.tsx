@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid'
 import { AddFolderButton, Button } from '../Button'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { DeleteFolderChip } from '../Chip'
+import { ButtonWithUpload } from '../Button/Button.upload'
 
 interface ExplorerProps {
   /**
@@ -27,12 +28,16 @@ interface ExplorerProps {
    * Position in file system
    */
   path: string
+  /**
+   * Explorer identifier
+   */
+  id?: string
 }
 
 /**
  * UI component for exploring a directory
  */
-export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
+export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) => (
   <Card variant='outlined' sx={{
     position: 'relative',
     overflow: 'hidden',
@@ -49,8 +54,14 @@ export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
       action={
         <CardActions sx={{ gap: 2 }} >
           <DeleteFolderChip />
-          <Button icon='upload-video' disabled={loading || error} />
-          <AddFolderButton disabled={loading || error} />
+          <ButtonWithUpload
+            icon='upload-video'
+            disabled={loading || error}
+          />
+          <AddFolderButton
+            disabled={loading || error}
+            optimisticResponse={{ id, children: (Array.isArray(content) ? content : [content]) }}
+          />
         </CardActions>
       }
       sx={{ padding: 4 }}

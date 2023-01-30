@@ -43,10 +43,11 @@ export interface WithFetchProps {
  */
 export const ExplorerWithFetch = ({ queryRef }: WithFetchProps) => {
     const { getDirectory } = usePreloadedQuery<ExplorerQuery>(query, queryRef)
-    const { children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
+    const { id, children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
 
     return (
         <Explorer
+            id={id}
             path={window.location.pathname}
             content={
                 children.map((child, i) =>

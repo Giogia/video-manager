@@ -43,9 +43,9 @@ export const Video = ({ name, source, size, selected }: VideoProps) => {
 
     const video = getVideo(id)
 
-    fullscreen && isVideoPlaying(video) ?
-      video.pause() :
-      video.play()
+    // fullscreen && isVideoPlaying(video) ?
+    //   video.pause() :
+    //   video.play()
   }
 
   return (

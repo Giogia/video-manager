@@ -7,6 +7,10 @@ import { Explorer as ExplorerComponent } from './Explorer.ui'
 import { ExplorerError } from './Explorer.error'
 import { ExplorerLoading } from './Explorer.loading'
 import { Folder } from '../Folder'
+import { Video } from '../Video'
+
+// @ts-ignore
+import video from '../Video/__assets__/video.mov'
 
 export default {
   title: 'Composed/Explorer',
@@ -17,7 +21,10 @@ export default {
   args: {
     ...ExplorerComponent.defaultProps,
     path: '/home/giovanni/developer/video-manager',
-    content: Array.from({ length: 40 }).map(() => <Folder />),
+    content: Array.from({ length: 40 }).map(() => Math.random() > 0.65 ?
+      <Video source={video} /> :
+      <Folder />
+    ),
   }
 } as ComponentMeta<typeof ExplorerComponent>
 
@@ -40,7 +47,7 @@ const Template: ComponentStory<typeof ExplorerComponent> = (args) =>
 export const Explorer = Template.bind({})
 
 Explorer.decorators = [(Story) => (
-  <Box height={'400px'}>
+  <Box height={600}>
     <Story />
   </Box>
 )]

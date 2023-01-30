@@ -44,7 +44,7 @@ export const Link = ({ name, href, isRoot, selected }: LinkProps) => {
         /> :
         <Box
           padding={0.75}
-          sx={{ opacity: selected ? 0.5 : 1 }}
+          sx={{ opacity: selected ? 0.6 : 1 }}
         >
           {name}
         </Box>}
