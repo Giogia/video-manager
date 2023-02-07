@@ -16,7 +16,7 @@ export const FolderWithDrag = ({ ...props }: FolderProps) => {
     type: 'Folder',
     item: { name },
     collect: monitor => ({ isDragging: !!monitor.isDragging() })
-  }))
+  }), [name])
 
   return (
     <Box ref={drag}
