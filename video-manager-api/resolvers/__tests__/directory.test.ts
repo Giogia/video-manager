@@ -247,6 +247,27 @@ describe('Resolvers', () => {
                 }
             })
         })
+
+        it('returns error if directory does not exists', async () => {
+
+            await addNode(parentNode)
+
+            const addDirectoryMutation = `#graphql
+                mutation {
+                    addDirectory(input: { path: "/parent/dir", name: "Child" }){
+                        name
+                        path
+                        children {
+                            name
+                        }
+                    }
+                }
+            `
+
+            const { errors } = await graphql(schema, addDirectoryMutation)
+
+            expect(errors).toEqual([new GraphQLError('Cannot add directory /parent/dir/child. \n\n Directory /parent/dir does not exists.')])
+        })
     })
 
     describe('moveDirectory', () => {
