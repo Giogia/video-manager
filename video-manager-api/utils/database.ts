@@ -12,7 +12,7 @@ export async function loadDatabase(dbName?: string, options: mongoose.ConnectOpt
     }
     catch {
         setTimeout(() => {
-            console.log("Reconnecting...")
+            console.log("Trying to Reconnect...")
             loadDatabase(dbName, options)
 
         }, RECONNECTION_INTERVAL)

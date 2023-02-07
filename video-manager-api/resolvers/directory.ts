@@ -3,7 +3,7 @@ import { Arg, Mutation, Query, Resolver } from "type-graphql"
 
 import { Directory, DirectoryInput } from "../schema/directory"
 import { composeDirectory } from "../utils/directory"
-import { increaseNumber, startsWith } from "../utils/name"
+import { formatName, increaseNumber, startsWith } from "../utils/name"
 import { addNode, findNode, findNodes, editNode, removeNode } from "../utils/node"
 import { combinePath, isRoot } from "../utils/path"
 @Resolver(() => Directory)
@@ -42,11 +42,13 @@ export class DirectoryResolver {
                 name: { $regex: startsWith(name) }
             })
 
+            const existsInSiblings = siblingNodes.map(({name})=> name).includes(name)
+
             const [lastAdded] = siblingNodes.slice(-1)
 
             const node = await addNode({
                 parent: parentNode.id!,
-                name: lastAdded ?
+                name: existsInSiblings ?
                     increaseNumber(lastAdded.name) :
                     name
             })
@@ -102,7 +104,8 @@ export class DirectoryResolver {
         const directoryPath = combinePath(path, name)
 
         const update = {
-            name: newName
+            name: newName,
+            path: formatName(newName)
         }
 
         try {
