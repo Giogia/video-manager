@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0b04633b74aaca8ebfda91d63c5366d0>>
+ * @generated SignedSource<<4578525c5e5adb87a1694e58f015ffc2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Video$data = {
-  readonly name: string | null;
+  readonly name: string;
   readonly " $fragmentType": "Video";
 };
 export type Video$key = {

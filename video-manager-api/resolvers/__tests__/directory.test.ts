@@ -64,13 +64,10 @@ describe('Resolvers', () => {
                 query {
                     getDirectory(input: { path: "/", name: "" }){
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
                                 }
@@ -97,13 +94,10 @@ describe('Resolvers', () => {
                 query {
                     getDirectory(input: { path: "/", name: "Parent" }){
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
                                 }
@@ -130,13 +124,10 @@ describe('Resolvers', () => {
                 query {
                     getDirectory(input: { path: "/parent", name: "Dir" }){
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
                                 }
@@ -159,7 +150,6 @@ describe('Resolvers', () => {
                 query {
                     getDirectory(input: { path: "/parent", name: "Dir" }){
                         name
-                        path
                         children {
                             name
                         }
@@ -183,13 +173,10 @@ describe('Resolvers', () => {
                 mutation {
                     addDirectory(input: { path: "/parent/dir", name: "Child" }){
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
                                 }
@@ -214,13 +201,10 @@ describe('Resolvers', () => {
                 mutation {
                     addDirectory(input: { path: "/parent/dir", name: "Child" }){
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                             }
                         }
                     }
@@ -233,7 +217,7 @@ describe('Resolvers', () => {
             expect(data1).toEqual({
                 addDirectory: {
                     ...directory, children: [childDirectory,
-                        { ...childDirectory, name: 'Child 1', path: '/parent/dir/child1' }
+                        { ...childDirectory, name: 'Child 1' }
                     ]
                 }
             })
@@ -241,8 +225,8 @@ describe('Resolvers', () => {
             expect(data2).toEqual({
                 addDirectory: {
                     ...directory, children: [childDirectory,
-                        { ...childDirectory, name: 'Child 1', path: '/parent/dir/child1' },
-                        { ...childDirectory, name: 'Child 2', path: '/parent/dir/child2' }
+                        { ...childDirectory, name: 'Child 1' },
+                        { ...childDirectory, name: 'Child 2' }
                     ]
                 }
             })
@@ -256,7 +240,6 @@ describe('Resolvers', () => {
                 mutation {
                     addDirectory(input: { path: "/parent/dir", name: "Child" }){
                         name
-                        path
                         children {
                             name
                         }
@@ -282,13 +265,10 @@ describe('Resolvers', () => {
                 mutation {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
                                 }
@@ -306,13 +286,10 @@ describe('Resolvers', () => {
                 query {
                     getDirectory(input: { path: "/", name: "New Parent" }){
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
                                 }
@@ -324,19 +301,9 @@ describe('Resolvers', () => {
 
             const { data: newParentData } = await graphql(schema, getNewParentDirectoryQuery)
 
-            const newDirectoryPath = combinePath(newParentDirectory.path, directory.name)
-            const newChildPath = combinePath(newDirectoryPath, childDirectory.name)
-
             expect(newParentData).toEqual({
                 getDirectory: {
-                    ...newParentDirectory,
-                    children: [{
-                        ...directory, path: newDirectoryPath,
-                        children: [{
-                            ...childDirectory,
-                            path: newChildPath
-                        }]
-                    }]
+                    ...newParentDirectory, children: [directory]
                 }
             })
         })
@@ -353,13 +320,10 @@ describe('Resolvers', () => {
                 mutation {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/parent/sibling") {
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name 
-                                path
                                 children {
                                     name
                                 }
@@ -371,19 +335,15 @@ describe('Resolvers', () => {
 
             const { data: parentData } = await graphql(schema, moveDirectoryMutation)
 
-            const newDirectoryPath = combinePath(siblingDirectory.path, directory.name)
-            const newChildPath = combinePath(newDirectoryPath, childDirectory.name)
-
             expect(parentData).toEqual({
                 moveDirectory: {
                     ...parentDirectory, children: [
                         {
                             ...siblingDirectory, children: [
                                 {
-                                    ...directory,
-                                    path: newDirectoryPath,
-                                    children: []
-                                }, siblingChildDirectory,
+                                    ...directory, children: []
+                                },
+                                siblingChildDirectory,
                             ]
                         }
                     ]
@@ -394,13 +354,10 @@ describe('Resolvers', () => {
                 query {
                     getDirectory(input: { path: "/parent", name: "Sibling" }){
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
                                 }
@@ -415,13 +372,8 @@ describe('Resolvers', () => {
             expect(newParentData).toEqual({
                 getDirectory: {
                     ...siblingDirectory, children: [
-                        {
-                            ...directory,
-                            path: newDirectoryPath,
-                            children: [
-                                { ...childDirectory, path: newChildPath }
-                            ]
-                        }, siblingChildDirectory
+                        directory,
+                        siblingChildDirectory
                     ]
                 }
             })
@@ -439,13 +391,10 @@ describe('Resolvers', () => {
                 mutation {
                     moveDirectory(input: {path: "/parent/dir", name: "Child"}, path: "/parent") {
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
                                 }
@@ -463,16 +412,12 @@ describe('Resolvers', () => {
                 query {
                     getDirectory(input: { path: "/", name: "Parent" }){
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
-                                    path
                                 }
                             }
                         }
@@ -482,12 +427,10 @@ describe('Resolvers', () => {
 
             const { data: newParentData } = await graphql(schema, getNewParentDirectoryQuery)
 
-            const newChildPath = combinePath(parentDirectory.path, childDirectory.name)
-
             expect(newParentData).toEqual({
                 getDirectory: {
                     ...parentDirectory, children: [
-                        { ...childDirectory, path: newChildPath },
+                        childDirectory,
                         { ...directory, children: [] },
                         { ...siblingDirectory, children: [siblingChildDirectory] },
                     ]
@@ -504,7 +447,6 @@ describe('Resolvers', () => {
                 mutation {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
                         name
-                        path
                         children {
                             name
                         }
@@ -526,7 +468,6 @@ describe('Resolvers', () => {
                 mutation {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
                         name
-                        path
                         children {
                             name
                         }
@@ -550,7 +491,6 @@ describe('Resolvers', () => {
                 mutation {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
                         name
-                        path
                         children {
                             name
                         }
@@ -577,13 +517,10 @@ describe('Resolvers', () => {
                 mutation {
                     renameDirectory(input: {path: "/parent", name: "Dir"}, name: "New Name") {
                         name
-                        path
                         children {
                             name
-                            path
                             children {
                                 name
-                                path
                                 children {
                                     name
                                 }
@@ -602,16 +539,7 @@ describe('Resolvers', () => {
                         {
                             ...directory,
                             name: newName,
-                            path: combinePath(parentDirectory.path, newName),
-                            children: [
-                                {
-                                    ...childDirectory,
-                                    path: childDirectory.path.replace(
-                                        combinePath(parentDirectory.path, directory.name),
-                                        combinePath(parentDirectory.path, newName)
-                                    )
-                                }
-                            ]
+                            children: [childDirectory]
                         }
                     ]
                 }
@@ -626,7 +554,6 @@ describe('Resolvers', () => {
                 mutation {
                     renameDirectory(input: {path: "/parent", name: "Dir"}, name: "New Name") {
                         name
-                        path
                         children {
                             name
                         }
@@ -651,10 +578,8 @@ describe('Resolvers', () => {
                 mutation {
                     removeDirectory(input: { path: "/", name: "Parent" }){
                         name
-                        path
                         children {
                             name
-                            path
                         }
                     }
                 }
@@ -675,10 +600,8 @@ describe('Resolvers', () => {
                 mutation {
                     removeDirectory(input: { path: "/parent", name: "Dir" }){
                         name
-                        path
                         children {
                             name
-                            path
                         }
                     }
                 }
@@ -697,10 +620,8 @@ describe('Resolvers', () => {
                 mutation {
                     removeDirectory(input: { path: "/", name: "" }){
                         name
-                        path
                         children {
                             name
-                            path
                         }
                     }
                 }

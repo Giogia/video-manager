@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5fa0e09dbbd863d75897786791156ed6>>
+ * @generated SignedSource<<2df0ba1d95ab32a5387edbcfbf4f73f0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type Folder$data = {
     readonly id: string;
   }>;
   readonly id: string;
-  readonly name: string | null;
+  readonly name: string;
   readonly " $fragmentType": "Folder";
 };
 export type Folder$key = {

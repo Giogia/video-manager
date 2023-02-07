@@ -5,9 +5,6 @@ export class Directory {
     readonly id?: string
 
     @Field()
-    path!: string
-
-    @Field()
     name!: string
 
     @Field(() => [Directory])
@@ -15,7 +12,7 @@ export class Directory {
 }
 
 @InputType()
-export class DirectoryInput implements Pick<Directory, "name" | "path"> {
+export class DirectoryInput implements Pick<Directory, "name"> {
     @Field()
     path!: string
 
