@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<586342fde579534e267f9eec448dd72f>>
+ * @generated SignedSource<<937eb0bc0bd9a3b58db65d19f16ab5f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -127,13 +127,6 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "path",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
                 "concreteType": "Directory",
                 "kind": "LinkedField",
                 "name": "children",
@@ -152,12 +145,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3b23c6bdeace49b611695fe59d1c4116",
+    "cacheID": "f29d1253b0f57aa1dc7fabe7248bf0e9",
     "id": null,
     "metadata": {},
     "name": "ButtonAddFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation ButtonAddFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  addDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  path\n  children {\n    id\n  }\n}\n"
+    "text": "mutation ButtonAddFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  addDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  children {\n    id\n  }\n}\n"
   }
 };
 })();

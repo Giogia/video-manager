@@ -22,7 +22,6 @@ const fragment = (
     fragment Folder on Directory{
       id
       name  
-      path
       children {
         id
       }
@@ -34,13 +33,12 @@ const fragment = (
  * Component wrapper fetching data
  */
 export const FolderWithFetch = ({ fragmentRef, ...props }: FolderProps & WithFetchProps) => {
-  const { name, path, children } = useFragment<Folder$key>(fragment, fragmentRef!)
+  const { name, children } = useFragment<Folder$key>(fragment, fragmentRef!)
 
   return (
     <FolderWithRouter
       {...props}
       name={name!}
-      path={path}
       count={children?.length}
     />
   )

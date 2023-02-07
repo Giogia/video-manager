@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a8f991378ac3529c029c15cf9339280>>
+ * @generated SignedSource<<844fc1d0cf3bb8a0be8d7a7922c41f0f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -140,13 +140,6 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "path",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
                 "concreteType": "Directory",
                 "kind": "LinkedField",
                 "name": "children",
@@ -165,12 +158,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "714f1a4c39f1d9454b4a94ab7044ed27",
+    "cacheID": "f8b95ff8f475cbd8ac315979c3aa07fc",
     "id": null,
     "metadata": {},
     "name": "NameRenameFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation NameRenameFolderMutation(\n  $path: String!\n  $oldName: String!\n  $newName: String!\n) {\n  renameDirectory(input: {path: $path, name: $oldName}, name: $newName) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  path\n  children {\n    id\n  }\n}\n"
+    "text": "mutation NameRenameFolderMutation(\n  $path: String!\n  $oldName: String!\n  $newName: String!\n) {\n  renameDirectory(input: {path: $path, name: $oldName}, name: $newName) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  children {\n    id\n  }\n}\n"
   }
 };
 })();

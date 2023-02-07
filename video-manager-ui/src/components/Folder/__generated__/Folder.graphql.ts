@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f6e6ff806fe0b6b831a37681fbf75538>>
+ * @generated SignedSource<<5fa0e09dbbd863d75897786791156ed6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,6 @@ export type Folder$data = {
   }>;
   readonly id: string;
   readonly name: string | null;
-  readonly path: string;
   readonly " $fragmentType": "Folder";
 };
 export type Folder$key = {
@@ -49,13 +48,6 @@ return {
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "path",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
       "concreteType": "Directory",
       "kind": "LinkedField",
       "name": "children",
@@ -71,6 +63,6 @@ return {
 };
 })();
 
-(node as any).hash = "933840c67593e962cb75b55748826f4b";
+(node as any).hash = "469e31f7f2a51495b3ab2dfd3c49250b";
 
 export default node;

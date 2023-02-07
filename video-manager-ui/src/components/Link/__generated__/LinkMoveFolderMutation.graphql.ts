@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a1b35900b8e3fa727ca6f97a4db14c93>>
+ * @generated SignedSource<<e70bcad977ee24e25b1c27f1596f52f5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -140,13 +140,6 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "path",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
                 "concreteType": "Directory",
                 "kind": "LinkedField",
                 "name": "children",
@@ -165,12 +158,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fdccc44003d08d0991a668a052e78eef",
+    "cacheID": "b97d15007d775190a62951b018635f22",
     "id": null,
     "metadata": {},
     "name": "LinkMoveFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation LinkMoveFolderMutation(\n  $path: String!\n  $name: String!\n  $newPath: String!\n) {\n  moveDirectory(input: {path: $path, name: $name}, path: $newPath) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  path\n  children {\n    id\n  }\n}\n"
+    "text": "mutation LinkMoveFolderMutation(\n  $path: String!\n  $name: String!\n  $newPath: String!\n) {\n  moveDirectory(input: {path: $path, name: $name}, path: $newPath) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  children {\n    id\n  }\n}\n"
   }
 };
 })();
