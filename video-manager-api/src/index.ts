@@ -1,26 +1,13 @@
 import "reflect-metadata"
 
 import express from 'express'
-import mongoose from 'mongoose'
 
 import { buildSchema } from 'type-graphql'
 import { createYoga } from 'graphql-yoga'
 
 import { DirectoryResolver } from '../resolvers/directory'
 import { VideoResolver } from '../resolvers/video'
-
-async function loadDB() {
-   try {
-      await mongoose.connect(process.env.MONGO_DB_URL!)
-      console.log("Connected to Database")
-   }
-   catch {
-      setTimeout(() => {
-         console.log("Reconnecting...")
-         loadDB()
-      }, 30 * 1000)
-   }
-}
+import { loadDatabase } from "../utils/database"
 
 async function start() {
    const app = express()
@@ -36,7 +23,7 @@ async function start() {
    }))
 
    app.listen(4000, () => {
-      loadDB()
+      loadDatabase()
    })
 }
 

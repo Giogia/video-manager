@@ -13,7 +13,7 @@ import { App } from './App.ui'
 const appQueryRef = (path: string) => loadQuery<ExplorerQuery>(
   environment,
   ExplorerSchema,
-  { path },
+  { path, name: '' },
   { fetchPolicy: 'store-and-network' }
 )
 

@@ -13,8 +13,8 @@ import { FolderWithFetch } from '../Folder'
  */
 const query = (
     graphql`
-    query ExplorerQuery($path: String!) {
-      getDirectory(input: {path: $path}){
+    query ExplorerQuery($path: String!, $name: String!) {
+      getDirectory(input: { path: $path, name: $name }){
         ...Explorer_directory
       }
     }

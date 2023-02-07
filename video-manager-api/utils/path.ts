@@ -1,22 +1,25 @@
 import { join } from 'path'
+import { formatName } from './name'
 
-const ROOT = "/"
-const SPACE = " "
-const EMPTY = ""
+export const ROOT = "/"
+export const SEPARATOR = "/"
 
-export const isRoot = (path: string, name?: string | undefined) =>
-    !name && path === ROOT
+export function isRoot(path: string, name?: string | undefined): boolean {
+    return (
+        !name &&
+        path === ROOT
+    )
+}
 
-export const combinePath = (path: string, name: string | undefined) => (
-    name ?
-        join(path, name.replaceAll(SPACE, EMPTY).toLowerCase()) :
+export function combinePath(path: string, name: string | undefined): string {
+    return name ?
+        join(path, formatName(name)) :
         path
-)
+}
 
-export const replacePath = (path: string, oldPath: string, newPath: string) => (
-    path.replace(oldPath, `${isRoot(newPath) ? EMPTY : newPath}${isRoot(oldPath) ? ROOT : EMPTY}`)
-)
 
-export const startsWith = (path: string, addRoot = false) => new RegExp(
-    `^${path}${addRoot || isRoot(path) ? EMPTY : ROOT}`
-)
+export function destructurePath(path: string): string[] {
+    return path
+        .split(SEPARATOR)
+        .reverse()
+}

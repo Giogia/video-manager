@@ -6,12 +6,12 @@
 type Directory {
   children: [Directory!]!
   id: String!
-  name: String
+  name: String!
   path: String!
 }
 
 input DirectoryInput {
-  name: String
+  name: String!
   path: String!
 }
 

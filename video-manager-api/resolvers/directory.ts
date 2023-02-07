@@ -1,109 +1,64 @@
 import { GraphQLError } from "graphql"
 import { Arg, Mutation, Query, Resolver } from "type-graphql"
 
-import { Directory, DirectoryInput, DirectoryModel } from "../schema/directory"
-import { combinePath, isRoot, replacePath, startsWith } from "../utils/path"
-import { increaseNumber } from "../utils/name"
-
+import { Directory, DirectoryInput } from "../schema/directory"
+import { composeDirectory } from "../utils/directory"
+import { increaseNumber, startsWith } from "../utils/name"
+import { addNode, findNode, findNodes, editNode, removeNode } from "../utils/node"
+import { combinePath, isRoot } from "../utils/path"
 @Resolver(() => Directory)
 export class DirectoryResolver {
 
     @Query(() => Directory)
     async getDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory> {
 
-        const directoryName = combinePath(path, name)
+        const directoryPath = combinePath(path, name)
 
         try {
-            const directory = await this.composeDirectory(directoryName)
-
-            if (!directory && isRoot(path, name)) {
-                const rootDirectory = new DirectoryModel({
-                    path,
-                    name,
-                    children: []
-                } as Directory)
-
-                await rootDirectory.save()
-
-                return rootDirectory
-            }
+            const directory = await composeDirectory(directoryPath)
 
             if (!directory) throw new GraphQLError('Directory does not exists.')
 
             return directory
         }
         catch (e) {
-            throw new GraphQLError(`Cannot return directory ${directoryName}. \n\n ${e}`)
+            throw new GraphQLError(`Cannot return directory ${directoryPath}. \n\n ${e}`)
         }
     }
 
     @Mutation(() => Directory)
     async addDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
-        const directoryName = combinePath(path, name)
+        const directoryPath = combinePath(path, name)
 
         try {
-            const directories = await DirectoryModel.find({ path: startsWith(directoryName, true) }) as Directory[]
-            const [lastAdded] = directories.slice(-1)
 
-            const newName = lastAdded ? increaseNumber(lastAdded.name) : name
+            const parentNode = await findNode(path)
 
-            const directory = new DirectoryModel({
-                path: combinePath(path, newName),
-                name: newName,
-                children: [] as string[]
-            } as Directory)
+            if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
 
-            await directory.save().catch(() => {
+            const siblingNodes = await findNodes({
+                path,
+                name: { $regex: startsWith(name) }
+            })
+
+            const [lastAdded] = siblingNodes.slice(-1)
+
+            const node = await addNode({
+                parent: parentNode.id!,
+                name: lastAdded ?
+                    increaseNumber(lastAdded.name) :
+                    name
+            })
+
+            node.save().catch(() => {
                 throw new GraphQLError('Directory already exists.')
             })
 
-            if (!isRoot(path, name)) {
-                const parentDirectory = await DirectoryModel.findOne({ path })
-
-                if (parentDirectory) {
-                    parentDirectory.children.push(newName!) // TODO use id
-                    await parentDirectory.save()
-
-                    return await this.composeDirectory(path)
-                }
-            }
-            return await this.composeDirectory(directoryName)
+            return composeDirectory(path)
         }
         catch (e) {
-            throw new GraphQLError(`Cannot add directory ${directoryName}. \n\n ${e}`)
-        }
-    }
-
-    @Mutation(() => Directory)
-    async removeDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
-
-        const directoryName = combinePath(path, name)
-
-        try {
-            if (!isRoot(path, name)) {
-
-                const { deletedCount } = await DirectoryModel.deleteMany({ path: startsWith(directoryName, true) })
-
-                if (deletedCount > 0) {
-
-                    const parentDirectory = await DirectoryModel.findOne({ path })
-
-                    if (parentDirectory) {
-                        parentDirectory.children = parentDirectory.children.filter(
-                            child => child !== name
-                        )
-                        await parentDirectory.save()
-
-                        return await this.composeDirectory(path)
-                    }
-                }
-                throw new GraphQLError(`Directory does not exists.`)
-            }
-            throw new GraphQLError('Directory is root.')
-        }
-        catch (e) {
-            throw new GraphQLError(`Cannot remove directory ${directoryName}. \n\n ${e}`)
+            throw new GraphQLError(`Cannot add directory ${directoryPath}. \n\n ${e}`)
         }
     }
 
@@ -113,48 +68,28 @@ export class DirectoryResolver {
         @Arg("path") newPath: string
     ): Promise<Directory | null> {
 
-        const directoryName = combinePath(path, name)
+        const directoryPath = combinePath(path, name)
 
         try {
+            const newParentNode = await findNode(newPath)
 
-            const directory = await DirectoryModel.findOne({ path: directoryName })
-            const directories = await DirectoryModel.find({ path: startsWith(directoryName, true) })
+            if (!newParentNode) throw new GraphQLError(`Directory ${newPath} does not exists.`)
 
-            if (directory &&
-                directory.children.length <= directories.length) {
-
-                directory.path = replacePath(directory.path, path, newPath) // TODO https://stackoverflow.com/questions/72510687/updateone-with-a-regex-mongodb
-
-                const parentDirectory = await DirectoryModel.findOne({ path })
-                const newParentDirectory = await DirectoryModel.findOne({ path: newPath })
-
-                if (parentDirectory && newParentDirectory) {
-
-                    newParentDirectory.children.push(name!)
-                    parentDirectory.children = parentDirectory.children.filter( // TODO https://stackoverflow.com/questions/14763721/mongoose-delete-array-element-in-document-and-save
-                        child => child !== name
-                    )
-
-                    for (const childDirectory of directories) {
-                        childDirectory.path = replacePath(childDirectory.path, path, newPath)
-                    }
-
-                    await directory.save()
-                    await parentDirectory.save()
-                    await newParentDirectory.save()
-
-                    for (const childDirectory of directories) {
-                        await childDirectory.save()
-                    }
-
-                    return await this.composeDirectory(path)
-                }
-                throw new GraphQLError(`Directory ${parentDirectory ? newPath : path} does not exists.`)
+            const update = {
+                parent: newParentNode.id!
             }
-            throw new GraphQLError('Directory does not exists.')
+
+            const { matchedCount, modifiedCount } = await editNode(directoryPath, update).catch(() => {
+                throw new GraphQLError('Directory already exists.')
+            })
+
+            if (matchedCount == 0) throw new GraphQLError('Directory does not exists.')
+            if (modifiedCount == 0) throw new GraphQLError(`Directory ${path} does not exists.`)
+
+            return composeDirectory(path)
         }
         catch (e) {
-            throw new GraphQLError(`Cannot move directory ${directoryName}. \n\n ${e}`)
+            throw new GraphQLError(`Cannot move directory ${directoryPath}. \n\n ${e}`)
         }
     }
 
@@ -164,94 +99,47 @@ export class DirectoryResolver {
         @Arg("name") newName: string
     ): Promise<Directory | null> {
 
-        const directoryName = combinePath(path, name)
-        const newDirectoryName = combinePath(path, newName)
+        const directoryPath = combinePath(path, name)
+
+        const update = {
+            name: newName
+        }
 
         try {
-            const directory = await DirectoryModel.findOne({ path: directoryName })
-            const directories = await DirectoryModel.find({ path: startsWith(directoryName) })
+            const { matchedCount } = await editNode(directoryPath, update).catch(() => {
+                throw new GraphQLError('Directory already exists.')
+            })
 
-            if (directory &&
-                directory.children.length <= directories.length) {
+            if (matchedCount == 0) throw new GraphQLError('Directory does not exists.')
 
-                directory.name = newName
-                directory.path = newDirectoryName
-
-                const parentDirectory = await DirectoryModel.findOne({ path })
-
-                if (parentDirectory) {
-                    parentDirectory.children = parentDirectory.children.map(
-                        child => child === name ?
-                            newName! :
-                            child
-                    )
-
-                    for (const childDirectory of directories) {
-                        childDirectory.path = replacePath(childDirectory.path, directoryName, newDirectoryName)
-                    }
-
-                    await directory.save()
-                    await parentDirectory.save()
-
-                    for (const childDirectory of directories) {
-                        await childDirectory.save()
-                    }
-
-                    return await this.composeDirectory(path)
-                }
-            }
-            throw new GraphQLError('Directory does not exists.')
+            return composeDirectory(path)
         }
         catch (e) {
-            throw new GraphQLError(`Cannot rename directory ${directoryName}. \n\n ${e}`)
+            throw new GraphQLError(`Cannot rename directory ${directoryPath}. \n\n ${e}`)
         }
     }
 
-    composeDirectory = async (path: string) => {
-        const directory = await DirectoryModel.findOne({ path })
+    @Mutation(() => Directory)
+    async removeDirectory(@Arg("input") { path, name }: DirectoryInput): Promise<Directory | null> {
 
-        const { nodes } = await this.getChildren(path)
+        const directoryPath = combinePath(path, name)
 
-        if (directory) {
-            directory.children = nodes.length > 0 ? nodes : []
+        try {
+            if (!isRoot(path, name)) {
+                const node = await findNode(directoryPath)
+
+                if (!node) throw new GraphQLError(`Directory does not exists.`)
+
+                const { id } = node
+
+                await removeNode(id)
+
+                return composeDirectory(path)
+            }
+            throw new GraphQLError('Directory is root.')
         }
-
-        return directory
-    }
-
-    getChildren = async (
-        root: string,
-        addRoot = false,
-        nodes: Directory[] = [],
-        paths: string[] = [],
-    ) => {
-
-        const node = await DirectoryModel.findOne({ path: root })
-
-        const { path, children = [] } = node || {}
-
-        addRoot && path && paths.push(path)
-        addRoot && node && nodes.push(node)
-
-        for (const child of children) {
-
-            const found = nodes.find(({ children = [] }) => children.includes(child))
-            const isChild = !!node && !!found
-
-            if (isChild) found.children = found.children.filter(
-                name => !(name === child)
-            )
-
-            await this.getChildren(
-                combinePath(root, child as string),
-                true,
-                isChild ?
-                    found.children as Directory[] :
-                    nodes,
-                paths
-            )
+        catch (e) {
+            throw new GraphQLError(`Cannot remove directory ${directoryPath}. \n\n ${e}`)
         }
-
-        return { nodes, paths }
     }
 }

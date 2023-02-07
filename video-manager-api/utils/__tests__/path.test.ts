@@ -1,4 +1,4 @@
-import { isRoot, combinePath, startsWith, replacePath } from "../path"
+import { isRoot, combinePath, destructurePath } from "../path"
 
 describe('Path utils', () => {
 
@@ -45,31 +45,16 @@ describe('Path utils', () => {
         })
     })
 
-    describe('replacePath', () => {
+    describe('destructurePath', () => {
 
-        test('replace root path correctly', () => {
-            expect(replacePath('/dir', '/', '/newparent')).toEqual('/newparent/dir')
-            expect(replacePath('/newparent/dir', '/newparent', '/')).toEqual('/dir')
+        test('return parent and dir', () => {
+            expect(destructurePath('/parent')).toEqual(['parent',''])
+            expect(destructurePath('/parent/dir')).toEqual(['dir','parent', ''])
+            expect(destructurePath('/parent/dir/child')).toEqual(['child','dir', 'parent', ''])
         })
 
-        test('replace path correctly', () => {
-            expect(replacePath('/parent/dir', '/parent', '/newparent')).toEqual('/newparent/dir')
-        })
-    })
-
-    describe('startsWith', () => {
-
-        test('return correct regex with root', () => {
-            expect(startsWith('/', true)).toEqual(/^\//)
-            expect(startsWith('/test', true)).toEqual(/^\/test/)
-            expect(startsWith('/test/test', true)).toEqual(/^\/test\/test/)
-        })
-
-        test('return correct regex without root', () => {
-            expect(startsWith('/', false)).toEqual(/^\//)
-            expect(startsWith('/test', false)).toEqual(/^\/test\//)
-            expect(startsWith('/test/test', false)).toEqual(/^\/test\/test\//)
+        test('return empty if root', () => {
+            expect(destructurePath('/')).toEqual(['', ''])
         })
     })
-
 })
