@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip'
 
 import { Icon, icons } from '../Icon'
 import { formatName } from '../../utils/name'
-
+import { SxProps, Theme } from '@mui/material'
 export interface ButtonProps {
   /**
    * Button functionality
@@ -21,7 +21,11 @@ export interface ButtonProps {
   /**
    * Button dimension
    */
-  size?: 'small' | 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large',
+  /**
+   * Customize button themed style
+   */
+  sx?: SxProps<Theme>,
   /**
    * Whether to show a button description on hover
    */
@@ -31,14 +35,13 @@ export interface ButtonProps {
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ action, size, icon, disabled, tooltip }: ButtonProps) => (
-  <Tooltip title={tooltip &&
-    formatName(icon)
-  }>
+export const Button = ({ action, size, icon, disabled, tooltip, sx }: ButtonProps) => (
+  <Tooltip title={tooltip && formatName(icon)}>
     <span>
       <IconButton
         disabled={disabled}
         onClick={action}
+        sx={sx}
       >
         <Icon
           id={icon}
