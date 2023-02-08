@@ -1,11 +1,11 @@
-import React, { useState, Fragment, useMemo } from 'react'
-import Button from '@mui/material/Button'
+import React, { useState, Fragment } from 'react'
+import MuiButton from '@mui/material/Button'
 import CardMedia from '@mui/material/CardMedia'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
+import { Button } from '../Button'
 import { Name } from '../Name'
-import { getVideo, isVideoPlaying } from '../../utils/video'
 
 export interface VideoProps {
   /**
@@ -20,33 +20,16 @@ export interface VideoProps {
    * Video dimension
    */
   size?: string
-  /**
-   * Whether the video has been selected
-   */
-  selected?: boolean
 }
 
 /**
  * UI component for identifying a directory
  */
-export const Video = ({ name, source, size, selected }: VideoProps) => {
+export const Video = ({ name, source, size }: VideoProps) => {
 
-  const [fullscreen, toggleSize] = useState(false)
+  const [fullscreen, setFullscreen] = useState(false)
 
-  const id = useMemo(() => `${name}-video-${Math.random()}`, [name])
-
-  const Wrapper = fullscreen ? Fragment : Button
-
-  const onClick = (e: any) => {
-    e.preventDefault()
-    toggleSize(!fullscreen)
-
-    const video = getVideo(id)
-
-    // fullscreen && isVideoPlaying(video) ?
-    //   video.pause() :
-    //   video.play()
-  }
+  const Wrapper = fullscreen ? Fragment : MuiButton
 
   return (
     <Grid container
@@ -67,13 +50,12 @@ export const Video = ({ name, source, size, selected }: VideoProps) => {
           zIndex: 10000,
         }
       }}>
-        <Wrapper disabled={selected}>
+        <Wrapper>
           <CardMedia
-            id={id}
             component='video'
             controls={fullscreen}
             src={source}
-            onClick={onClick}
+            onClick={() => setFullscreen(true)}
             sx={{
               borderRadius: 0.5,
               height: '100%',
@@ -85,21 +67,42 @@ export const Video = ({ name, source, size, selected }: VideoProps) => {
           />
         </Wrapper>
       </Grid>
-      <Grid item sx={{
-        ...fullscreen && {
-          position: 'absolute',
-          top: 4,
-          left: 4,
-          zIndex: 10001,
-          color: 'white'
-        }
-      }}>
+      <Grid item>
         <Name
           name={name}
-          editable={!selected && !fullscreen}
+          editable={!fullscreen}
+          sx={{
+            ...fullscreen && {
+              position: 'absolute',
+              top: 2,
+              left: 8,
+              padding: 0.5,
+              zIndex: 10001,
+              opacity: 1, 
+              color: 'white' 
+            }
+          }}
         />
       </Grid>
-      {!fullscreen &&
+      {
+        fullscreen &&
+        <Button
+          icon='close'
+          size='small'
+          action={() => setFullscreen(false)}
+          tooltip={false}
+          sx={{
+            position: 'absolute',
+            top: 2,
+            right: 2,
+            padding: 0.5,
+            zIndex: 10001,
+            color: 'white'
+          }}
+        />
+      }
+      {
+        !fullscreen &&
         <Grid item>
           <Typography
             variant='caption'
@@ -115,6 +118,5 @@ export const Video = ({ name, source, size, selected }: VideoProps) => {
 
 Video.defaultProps = {
   name: 'New Video',
-  size: '-',
-  selected: false
+  size: '-'
 }
