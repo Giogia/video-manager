@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
+import { SxProps, Theme } from '@mui/material'
 
 export interface NameProps {
   /**
@@ -20,12 +21,16 @@ export interface NameProps {
    * Action on name changed
    */
   onChange?: (newName: string, oldName: string) => void
+  /**
+   * Customize name themed style
+   */
+  sx?: SxProps<Theme>,
 }
 
 /**
  * Primary UI component for user typewriting
  */
-export const Name = ({ name: defaultName, editable, onChange, error }: NameProps) => {
+export const Name = ({ name: defaultName, editable, onChange, error, sx }: NameProps) => {
 
   const [name, setName] = useState(defaultName)
   const [isFocused, setIsFocused] = useState(false)
@@ -49,7 +54,7 @@ export const Name = ({ name: defaultName, editable, onChange, error }: NameProps
             variant='caption'
             gutterBottom
             onClick={() => setIsFocused(editable!)}
-            sx={{ opacity: editable ? 1 : 0.5 }}
+            sx={{ opacity: editable ? 1 : 0.5, ...sx }}
           >
             {name}
           </Typography>
@@ -59,7 +64,7 @@ export const Name = ({ name: defaultName, editable, onChange, error }: NameProps
             autoFocus={!error}
             value={name}
             variant='standard'
-            inputProps={{ sx: { fontSize: 12, marginTop: -0.25 } }}
+            inputProps={{ sx: { fontSize: 12, marginTop: -0.25, ...sx } }}
             multiline
             maxRows={4}
             error={!!error}
