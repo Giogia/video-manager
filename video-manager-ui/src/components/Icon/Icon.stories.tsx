@@ -6,9 +6,6 @@ import { Icon as IconComponent } from '.'
 export default {
   title: 'Primary/Icon',
   component: IconComponent,
-  argTypes: {
-    action: { action: true }
-  },
   args: {
     id: 'folder'
   }
