@@ -18,7 +18,7 @@ const handleChange = (action: ButtonProps['action']) =>
 /**
  * Component Wrapper for uploading files
  */
-export const ButtonWithUpload = ({ action, ...props }: ButtonProps) => {
+export const UploadButton = ({ action, ...props }: ButtonProps) => {
 
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -38,6 +38,6 @@ export const ButtonWithUpload = ({ action, ...props }: ButtonProps) => {
   )
 }
 
-ButtonWithUpload.defaultProps = {
+UploadButton.defaultProps = {
   ...Button.defaultProps
 }
