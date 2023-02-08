@@ -1,6 +1,7 @@
 import React from 'react'
 import MuiChip from '@mui/material/Chip'
 import Tooltip from '@mui/material/Tooltip'
+import { SxProps, Theme } from '@mui/material'
 
 import { Icon, icons } from '../Icon'
 import { formatName } from '../../utils/name'
@@ -15,9 +16,9 @@ export interface ChipProps {
    */
   icon: keyof typeof icons
   /**
-   * Style to apply to chip
+   * Customize chip themed style
    */
-  sx?: object
+  sx?: SxProps<Theme>,
   /**
    * Message to show when hovering the chip
    */
@@ -34,7 +35,7 @@ export const Chip = ({ icon, disabled, tooltip, sx }: ChipProps) => (
         icon={<Icon id={icon} />}
         label={formatName(icon)}
         disabled={disabled}
-        sx={sx}
+        sx={{paddingLeft: 1, ...sx}}
       />
     </span>
   </Tooltip>
