@@ -75,11 +75,12 @@ export const Video = ({ name, source, size }: VideoProps) => {
             ...fullscreen && {
               position: 'absolute',
               top: 2,
-              left: 8,
-              padding: 0.5,
+              left: 4,
+              padding: 1,
               zIndex: 10001,
-              opacity: 1, 
-              color: 'white' 
+              opacity: 1,
+              color: 'white',
+              fontSize: 14
             }
           }}
         />
@@ -94,8 +95,7 @@ export const Video = ({ name, source, size }: VideoProps) => {
           sx={{
             position: 'absolute',
             top: 2,
-            right: 2,
-            padding: 0.5,
+            right: 4,
             zIndex: 10001,
             color: 'white'
           }}
