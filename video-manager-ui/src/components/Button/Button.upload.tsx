@@ -6,12 +6,14 @@ import { Button, ButtonProps } from './Button.ui'
  * Upload file logic
  */
 const handleChange = (action: ButtonProps['action']) =>
-  (event: React.ChangeEvent<HTMLInputElement>) => {
+  async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.target.files !== null &&
       event.target?.files?.length > 0
     ) {
-      action && action(event)
+      const file = event.target.files[0]
+
+      action && action(file)
     }
   }
 

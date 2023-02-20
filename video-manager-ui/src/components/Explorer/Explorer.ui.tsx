@@ -6,10 +6,9 @@ import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import Grid from '@mui/material/Grid'
 
-import { AddFolderButton } from '../Button'
+import { AddFolderButton, UploadVideoButton } from '../Button'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { DeleteFolderChip } from '../Chip'
-import { UploadButton } from '../Button/Button.upload'
 
 interface ExplorerProps {
   /**
@@ -54,8 +53,7 @@ export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) =
       action={
         <CardActions sx={{ gap: 2 }} >
           <DeleteFolderChip />
-          <UploadButton
-            icon='upload-video'
+          <UploadVideoButton
             disabled={loading || error}
           />
           <AddFolderButton
