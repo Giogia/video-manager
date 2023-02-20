@@ -11,6 +11,7 @@ export async function loadDatabase(dbName?: string, options: mongoose.ConnectOpt
         console.log("Connected to Database")
     }
     catch {
+        console.log("Could not connect to Database")
         setTimeout(() => {
             console.log("Trying to Reconnect...")
             loadDatabase(dbName, options)
