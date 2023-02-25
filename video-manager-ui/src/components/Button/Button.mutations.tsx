@@ -98,7 +98,7 @@ export const UploadVideoButton = ({ disabled }: Partial<ButtonProps>) => {
       variables: {
         path,
         name: NEW_VIDEO,
-        video
+        video: null
       }
     })}
   />
