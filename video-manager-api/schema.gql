@@ -19,19 +19,26 @@ type Mutation {
   moveDirectory(input: DirectoryInput!, path: String!): Directory!
   removeDirectory(input: DirectoryInput!): Directory!
   renameDirectory(input: DirectoryInput!, name: String!): Directory!
+  uploadVideo(input: VideoInput!): Directory!
 }
 
 type Query {
   getDirectory(input: DirectoryInput!): Directory!
   getVideo(id: Float!): Video!
-  getVideos: [Video!]!
 }
 
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
 type Video {
-  duration: Float!
   id: String!
   name: String!
-  path: String!
   size: Float!
   url: String!
+}
+
+input VideoInput {
+  name: String!
+  path: String!
+  video: Upload!
 }

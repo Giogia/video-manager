@@ -1,15 +1,28 @@
 {
     "compilerOptions": {
         "target": "es2018",
-        "module": "commonjs",
+        "lib": [
+            "es2021",
+            "esnext",
+            "esnext.asynciterable"
+        ],
         "jsx": "preserve",
         "strict": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
         "esModuleInterop": true,
-        "lib": ["es2021", "esnext.asynciterable"],
-
         // TypeGraphQL
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
     },
-    "exclude": ["node_modules"]
+    "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node"
+    },
+    "include": [
+        "/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }
