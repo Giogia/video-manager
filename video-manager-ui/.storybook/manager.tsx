@@ -1,4 +1,7 @@
 import { addons } from '@storybook/addons'
+import { darkMuiTheme, lightMuiTheme } from './theming/Mui'
+
+import { isBrowserTheme, Themes } from './../src/utils/theme'
 
 addons.setConfig({
     isFullscreen: false,
@@ -7,7 +10,6 @@ addons.setConfig({
     panelPosition: 'right',
     enableShortcuts: true,
     showToolbar: true,
-    theme: undefined,
     selectedPanel: undefined,
     initialActive: 'sidebar',
     sidebar: {
@@ -21,4 +23,7 @@ addons.setConfig({
         copy: { hidden: false },
         fullscreen: { hidden: false },
     },
+    theme: isBrowserTheme(Themes.dark) ?
+        darkMuiTheme :
+        lightMuiTheme
 })

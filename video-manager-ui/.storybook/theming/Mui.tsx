@@ -1,6 +1,7 @@
 import React from "react"
 import { DecoratorFn } from '@storybook/react'
-import { CssBaseline, ThemeProvider } from "@mui/material"
+import { themes, Theme as StorybookTheme } from "@storybook/theming"
+import { CssBaseline, Theme as MuiTheme, ThemeProvider } from "@mui/material"
 
 import { baseTheme } from "./VideoManager"
 import { lightTheme } from "../../src/themes/light.theme"
@@ -21,23 +22,22 @@ export const withMuiTheme: DecoratorFn = (Story, context) => {
   )
 }
 
-const createThemeFromMUITheme = (muiTheme, baseTheme) => {
-  const {palette, shape, typography} = muiTheme
+const createThemeFromMUITheme = (muiTheme: MuiTheme, ...baseThemes: Partial<StorybookTheme>[]) => {
+  
+  const {palette, shape} = muiTheme
+  const [colorTheme, baseTheme] = baseThemes
 
   return {
+    ...baseTheme,
+    ...colorTheme,
+
     base: palette.mode,
 
-    colorSecondary: palette.primary.main,
+    colorSecondary: palette.primary[palette.mode],
 
     // UI
-    appBg: palette.background.paper,
-    appContentBg: palette.background.default,
-    appBorderColor: palette.background.paper,
+    appContentBg: palette.background.paper,
     appBorderRadius: shape.borderRadius,
-
-    // Typography
-    fontBase: typography.fontFamily,
-    fontCode: 'monospace',
 
     // Text colors
     textColor: palette.text.primary,
@@ -45,12 +45,10 @@ const createThemeFromMUITheme = (muiTheme, baseTheme) => {
 
     // Toolbar default and active colors
     barTextColor: palette.text.primary,
-    barSelectedColor: palette.primary.main,
-    barBg: palette.background.default,
-
-    ...baseTheme
+    barSelectedColor: palette.primary[palette.mode],
+    barBg: palette.background.paper,
   }
 }
 
-export const lightMuiTheme = createThemeFromMUITheme(lightTheme, baseTheme)
-export const darkMuiTheme = createThemeFromMUITheme(darkTheme, baseTheme)
+export const lightMuiTheme = createThemeFromMUITheme(lightTheme, themes.light, baseTheme)
+export const darkMuiTheme = createThemeFromMUITheme(darkTheme, themes.dark, baseTheme)

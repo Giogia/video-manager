@@ -4,10 +4,12 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import '@fontsource/material-icons'
 
-import { withMuiTheme, lightMuiTheme, darkMuiTheme } from './theming/Mui'
+import { withMuiTheme } from './theming/Mui'
+import { withDocsTheme } from './theming/Docs'
 import { withRelayEnvironment } from './theming/Relay'
 import { withRouter } from './theming/Router'
 import { withDnd } from './theming/Dnd'
+import { isBrowserTheme, Themes } from '../src/utils/theme'
 
 export const decorators = [withMuiTheme, withRelayEnvironment, withRouter, withDnd]
 
@@ -16,7 +18,6 @@ export const globalTypes = {
     name: "Theme",
     title: "Theme",
     description: "Theme for your components",
-    defaultValue: "light",
     toolbar: {
       icon: "paintbrush",
       items: [
@@ -24,6 +25,9 @@ export const globalTypes = {
         { value: "dark", icon: 'circle', title: "Dark Mode" },
       ],
     },
+    defaultValue: isBrowserTheme(Themes.dark) ?
+      Themes.dark :
+      Themes.light
   },
 }
 
@@ -36,10 +40,8 @@ export const parameters = {
       date: /Date$/,
     },
   },
-  viewMode: 'docs',
-  darkMode: {
-    current: 'light',
-    light: lightMuiTheme,
-    dark: darkMuiTheme
-  }
+  docs: {
+    container: withDocsTheme
+  },
+  viewMode: 'docs'
 }
