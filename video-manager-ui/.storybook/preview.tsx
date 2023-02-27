@@ -40,8 +40,6 @@ export const parameters = {
       date: /Date$/,
     },
   },
-  docs: {
-    container: withDocsTheme
-  },
+  docs: { container: withDocsTheme },
   viewMode: 'docs'
 }
