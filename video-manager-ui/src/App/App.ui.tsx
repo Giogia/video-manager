@@ -33,8 +33,8 @@ export const App = ({ explorerQueryRef }: AppProps) => {
         height='100vh'
       >
         <Box
-          padding={6}
-          paddingTop={4}
+          padding={4}
+          paddingRight={8}
           paddingBottom={1}
         >
           <Header

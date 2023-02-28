@@ -28,12 +28,22 @@ export const Header = ({ name, theme, handleTheme }: HeaderProps) => (
     justifyContent='space-between'
     alignItems='center'
   >
-    <Typography
-      variant='overline'
-      color="textPrimary"
+    <Box
+      display='flex'
+      alignItems='center'
+      gap={2}
     >
-      {name}
-    </Typography>
+      <img
+        src="logo.svg"
+        alt="logo"
+        height={24}
+      />
+      <Typography
+        color="textPrimary"
+      >
+        {name}
+      </Typography>
+    </Box>
     <Button
       action={handleTheme}
       icon={`${theme}-theme`}

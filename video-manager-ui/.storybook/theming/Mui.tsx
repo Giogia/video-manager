@@ -33,6 +33,7 @@ const createThemeFromMUITheme = (muiTheme: MuiTheme, ...baseThemes: Partial<Stor
 
     base: palette.mode,
 
+    colorPrimary: palette.primary[palette.mode],
     colorSecondary: palette.primary[palette.mode],
 
     // UI
