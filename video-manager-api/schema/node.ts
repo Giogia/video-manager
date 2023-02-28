@@ -13,15 +13,25 @@ export class Node {
 
     @prop()
     parent!: string
+
+    @prop()
+    url!: string
+
+    @prop()
+    size!: number
 }
 
 export class NodeInput implements Pick<Node, "name" | "parent"> {
     name!: string
 
     parent!: string
+
+    url?: string
+
+    size?: number
 }
 
-export class NodeUpdate implements Partial<Pick<Node, "name" | "parent">> {
+export class NodeUpdate implements Partial<NodeInput> {
     name?: string
 
     parent?: string

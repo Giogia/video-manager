@@ -1,8 +1,10 @@
-import { join } from 'path'
+import { join, resolve } from 'path'
 import { formatName } from './name'
 
 export const ROOT = "/"
 export const SEPARATOR = "/"
+
+export const currentPath = resolve
 
 export function isRoot(path: string, name?: string | undefined): boolean {
     return (

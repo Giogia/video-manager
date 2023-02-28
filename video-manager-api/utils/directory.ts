@@ -1,11 +1,13 @@
 import { Directory } from "../schema/directory"
-import { combinePath } from "./path"
+import { Video } from "../schema/video"
 import { findNode, findChildren } from "./node"
 
-export function composeChild({ id, name, children = [] }: Omit<Directory, 'path'>): Directory {
+export function composeChild({ id, name, url, size, children = [] }: any): Directory | Video {
     return {
         id,
         name,
+        ...url && { url },
+        ...size && { size },
         children: children.map(composeChild)
     }
 }

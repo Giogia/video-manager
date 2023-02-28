@@ -8,7 +8,8 @@ import { createYoga } from 'graphql-yoga'
 import { DirectoryResolver } from '../resolvers/directory'
 import { VideoResolver } from '../resolvers/video'
 import { loadDatabase } from "../utils/database"
-import {graphqlUploadExpress} from '../utils/upload'
+import { combinePath, currentPath } from "../utils/path"
+import { graphqlUploadExpress } from '../utils/upload'
 
 async function start() {
    const app = express()
@@ -19,9 +20,13 @@ async function start() {
    })
 
    app.use(graphqlUploadExpress({
-      // maxFileSize: 10000,
+      // maxFileSize: 1000000,
       maxFiles: 1
    }))
+
+   app.use('/videos', express.static(
+      combinePath(currentPath(), './uploads')
+   ))
 
    app.use('/graphql', createYoga({
       schema,

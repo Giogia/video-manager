@@ -1,24 +1,48 @@
 import { GraphQLError } from "graphql"
 import { Arg, Mutation, Query, Resolver } from "type-graphql"
-import { Directory } from "../schema/directory"
+import { createWriteStream, statSync } from "fs"
+import { join } from "path"
 
-import { Video, VideoInput, VideoModel } from "../schema/video"
+import { Directory } from "../schema/directory"
+import { Video, VideoInput } from "../schema/video"
 import { composeDirectory } from "../utils/directory"
+import { addNode, findNode } from "../utils/node"
+import { combinePath, currentPath } from "../utils/path"
 
 @Resolver(() => Video)
 export class VideoResolver {
 
-    @Query(() => Video)
-    async getVideo(@Arg("id") id: number): Promise<Video | null | undefined> {
-        return await VideoModel.findOne({ "id": id })
-    }
-
     @Mutation(() => Directory)
-    async uploadVideo(@Arg("input") { path, name, video }: VideoInput): Promise<Directory | null> {
+    async uploadVideo(@Arg("input") { path, video }: VideoInput): Promise<Directory | null> {
 
-        const { filename, mimetype, createReadStream } = await video
+        const { filename, createReadStream } = await video
 
-        const stream = createReadStream()
+        const filePath = join(currentPath(), './uploads', filename)
+
+        await new Promise(res => createReadStream()
+            .pipe(createWriteStream(filePath))
+            .on('close', res)
+            .on('error', () => {
+                throw new GraphQLError('Cannot save uploaded video.')
+            })
+        )
+
+        const { size } = statSync(filePath)
+
+        const parentNode = await findNode(path)
+
+        if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
+
+        const node = await addNode({
+            parent: parentNode.id!,
+            name: filename,
+            url: combinePath('/videos', filename),
+            size
+        })
+
+        node.save().catch(() => {
+            throw new GraphQLError('Directory already exists.')
+        })
 
         try {
             const directory = await composeDirectory(path)

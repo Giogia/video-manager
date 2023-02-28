@@ -3,8 +3,10 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+union Child = Directory | Video
+
 type Directory {
-  children: [Directory!]!
+  children: [Child!]!
   id: String!
   name: String!
 }
@@ -24,7 +26,6 @@ type Mutation {
 
 type Query {
   getDirectory(input: DirectoryInput!): Directory!
-  getVideo(id: Float!): Video!
 }
 
 """The `Upload` scalar type represents a file upload."""
@@ -38,7 +39,6 @@ type Video {
 }
 
 input VideoInput {
-  name: String!
   path: String!
-  video: Upload!
+  video: Upload
 }

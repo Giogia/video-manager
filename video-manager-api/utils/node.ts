@@ -4,13 +4,15 @@ import { Node, NodeInput, NodeModel, NodeUpdate } from "../schema/node"
 import { formatName } from "./name"
 import { destructurePath, isRoot } from "./path"
 
-export async function addNode({ name, parent }: NodeInput) {
+export async function addNode({ name, parent, url, size }: NodeInput) {
 
     return new NodeModel({
         id: Date.now(),
         name,
         path: formatName(name),
         parent,
+        url,
+        size
     })
 }
 
@@ -59,7 +61,7 @@ export async function findNode(path: string): Promise<Node | null> {
         name: directory,
         path,
         parent
-    }
+    } as Node
 
     return NodeModel.findOne({
         path: directory,
