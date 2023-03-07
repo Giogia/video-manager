@@ -84,6 +84,7 @@
   },
   "react-dotenv": {
     "whitelist": [
+      "BASE_URL",
       "GRAPHQL_URL"
     ]
   },

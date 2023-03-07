@@ -7,7 +7,6 @@ const Child = createUnionType({
     resolveType: child => {
         if ("url" in child) return "Video"
         if ("children" in child) return "Directory"
-        return undefined
     }
 })
 

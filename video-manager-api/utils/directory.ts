@@ -8,7 +8,7 @@ export function composeChild({ id, name, url, size, children = [] }: any): Direc
         name,
         ...url && { url },
         ...size && { size },
-        children: children.map(composeChild)
+        ...!url && { children: children.map(composeChild) }
     }
 }
 

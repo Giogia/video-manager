@@ -1,17 +1,18 @@
 import React from 'react'
+import env from "react-dotenv"
 import { graphql } from 'babel-plugin-relay/macro'
 import { useFragment } from 'react-relay'
 
-import { Video$key } from './__generated__/Video.graphql'
+import { VideoFragment$key } from './__generated__/VideoFragment.graphql'
 
-import { VideoProps } from './Video.ui'
 import { VideoWithDrag } from './Video.drag'
+import { formatSize } from '../../utils/size'
 
 export interface WithFetchProps {
   /**
    * name fragment reference
    */
-  fragmentRef?: Video$key
+  fragmentRef?: VideoFragment$key
 }
 
 /**
@@ -19,8 +20,11 @@ export interface WithFetchProps {
  */
 const fragment = (
   graphql`
-    fragment Video on Directory{
-      name  
+    fragment VideoFragment on Video{
+      id,
+      name,
+      url,
+      size
     }
   `
 )
@@ -28,13 +32,14 @@ const fragment = (
 /**
  * Component wrapper fetching data
  */
-export const VideoWithFetch = ({ fragmentRef, ...props }: VideoProps & WithFetchProps) => {
-  const { name } = useFragment<Video$key>(fragment, fragmentRef!)
+export const VideoWithFetch = ({ fragmentRef }: WithFetchProps) => {
+  const { name, url, size } = useFragment<VideoFragment$key>(fragment, fragmentRef!)
 
   return (
     <VideoWithDrag
-      {...props}
       name={name!}
+      source={env.BASE_URL + url}
+      size={formatSize(size)}
     />
   )
 }

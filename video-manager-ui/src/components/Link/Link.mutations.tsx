@@ -36,7 +36,8 @@ export const MoveFolderLink = ({ ...props }: LinkProps & WithDropProps) => {
           path,
           name,
           newPath
-        }
+        },
+        onError: (error) => console.log(error)
       })
     }
   />

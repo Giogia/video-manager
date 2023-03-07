@@ -21,25 +21,27 @@ const fragment = (
   graphql`
     fragment Folder on Directory{
       id
-      name  
-      children {
-        id
-      }
+      name
     }
   `
 )
+
+// name  
+// children {
+//   id
+// }
 
 /**
  * Component wrapper fetching data
  */
 export const FolderWithFetch = ({ fragmentRef, ...props }: FolderProps & WithFetchProps) => {
-  const { name, children } = useFragment<Folder$key>(fragment, fragmentRef!)
+  const { name } = useFragment<Folder$key>(fragment, fragmentRef!)
 
   return (
     <FolderWithRouter
       {...props}
       name={name!}
-      count={children?.length}
+      // count={children?.length}
     />
   )
 }

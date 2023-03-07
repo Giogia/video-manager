@@ -9,8 +9,13 @@ import { ExplorerLoading } from './Explorer.loading'
 import { FolderWithDrag as Folder } from '../Folder'
 import { VideoWithDrag as Video } from '../Video'
 
-// @ts-ignore
-import video from '../Video/__assets__/video.mov'
+// @ts-ignore 
+import horizontal from '../Video/__assets__/horizontal.mov'
+
+// @ts-ignore 
+import vertical from '../Video/__assets__/vertical.mov'
+
+const video = Math.random() > 0.65 ? vertical : horizontal
 
 export default {
   title: 'Composed/Explorer',

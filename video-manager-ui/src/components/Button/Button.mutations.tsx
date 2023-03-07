@@ -10,7 +10,6 @@ import { UploadButton } from './Button.upload'
 // import { combinePath } from '../../utils/path'
 
 const NEW_FOLDER = "New Folder"
-const NEW_VIDEO = "New Video"
 
 /**
  * Add folder logic
@@ -30,8 +29,8 @@ const addFolder = (
  */
 const uploadVideo = (
   graphql`
-    mutation ButtonUploadVideoMutation($path: String!, $name: String!, $video: Upload!) {
-      uploadVideo(input: {path: $path, name: $name, video: $video}){
+    mutation ButtonUploadVideoMutation($path: String!, $video: Upload!) {
+      uploadVideo(input: {path: $path, video: $video}){
         ...Explorer_directory
       }
     }
@@ -97,7 +96,6 @@ export const UploadVideoButton = ({ disabled }: Partial<ButtonProps>) => {
       uploadables: { video },
       variables: {
         path,
-        name: NEW_VIDEO,
         video: null
       }
     })}

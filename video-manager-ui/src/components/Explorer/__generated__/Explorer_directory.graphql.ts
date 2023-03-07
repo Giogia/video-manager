@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<df721172b40310da7c541930fe382aa3>>
+ * @generated SignedSource<<2d4b7016a024f277b0c91037ee36f739>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,8 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Explorer_directory$data = {
   readonly children: ReadonlyArray<{
-    readonly " $fragmentSpreads": FragmentRefs<"Folder">;
+    readonly __typename: string;
+    readonly " $fragmentSpreads": FragmentRefs<"Folder" | "VideoFragment">;
   }>;
   readonly id: string;
   readonly " $fragmentType": "Explorer_directory";
@@ -38,11 +39,23 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "Directory",
+      "concreteType": null,
       "kind": "LinkedField",
       "name": "children",
       "plural": true,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "VideoFragment"
+        },
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -56,6 +69,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "7ebd0ebef857671943f86d07eaa1df81";
+(node as any).hash = "6cb7605a95bf5dd1b99d153cf2bf77b3";
 
 export default node;

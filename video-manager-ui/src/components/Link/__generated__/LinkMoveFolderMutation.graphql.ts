@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e70bcad977ee24e25b1c27f1596f52f5>>
+ * @generated SignedSource<<180a160b3a8d24e19715ad83a0f94820>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -70,6 +70,13 @@ v4 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -124,30 +131,49 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "Directory",
+            "concreteType": null,
             "kind": "LinkedField",
             "name": "children",
             "plural": true,
             "selections": [
-              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "name",
+                "name": "__typename",
                 "storageKey": null
               },
               {
-                "alias": null,
-                "args": null,
-                "concreteType": "Directory",
-                "kind": "LinkedField",
-                "name": "children",
-                "plural": true,
+                "kind": "InlineFragment",
                 "selections": [
-                  (v4/*: any*/)
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "url",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "size",
+                    "storageKey": null
+                  }
                 ],
-                "storageKey": null
+                "type": "Video",
+                "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v4/*: any*/),
+                  (v5/*: any*/)
+                ],
+                "type": "Directory",
+                "abstractKey": null
               }
             ],
             "storageKey": null
@@ -158,12 +184,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b97d15007d775190a62951b018635f22",
+    "cacheID": "d3949de947658de9d624d6c003df8442",
     "id": null,
     "metadata": {},
     "name": "LinkMoveFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation LinkMoveFolderMutation(\n  $path: String!\n  $name: String!\n  $newPath: String!\n) {\n  moveDirectory(input: {path: $path, name: $name}, path: $newPath) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  children {\n    id\n  }\n}\n"
+    "text": "mutation LinkMoveFolderMutation(\n  $path: String!\n  $name: String!\n  $newPath: String!\n) {\n  moveDirectory(input: {path: $path, name: $name}, path: $newPath) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    __typename\n    ...VideoFragment\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n}\n\nfragment VideoFragment on Video {\n  id\n  name\n  url\n  size\n}\n"
   }
 };
 })();

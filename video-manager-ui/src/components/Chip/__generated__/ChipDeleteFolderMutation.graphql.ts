@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a1e27c8a2a0b903fa6321123327a15bc>>
+ * @generated SignedSource<<29b0012f1b9cc4ac56f97ce464efa3ca>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -59,6 +59,13 @@ v3 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -111,30 +118,49 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "Directory",
+            "concreteType": null,
             "kind": "LinkedField",
             "name": "children",
             "plural": true,
             "selections": [
-              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "name",
+                "name": "__typename",
                 "storageKey": null
               },
               {
-                "alias": null,
-                "args": null,
-                "concreteType": "Directory",
-                "kind": "LinkedField",
-                "name": "children",
-                "plural": true,
+                "kind": "InlineFragment",
                 "selections": [
-                  (v3/*: any*/)
+                  (v3/*: any*/),
+                  (v4/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "url",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "size",
+                    "storageKey": null
+                  }
                 ],
-                "storageKey": null
+                "type": "Video",
+                "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "type": "Directory",
+                "abstractKey": null
               }
             ],
             "storageKey": null
@@ -145,12 +171,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "aa97e4f9c5caf319a5fa58b7ee6d6a47",
+    "cacheID": "904e0d68c628e060ee7429fb5dfe1c28",
     "id": null,
     "metadata": {},
     "name": "ChipDeleteFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation ChipDeleteFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  removeDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  children {\n    id\n  }\n}\n"
+    "text": "mutation ChipDeleteFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  removeDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    __typename\n    ...VideoFragment\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n}\n\nfragment VideoFragment on Video {\n  id\n  name\n  url\n  size\n}\n"
   }
 };
 })();

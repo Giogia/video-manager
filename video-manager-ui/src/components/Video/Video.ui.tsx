@@ -38,24 +38,23 @@ export const Video = ({ name, source, size }: VideoProps) => {
       width='max-content'
     >
       <Grid item sx={{
-        position: 'relative',
-        height: 50,
-        width: 70,
         ...fullscreen && {
-          position: 'absolute',
-          height: '100%',
-          width: '100%',
-          top: 0,
-          left: 0,
-          zIndex: 10000,
+          height: 200,
+          width: 280
         }
       }}>
-        <Wrapper>
+        <Wrapper sx={{
+          height: 50,
+          width: 70
+        }}>
           <CardMedia
             component='video'
             controls={fullscreen}
             src={source}
-            onClick={() => setFullscreen(true)}
+            onClick={() =>
+              setTimeout(() =>
+                setFullscreen(true), 250)
+            }
             sx={{
               borderRadius: 0.5,
               height: '100%',

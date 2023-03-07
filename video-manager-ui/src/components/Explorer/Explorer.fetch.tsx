@@ -7,6 +7,7 @@ import { ExplorerQuery } from './__generated__/ExplorerQuery.graphql'
 
 import { Explorer } from './Explorer.ui'
 import { FolderWithFetch } from '../Folder'
+import { VideoWithFetch } from '../Video'
 
 /**
  * Data fetching logic
@@ -22,9 +23,11 @@ const query = (
 )
 const fragment = (
     graphql`
-    fragment Explorer_directory on Directory{
+    fragment Explorer_directory on Directory {
         id
         children{
+            __typename
+            ...VideoFragment
             ...Folder
         }
     }
@@ -50,12 +53,21 @@ export const ExplorerWithFetch = ({ queryRef }: WithFetchProps) => {
             id={id}
             path={window.location.pathname}
             content={
-                children.map((child, i) =>
-                    <FolderWithFetch
-                        fragmentRef={child}
-                        key={i}
-                    />
-                )
+                children.map((child, i) => {
+                    return (
+                        child.__typename === 'Video' ?
+                            <VideoWithFetch
+                                fragmentRef={child}
+                                key={i}
+                            /> :
+                            child.__typename === 'Directory' ?
+                            <FolderWithFetch
+                                fragmentRef={child}
+                                key={i}
+                            /> :
+                        null
+                    )
+                })
             }
         />
     )

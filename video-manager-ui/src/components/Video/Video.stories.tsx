@@ -4,8 +4,13 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import { Video as VideoComponent } from './Video.ui'
 
-// @ts-ignore
-import video from './__assets__/video.mov'
+// @ts-ignore 
+import horizontal from './__assets__/horizontal.mov'
+
+// @ts-ignore 
+import vertical from './__assets__/vertical.mov'
+
+const video = Math.random() > 0.65 ? vertical : horizontal
 
 export default {
   title: 'Composed/Video',
