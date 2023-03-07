@@ -20,7 +20,7 @@ export const LinkWithDrop = ({ action, ...props }: LinkProps & WithDropProps) =>
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'Folder',
-    drop: item => action && action(item, href),
+    drop: item => { action && action(item, href) },
     collect: monitor => ({ isOver: !!monitor.isOver() })
   }))
 

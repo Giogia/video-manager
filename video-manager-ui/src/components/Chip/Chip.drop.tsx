@@ -18,7 +18,7 @@ export const ChipWithDrop = ({ action, ...props }: ChipProps & WithDropProps) =>
 
   const [{ isDragging, isOver }, drop] = useDrop(() => ({
     accept: 'Folder',
-    drop: item => action && action(item),
+    drop: item => { action && action(item) },
     collect: monitor => ({
       isDragging: monitor.getItemType() === 'Folder',
       isOver: !!monitor.isOver()
