@@ -6,8 +6,8 @@ import Box from '@mui/material/Box'
 import { Explorer as ExplorerComponent } from './Explorer.ui'
 import { ExplorerError } from './Explorer.error'
 import { ExplorerLoading } from './Explorer.loading'
-import { Folder } from '../Folder'
-import { Video } from '../Video'
+import { FolderWithDrag as Folder } from '../Folder'
+import { VideoWithDrag as Video } from '../Video'
 
 // @ts-ignore
 import video from '../Video/__assets__/video.mov'
