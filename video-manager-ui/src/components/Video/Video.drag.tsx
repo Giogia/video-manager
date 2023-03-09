@@ -1,6 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import { useDrag } from 'react-dnd'
+import { usePreview } from 'react-dnd-preview'
 
 import { Video, VideoProps } from './Video.ui'
 
@@ -17,13 +18,18 @@ export const VideoWithDrag = ({ ...props }: VideoProps) => {
     collect: monitor => ({ isDragging: !!monitor.isDragging() })
   }))
 
+  const { display: preview } = usePreview()
+
   return (
-    <Box ref={drag}
-      style={{
-        opacity: isDragging ? 0 : 1,
-        transform: 'translate(0, 0)',
-        transition: 'opacity 0.2s ease-in-out'
-      }}>
+     <Box {
+      ...preview ? {
+        sx: {
+          opacity: isDragging ? 0 : 1,
+          transform: 'translate(0,0)',
+          transition: 'opacity 0.2s ease-in-out'
+        }
+      } : { ref: drag }
+    }>
       <Video {...props} />
     </Box>
   )

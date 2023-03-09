@@ -39,8 +39,12 @@ export const Video = ({ name, source, size }: VideoProps) => {
     >
       <Grid item sx={{
         ...fullscreen && {
-          height: 200,
-          width: 280
+          position: 'absolute',
+          height: '100%',
+          width: '100%',
+          top: 0,
+          left: 0,
+          zIndex: 10000,
         }
       }}>
         <Wrapper sx={{

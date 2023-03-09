@@ -1,6 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import { useDrag } from 'react-dnd'
+import { usePreview } from 'react-dnd-preview'
 
 import { Folder, FolderProps } from './Folder.ui'
 import { MoveFolderFolder } from './Folder.mutations'
@@ -18,15 +19,20 @@ export const FolderWithDrag = ({ ...props }: FolderProps) => {
     collect: monitor => ({ isDragging: !!monitor.isDragging() })
   }), [name])
 
+  const { display: preview } = usePreview()
+
   return (
-    <Box ref={drag}
-      style={{
-        opacity: isDragging ? 0 : 1,
-        transform: 'translate(0, 0)',
-        transition: 'opacity 0.2s ease-in-out'
-      }}>
+    <Box {
+      ...preview ? {
+        sx: {
+          opacity: isDragging ? 0 : 1,
+          transform: 'translate(0,0)',
+          transition: 'opacity 0.2s ease-in-out'
+        }
+      } : { ref: drag }
+    }>
       <MoveFolderFolder {...props} />
-    </Box>
+    </Box >
   )
 }
 

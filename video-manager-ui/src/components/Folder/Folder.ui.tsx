@@ -7,7 +7,7 @@ import { Name } from '../Name'
 
 export interface FolderProps {
   /**
-   * Whether the folder is loading
+   * The number of items in a folder
    */
   count?: number
   /**
