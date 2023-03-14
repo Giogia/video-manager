@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec ts-node -r dotenv/config src/index.ts",
-    "test": "jest --watch"
+    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --watch"
   },
   "dependencies": {
     "@typegoose/typegoose": "^9.13.1",

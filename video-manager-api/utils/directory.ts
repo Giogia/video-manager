@@ -1,14 +1,14 @@
-import { Directory } from "../schema/directory"
+import { Directory, Child } from "../schema/directory"
 import { Video } from "../schema/video"
 import { findNode, findChildren } from "./node"
 
-export function composeChild({ id, name, url, size, children = [] }: any): Directory | Video {
+export function composeChild({ id, name, url, size, children = [] }: any): Child {
     return {
         id,
         name,
-        ...url && { url },
-        ...size && { size },
-        ...!url && { children: children.map(composeChild) }
+        ...url ?
+            { url, size } :
+            { children: children.map(composeChild) }
     }
 }
 

@@ -65,11 +65,17 @@ describe('Resolvers', () => {
                     getDirectory(input: { path: "/", name: "" }){
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -95,11 +101,17 @@ describe('Resolvers', () => {
                     getDirectory(input: { path: "/", name: "Parent" }){
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -125,11 +137,17 @@ describe('Resolvers', () => {
                     getDirectory(input: { path: "/parent", name: "Dir" }){
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -151,7 +169,9 @@ describe('Resolvers', () => {
                     getDirectory(input: { path: "/parent", name: "Dir" }){
                         name
                         children {
-                            name
+                            ... on Directory {
+                                name
+                            }
                         }
                     }
                 }
@@ -174,11 +194,17 @@ describe('Resolvers', () => {
                     addDirectory(input: { path: "/parent/dir", name: "Child" }){
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -202,9 +228,13 @@ describe('Resolvers', () => {
                     addDirectory(input: { path: "/parent/dir", name: "Child" }){
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
+                                children {
+                                    ... on Directory {
+                                        name
+                                    }
+                                }
                             }
                         }
                     }
@@ -241,7 +271,9 @@ describe('Resolvers', () => {
                     addDirectory(input: { path: "/parent/dir", name: "Child" }){
                         name
                         children {
-                            name
+                            ... on Directory {
+                                name
+                            }
                         }
                     }
                 }
@@ -266,11 +298,17 @@ describe('Resolvers', () => {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -287,11 +325,17 @@ describe('Resolvers', () => {
                     getDirectory(input: { path: "/", name: "New Parent" }){
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -321,11 +365,17 @@ describe('Resolvers', () => {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/parent/sibling") {
                         name
                         children {
-                            name
-                            children {
-                                name 
+                            ... on Directory {
+                                name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -355,11 +405,17 @@ describe('Resolvers', () => {
                     getDirectory(input: { path: "/parent", name: "Sibling" }){
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -392,11 +448,17 @@ describe('Resolvers', () => {
                     moveDirectory(input: {path: "/parent/dir", name: "Child"}, path: "/parent") {
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -413,11 +475,17 @@ describe('Resolvers', () => {
                     getDirectory(input: { path: "/", name: "Parent" }){
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -448,7 +516,9 @@ describe('Resolvers', () => {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
                         name
                         children {
-                            name
+                            ... on Directory {
+                                name
+                            }
                         }
                     }
                 }
@@ -469,7 +539,9 @@ describe('Resolvers', () => {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
                         name
                         children {
-                            name
+                            ... on Directory {
+                                name
+                            }
                         }
                     }
                 }
@@ -492,7 +564,9 @@ describe('Resolvers', () => {
                     moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
                         name
                         children {
-                            name
+                            ... on Directory {
+                                name
+                            }
                         }
                     }
                 }
@@ -518,11 +592,17 @@ describe('Resolvers', () => {
                     renameDirectory(input: {path: "/parent", name: "Dir"}, name: "New Name") {
                         name
                         children {
-                            name
-                            children {
+                            ... on Directory {
                                 name
                                 children {
-                                    name
+                                    ... on Directory {
+                                        name
+                                        children {
+                                            ... on Directory {
+                                                name
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -555,7 +635,9 @@ describe('Resolvers', () => {
                     renameDirectory(input: {path: "/parent", name: "Dir"}, name: "New Name") {
                         name
                         children {
-                            name
+                            ... on Directory {
+                                name
+                            }
                         }
                     }
                 }
@@ -579,7 +661,9 @@ describe('Resolvers', () => {
                     removeDirectory(input: { path: "/", name: "Parent" }){
                         name
                         children {
-                            name
+                            ... on Directory {
+                                name
+                            }
                         }
                     }
                 }
@@ -601,7 +685,9 @@ describe('Resolvers', () => {
                     removeDirectory(input: { path: "/parent", name: "Dir" }){
                         name
                         children {
-                            name
+                            ... on Directory {
+                                name
+                            }
                         }
                     }
                 }
@@ -621,7 +707,9 @@ describe('Resolvers', () => {
                     removeDirectory(input: { path: "/", name: "" }){
                         name
                         children {
-                            name
+                            ... on Directory {
+                                name
+                            }
                         }
                     }
                 }

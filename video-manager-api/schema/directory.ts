@@ -10,6 +10,8 @@ const Child = createUnionType({
     }
 })
 
+export type Child = typeof Child
+
 @ObjectType()
 export class Directory {
     @Field()

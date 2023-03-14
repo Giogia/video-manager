@@ -15,10 +15,10 @@ export class Node {
     parent!: string
 
     @prop()
-    url!: string
+    url?: string
 
     @prop()
-    size!: number
+    size?: number
 }
 
 export class NodeInput implements Pick<Node, "name" | "parent"> {
