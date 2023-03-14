@@ -3,24 +3,24 @@ import mongoose from "mongoose"
 const RECONNECTION_INTERVAL = 30 * 1000 // milliseconds
 
 export async function loadDatabase(dbName?: string, options: mongoose.ConnectOptions = {}) {
-    try {
-        await mongoose.connect(process.env.MONGO_DB_URL!, {
-            dbName,
-            ...options
-        })
-        console.log("Connected to Database")
-    }
-    catch {
-        console.log("Could not connect to Database")
-        setTimeout(() => {
-            console.log("Trying to Reconnect...")
-            loadDatabase(dbName, options)
+   try {
+      await mongoose.connect(process.env.MONGO_DB_URL!, {
+         dbName,
+         ...options
+      })
+      console.log("Connected to Database")
+   }
+   catch {
+      console.log("Could not connect to Database")
+      setTimeout(() => {
+         console.log("Trying to Reconnect...")
+         loadDatabase(dbName, options)
 
-        }, RECONNECTION_INTERVAL)
-    }
+      }, RECONNECTION_INTERVAL)
+   }
 }
 
 export async function disconnect() {
-    await mongoose.connection.close()
-    console.log("Disconnected from Database")
+   await mongoose.connection.close()
+   console.log("Disconnected from Database")
 }

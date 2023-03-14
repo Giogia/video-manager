@@ -2,33 +2,33 @@ import { Field, ObjectType, InputType, createUnionType } from "type-graphql"
 import { Video } from "./video"
 
 const Child = createUnionType({
-    name: "Child",
-    types: () => [Directory, Video] as const,
-    resolveType: child => {
-        if ("url" in child) return "Video"
-        if ("children" in child) return "Directory"
-    }
+   name: "Child",
+   types: () => [Directory, Video] as const,
+   resolveType: child => {
+      if ("url" in child) return "Video"
+      if ("children" in child) return "Directory"
+   }
 })
 
 export type Child = typeof Child
 
 @ObjectType()
 export class Directory {
-    @Field()
-    readonly id?: string
+   @Field()
+   readonly id?: string
 
-    @Field()
-    name!: string
+   @Field()
+   name!: string
 
-    @Field(() => [Child])
-    children!: (Directory | Video)[]
+   @Field(() => [Child])
+   children!: (Directory | Video)[]
 }
 
 @InputType()
 export class DirectoryInput implements Pick<Directory, "name"> {
-    @Field()
-    path!: string
+   @Field()
+   path!: string
 
-    @Field()
-    name!: string
+   @Field()
+   name!: string
 }

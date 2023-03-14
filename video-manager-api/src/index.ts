@@ -1,15 +1,15 @@
 import "reflect-metadata"
 
-import express from 'express'
+import express from "express"
 
-import { buildSchema } from 'type-graphql'
-import { createYoga } from 'graphql-yoga'
+import { buildSchema } from "type-graphql"
+import { createYoga } from "graphql-yoga"
 
-import { DirectoryResolver } from '../resolvers/directory'
-import { VideoResolver } from '../resolvers/video'
+import { DirectoryResolver } from "../resolvers/directory"
+import { VideoResolver } from "../resolvers/video"
 import { loadDatabase } from "../utils/database"
 import { combinePath, currentPath } from "../utils/path"
-import { graphqlUploadExpress } from '../utils/upload'
+import { graphqlUploadExpress } from "../utils/upload"
 
 async function start() {
    const app = express()
@@ -24,13 +24,13 @@ async function start() {
       maxFiles: 1
    }))
 
-   app.use('/videos', express.static(
-      combinePath(currentPath(), './uploads')
+   app.use("/videos", express.static(
+      combinePath(currentPath(), "./uploads")
    ))
 
-   app.use('/graphql', createYoga({
+   app.use("/graphql", createYoga({
       schema,
-      graphiql: { title: 'API Documentation' }
+      graphiql: { title: "API Documentation" }
    }))
 
    app.listen(4000, () => {

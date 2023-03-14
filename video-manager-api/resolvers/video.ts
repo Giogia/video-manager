@@ -1,5 +1,5 @@
 import { GraphQLError } from "graphql"
-import { Arg, Mutation, Query, Resolver } from "type-graphql"
+import { Arg, Mutation, Resolver } from "type-graphql"
 import { createWriteStream, statSync } from "fs"
 import { join } from "path"
 
@@ -12,47 +12,47 @@ import { combinePath, currentPath } from "../utils/path"
 @Resolver(() => Video)
 export class VideoResolver {
 
-    @Mutation(() => Directory)
-    async uploadVideo(@Arg("input") { path, video }: VideoInput): Promise<Directory | null> {
+   @Mutation(() => Directory)
+   async uploadVideo(@Arg("input") { path, video }: VideoInput): Promise<Directory | null> {
 
-        const { filename, createReadStream } = await video
+      const { filename, createReadStream } = await video
 
-        const filePath = join(currentPath(), './uploads', filename)
+      const filePath = join(currentPath(), "./uploads", filename)
 
-        await new Promise(res => createReadStream()
-            .pipe(createWriteStream(filePath))
-            .on('close', res)
-            .on('error', () => {
-                throw new GraphQLError('Cannot save uploaded video.')
-            })
-        )
+      await new Promise(res => createReadStream()
+         .pipe(createWriteStream(filePath))
+         .on("close", res)
+         .on("error", () => {
+            throw new GraphQLError("Cannot save uploaded video.")
+         })
+      )
 
-        const { size } = statSync(filePath)
+      const { size } = statSync(filePath)
 
-        const parentNode = await findNode(path)
+      const parentNode = await findNode(path)
 
-        if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
+      if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
 
-        const node = await addNode({
-            parent: parentNode.id!,
-            name: filename,
-            url: combinePath('/videos', filename),
-            size
-        })
+      const node = await addNode({
+         parent: parentNode.id!,
+         name: filename,
+         url: combinePath("/videos", filename),
+         size
+      })
 
-        node.save().catch(() => {
-            throw new GraphQLError('Directory already exists.')
-        })
+      node.save().catch(() => {
+         throw new GraphQLError("Directory already exists.")
+      })
 
-        try {
-            const directory = await composeDirectory(path)
+      try {
+         const directory = await composeDirectory(path)
 
-            if (!directory) throw new GraphQLError('Directory does not exists.')
+         if (!directory) throw new GraphQLError("Directory does not exists.")
 
-            return directory
-        }
-        catch (e) {
-            throw new GraphQLError(`Cannot return directory ${path}. \n\n ${e}`)
-        }
-    }
+         return directory
+      }
+      catch (e) {
+         throw new GraphQLError(`Cannot return directory ${path}. \n\n ${e}`)
+      }
+   }
 }
