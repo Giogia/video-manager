@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import MuiChip from '@mui/material/Chip'
 import Tooltip from '@mui/material/Tooltip'
 import { SxProps, Theme } from '@mui/material'
@@ -8,6 +8,10 @@ import { formatName } from '../../utils/name'
 
 export interface ChipProps {
   /**
+   * Chip functionality
+   */
+  action?: (e: any) => void
+  /**
    * Whether the chip is active
    */
   disabled?: boolean
@@ -15,6 +19,10 @@ export interface ChipProps {
    * Illustration of the chip
    */
   icon: keyof typeof icons
+  /**
+   * Text present on the chip
+   */
+  label?: ReactNode,
   /**
    * Customize chip themed style
    */
@@ -28,14 +36,16 @@ export interface ChipProps {
 /**
  * Primary UI component for user interaction
  */
-export const Chip = ({ icon, disabled, tooltip, sx }: ChipProps) => (
+export const Chip = ({ action, icon, disabled, label, tooltip, sx }: ChipProps) => (
   <Tooltip title={tooltip}>
     <span>
       <MuiChip
-        icon={<Icon id={icon} />}
-        label={formatName(icon)}
+        clickable
+        icon={<Icon id={icon} sx={{color: 'action'}}/>}
+        label={label || formatName(icon)}
         disabled={disabled}
-        sx={{paddingLeft: 1, ...sx}}
+        onClick={action}
+        sx={{ paddingLeft: 1, ...sx }}
       />
     </span>
   </Tooltip>

@@ -1,5 +1,7 @@
 import { DeleteFolderChip } from './Chip.mutations'
+import { ChipWithLoading } from './Chip.loading'
 
 export {
-  DeleteFolderChip
+  DeleteFolderChip,
+  ChipWithLoading as Chip
 }
