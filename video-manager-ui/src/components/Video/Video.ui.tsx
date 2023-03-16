@@ -48,8 +48,10 @@ export const Video = ({ name, source, size }: VideoProps) => {
         }
       }}>
         <Wrapper sx={{
-          height: 50,
-          width: 70
+          ...!fullscreen && {
+            height: 50,
+            width: 70
+          }
         }}>
           <CardMedia
             component='video'
@@ -92,7 +94,6 @@ export const Video = ({ name, source, size }: VideoProps) => {
         fullscreen &&
         <Button
           icon='close'
-          size='small'
           action={() => setFullscreen(false)}
           tooltip={false}
           sx={{

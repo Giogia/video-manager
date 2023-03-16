@@ -15,8 +15,6 @@ import horizontal from '../Video/__assets__/horizontal.mov'
 // @ts-ignore 
 import vertical from '../Video/__assets__/vertical.mov'
 
-const video = Math.random() > 0.65 ? vertical : horizontal
-
 export default {
   title: 'Composed/Explorer',
   component: ExplorerComponent,
@@ -26,10 +24,11 @@ export default {
   args: {
     ...ExplorerComponent.defaultProps,
     path: '/home/giovanni/developer/video-manager',
-    content: Array.from({ length: 40 }).map(() => Math.random() > 0.65 ?
-      <Video source={video} /> :
-      <Folder />
-    ),
+    content: Array.from({ length: 40 }).map(() =>
+      Math.random() > 0.65 ?
+        <Video source={Math.random() > 0.65 ? vertical : horizontal} /> :
+        <Folder />
+    )
   }
 } as ComponentMeta<typeof ExplorerComponent>
 
