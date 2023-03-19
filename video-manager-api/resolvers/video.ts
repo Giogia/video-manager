@@ -67,7 +67,8 @@ export class VideoResolver {
 
       const update = {
          name: newName,
-         path: formatName(newName)
+         path: formatName(newName),
+         url: combinePath("/videos", newName),
       }
 
       const filePath = join(currentPath(), "./uploads", name!)

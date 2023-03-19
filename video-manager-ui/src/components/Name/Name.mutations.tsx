@@ -6,7 +6,7 @@ import { graphql } from 'babel-plugin-relay/macro'
 import { NameRenameFolderMutation } from './__generated__/NameRenameFolderMutation.graphql'
 import { NameRenameVideoMutation } from './__generated__/NameRenameVideoMutation.graphql'
 
-import { Name, NameProps } from './Name.ui'
+import { NameProps } from './Name.ui'
 import { NameWithLoading, WithLoadingProps } from './Name.loading'
 
 /**
@@ -39,10 +39,10 @@ const renameVideo = (
 /**
  * Component Wrapper for renaming nodes
  */
-export const Rename = <T extends MutationParameters,>({ editable, mutation, ...props }: NameProps & { mutation: GraphQLTaggedNode }) => {
+export const Rename = <T extends MutationParameters,>({ editable, mutation, ...props }: NameProps & WithLoadingProps & { mutation: GraphQLTaggedNode }) => {
   const [commitMutation, isMutationInFlight] = useMutation<T>(mutation)
 
-  return <Name
+  return <NameWithLoading
     {...props}
     editable={editable && !isMutationInFlight}
     onChange={(newName: string, oldName: string) =>
@@ -61,25 +61,17 @@ export const Rename = <T extends MutationParameters,>({ editable, mutation, ...p
 /**
  * Component Wrapper for renaming folders
  */
-export const RenameFolder = ({ loading, ...props }: NameProps & WithLoadingProps) => (
-  loading ?
-    <NameWithLoading
-      {...props}
-    /> :
-    <Rename<NameRenameFolderMutation>
-      {...props}
-      mutation={renameFolder}
-    />
+export const RenameFolder = ({ ...props }: NameProps & WithLoadingProps) => (
+  <Rename<NameRenameFolderMutation>
+    {...props}
+    mutation={renameFolder}
+  />
 )
 
 /**
  * Component Wrapper for renaming videos (renames also saved file)
  */
-export const RenameVideo = ({loading, ...props}: NameProps & WithLoadingProps) => (
-  loading ?
-    <NameWithLoading
-      {...props}
-    /> :
+export const RenameVideo = ({ ...props }: NameProps & WithLoadingProps) => (
   <Rename<NameRenameVideoMutation>
     {...props}
     mutation={renameVideo}
