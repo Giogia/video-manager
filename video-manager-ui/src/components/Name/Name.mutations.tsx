@@ -1,10 +1,13 @@
 import React from 'react'
 import { useMutation } from 'react-relay'
+import { GraphQLTaggedNode, MutationParameters } from 'relay-runtime'
 import { graphql } from 'babel-plugin-relay/macro'
 
 import { NameRenameFolderMutation } from './__generated__/NameRenameFolderMutation.graphql'
+import { NameRenameVideoMutation } from './__generated__/NameRenameVideoMutation.graphql'
 
 import { Name, NameProps } from './Name.ui'
+import { NameWithLoading, WithLoadingProps } from './Name.loading'
 
 /**
  * Rename folder logic
@@ -20,10 +23,24 @@ const renameFolder = (
 )
 
 /**
- * Component Wrapper for renaming folders
+ * Rename folder logic
  */
-export const Rename = ({ editable, ...props }: NameProps) => {
-  const [commitMutation, isMutationInFlight] = useMutation<NameRenameFolderMutation>(renameFolder)
+const renameVideo = (
+  graphql`
+    mutation NameRenameVideoMutation($path: String!, $oldName: String!, $newName: String!) {
+      renameVideo(input: {path: $path, name: $oldName}, name: $newName){
+        ...Explorer_directory
+      }
+    }
+  `
+)
+
+
+/**
+ * Component Wrapper for renaming nodes
+ */
+export const Rename = <T extends MutationParameters,>({ editable, mutation, ...props }: NameProps & { mutation: GraphQLTaggedNode }) => {
+  const [commitMutation, isMutationInFlight] = useMutation<T>(mutation)
 
   return <Name
     {...props}
@@ -39,3 +56,32 @@ export const Rename = ({ editable, ...props }: NameProps) => {
     }
   />
 }
+
+
+/**
+ * Component Wrapper for renaming folders
+ */
+export const RenameFolder = ({ loading, ...props }: NameProps & WithLoadingProps) => (
+  loading ?
+    <NameWithLoading
+      {...props}
+    /> :
+    <Rename<NameRenameFolderMutation>
+      {...props}
+      mutation={renameFolder}
+    />
+)
+
+/**
+ * Component Wrapper for renaming videos (renames also saved file)
+ */
+export const RenameVideo = ({loading, ...props}: NameProps & WithLoadingProps) => (
+  loading ?
+    <NameWithLoading
+      {...props}
+    /> :
+  <Rename<NameRenameVideoMutation>
+    {...props}
+    mutation={renameVideo}
+  />
+)

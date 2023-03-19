@@ -2,9 +2,8 @@ import React from 'react'
 import Skeleton from '@mui/material/Skeleton'
 
 import { Name,  NameProps } from './Name.ui'
-import { Rename } from './Name.mutations'
 
-interface WithLoadingProps {
+export interface WithLoadingProps {
   /**
    * Whether the name is loading
    */
@@ -17,9 +16,9 @@ interface WithLoadingProps {
 export const NameWithLoading = ({ loading, ...props }: NameProps & WithLoadingProps) => (
   loading ?
     <Skeleton animation='wave'>
-      <Rename {...props} />
+      <Name {...props} />
     </Skeleton> :
-    <Rename {...props} />
+    <Name {...props} />
 )
 
 NameWithLoading.defaultProps = {
