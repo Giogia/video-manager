@@ -21,6 +21,9 @@ export class VideoInput {
    @Field()
    path!: string
 
+   @Field({ nullable: true })
+   name?: string
+
    @Field(() => GraphQLUpload, { nullable: true })
    video?: Upload
 }

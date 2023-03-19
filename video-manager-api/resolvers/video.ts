@@ -1,13 +1,14 @@
 import { GraphQLError } from "graphql"
 import { Arg, Mutation, Resolver } from "type-graphql"
-import { createWriteStream, statSync } from "fs"
+import { createWriteStream, statSync, rename } from "fs"
 import { join } from "path"
 
 import { Directory } from "../schema/directory"
 import { Video, VideoInput } from "../schema/video"
 import { composeDirectory } from "../utils/directory"
-import { addNode, findNode } from "../utils/node"
+import { addNode, editNode, findNode } from "../utils/node"
 import { combinePath, currentPath } from "../utils/path"
+import { formatName } from "../utils/name"
 
 @Resolver(() => Video)
 export class VideoResolver {
@@ -53,6 +54,40 @@ export class VideoResolver {
       }
       catch (e) {
          throw new GraphQLError(`Cannot return directory ${path}. \n\n ${e}`)
+      }
+   }
+
+   @Mutation(() => Directory)
+   async renameVideo(
+      @Arg("input") { path, name }: VideoInput,
+      @Arg("name") newName: string
+   ): Promise<Directory | null> {
+
+      const directoryPath = combinePath(path, name)
+
+      const update = {
+         name: newName,
+         path: formatName(newName)
+      }
+
+      const filePath = join(currentPath(), "./uploads", name!)
+      const newFilePath = join(currentPath(), "./uploads", newName)
+
+      try {
+         await rename(filePath, newFilePath, (err) => {
+            if (err) throw new GraphQLError("Video file does not exists.")
+         })
+
+         const { matchedCount } = await editNode(directoryPath, update).catch(() => {
+            throw new GraphQLError("Video already exists.")
+         })
+
+         if (matchedCount == 0) throw new GraphQLError("Video does not exists.")
+
+         return composeDirectory(path)
+      }
+      catch (e) {
+         throw new GraphQLError(`Cannot rename video ${directoryPath}. \n\n ${e}`)
       }
    }
 }
