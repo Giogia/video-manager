@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
 import { Button } from '../Button'
-import { Name } from '../Name'
+import { RenameVideo } from '../Name'
 
 export interface VideoProps {
   /**
@@ -17,6 +17,10 @@ export interface VideoProps {
    */
   name: string
   /**
+   * Whether the video is loading
+   */
+  loading: boolean
+  /**
    * Video dimension
    */
   size?: string
@@ -25,7 +29,7 @@ export interface VideoProps {
 /**
  * UI component for identifying a directory
  */
-export const Video = ({ name, source, size }: VideoProps) => {
+export const Video = ({ name, source, size, loading }: VideoProps) => {
 
   const [fullscreen, setFullscreen] = useState(false)
 
@@ -73,9 +77,10 @@ export const Video = ({ name, source, size }: VideoProps) => {
         </Wrapper>
       </Grid>
       <Grid item>
-        <Name
+        <RenameVideo
           name={name}
           editable={!fullscreen}
+          loading={loading}
           sx={{
             ...fullscreen && {
               position: 'absolute',
@@ -90,8 +95,7 @@ export const Video = ({ name, source, size }: VideoProps) => {
           }}
         />
       </Grid>
-      {
-        fullscreen &&
+      {fullscreen ?
         <Button
           icon='close'
           action={() => setFullscreen(false)}
@@ -103,10 +107,7 @@ export const Video = ({ name, source, size }: VideoProps) => {
             zIndex: 10001,
             color: 'white'
           }}
-        />
-      }
-      {
-        !fullscreen &&
+        /> :
         <Grid item>
           <Typography
             variant='caption'
@@ -122,5 +123,6 @@ export const Video = ({ name, source, size }: VideoProps) => {
 
 Video.defaultProps = {
   name: 'New Video',
-  size: '-'
+  loading: false,
+  size: '-',
 }

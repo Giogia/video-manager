@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
 import { Button } from '../Button'
-import { Name } from '../Name'
+import { RenameFolder } from '../Name'
 
 export interface FolderProps {
   /**
@@ -48,7 +48,7 @@ export const Folder = ({ name, loading, onClick, selected, count }: FolderProps)
       />
     </Grid>
     <Grid item>
-      <Name
+      <RenameFolder
         name={name}
         loading={loading}
         editable={!selected}
