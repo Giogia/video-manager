@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<085a76cc6d291d71dcb3da1afbc453f9>>
+ * @generated SignedSource<<eaf0d0b0ed55a4f88ab0183832fc3aa8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -64,9 +64,19 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v6 = [
+  (v3/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -123,18 +133,12 @@ return {
             "name": "children",
             "plural": true,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "__typename",
-                "storageKey": null
-              },
+              (v4/*: any*/),
               {
                 "kind": "InlineFragment",
                 "selections": [
                   (v3/*: any*/),
-                  (v4/*: any*/),
+                  (v5/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -157,7 +161,31 @@ return {
                 "kind": "InlineFragment",
                 "selections": [
                   (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v5/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "children",
+                    "plural": true,
+                    "selections": [
+                      (v4/*: any*/),
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v6/*: any*/),
+                        "type": "Directory",
+                        "abstractKey": null
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v6/*: any*/),
+                        "type": "Video",
+                        "abstractKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "type": "Directory",
                 "abstractKey": null
@@ -171,12 +199,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cd69e3aca1de4d24bf65ce590f6bcee8",
+    "cacheID": "6c2674e7e37406d2396df5b57342fb6a",
     "id": null,
     "metadata": {},
     "name": "ButtonAddFolderMutation",
     "operationKind": "mutation",
-    "text": "mutation ButtonAddFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  addDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    __typename\n    ...VideoFragment\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n}\n\nfragment VideoFragment on Video {\n  id\n  name\n  url\n  size\n}\n"
+    "text": "mutation ButtonAddFolderMutation(\n  $path: String!\n  $name: String!\n) {\n  addDirectory(input: {path: $path, name: $name}) {\n    ...Explorer_directory\n  }\n}\n\nfragment Explorer_directory on Directory {\n  id\n  children {\n    __typename\n    ...VideoFragment\n    ...Folder\n  }\n}\n\nfragment Folder on Directory {\n  id\n  name\n  children {\n    __typename\n    ... on Directory {\n      id\n    }\n    ... on Video {\n      id\n    }\n  }\n}\n\nfragment VideoFragment on Video {\n  id\n  name\n  url\n  size\n}\n"
   }
 };
 })();

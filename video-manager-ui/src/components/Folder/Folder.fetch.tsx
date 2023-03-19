@@ -22,26 +22,30 @@ const fragment = (
     fragment Folder on Directory{
       id
       name
+      children {
+        ... on Directory {
+          id
+        }
+        ... on Video {
+          id
+        }
+      }
     }
   `
 )
 
-// name  
-// children {
-//   id
-// }
 
 /**
  * Component wrapper fetching data
  */
 export const FolderWithFetch = ({ fragmentRef, ...props }: FolderProps & WithFetchProps) => {
-  const { name } = useFragment<Folder$key>(fragment, fragmentRef!)
+  const { name, children } = useFragment<Folder$key>(fragment, fragmentRef!)
 
   return (
     <FolderWithRouter
       {...props}
       name={name!}
-      // count={children?.length}
+      count={children?.length}
     />
   )
 }
