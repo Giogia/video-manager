@@ -16,7 +16,6 @@ export function combinePath(path: string, name: string | undefined): string {
       path
 }
 
-
 export function destructurePath(path: string): string[] {
    return decodeURI(path)
       .split(sep)
