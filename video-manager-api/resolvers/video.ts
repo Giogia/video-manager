@@ -1,13 +1,13 @@
 import { GraphQLError } from "graphql"
 import { Arg, Mutation, Resolver } from "type-graphql"
-import { createWriteStream, statSync, rename } from "fs"
+import { createWriteStream, statSync, rename, unlink } from "fs"
 import { join } from "path"
 
 import { Directory } from "../schema/directory"
 import { Video, VideoInput } from "../schema/video"
 import { composeDirectory } from "../utils/directory"
-import { addNode, editNode, findNode } from "../utils/node"
-import { combinePath, currentPath } from "../utils/path"
+import { addNode, editNode, findNode, removeNode } from "../utils/node"
+import { combinePath, currentPath, isRoot } from "../utils/path"
 import { formatName } from "../utils/name"
 
 @Resolver(() => Video)
@@ -63,7 +63,7 @@ export class VideoResolver {
       @Arg("name") newName: string
    ): Promise<Directory | null> {
 
-      const directoryPath = combinePath(path, name)
+      const videoPath = combinePath(path, name)
 
       const update = {
          name: newName,
@@ -76,10 +76,10 @@ export class VideoResolver {
 
       try {
          await rename(filePath, newFilePath, (err) => {
-            if (err) throw new GraphQLError("Video file does not exists.")
+            if (err) throw new GraphQLError("Cannot rename video file.")
          })
 
-         const { matchedCount } = await editNode(directoryPath, update).catch(() => {
+         const { matchedCount } = await editNode(videoPath, update).catch(() => {
             throw new GraphQLError("Video already exists.")
          })
 
@@ -88,7 +88,36 @@ export class VideoResolver {
          return composeDirectory(path)
       }
       catch (e) {
-         throw new GraphQLError(`Cannot rename video ${directoryPath}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot rename video ${videoPath}. \n\n ${e}`)
+      }
+   }
+
+   @Mutation(() => Directory)
+   async removeVideo(@Arg("input") { path, name }: VideoInput): Promise<Directory | null> {
+
+      const videoPath = combinePath(path, name)
+      const filePath = join(currentPath(), "./uploads", name!)
+
+      try {
+         if (!isRoot(path, name)) {
+            const node = await findNode(videoPath)
+
+            if (!node) throw new GraphQLError("Video does not exists.")
+
+            await unlink(filePath, (err) => {
+               if (err) throw new GraphQLError("Cannot remove video file.")
+            })
+
+            const { id } = node
+
+            await removeNode(id)
+
+            return composeDirectory(path)
+         }
+         throw new GraphQLError("Directory is root.")
+      }
+      catch (e) {
+         throw new GraphQLError(`Cannot remove directory ${videoPath}. \n\n ${e}`)
       }
    }
 }
