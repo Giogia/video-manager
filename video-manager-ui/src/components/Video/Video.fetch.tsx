@@ -6,7 +6,6 @@ import { useFragment } from 'react-relay'
 import { VideoFragment$key } from './__generated__/VideoFragment.graphql'
 
 import { VideoWithDrag } from './Video.drag'
-import { formatSize } from '../../utils/size'
 
 export interface WithFetchProps {
   /**
@@ -39,7 +38,7 @@ export const VideoWithFetch = ({ fragmentRef }: WithFetchProps) => {
     <VideoWithDrag
       name={name!}
       source={env.BASE_URL + url}
-      size={formatSize(size)}
+      size={size}
     />
   )
 }

@@ -1,4 +1,4 @@
-export const formatSize = (number: number, digits = 1): string => {
+export const formatSize = (number = 0, digits = 1): string => {
     
     const sizes = [
         { value: 1e18, symbol: "Eb" },
@@ -7,7 +7,7 @@ export const formatSize = (number: number, digits = 1): string => {
         { value: 1e9, symbol: "Gb" },
         { value: 1e6, symbol: "Mb" },
         { value: 1e3, symbol: "kb" },
-        { value: 1, symbol: "" },
+        { value: 1, symbol: "b" },
     ]
     
     const size = sizes.find(({ value }) => number >= value)
@@ -18,5 +18,5 @@ export const formatSize = (number: number, digits = 1): string => {
         (number / size.value)
             .toFixed(digits)
             .replace(regex, "$1") + size.symbol :
-        "0"
+        "0b"
 }

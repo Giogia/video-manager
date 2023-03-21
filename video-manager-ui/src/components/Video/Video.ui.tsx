@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 
 import { Button } from '../Button'
 import { RenameVideo } from '../Name'
+import { formatSize } from '../../utils/size'
 
 export interface VideoProps {
   /**
@@ -23,7 +24,7 @@ export interface VideoProps {
   /**
    * Video dimension
    */
-  size?: string
+  size?: number
 }
 
 /**
@@ -113,7 +114,7 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
             variant='caption'
             sx={{ fontSize: 9, opacity: 0.75 }}
           >
-            {size}
+            {formatSize(size)}
           </Typography>
         </Grid>
       }
@@ -124,5 +125,4 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
 Video.defaultProps = {
   name: 'New Video',
   loading: false,
-  size: '-',
 }

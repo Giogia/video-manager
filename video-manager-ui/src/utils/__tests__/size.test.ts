@@ -5,9 +5,9 @@ describe('Size utils', () => {
     describe('formatSize', () => {
 
         test('format size correctly', () => {
-            expect(formatSize(0)).toEqual('0')
-            expect(formatSize(15)).toEqual('15')
-            expect(formatSize(103)).toEqual('103')
+            expect(formatSize(0)).toEqual('0b')
+            expect(formatSize(15)).toEqual('15b')
+            expect(formatSize(103)).toEqual('103b')
             expect(formatSize(1657)).toEqual('1.7kb')
             expect(formatSize(14388)).toEqual('14.4kb')
             expect(formatSize(593837)).toEqual('593.8kb')
