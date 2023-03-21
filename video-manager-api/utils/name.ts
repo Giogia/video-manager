@@ -1,10 +1,7 @@
-export const SPACE = " "
-export const EMPTY = ""
-
-export function formatName(name: string | undefined) {
+export function encodeName(name: string | undefined) {
    return name ?
-      name.replaceAll(SPACE, EMPTY).toLowerCase() :
-      EMPTY
+      encodeURI(name) :
+      ""
 }
 
 export function increaseNumber(name: string) {

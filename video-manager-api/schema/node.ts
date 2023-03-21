@@ -9,9 +9,6 @@ export class Node {
    name!: string
 
    @prop()
-   path!: string
-
-   @prop()
    parent!: string
 
    @prop()

@@ -133,7 +133,7 @@ describe("Resolvers", () => {
 
          const getDirectoryQuery = `#graphql
                 query {
-                    getDirectory(input: { path: "/parent", name: "Dir" }){
+                    getDirectory(input: { path: "/Parent", name: "Dir" }){
                         name
                         children {
                             ... on Directory {
@@ -165,7 +165,7 @@ describe("Resolvers", () => {
 
          const getDirectoryQuery = `#graphql
                 query {
-                    getDirectory(input: { path: "/parent", name: "Dir" }){
+                    getDirectory(input: { path: "/Parent", name: "Dir" }){
                         name
                         children {
                             ... on Directory {
@@ -178,7 +178,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, getDirectoryQuery)
 
-         expect(errors).toEqual([new GraphQLError("Cannot return directory /parent/dir. \n\n Directory does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot return directory /Parent/Dir. \n\n Directory does not exists.")])
       })
    })
 
@@ -190,7 +190,7 @@ describe("Resolvers", () => {
 
          const addDirectoryMutation = `#graphql
                 mutation {
-                    addDirectory(input: { path: "/parent/dir", name: "Child" }){
+                    addDirectory(input: { path: "/Parent/Dir", name: "Child" }){
                         name
                         children {
                             ... on Directory {
@@ -224,7 +224,7 @@ describe("Resolvers", () => {
 
          const addDirectoryMutation = `#graphql
                 mutation {
-                    addDirectory(input: { path: "/parent/dir", name: "Child" }){
+                    addDirectory(input: { path: "/Parent/Dir", name: "Child" }){
                         name
                         children {
                             ... on Directory {
@@ -267,7 +267,7 @@ describe("Resolvers", () => {
 
          const addDirectoryMutation = `#graphql
                 mutation {
-                    addDirectory(input: { path: "/parent/dir", name: "Child" }){
+                    addDirectory(input: { path: "/Parent/Dir", name: "Child" }){
                         name
                         children {
                             ... on Directory {
@@ -280,7 +280,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, addDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot add directory /parent/dir/child. \n\n Directory /parent/dir does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot add directory /Parent/Dir/Child. \n\n Directory /Parent/Dir does not exists.")])
       })
    })
 
@@ -294,7 +294,7 @@ describe("Resolvers", () => {
 
          const moveDirectoryMutation = `#graphql
                 mutation {
-                    moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
+                    moveDirectory(input: {path: "/Parent", name: "Dir"}, path: "/New%20Parent") {
                         name
                         children {
                             ... on Directory {
@@ -361,7 +361,7 @@ describe("Resolvers", () => {
 
          const moveDirectoryMutation = `#graphql
                 mutation {
-                    moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/parent/sibling") {
+                    moveDirectory(input: {path: "/Parent", name: "Dir"}, path: "/Parent/Sibling") {
                         name
                         children {
                             ... on Directory {
@@ -401,7 +401,7 @@ describe("Resolvers", () => {
 
          const getNewParentDirectoryQuery = `#graphql
                 query {
-                    getDirectory(input: { path: "/parent", name: "Sibling" }){
+                    getDirectory(input: { path: "/Parent", name: "Sibling" }){
                         name
                         children {
                             ... on Directory {
@@ -444,7 +444,7 @@ describe("Resolvers", () => {
 
          const moveDirectoryMutation = `#graphql
                 mutation {
-                    moveDirectory(input: {path: "/parent/dir", name: "Child"}, path: "/parent") {
+                    moveDirectory(input: {path: "/Parent/Dir", name: "Child"}, path: "/Parent") {
                         name
                         children {
                             ... on Directory {
@@ -512,7 +512,7 @@ describe("Resolvers", () => {
 
          const moveDirectoryMutation = `#graphql
                 mutation {
-                    moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
+                    moveDirectory(input: {path: "/Parent", name: "Dir"}, path: "/New%20Parent") {
                         name
                         children {
                             ... on Directory {
@@ -525,7 +525,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, moveDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot move directory /parent/dir. \n\n Directory does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot move directory /Parent/Dir. \n\n Directory does not exists.")])
       })
 
       it("returns error if target directory does not exists", async () => {
@@ -535,7 +535,7 @@ describe("Resolvers", () => {
 
          const moveDirectoryMutation = `#graphql
                 mutation {
-                    moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
+                    moveDirectory(input: {path: "/Parent", name: "Dir"}, path: "/New%20Parent") {
                         name
                         children {
                             ... on Directory {
@@ -548,19 +548,19 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, moveDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot move directory /parent/dir. \n\n Directory /newparent does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot move directory /Parent/Dir. \n\n Directory /New%20Parent does not exists.")])
       })
 
       it("returns error if directory already exists in target directory", async () => {
 
          await addNode(parentNode)
          await addNode(newParentNode)
-         await addNode({ ...node, parent: newParentNode.path })
+         await addNode({ ...node, parent: newParentNode.name })
          await addNode(node)
 
          const moveDirectoryMutation = `#graphql
                 mutation {
-                    moveDirectory(input: {path: "/parent", name: "Dir"}, path: "/newparent") {
+                    moveDirectory(input: {path: "/Parent", name: "Dir"}, path: "/New%20Parent") {
                         name
                         children {
                             ... on Directory {
@@ -573,7 +573,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, moveDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot move directory /parent/dir. \n\n Directory already exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot move directory /Parent/Dir. \n\n Directory already exists.")])
       })
    })
 
@@ -588,7 +588,7 @@ describe("Resolvers", () => {
 
          const renameDirectoryMutation = `#graphql
                 mutation {
-                    renameDirectory(input: {path: "/parent", name: "Dir"}, name: "New Name") {
+                    renameDirectory(input: {path: "/Parent", name: "Dir"}, name: "New Name") {
                         name
                         children {
                             ... on Directory {
@@ -631,7 +631,7 @@ describe("Resolvers", () => {
 
          const renameDirectoryMutation = `#graphql
                 mutation {
-                    renameDirectory(input: {path: "/parent", name: "Dir"}, name: "New Name") {
+                    renameDirectory(input: {path: "/Parent", name: "Dir"}, name: "New Name") {
                         name
                         children {
                             ... on Directory {
@@ -644,7 +644,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, renameDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot rename directory /parent/dir. \n\n Directory does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory does not exists.")])
       })
    })
 
@@ -681,7 +681,7 @@ describe("Resolvers", () => {
 
          const removeDirectoryMutation = `#graphql
                 mutation {
-                    removeDirectory(input: { path: "/parent", name: "Dir" }){
+                    removeDirectory(input: { path: "/Parent", name: "Dir" }){
                         name
                         children {
                             ... on Directory {
@@ -694,7 +694,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, removeDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot remove directory /parent/dir. \n\n Directory does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot remove directory /Parent/Dir. \n\n Directory does not exists.")])
       })
 
       it("returns error if directory does not exists", async () => {

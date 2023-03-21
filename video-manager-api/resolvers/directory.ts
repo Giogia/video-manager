@@ -3,7 +3,7 @@ import { Arg, Mutation, Query, Resolver } from "type-graphql"
 
 import { Directory, DirectoryInput } from "../schema/directory"
 import { composeDirectory } from "../utils/directory"
-import { formatName, increaseNumber, startsWith } from "../utils/name"
+import { increaseNumber, startsWith } from "../utils/name"
 import { addNode, findNode, findNodes, editNode, removeNode } from "../utils/node"
 import { combinePath, isRoot } from "../utils/path"
 @Resolver(() => Directory)
@@ -37,10 +37,7 @@ export class DirectoryResolver {
 
          if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
 
-         const siblingNodes = await findNodes({
-            path,
-            name: { $regex: startsWith(name) }
-         })
+         const siblingNodes = await findNodes({name: { $regex: startsWith(name) }})
 
          const existsInSiblings = siblingNodes.map(({ name }) => name).includes(name)
 
@@ -103,13 +100,8 @@ export class DirectoryResolver {
 
       const directoryPath = combinePath(path, name)
 
-      const update = {
-         name: newName,
-         path: formatName(newName)
-      }
-
       try {
-         const { matchedCount } = await editNode(directoryPath, update).catch(() => {
+         const { matchedCount } = await editNode(directoryPath, { name: newName }).catch(() => {
             throw new GraphQLError("Directory already exists.")
          })
 

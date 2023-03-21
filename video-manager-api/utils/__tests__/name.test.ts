@@ -1,16 +1,20 @@
-import { formatName, increaseNumber, startsWith } from "../name"
+import { encodeName, increaseNumber, startsWith } from "../name"
 
 describe("Name utils", () => {
 
    describe("formatName", () => {
 
       test("return correct name", () => {
-         expect(formatName("New Folder")).toEqual("newfolder")
-         expect(formatName("New Folder 1")).toEqual("newfolder1")
+         expect(encodeName("New Folder")).toEqual("New%20Folder")
+         expect(encodeName("New Folder 1")).toEqual("New%20Folder%201")
+
+         expect(encodeName("New_Folder_2")).toEqual("New_Folder_2")
+         expect(encodeName("New-Folder-3")).toEqual("New-Folder-3")
+         expect(encodeName("New Folder 4!")).toEqual("New%20Folder%204!")
       })
 
       test("return correct name with root", () => {
-         expect(formatName("")).toEqual("")
+         expect(encodeName("")).toEqual("")
       })
    })
 

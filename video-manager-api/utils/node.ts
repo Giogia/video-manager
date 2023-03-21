@@ -1,7 +1,6 @@
 import { PipelineStage } from "mongoose"
 
 import { Node, NodeInput, NodeModel, NodeUpdate } from "../schema/node"
-import { formatName } from "./name"
 import { destructurePath, isRoot } from "./path"
 
 export async function addNode({ name, parent, url, size }: NodeInput) {
@@ -9,7 +8,6 @@ export async function addNode({ name, parent, url, size }: NodeInput) {
    return new NodeModel({
       id: Date.now(),
       name,
-      path: formatName(name),
       parent,
       url,
       size
@@ -21,7 +19,7 @@ export async function editNode(path: string, update: NodeUpdate) {
    const [directory, parent] = destructurePath(path)
 
    return NodeModel.updateOne({
-      path: directory,
+      name: directory,
       parent: await findInParents(parent)
    },
    update
@@ -59,12 +57,11 @@ export async function findNode(path: string): Promise<Node | null> {
    if (isRoot(path)) return {
       id: "",
       name: directory,
-      path,
       parent
    } as Node
 
    return NodeModel.findOne({
-      path: directory,
+      name: directory,
       parent: await findInParents(parent)
    })
 }

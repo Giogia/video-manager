@@ -8,7 +8,6 @@ import { Video, VideoInput } from "../schema/video"
 import { composeDirectory } from "../utils/directory"
 import { addNode, editNode, findNode, removeNode } from "../utils/node"
 import { combinePath, currentPath, isRoot } from "../utils/path"
-import { formatName } from "../utils/name"
 
 @Resolver(() => Video)
 export class VideoResolver {
@@ -67,7 +66,6 @@ export class VideoResolver {
 
       const update = {
          name: newName,
-         path: formatName(newName),
          url: combinePath("/videos", newName),
       }
 
