@@ -1,9 +1,7 @@
 import React from 'react'
 import BreadcrumbsMui from '@mui/material/Breadcrumbs'
-
+import { sep } from 'path'
 import { Link } from '../Link'
-
-const SEPARATOR = '/'
 
 export interface BreadcrumbsProps {
   /**
@@ -17,8 +15,8 @@ export interface BreadcrumbsProps {
  */
 export const Breadcrumbs = ({ path }: BreadcrumbsProps) => {
 
-  const levels = path.split(SEPARATOR)
-  const href = (level: number) => levels.slice(0, level + 1).join(SEPARATOR) || SEPARATOR
+  const levels = path.split(sep)
+  const href = (level: number) => levels.slice(0, level + 1).join(sep) || sep
 
   return (
     <BreadcrumbsMui
@@ -29,7 +27,7 @@ export const Breadcrumbs = ({ path }: BreadcrumbsProps) => {
       {levels
         .map((link, i) => (
           <Link
-            name={link}
+            name={decodeURI(link)}
             key={i}
             href={href(i)}
             isRoot={!link && i === 0}

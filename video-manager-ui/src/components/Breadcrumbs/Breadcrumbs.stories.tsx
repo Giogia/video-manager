@@ -7,7 +7,7 @@ export default {
   title: 'Composed/Breadcrumbs',
   component: BreadcrumbsComponent,
   args: {
-    path: '/home/giovanni/developer/video-manager'
+    path: '/Home/Giovanni/Developer/Video%20Manager'
   }
 } as ComponentMeta<typeof BreadcrumbsComponent>
 

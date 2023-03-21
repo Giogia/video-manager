@@ -17,17 +17,17 @@ describe('Path utils', () => {
         })
 
         test('combine path with spaces correctly', () => {
-            expect(combinePath('/', ' test')).toEqual('/test')
-            expect(combinePath('/', 'test ')).toEqual('/test')
-            expect(combinePath('/', ' test ')).toEqual('/test')
-            expect(combinePath('/', ' te st ')).toEqual('/test')
+            expect(combinePath('/', ' test')).toEqual('/%20test')
+            expect(combinePath('/', 'test ')).toEqual('/test%20')
+            expect(combinePath('/', ' test ')).toEqual('/%20test%20')
+            expect(combinePath('/', ' te st ')).toEqual('/%20te%20st%20')
 
-            expect(combinePath('/test', '  ')).toEqual('/test')
+            expect(combinePath('/test', '  ')).toEqual('/test/%20%20')
 
-            expect(combinePath('/test', ' test')).toEqual('/test/test')
-            expect(combinePath('/test', 'test ')).toEqual('/test/test')
-            expect(combinePath('/test', ' test ')).toEqual('/test/test')
-            expect(combinePath('/test', ' te st ')).toEqual('/test/test')
+            expect(combinePath('/test', ' test')).toEqual('/test/%20test')
+            expect(combinePath('/test', 'test ')).toEqual('/test/test%20')
+            expect(combinePath('/test', ' test ')).toEqual('/test/%20test%20')
+            expect(combinePath('/test', ' te st ')).toEqual('/test/%20te%20st%20')
         })
     })
 })
