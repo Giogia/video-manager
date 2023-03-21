@@ -37,7 +37,10 @@ export class DirectoryResolver {
 
          if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
 
-         const siblingNodes = await findNodes({name: { $regex: startsWith(name) }})
+         const siblingNodes = await findNodes({
+            path,
+            name: { $regex: startsWith(name) }
+         })
 
          const existsInSiblings = siblingNodes.map(({ name }) => name).includes(name)
 

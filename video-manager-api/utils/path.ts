@@ -6,7 +6,7 @@ export const currentPath = resolve
 export function isRoot(path: string, name?: string | undefined): boolean {
    return (
       !name &&
-      path === "/"
+      path === sep
    )
 }
 

@@ -45,7 +45,7 @@ export async function findInParents(parent: string) {
 
    return parent && {
       $in: await NodeModel.distinct("id", {
-         path: parent
+         name: parent
       })
    }
 }
