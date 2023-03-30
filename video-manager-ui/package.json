@@ -7,8 +7,9 @@
     "relay": "relay-compiler",
     "start": "react-dotenv && yarn relay && react-scripts start",
     "build": "react-dotenv && yarn relay && react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "test": "react-scripts test",
+    "test-e2e": "playwright test --ui",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "test-storybook": "test-storybook --browsers chromium firefox webkit"

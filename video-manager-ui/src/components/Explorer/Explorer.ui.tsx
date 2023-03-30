@@ -37,12 +37,14 @@ interface ExplorerProps {
  * UI component for exploring a directory
  */
 export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) => (
-  <Card variant='outlined' sx={{
-    position: 'relative',
-    overflow: 'hidden',
-    height: '100%',
-    border: 'transparent'
-  }}>
+  <Card id='explorer'
+    variant='outlined'
+    sx={{
+      position: 'relative',
+      overflow: 'hidden',
+      height: '100%',
+      border: 'transparent'
+    }}>
     <CardHeader
       title={
         <Breadcrumbs

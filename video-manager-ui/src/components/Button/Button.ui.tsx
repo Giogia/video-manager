@@ -39,6 +39,7 @@ export const Button = ({ action, size, icon, disabled, tooltip, sx }: ButtonProp
   <Tooltip title={tooltip && formatName(icon)}>
     <span>
       <IconButton
+        id={`${icon}-button`}
         disabled={disabled}
         onClick={action}
         sx={sx}

@@ -27,6 +27,7 @@ export const App = ({ explorerQueryRef }: AppProps) => {
   return (
     <ThemeProvider theme={muiTheme}>
       <Box
+        id='app'
         display='flex'
         flexDirection='column'
         bgcolor={background.default}
