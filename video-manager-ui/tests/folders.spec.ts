@@ -29,19 +29,18 @@ test("add folder", async () => {
   await addFolderButton.click()
   const newFolders = await page.locator("#folder-button").all()
 
-  expect(newFolders.length).toEqual(folders.length + 1)
+  await expect(newFolders.length).toEqual(folders.length + 1)
 
   await page.reload()
-  expect(newFolders.length).toEqual(folders.length + 1)
+  await expect(newFolders.length).toEqual(folders.length + 1)
 })
 
 test("rename folder", async () => {
 
-  const folder = await page.locator("#folder-button").first()
-
+  const folder = await page.locator("#folder-button").last()
   await expect(folder).toBeVisible()
 
-  const folderName = page.getByText("New Folder", { exact: false }).first()
+  const folderName = page.getByText("New Folder", { exact: false }).last()
   await expect(folderName).toBeVisible()
 
   const newName = `test-${Date.now().toString().slice(-4)}`
@@ -54,4 +53,29 @@ test("rename folder", async () => {
 
   await page.reload()
   await expect(page.getByText(newName, { exact: true }).first()).toBeVisible()
+})
+
+test("delete folder", async () => {
+
+  const folders = await page.locator("#folder-button").all()
+  const folder = await page.locator("#folder-button").first()
+  await expect(folder).toBeVisible()
+
+  const folderName = page.getByText("test", { exact: false }).first()
+  await expect(folderName).toBeVisible()
+
+  const deleteChip = await page.locator('#delete-chip')
+  await expect(deleteChip).toBeVisible()
+
+  await deleteChip.hover()
+  await expect(page.getByRole('tooltip', { name: 'Drag here an element to delete' })).toBeVisible()
+
+  await folder.dragTo(deleteChip)
+
+  const newFolders = await page.locator("#folder-button").all()
+
+  await expect(newFolders.length).toEqual(folders.length - 1)
+
+  await page.reload()
+  await expect(newFolders.length).toEqual(folders.length - 1)
 })
