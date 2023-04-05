@@ -1,23 +1,19 @@
 import mongoose from "mongoose"
+import { GridFSBucketOptions } from "mongodb"
 
-const RECONNECTION_INTERVAL = 30 * 1000 // milliseconds
+export async function loadDatabase(dbName = "video-manager", options: mongoose.ConnectOptions = {}) {
+   await mongoose.connect(process.env.MONGO_DB_URL!, {
+      dbName,
+      ...options
+   })
+   console.log("Connected to Database")
+}
 
-export async function loadDatabase(dbName?: string, options: mongoose.ConnectOptions = {}) {
-   try {
-      await mongoose.connect(process.env.MONGO_DB_URL!, {
-         dbName,
-         ...options
-      })
-      console.log("Connected to Database")
-   }
-   catch {
-      console.log("Could not connect to Database")
-      setTimeout(() => {
-         console.log("Trying to Reconnect...")
-         loadDatabase(dbName, options)
-
-      }, RECONNECTION_INTERVAL)
-   }
+export function loadBucket(bucketName = "uploads", options: GridFSBucketOptions = {}) {
+   return new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName,
+      ...options
+   })
 }
 
 export async function disconnect() {

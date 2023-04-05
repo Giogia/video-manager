@@ -12,10 +12,7 @@ export class Node {
    parent!: string
 
    @prop()
-   url?: string
-
-   @prop()
-   size?: number
+   data?: string
 }
 
 export class NodeInput implements Pick<Node, "name" | "parent"> {
@@ -23,9 +20,7 @@ export class NodeInput implements Pick<Node, "name" | "parent"> {
 
    parent!: string
 
-   url?: string
-
-   size?: number
+   data?: string
 }
 
 export class NodeUpdate implements Partial<NodeInput> {

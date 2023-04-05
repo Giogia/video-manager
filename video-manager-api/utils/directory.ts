@@ -1,14 +1,25 @@
-import { Directory, Child } from "../schema/directory"
-import { findNode, findChildren } from "./node"
+import { GridFSFile } from "mongodb"
 
-export function composeChild({ id, name, url, size, children = [] }: any): Child {
-   return {
+import { Directory, Child } from "../schema/directory"
+import { findFiles, getFileSize } from "./file"
+import { findNode, findChildren } from "./node"
+import { combinePath } from "./path"
+
+export function composeChild(files: GridFSFile[]) {
+   return async ({ id, name, data, children = [] }: any): Promise<Child> => ({
       id,
       name,
-      ...url ?
-         { url, size } :
-         { children: children.map(composeChild) }
-   }
+      ...data ?
+         {
+            url: combinePath("/videos", data),
+            size: getFileSize(files, data)
+         } :
+         {
+            children: await Promise.all(
+               children.map(composeChild(await findFiles(children)))
+            )
+         }
+   })
 }
 
 export async function composeDirectory(path: string): Promise<Directory | null> {
@@ -23,10 +34,14 @@ export async function composeDirectory(path: string): Promise<Directory | null> 
             maxDepth: 0
          })
 
+         const files = await findFiles(children)
+
          return {
             id: id || "root",
             name,
-            children: children.map(composeChild)
+            children: await Promise.all(
+               children.map(composeChild(files))
+            )
          }
       }
       return null

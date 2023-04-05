@@ -3,14 +3,13 @@ import { PipelineStage } from "mongoose"
 import { Node, NodeInput, NodeModel, NodeUpdate } from "../schema/node"
 import { destructurePath, isRoot } from "./path"
 
-export async function addNode({ name, parent, url, size }: NodeInput) {
+export async function addNode({ name, parent, data }: NodeInput) {
 
    return new NodeModel({
       id: Date.now(),
       name,
       parent,
-      url,
-      size
+      data
    })
 }
 

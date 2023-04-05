@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql"
 import { Arg, Mutation, Resolver } from "type-graphql"
-import { createWriteStream, statSync, rename, unlink } from "fs"
+import { rename, unlink } from "fs"
 import { join } from "path"
 
 import { Directory } from "../schema/directory"
@@ -8,6 +8,7 @@ import { Video, VideoInput } from "../schema/video"
 import { composeDirectory } from "../utils/directory"
 import { addNode, editNode, findNode, removeNode } from "../utils/node"
 import { combinePath, currentPath, isRoot } from "../utils/path"
+import { uploadFile } from "../utils/file"
 
 @Resolver(() => Video)
 export class VideoResolver {
@@ -15,34 +16,38 @@ export class VideoResolver {
    @Mutation(() => Directory)
    async uploadVideo(@Arg("input") { path, video }: VideoInput): Promise<Directory | null> {
 
-      const { filename, createReadStream } = await video
+      try {
+         const parentNode = await findNode(path)
 
-      const filePath = join(currentPath(), "./uploads", filename)
+         if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
 
-      await new Promise(res => createReadStream()
-         .pipe(createWriteStream(filePath))
-         .on("close", res)
-         .on("error", () => {
-            throw new GraphQLError("Cannot save uploaded video.")
+         const { filename, createReadStream } = await video
+
+         const id = Date.now().toString()
+
+         const uploadStream = uploadFile(id)
+         const readStream = createReadStream()
+
+         await new Promise(resolve => readStream.pipe(uploadStream)
+            .on("close", resolve)
+            .on("error", () => {
+               throw new GraphQLError("Cannot save uploaded video.")
+            })
+         )
+
+         const node = await addNode({
+            parent: parentNode.id!,
+            name: filename,
+            data: id
          })
-      )
 
-      const { size } = statSync(filePath)
-
-      const parentNode = await findNode(path)
-
-      if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
-
-      const node = await addNode({
-         parent: parentNode.id!,
-         name: filename,
-         url: combinePath("/videos", filename),
-         size
-      })
-
-      node.save().catch(() => {
-         throw new GraphQLError("Directory already exists.")
-      })
+         node.save().catch(() => {
+            throw new GraphQLError("Directory already exists.")
+         })
+      }
+      catch (e) {
+         throw new GraphQLError(`Cannot upload video in ${path}. \n\n ${e}`)
+      }
 
       try {
          const directory = await composeDirectory(path)

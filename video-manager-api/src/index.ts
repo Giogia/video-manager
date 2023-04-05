@@ -8,10 +8,11 @@ import { createYoga } from "graphql-yoga"
 import { DirectoryResolver } from "../resolvers/directory"
 import { VideoResolver } from "../resolvers/video"
 import { loadDatabase } from "../utils/database"
-import { combinePath, currentPath } from "../utils/path"
+import { streamFile } from "../utils/file"
 import { graphqlUploadExpress } from "../utils/upload"
 
 async function start() {
+
    const app = express()
 
    const schema = await buildSchema({
@@ -24,9 +25,10 @@ async function start() {
       maxFiles: 1
    }))
 
-   app.use("/videos", express.static(
-      combinePath(currentPath(), "./uploads")
-   ))
+   app.get("/videos/:id", ({ params }, res) => {
+      streamFile(params.id)
+         .pipe(res)
+   })
 
    app.use("/graphql", createYoga({
       schema,
