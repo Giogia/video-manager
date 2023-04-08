@@ -1,4 +1,4 @@
-import { GridFSFile } from "mongodb"
+import { GridFSBucketReadStreamOptions, GridFSFile } from "mongodb"
 
 import { Node } from "../schema/node"
 import { loadBucket } from "./database"
@@ -8,9 +8,15 @@ export function uploadFile(id: string) {
       .openUploadStream(id)
 }
 
-export function streamFile(id: string) {
+export function streamFile(id: string, options: GridFSBucketReadStreamOptions) {
    return loadBucket()
-      .openDownloadStreamByName(id)
+      .openDownloadStreamByName(id, options)
+}
+
+export async function findFile(id: string): Promise<GridFSFile[]> {
+   return loadBucket()
+      .find({ filename: id })
+      .toArray()
 }
 
 export async function findFiles(nodes: Node[]): Promise<GridFSFile[]> {
@@ -25,7 +31,24 @@ export async function findFiles(nodes: Node[]): Promise<GridFSFile[]> {
       .toArray()
 }
 
-export function getFileSize(files: GridFSFile[], id: string) {
+export async function getRangeValues(id: string, range = "bytes=0-") {
+
+   const [{ chunkSize, length }] = await findFile(id)
+
+   const [start, end] = range
+      .replace("bytes=", "")
+      .split("-")
+      .map(n => Number(n))
+
+   return {
+      start,
+      end: end || Math.min(start + chunkSize, length - 1),
+      chunkSize,
+      length
+   }
+}
+
+export function getFileSize(files: GridFSFile[], id: string): number {
    return files
       .find(({ filename }) => filename === id)
       ?.length || 0
