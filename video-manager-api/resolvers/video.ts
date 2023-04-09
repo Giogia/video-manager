@@ -41,7 +41,7 @@ export class VideoResolver {
             data: id
          })
 
-         node.save().catch(() => {
+         await node.save().catch(() => {
             throw new GraphQLError("Directory already exists.")
          })
       }
