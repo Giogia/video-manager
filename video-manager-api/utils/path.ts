@@ -1,7 +1,5 @@
-import { join, resolve, sep } from "path"
+import { join, sep } from "path"
 import { encodeName } from "./name"
-
-export const currentPath = resolve
 
 export function isRoot(path: string, name?: string | undefined): boolean {
    return (
