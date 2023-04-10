@@ -42,11 +42,11 @@ export class VideoResolver {
          })
 
          await node.save().catch(() => {
-            throw new GraphQLError("Directory already exists.")
+            throw new GraphQLError(`Video ${filename} already exists.`)
          })
       }
       catch (e) {
-         throw new GraphQLError(`Cannot upload video in ${path}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot upload video in directory ${path}. \n\n ${e}`)
       }
 
       try {
