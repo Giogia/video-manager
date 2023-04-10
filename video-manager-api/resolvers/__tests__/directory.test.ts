@@ -17,7 +17,7 @@ const {
    addNode,
    findNode,
    deleteNodes,
-   dropCollection
+   dropNodesCollection
 } = nodes
 
 const {
@@ -47,7 +47,7 @@ describe("Resolvers", () => {
    })
 
    afterAll(async () => {
-      await dropCollection()
+      await dropNodesCollection()
       await disconnect()
    })
 

@@ -62,6 +62,6 @@ export async function deleteNodes() {
    await NodeModel.deleteMany()
 }
 
-export async function dropCollection() {
+export async function dropNodesCollection() {
    await NodeModel.collection.drop()
 }
