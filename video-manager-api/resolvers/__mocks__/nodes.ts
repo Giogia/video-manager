@@ -37,7 +37,7 @@ export const siblingChildNode: Node = {
 }
 
 
-export async function addNode({ id, name, parent }: Node) {
+export async function addNode({ id, name, parent, data }: Node) {
 
    const parentNode = await NodeModel.findOne({
       name: parent
@@ -46,7 +46,8 @@ export async function addNode({ id, name, parent }: Node) {
    const node = await new NodeModel({
       id,
       name,
-      parent: parentNode?.id || ""
+      parent: parentNode?.id || "",
+      data
    })
 
    await node.save()

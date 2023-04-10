@@ -12,6 +12,7 @@ import * as videos from "../__mocks__/videos"
 const {
    parentNode,
    node,
+   siblingNode,
    childNode,
    addNode,
    deleteNodes,
@@ -19,6 +20,7 @@ const {
 } = nodes
 
 const {
+   parentDirectory,
    directory,
    childDirectory,
 } = directories
@@ -38,7 +40,7 @@ describe("Resolvers", () => {
          resolvers: [DirectoryResolver, VideoResolver]
       })
 
-      await loadDatabase("video-manager-tests")
+      await loadDatabase("video-manager-tests-videos")
    })
 
    afterEach(async () => {
@@ -171,6 +173,81 @@ describe("Resolvers", () => {
 
          expect(errors).toEqual([new GraphQLError("Cannot upload video in directory /Parent/Dir. \n\n Directory /Parent/Dir does not exists.")])
       })
+   })
+
+   describe("renameVideo", () => {
+      it("returns parent directory with child with new name", async () => {
+
+         await addNode(parentNode)
+         await addNode(node)
+         await addNode({ ...siblingNode, name: "horizontal.mov", data: "test" })
+         await addNode(childNode)
+
+         const newName = "New Name.mp4"
+
+         const renameVideoMutation = `#graphql
+               mutation {
+                  renameVideo(input: {path: "/Parent", name: "horizontal.mov"}, name: "New Name.mp4") {
+                     name
+                     children {
+                        ... on Video {
+                           name
+                        }
+                        ... on Directory {
+                           name
+                           children {
+                              ... on Directory {
+                                 name
+                                 children {
+                                    ... on Directory {
+                                       name
+                                    }
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            `
+
+         const { data } = await graphql(schema, renameVideoMutation)
+
+         expect(data).toEqual({
+            renameVideo: {
+               ...parentDirectory,
+               children: [directory, { name: newName }]
+            }
+         })
+      })
+
+      it("returns error if directory does not exists", async () => {
+
+         await addNode(parentNode)
+
+         const renameVideoMutation = `#graphql
+               mutation {
+                  renameVideo(input: {path: "/Parent", name: "Dir"}, name: "New Name") {
+                     name
+                     children {
+                        ... on Directory {
+                           name
+                        }
+                        ... on Video {
+                           name
+                           size
+                        }
+                     }
+                  }
+               }
+            `
+
+         const { errors } = await graphql(schema, renameVideoMutation)
+
+         expect(errors).toEqual([new GraphQLError("Cannot rename video /Parent/Dir. \n\n Video does not exists.")])
+      })
+
+      // TODO add test for target name already existing
    })
 })
 

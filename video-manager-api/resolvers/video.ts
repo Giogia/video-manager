@@ -69,20 +69,8 @@ export class VideoResolver {
 
       const videoPath = combinePath(path, name)
 
-      const update = {
-         name: newName,
-         url: combinePath("/videos", newName),
-      }
-
-      const filePath = join(currentPath(), "./uploads", name!)
-      const newFilePath = join(currentPath(), "./uploads", newName)
-
       try {
-         await rename(filePath, newFilePath, (err) => {
-            if (err) throw new GraphQLError("Cannot rename video file.")
-         })
-
-         const { matchedCount } = await editNode(videoPath, update).catch(() => {
+         const { matchedCount } = await editNode(videoPath, { name: newName }).catch(() => {
             throw new GraphQLError("Video already exists.")
          })
 

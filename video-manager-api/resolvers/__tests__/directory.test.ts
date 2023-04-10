@@ -39,7 +39,7 @@ describe("Resolvers", () => {
          resolvers: [DirectoryResolver]
       })
 
-      await loadDatabase("video-manager-tests")
+      await loadDatabase("video-manager-tests-directories")
    })
 
    afterEach(async () => {
@@ -646,6 +646,8 @@ describe("Resolvers", () => {
 
          expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory does not exists.")])
       })
+
+      // TODO add test for target name already existing
    })
 
    describe("removeDirectory", () => {
