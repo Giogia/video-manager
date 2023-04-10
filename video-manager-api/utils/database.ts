@@ -6,7 +6,7 @@ export async function loadDatabase(dbName = "video-manager", options: mongoose.C
       dbName,
       ...options
    })
-   console.log("Connected to Database")
+   console.log(`Connected to ${dbName} Database`)
 }
 
 export function loadBucket(bucketName = "uploads", options: GridFSBucketOptions = {}) {
