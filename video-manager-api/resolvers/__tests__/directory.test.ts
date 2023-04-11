@@ -647,7 +647,29 @@ describe("Resolvers", () => {
          expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory does not exists.")])
       })
 
-      // TODO add test for target name already existing
+      it("returns error if target directory already exists", async () => {
+
+         await addNode(parentNode)
+         await addNode(node)
+         await addNode(siblingNode)
+
+         const renameDirectoryMutation = `#graphql
+                mutation {
+                    renameDirectory(input: {path: "/Parent", name: "Dir"}, name: "Sibling") {
+                        name
+                        children {
+                            ... on Directory {
+                                name
+                            }
+                        }
+                    }
+                }
+            `
+
+         const { errors } = await graphql(schema, renameDirectoryMutation)
+
+         expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory already exists.")])
+      })
    })
 
    describe("removeDirectory", () => {
