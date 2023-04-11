@@ -227,7 +227,7 @@ describe("Resolvers", () => {
 
          const renameVideoMutation = `#graphql
                mutation {
-                  renameVideo(input: {path: "/Parent", name: "Dir"}, name: "New Name") {
+                  renameVideo(input: {path: "/Parent", name: "horizontal.mov"}, name: "New Name") {
                      name
                      children {
                         ... on Directory {
@@ -244,10 +244,32 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, renameVideoMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot rename video /Parent/Dir. \n\n Video does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot rename video /Parent/horizontal.mov. \n\n Video does not exists.")])
       })
 
-      // TODO add test for target name already existing
+      it("returns error if target directory already exists", async () => {
+
+         await addNode(parentNode)
+         await addNode({ ...node, name: "horizontal.mov", data: "test" })
+         await addNode({ ...siblingNode, name: "vertical.mov", data: "test" })
+
+         const renameVideoMutation = `#graphql
+                mutation {
+                    renameVideo(input: {path: "/Parent", name: "horizontal.mov"}, name: "vertical.mov") {
+                        name
+                        children {
+                            ... on Directory {
+                                name
+                            }
+                        }
+                    }
+                }
+            `
+
+         const { errors } = await graphql(schema, renameVideoMutation)
+
+         expect(errors).toEqual([new GraphQLError("Cannot rename video /Parent/horizontal.mov. \n\n Video vertical.mov already exists.")])
+      })
    })
 })
 

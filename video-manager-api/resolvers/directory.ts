@@ -105,7 +105,7 @@ export class DirectoryResolver {
 
       try {
          const { matchedCount } = await editNode(directoryPath, { name: newName }).catch(() => {
-            throw new GraphQLError("Directory already exists.")
+            throw new GraphQLError(`Directory ${newName} already exists.`)
          })
 
          if (matchedCount == 0) throw new GraphQLError("Directory does not exists.")

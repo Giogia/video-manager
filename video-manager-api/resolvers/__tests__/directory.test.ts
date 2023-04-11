@@ -668,7 +668,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, renameDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory already exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory Sibling already exists.")])
       })
    })
 

@@ -71,7 +71,7 @@ export class VideoResolver {
 
       try {
          const { matchedCount } = await editNode(videoPath, { name: newName }).catch(() => {
-            throw new GraphQLError("Video already exists.")
+            throw new GraphQLError(`Video ${newName} already exists.`)
          })
 
          if (matchedCount == 0) throw new GraphQLError("Video does not exists.")
