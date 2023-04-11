@@ -1,12 +1,22 @@
 import { GridFSFile } from "mongodb"
 
+import { Node } from "../schema/node"
 import { Directory, Child } from "../schema/directory"
 import { findFiles, getFileSize } from "./file"
 import { findNode, findChildren } from "./node"
 import { combinePath } from "./path"
 
-export function composeChild(files: GridFSFile[]) {
-   return async ({ id, name, data, children = [] }: any): Promise<Child> => ({
+export function getMaxDepth(query?: string) {
+   
+   return query
+      ?.match(/children/g)
+      ?.slice(1, -1)
+      .length || 0
+}
+
+export function composeChild(files: GridFSFile[], maxDepth: number, currentDepth = 0, allChildren: Node[] = []) {
+
+   return async ({ id, name, data, children = allChildren }: Node): Promise<Child> => ({
       id,
       name,
       ...data ?
@@ -15,14 +25,28 @@ export function composeChild(files: GridFSFile[]) {
             size: getFileSize(files, data)
          } :
          {
-            children: await Promise.all(
-               children.map(composeChild(await findFiles(children)))
-            )
+            children: currentDepth <= maxDepth ?
+               await Promise.all(
+                  children
+                     .filter(({ depth, parent }: Node) => (
+                        depth === currentDepth &&
+                        parent === id
+                     ))
+                     .map(composeChild(
+                        await findFiles(children),
+                        maxDepth,
+                        currentDepth + 1,
+                        children
+                     ))
+               ) : []
          }
    })
 }
 
-export async function composeDirectory(path: string): Promise<Directory | null> {
+export async function composeDirectory(path: string, query?: string): Promise<Directory | null> {
+
+   const maxDepth = getMaxDepth(query)
+
    try {
       const node = await findNode(path)
 
@@ -30,17 +54,14 @@ export async function composeDirectory(path: string): Promise<Directory | null> 
 
          const { id, name } = node
 
-         const children = await findChildren(id, {
-            maxDepth: 0
-         })
-
+         const children = await findChildren(id, { maxDepth })
          const files = await findFiles(children)
 
          return {
             id: id || "root",
             name,
             children: await Promise.all(
-               children.map(composeChild(files))
+               children.map(composeChild(files, maxDepth))
             )
          }
       }

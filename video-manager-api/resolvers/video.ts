@@ -1,7 +1,6 @@
 import { GraphQLError } from "graphql"
-import { Arg, Mutation, Resolver } from "type-graphql"
-import { rename, unlink } from "fs"
-import { join } from "path"
+import { YogaInitialContext } from "graphql-yoga"
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql"
 
 import { Directory } from "../schema/directory"
 import { Video, VideoInput } from "../schema/video"
@@ -14,7 +13,7 @@ import { uploadFile } from "../utils/file"
 export class VideoResolver {
 
    @Mutation(() => Directory)
-   async uploadVideo(@Arg("input") { path, video }: VideoInput): Promise<Directory | null> {
+   async uploadVideo(@Arg("input") { path, video }: VideoInput, @Ctx() context: YogaInitialContext): Promise<Directory | null> {
 
       try {
          const parentNode = await findNode(path)
@@ -50,7 +49,7 @@ export class VideoResolver {
       }
 
       try {
-         const directory = await composeDirectory(path)
+         const directory = await composeDirectory(path, context?.params?.query)
 
          if (!directory) throw new GraphQLError("Directory does not exists.")
 
@@ -64,7 +63,8 @@ export class VideoResolver {
    @Mutation(() => Directory)
    async renameVideo(
       @Arg("input") { path, name }: VideoInput,
-      @Arg("name") newName: string
+      @Arg("name") newName: string,
+      @Ctx() context: YogaInitialContext
    ): Promise<Directory | null> {
 
       const videoPath = combinePath(path, name)
@@ -76,7 +76,7 @@ export class VideoResolver {
 
          if (matchedCount == 0) throw new GraphQLError("Video does not exists.")
 
-         return composeDirectory(path)
+         return composeDirectory(path, context?.params?.query)
       }
       catch (e) {
          throw new GraphQLError(`Cannot rename video ${videoPath}. \n\n ${e}`)
@@ -84,7 +84,7 @@ export class VideoResolver {
    }
 
    @Mutation(() => Directory)
-   async removeVideo(@Arg("input") { path, name }: VideoInput): Promise<Directory | null> {
+   async removeVideo(@Arg("input") { path, name }: VideoInput, @Ctx() context: YogaInitialContext): Promise<Directory | null> {
 
       const videoPath = combinePath(path, name)
       const filePath = join(currentPath(), "./uploads", name!)
@@ -103,7 +103,7 @@ export class VideoResolver {
 
             await removeNode(id)
 
-            return composeDirectory(path)
+            return composeDirectory(path, context?.params?.query)
          }
          throw new GraphQLError("Directory is root.")
       }

@@ -29,7 +29,7 @@ export async function removeNode(parent: string) {
 
    const childrenNodes = await findChildren(parent)
 
-   const ids = childrenNodes.reduce((ids, { id, children }) => ([
+   const ids = childrenNodes.reduce((ids, { id, children = [] }) => ([
       ...ids,
       ...children.map(({ id }: Node) => id),
       id
@@ -75,7 +75,7 @@ export async function findNodes({ path, ...node }: Record<string, string | { $re
    })
 }
 
-export async function findChildren(parent: string, options: Partial<PipelineStage.GraphLookup["$graphLookup"]> = {}) {
+export async function findChildren(parent: string, options: Partial<PipelineStage.GraphLookup["$graphLookup"]> = {}): Promise<Node[]> {
 
    return NodeModel.aggregate([
       {
@@ -88,6 +88,7 @@ export async function findChildren(parent: string, options: Partial<PipelineStag
             startWith: "$id",
             connectFromField: "id",
             connectToField: "parent",
+            depthField: "depth",
             ...options
          }
       }
