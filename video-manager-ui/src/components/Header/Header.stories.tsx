@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'
 import { Header as HeaderComponent } from './Header.ui'
 
 export default {
-  title: 'Composed/Header',
+  title: 'Application/Header',
   component: HeaderComponent,
   args: {
     ...HeaderComponent.defaultProps,

@@ -16,7 +16,7 @@ import horizontal from '../Video/__assets__/horizontal.mov'
 import vertical from '../Video/__assets__/vertical.mov'
 
 export default {
-  title: 'Composed/Explorer',
+  title: 'Application/Explorer',
   component: ExplorerComponent,
   argTypes: {
     content: { control: false }
