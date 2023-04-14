@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import { useDrop } from 'react-dnd'
 
 import { Folder, FolderProps } from './Folder.ui'
+import { DRAGGABLES } from '../../utils/drag'
 
 export interface WithDropProps {
   /**
@@ -19,7 +20,7 @@ export const FolderWithDrop = ({ action, ...props }: FolderProps & WithDropProps
   const { name } = props
 
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: 'Folder',
+    accept: DRAGGABLES,
     drop: item => { action && action(item, name) },
     collect: monitor => ({ isOver: !!monitor.isOver() })
   }))

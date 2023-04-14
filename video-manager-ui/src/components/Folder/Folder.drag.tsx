@@ -5,6 +5,7 @@ import { usePreview } from 'react-dnd-preview'
 
 import { Folder, FolderProps } from './Folder.ui'
 import { MoveFolderFolder } from './Folder.mutations'
+import { FOLDER } from '../../utils/drag'
 
 /**
  * Component Wrapper for dragging a folder
@@ -14,8 +15,8 @@ export const FolderWithDrag = ({ ...props }: FolderProps) => {
   const { name } = props
 
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'Folder',
-    item: { name },
+    type: FOLDER,
+    item: { name, type: FOLDER },
     collect: monitor => ({ isDragging: !!monitor.isDragging() })
   }), [name])
 

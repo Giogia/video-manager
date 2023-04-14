@@ -20,6 +20,7 @@ type Mutation {
   addDirectory(input: DirectoryInput!): Directory!
   moveDirectory(input: DirectoryInput!, path: String!): Directory!
   removeDirectory(input: DirectoryInput!): Directory!
+  removeVideo(input: VideoInput!): Directory!
   renameDirectory(input: DirectoryInput!, name: String!): Directory!
   renameVideo(input: VideoInput!, name: String!): Directory!
   uploadVideo(input: VideoInput!): Directory!

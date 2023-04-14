@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import { useDrop } from 'react-dnd'
 
 import { Link, LinkProps } from './Link.ui'
+import { DRAGGABLES } from '../../utils/drag'
 
 export interface WithDropProps {
   /**
@@ -19,7 +20,7 @@ export const LinkWithDrop = ({ action, ...props }: LinkProps & WithDropProps) =>
   const { href, selected } = props
 
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: 'Folder',
+    accept: DRAGGABLES,
     drop: item => { action && action(item, href) },
     collect: monitor => ({ isOver: !!monitor.isOver() })
   }))

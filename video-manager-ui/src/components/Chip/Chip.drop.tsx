@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import { useDrop } from 'react-dnd'
 
 import { Chip, ChipProps } from './Chip.ui'
+import { DRAGGABLES } from '../../utils/drag'
 
 export interface WithDropProps {
   /**
@@ -17,10 +18,10 @@ export interface WithDropProps {
 export const ChipWithDrop = ({ action, ...props }: ChipProps & WithDropProps) => {
 
   const [{ isDragging, isOver }, drop] = useDrop(() => ({
-    accept: 'Folder',
+    accept: DRAGGABLES,
     drop: item => { action && action(item) },
     collect: monitor => ({
-      isDragging: monitor.getItemType() === 'Folder',
+      isDragging: DRAGGABLES.includes(monitor.getItemType() as string),
       isOver: !!monitor.isOver()
     })
   }))
