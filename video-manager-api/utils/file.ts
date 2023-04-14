@@ -13,10 +13,11 @@ export function streamFile(id: string, options: GridFSBucketReadStreamOptions) {
       .openDownloadStreamByName(id, options)
 }
 
-export async function findFile(id: string): Promise<GridFSFile[]> {
+export async function findFile(id: string): Promise<GridFSFile> {
    return loadBucket()
       .find({ filename: id })
       .toArray()
+      .then(([file]) => file || {})
 }
 
 export async function findFiles(nodes: Node[]): Promise<GridFSFile[]> {
@@ -29,6 +30,14 @@ export async function findFiles(nodes: Node[]): Promise<GridFSFile[]> {
          }
       })
       .toArray()
+}
+
+export async function removeFile(id: string) {
+
+   const { _id } = await findFile(id)
+
+   return loadBucket()
+      .delete(_id)
 }
 
 export async function getRangeValues(id: string, range = "bytes=0-") {

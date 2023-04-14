@@ -6,8 +6,8 @@ import { Directory } from "../schema/directory"
 import { Video, VideoInput } from "../schema/video"
 import { composeDirectory } from "../utils/directory"
 import { addNode, editNode, findNode, removeNode } from "../utils/node"
-import { combinePath, currentPath, isRoot } from "../utils/path"
-import { uploadFile } from "../utils/file"
+import { combinePath, isRoot } from "../utils/path"
+import { removeFile, uploadFile } from "../utils/file"
 
 @Resolver(() => Video)
 export class VideoResolver {
@@ -87,7 +87,6 @@ export class VideoResolver {
    async removeVideo(@Arg("input") { path, name }: VideoInput, @Ctx() context: YogaInitialContext): Promise<Directory | null> {
 
       const videoPath = combinePath(path, name)
-      const filePath = join(currentPath(), "./uploads", name!)
 
       try {
          if (!isRoot(path, name)) {
@@ -95,20 +94,22 @@ export class VideoResolver {
 
             if (!node) throw new GraphQLError("Video does not exists.")
 
-            await unlink(filePath, (err) => {
-               if (err) throw new GraphQLError("Cannot remove video file.")
+            const { id, data } = node
+
+            await removeNode(id).catch(err => {
+               if (err) throw new GraphQLError("Video does not exists.")
             })
 
-            const { id } = node
-
-            await removeNode(id)
+            await removeFile(data!).catch(err => {
+               if (err) throw new GraphQLError("Video file not found.")
+            })
 
             return composeDirectory(path, context?.params?.query)
          }
          throw new GraphQLError("Directory is root.")
       }
       catch (e) {
-         throw new GraphQLError(`Cannot remove directory ${videoPath}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot remove video ${videoPath}. \n\n ${e}`)
       }
    }
 }

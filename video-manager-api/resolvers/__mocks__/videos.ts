@@ -38,6 +38,21 @@ export function getUpload({ name: filename }: Partial<Video>): Upload {
    return upload
 }
 
+export async function addVideo(video: Partial<Video>) {
+
+   const { file } = getUpload(video)
+
+   const { filename, createReadStream } = file
+
+   const readStream = createReadStream()
+   const uploadStream = loadBucket().openUploadStream(filename)
+
+   await new Promise(resolve => readStream
+      .pipe(uploadStream)
+      .on("close", resolve)
+   )
+}
+
 export async function dropUploadsCollections() {
    await loadBucket().drop()
 }

@@ -721,7 +721,7 @@ describe("Resolvers", () => {
          expect(errors).toEqual([new GraphQLError("Cannot remove directory /Parent/Dir. \n\n Directory does not exists.")])
       })
 
-      it("returns error if directory does not exists", async () => {
+      it("returns error if directory is root", async () => {
 
          await addNode(parentNode)
 

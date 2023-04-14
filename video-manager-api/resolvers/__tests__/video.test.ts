@@ -15,6 +15,8 @@ const {
    siblingNode,
    childNode,
    addNode,
+   findNode,
+   videoNode,
    deleteNodes,
    dropNodesCollection
 } = nodes
@@ -27,6 +29,8 @@ const {
 
 const {
    horizontal,
+   vertical,
+   addVideo,
    getUpload,
    dropUploadsCollections
 } = videos
@@ -102,7 +106,7 @@ describe("Resolvers", () => {
 
          await addNode(parentNode)
          await addNode(node)
-         await addNode({ ...childNode, name: "horizontal.mov" })
+         await addNode(videoNode(childNode, horizontal))
 
          const upload = getUpload(horizontal)
 
@@ -180,7 +184,7 @@ describe("Resolvers", () => {
 
          await addNode(parentNode)
          await addNode(node)
-         await addNode({ ...siblingNode, name: "horizontal.mov", data: "test" })
+         await addNode(videoNode(siblingNode, horizontal))
          await addNode(childNode)
 
          const newName = "New Name.mp4"
@@ -250,8 +254,8 @@ describe("Resolvers", () => {
       it("returns error if target directory already exists", async () => {
 
          await addNode(parentNode)
-         await addNode({ ...node, name: "horizontal.mov", data: "test" })
-         await addNode({ ...siblingNode, name: "vertical.mov", data: "test" })
+         await addNode(videoNode(node, horizontal))
+         await addNode(videoNode(siblingNode, vertical))
 
          const renameVideoMutation = `#graphql
                 mutation {
@@ -269,6 +273,110 @@ describe("Resolvers", () => {
          const { errors } = await graphql(schema, renameVideoMutation)
 
          expect(errors).toEqual([new GraphQLError("Cannot rename video /Parent/horizontal.mov. \n\n Video vertical.mov already exists.")])
+      })
+   })
+
+   describe("removeVideo", () => {
+      it("returns parent directory without removed video", async () => {
+
+         await addNode(parentNode)
+         await addNode(node)
+         await addNode(videoNode(siblingNode, horizontal))
+         await addNode(childNode)
+
+         await addVideo(horizontal)
+
+         const removeVideoMutation = `#graphql
+               mutation {
+                  removeVideo(input: { path: "/Parent", name: "horizontal.mov" }){
+                     name
+                     children {
+                        ... on Video {
+                           name
+                           size
+                        }
+                        ... on Directory {
+                           name
+                           children {
+                              ... on Directory {
+                                 name
+                                 children {
+                                    ... on Directory {
+                                       name
+                                    }
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            `
+
+         const { data } = await graphql(schema, removeVideoMutation)
+
+         expect(data).toEqual({ removeVideo: { ...parentDirectory, children: [directory] } })
+         expect(await findNode(videoNode(siblingNode, horizontal))).toEqual(null)
+      })
+
+      it("returns error if video does not exists", async () => {
+
+         await addNode(parentNode)
+
+         const removeVideoMutation = `#graphql
+                mutation {
+                  removeVideo(input: { path: "/Parent", name: "horizontal.mov" }){
+                     name
+                     children {
+                        ... on Video {
+                           name
+                           size
+                        }
+                        ... on Directory {
+                           name
+                        }
+                     }
+                  }
+               }
+            `
+
+         const { errors } = await graphql(schema, removeVideoMutation)
+
+         expect(errors).toEqual([new GraphQLError("Cannot remove video /Parent/horizontal.mov. \n\n Video does not exists.")])
+      })
+
+      it("returns error if video file does not exists", async () => {
+
+         await addNode(parentNode)
+         await addNode(node)
+         await addNode(videoNode(siblingNode, horizontal))
+         await addNode(childNode)
+
+         const removeVideoMutation = `#graphql
+                mutation {
+                  removeVideo(input: { path: "/Parent", name: "horizontal.mov" }){
+                     name
+                     children {
+                        ... on Video {
+                           name
+                           size
+                        }
+                        ... on Directory {
+                           name
+                           children {
+                              ... on Directory {
+                                 name
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            `
+
+         const { errors } = await graphql(schema, removeVideoMutation)
+
+         expect(errors).toEqual([new GraphQLError("Cannot remove video /Parent/horizontal.mov. \n\n Video file not found.")])
       })
    })
 })

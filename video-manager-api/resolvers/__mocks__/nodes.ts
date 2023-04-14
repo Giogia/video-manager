@@ -1,4 +1,5 @@
 import { Node, NodeModel } from "../../schema/node"
+import { Video } from "../../schema/video"
 
 export const parentNode: Node = {
    id: "0",
@@ -36,6 +37,13 @@ export const siblingChildNode: Node = {
    parent: "Sibling"
 }
 
+export function videoNode(node: Node, { name }: Partial<Video>) {
+   return {
+      ...node,
+      name: name!,
+      data: name!
+   }
+}
 
 export async function addNode({ id, name, parent, data }: Node) {
 
