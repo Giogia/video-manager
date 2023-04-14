@@ -133,7 +133,9 @@ export class DirectoryResolver {
 
             const { id } = node
 
-            await removeNode(id)
+            await removeNode(id).catch(() => {
+               throw new GraphQLError("Directory does not exist.")
+            })
 
             return composeDirectory(path, context?.params?.query)
          }
