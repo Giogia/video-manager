@@ -52,8 +52,8 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
           zIndex: 10000,
         }
       }}>
-        <Wrapper sx={{
-          ...!fullscreen && {
+        <Wrapper {...!fullscreen && {
+          sx: {
             height: 50,
             width: 70
           }
@@ -68,11 +68,9 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
             }
             sx={{
               borderRadius: 0.5,
+              backgroundColor: 'black',
               height: '100%',
               width: '100%',
-              backgroundColor: fullscreen ?
-                'black' :
-                'background.default',
             }}
           />
         </Wrapper>
@@ -96,27 +94,28 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
           }}
         />
       </Grid>
-      {fullscreen ?
-        <Button
-          icon='close'
-          action={() => setFullscreen(false)}
-          tooltip={false}
-          sx={{
-            position: 'absolute',
-            top: 2,
-            right: 4,
-            zIndex: 10001,
-            color: 'white'
-          }}
-        /> :
-        <Grid item>
-          <Typography
-            variant='caption'
-            sx={{ fontSize: 9, opacity: 0.75 }}
-          >
-            {formatSize(size)}
-          </Typography>
-        </Grid>
+      {
+        fullscreen ?
+          <Button
+            icon='close'
+            action={() => setFullscreen(false)}
+            tooltip={false}
+            sx={{
+              position: 'absolute',
+              top: 2,
+              right: 4,
+              zIndex: 10001,
+              color: 'white'
+            }}
+          /> :
+          <Grid item>
+            <Typography
+              variant='caption'
+              sx={{ fontSize: 9, opacity: 0.75 }}
+            >
+              {formatSize(size)}
+            </Typography>
+          </Grid>
       }
     </Grid >
   )
