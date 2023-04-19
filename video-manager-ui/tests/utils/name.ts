@@ -1,14 +1,17 @@
 
 import { expect, Page, Locator } from "@playwright/test"
 
-export function getByName(page: Page, name: string, options: { exact: boolean } = { exact: true }): Locator {
+type Options = { exact: boolean } 
+
+export function getByName(page: Page, name: string, options: Options = { exact: true } ): Locator {
     return page.getByText(name, options).first()
 }
 
-export async function rename(page: Page, name: string, newName: string) {
+export async function rename(page: Page, name: string, newName: string, options: Options = { exact: true }) {
 
-    const locator = page.getByText(name, { exact: false }).first()
+    const locator = await getByName(page, name, options)
     await expect(locator).toBeVisible()
+    
     await locator.dblclick()
 
     await page.getByRole('textbox').nth(1).fill(newName)

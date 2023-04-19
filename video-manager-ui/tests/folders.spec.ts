@@ -4,6 +4,7 @@ import { dragToDeleteChip } from "./utils/drag"
 import { launch, reload, close } from "./utils/page"
 import { addFolder } from "./utils/buttons"
 import { getByName, rename } from "./utils/name"
+import { getFolders, getLastFolder } from "./utils/folders"
 
 let page: Page
 
@@ -22,11 +23,11 @@ test.afterAll(async () => {
 
 test("add folder", async () => {
 
-  const folders = await getFolders()
+  const folders = await getFolders(page)
 
   await addFolder(page)
 
-  const newFolders = await getFolders()
+  const newFolders = await getFolders(page)
 
   await expect(newFolders.length).toEqual(folders.length + 1)
 
@@ -36,7 +37,7 @@ test("add folder", async () => {
 
 test("rename folder", async () => {
 
-  const folder = await getLastFolder()
+  const folder = await getLastFolder(page)
   await expect(folder).toBeVisible()
 
   const newName = `test-${Date.now().toString().slice(-4)}`
@@ -51,35 +52,17 @@ test("rename folder", async () => {
 
 test("delete folder", async () => {
 
-  const folders = await getFolders()
+  const folders = await getFolders(page)
+  const folderName = getByName(page, "test", { exact: false })
 
-  const folder = await getFirstFolder()
-  await expect(folder).toBeVisible()
+  await expect(folderName).toBeVisible()
 
-  await expect(getByName(page, "test", { exact: false })).toBeVisible()
+  await dragToDeleteChip(page, folderName)
 
-  await dragToDeleteChip(page, folder)
-
-  const newFolders = await getFolders()
+  const newFolders = await getFolders(page)
 
   await expect(newFolders.length).toEqual(folders.length - 1)
 
   await reload(page)
   await expect(newFolders.length).toEqual(folders.length - 1)
 })
-
-function getFolder(){
-  return page.locator("#folder-button")
-}
-
-function getFirstFolder() {
-  return getFolder().first()
-}
-
-function getLastFolder() {
-  return getFolder().last()
-}
-
-function getFolders() {
-  return getFolder().all()
-}
