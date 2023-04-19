@@ -1,4 +1,5 @@
 import { expect, Page } from "@playwright/test"
+import { getByName } from "./name"
 
 export async function getButton(page: Page, name: string){
 
@@ -17,6 +18,8 @@ export async function addFolder(page: Page) {
 }
 
 export async function uploadFile(page: Page, filename: string) {
+
+    await expect(getByName(page, filename)).not.toBeVisible()
 
     const uploadVideoButton = await getButton(page, "Upload Video")
 
