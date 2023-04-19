@@ -17,6 +17,10 @@ test.beforeAll(async ({ browser }) => {
   launch(page)
 })
 
+test.beforeEach(async () => {
+  await getButton(page, "Home")
+})
+
 test.afterAll(async () => {
   await close(page)
 })
@@ -38,7 +42,7 @@ test("switch to dark theme", async () => {
 })
 
 test("switch to light theme", async () => {
-  const darkThemeButton = await getButton(page, 'Dark Theme' )
+  const darkThemeButton = await getButton(page, 'Dark Theme')
   await darkThemeButton.click()
 
   const lightThemeButton = await page.locator('#light-theme-button')

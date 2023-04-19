@@ -2,8 +2,8 @@ import { test, expect, Page } from "@playwright/test"
 
 import { launch, reload, close } from "./utils/page"
 import { dragToDeleteChip } from "./utils/drag"
-import { uploadFile } from "./utils/buttons"
 import { getByName } from "./utils/name"
+import { getButton, uploadFile } from "./utils/buttons"
 import { getVideos, getLastVideo } from "./utils/video"
 
 let page: Page
@@ -15,6 +15,10 @@ test.beforeAll(async ({ browser }) => {
   page = await browser.newPage()
 
   await launch(page)
+})
+
+test.beforeEach(async () => {
+  await getButton(page, "Home")
 })
 
 test.afterAll(async () => {

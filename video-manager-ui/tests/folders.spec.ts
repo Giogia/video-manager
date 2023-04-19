@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test"
 
 import { dragToDeleteChip } from "./utils/drag"
 import { launch, reload, close } from "./utils/page"
-import { addFolder } from "./utils/buttons"
+import { addFolder, getButton } from "./utils/buttons"
 import { getByName, rename } from "./utils/name"
 import { getFolders, getLastFolder } from "./utils/folders"
 
@@ -15,6 +15,10 @@ test.beforeAll(async ({ browser }) => {
   page = await browser.newPage()
 
   await launch(page)
+})
+
+test.beforeEach(async () => {
+  await getButton(page, "Home")
 })
 
 test.afterAll(async () => {
