@@ -4,7 +4,7 @@ import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql"
 
 import { Directory, DirectoryInput } from "../schema/directory"
 import { composeDirectory } from "../utils/directory"
-import { increaseNumber, startsWith } from "../utils/name"
+import { getLastDigits, increaseNumber, startsWith } from "../utils/name"
 import { addNode, findNode, findNodes, editNode, removeNode } from "../utils/node"
 import { combinePath, isRoot } from "../utils/path"
 @Resolver(() => Directory)
@@ -45,7 +45,9 @@ export class DirectoryResolver {
 
          const existsInSiblings = siblingNodes.map(({ name }) => name).includes(name)
 
-         const [lastAdded] = siblingNodes.slice(-1)
+         const [lastAdded] = siblingNodes
+            .sort((a, b) => getLastDigits(a.name).number - getLastDigits(b.name).number)
+            .slice(-1)
 
          const node = await addNode({
             parent: parentNode.id!,
