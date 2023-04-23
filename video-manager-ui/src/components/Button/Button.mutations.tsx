@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { GraphQLError } from 'graphql'
 import { useMutation } from 'react-relay'
 import { graphql } from 'babel-plugin-relay/macro'
 
 import { ButtonAddFolderMutation } from './__generated__/ButtonAddFolderMutation.graphql'
 import { ButtonUploadVideoMutation } from './__generated__/ButtonUploadVideoMutation.graphql'
 
-import { Button } from './index'
+import { Button } from '.'
 import { ButtonProps } from './Button.ui'
 import { UploadButton } from './Button.upload'
-// import { combinePath } from '../../utils/path'
 
 const NEW_FOLDER = "New Folder"
 
@@ -52,6 +52,8 @@ export interface WithResponseProps {
  */
 export const AddFolderButton = ({ ...props }: Partial<ButtonProps> & WithResponseProps) => {
 
+  const [error, setError] = useState(new GraphQLError(""))
+
   const [commitMutation, isMutationInFlight] = useMutation<ButtonAddFolderMutation>(addFolder)
 
   const path = window.location.pathname
@@ -60,12 +62,14 @@ export const AddFolderButton = ({ ...props }: Partial<ButtonProps> & WithRespons
 
   return <Button {...props}
     icon='add-folder'
+    error={error}
     loading={isMutationInFlight}
     action={() => commitMutation({
       variables: {
         path,
         name: NEW_FOLDER
       },
+      onError: e => setError(e as GraphQLError)
       // optimisticResponse: {
       //   addDirectory: {
       //     id,
@@ -86,19 +90,25 @@ export const AddFolderButton = ({ ...props }: Partial<ButtonProps> & WithRespons
  */
 export const UploadVideoButton = ({ ...props }: Partial<ButtonProps>) => {
 
+  const [error, setError] = useState(new GraphQLError(""))
+
   const [commitMutation, isMutationInFlight] = useMutation<ButtonUploadVideoMutation>(uploadVideo)
 
   const path = window.location.pathname
 
-  return <UploadButton {...props}
-    icon='upload-video'
-    loading={isMutationInFlight}
-    action={(video) => commitMutation({
-      uploadables: { video },
-      variables: {
-        path,
-        video: null
-      }
-    })}
-  />
+  return (
+    <UploadButton {...props}
+      error={error}
+      icon='upload-video'
+      loading={isMutationInFlight}
+      action={(video) => commitMutation({
+        uploadables: { video },
+        variables: {
+          path,
+          video: null
+        },
+        onError: e => setError(e as GraphQLError)
+      })}
+    />
+  )
 }

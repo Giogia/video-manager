@@ -1,8 +1,8 @@
-import { ButtonWithLoading } from './Button.loading'
+import { ButtonWithError } from './Button.error'
 import { AddFolderButton, UploadVideoButton } from './Button.mutations'
 
 export {
-  ButtonWithLoading as Button,
+  ButtonWithError as Button,
   AddFolderButton,
   UploadVideoButton
 }

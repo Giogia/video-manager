@@ -1,7 +1,8 @@
 import React, { useRef } from 'react'
 
+import { Button } from '.'
 import { ButtonProps } from './Button.ui'
-import { Button } from './index'
+import { WithErrorProps } from './Button.error'
 
 /**
  * Upload file logic
@@ -24,7 +25,7 @@ const handleChange = (action: ButtonProps['action']) =>
 /**
  * Component Wrapper for uploading files
  */
-export const UploadButton = ({ action, ...props }: ButtonProps) => {
+export const UploadButton = ({ action, ...props }: ButtonProps & WithErrorProps) => {
 
   const inputRef = useRef<HTMLInputElement | null>(null)
 
