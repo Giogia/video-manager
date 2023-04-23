@@ -41,6 +41,7 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
       direction='column'
       alignItems='center'
       width='max-content'
+      id="video"
     >
       <Grid item sx={{
         ...fullscreen && {
