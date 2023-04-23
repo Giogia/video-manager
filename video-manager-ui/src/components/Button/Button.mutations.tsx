@@ -5,7 +5,8 @@ import { graphql } from 'babel-plugin-relay/macro'
 import { ButtonAddFolderMutation } from './__generated__/ButtonAddFolderMutation.graphql'
 import { ButtonUploadVideoMutation } from './__generated__/ButtonUploadVideoMutation.graphql'
 
-import { Button, ButtonProps } from './Button.ui'
+import { Button } from './index'
+import { ButtonProps } from './Button.ui'
 import { UploadButton } from './Button.upload'
 // import { combinePath } from '../../utils/path'
 
@@ -49,7 +50,7 @@ export interface WithResponseProps {
 /**
  * Component Wrapper for creating new folders
  */
-export const AddFolderButton = ({ disabled, optimisticResponse }: Partial<ButtonProps> & WithResponseProps) => {
+export const AddFolderButton = ({ ...props }: Partial<ButtonProps> & WithResponseProps) => {
 
   const [commitMutation, isMutationInFlight] = useMutation<ButtonAddFolderMutation>(addFolder)
 
@@ -57,9 +58,9 @@ export const AddFolderButton = ({ disabled, optimisticResponse }: Partial<Button
 
   // const { id, children } = optimisticResponse
 
-  return <Button
+  return <Button {...props}
     icon='add-folder'
-    disabled={disabled || isMutationInFlight}
+    loading={isMutationInFlight}
     action={() => commitMutation({
       variables: {
         path,
@@ -83,15 +84,15 @@ export const AddFolderButton = ({ disabled, optimisticResponse }: Partial<Button
 /**
  * Component Wrapper for uploading new videos
  */
-export const UploadVideoButton = ({ disabled }: Partial<ButtonProps>) => {
+export const UploadVideoButton = ({ ...props }: Partial<ButtonProps>) => {
 
   const [commitMutation, isMutationInFlight] = useMutation<ButtonUploadVideoMutation>(uploadVideo)
 
   const path = window.location.pathname
 
-  return <UploadButton
+  return <UploadButton {...props}
     icon='upload-video'
-    disabled={disabled || isMutationInFlight}
+    loading={isMutationInFlight}
     action={(video) => commitMutation({
       uploadables: { video },
       variables: {

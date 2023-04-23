@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
-import { Button as ButtonComponent } from './Button.ui'
+import { Button as ButtonComponent } from './index'
 
 export default {
   title: 'Primary/Button',

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 
-import { Button, ButtonProps } from './Button.ui'
+import { ButtonProps } from './Button.ui'
+import { Button } from './index'
 
 /**
  * Upload file logic
