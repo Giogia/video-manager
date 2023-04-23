@@ -13,7 +13,10 @@ const handleChange = (action: ButtonProps['action']) =>
     ) {
       const file = event.target.files[0]
 
-      action && action(file)
+      if (file?.type?.startsWith("video/")) {
+
+        action && action(file)
+      }
     }
   }
 
