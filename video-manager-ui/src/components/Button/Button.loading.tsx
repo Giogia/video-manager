@@ -15,7 +15,7 @@ interface WithLoadingProps {
  * Component Wrapper for loading stage
  */
 export const ButtonWithLoading = ({ loading, ...props }: ButtonProps & WithLoadingProps) => (
-  <Box sx={{ position: 'relative' }}>
+  <Box sx={{ ...loading && { position: 'relative' } }}>
     {loading ?
       <>
         <Skeleton variant='circular' sx={{ position: 'absolute', top: 0, left: 0 }}>
