@@ -2,7 +2,9 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import { useDrop } from 'react-dnd'
 
-import { Link, LinkProps } from './Link.ui'
+import { Link } from '.'
+import { LinkProps } from './Link.ui'
+import { WithErrorProps } from './Link.error'
 import { DRAGGABLES } from '../../utils/drag'
 
 export interface WithDropProps {
@@ -15,7 +17,7 @@ export interface WithDropProps {
 /**
  * Component Wrapper for dropping on a link
  */
-export const LinkWithDrop = ({ action, ...props }: LinkProps & WithDropProps) => {
+export const LinkWithDrop = ({ action, ...props }: LinkProps & WithErrorProps & WithDropProps) => {
 
   const { href, selected } = props
 

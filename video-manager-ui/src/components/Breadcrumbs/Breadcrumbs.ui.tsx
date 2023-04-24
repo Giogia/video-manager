@@ -1,7 +1,7 @@
 import React from 'react'
 import BreadcrumbsMui from '@mui/material/Breadcrumbs'
 import { sep } from 'path'
-import { Link } from '../Link'
+import { MoveFolderLink } from '../Link'
 
 export interface BreadcrumbsProps {
   /**
@@ -26,7 +26,7 @@ export const Breadcrumbs = ({ path }: BreadcrumbsProps) => {
     >
       {levels
         .map((link, i) => (
-          <Link
+          <MoveFolderLink
             name={decodeURI(link)}
             key={i}
             href={href(i)}
