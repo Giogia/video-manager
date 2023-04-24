@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { GraphQLError } from 'graphql'
 import { useMutation } from 'react-relay'
 import { graphql } from 'babel-plugin-relay/macro'
 
@@ -25,19 +26,24 @@ const moveFolder = (
  * Component Wrapper for creating new folders
  */
 export const MoveFolderFolder = ({ ...props }: FolderProps) => {
+  
+  const [error, setError] = useState(new GraphQLError(""))
+
   const [commitMutation] = useMutation<FolderMoveFolderMutation>(moveFolder)
 
   const path = window.location.pathname
 
   return <FolderWithDrop
     {...props}
+    error={error}
     action={({ name }, targetName) =>
       name !== targetName && commitMutation({
         variables: {
           path,
           name,
           newPath: combinePath(path, targetName)
-        }
+        },
+        onError: e => setError(e as GraphQLError)
       })
     }
   />

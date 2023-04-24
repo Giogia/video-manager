@@ -15,6 +15,10 @@ export interface FolderProps {
    */
   loading: boolean
   /**
+   * Error associated with folder operations
+   */
+  error?: any
+  /**
    * Folder contents
    */
   name: string
@@ -31,7 +35,7 @@ export interface FolderProps {
 /**
  * UI component for identifying a directory
  */
-export const Folder = ({ name, loading, onClick, selected, count }: FolderProps) => (
+export const Folder = ({ name, loading, error, onClick, selected, count }: FolderProps) => (
   <Grid container
     direction='column'
     alignItems='center'
@@ -41,6 +45,7 @@ export const Folder = ({ name, loading, onClick, selected, count }: FolderProps)
       <Button
         action={onClick}
         disabled={selected}
+        error={error}
         icon='folder'
         size='large'
         loading={loading}
