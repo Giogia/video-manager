@@ -14,13 +14,12 @@ export interface WithErrorProps {
 /**
  * Component Wrapper for error stage
  */
-export const ButtonWithError = ({ error, ...props }: ButtonProps & WithErrorProps) => {
-
-  return <>
+export const ButtonWithError = ({ error, ...props }: ButtonProps & WithErrorProps) => (
+  <>
     <ButtonWithLoading {...props} />
     <Snackbar error={error} />
   </>
-}
+)
 
 ButtonWithError.defaultProps = {
   ...ButtonWithLoading.defaultProps,
