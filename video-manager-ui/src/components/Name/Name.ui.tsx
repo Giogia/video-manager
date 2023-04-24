@@ -43,7 +43,7 @@ export const Name = ({ name: defaultName, editable, onChange, sx }: NameProps) =
     <Box
       textAlign='center'
       width='80px'
-      sx={{ wordBreak: 'break-all' }}
+      sx={{ wordBreak: 'break-word' }}
     >
       {!isFocused ?
         <Typography
