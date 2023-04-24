@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import Snackbar from '@mui/material/Snackbar'
+import React from 'react'
 
 import { ButtonProps } from './Button.ui'
 import { ButtonWithLoading } from './Button.loading'
+import { Snackbar } from '../Snackbar'
 
 export interface WithErrorProps {
   /**
@@ -16,26 +16,9 @@ export interface WithErrorProps {
  */
 export const ButtonWithError = ({ error, ...props }: ButtonProps & WithErrorProps) => {
 
-  const [open, setOpen] = useState(false)
-
-  const [{ message }] = error?.source?.errors || [{}]
-
-  useEffect(() => {
-    if (message) setOpen(true)
-  }, [message])
-
   return <>
     <ButtonWithLoading {...props} />
-    {message &&
-      <Snackbar
-        open={open}
-        message={message}
-        anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-        disableWindowBlurListener={true}
-        onClose={() => setOpen(false)}
-        autoHideDuration={4000}
-      />
-    }
+    <Snackbar error={error} />
   </>
 }
 
