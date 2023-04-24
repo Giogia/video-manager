@@ -1,7 +1,7 @@
+import { ChipWithError } from './Chip.error'
 import { DeleteFolderChip } from './Chip.mutations'
-import { ChipWithLoading } from './Chip.loading'
 
 export {
-  DeleteFolderChip,
-  ChipWithLoading as Chip
+  ChipWithError as Chip,
+  DeleteFolderChip
 }

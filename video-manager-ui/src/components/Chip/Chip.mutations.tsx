@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { GraphQLError } from 'graphql'
 import { useMutation } from 'react-relay'
 import { graphql } from 'babel-plugin-relay/macro'
 
@@ -38,12 +39,16 @@ const deleteVideo = (
  * Component Wrapper for creating new folders
  */
 export const DeleteFolderChip = () => {
+
+  const [error, setError] = useState(new GraphQLError(""))
+
   const [commitFolderMutation] = useMutation<ChipDeleteFolderMutation>(deleteFolder)
   const [commitVideoMutation] = useMutation<ChipDeleteVideoMutation>(deleteVideo)
 
   return <ChipWithDrop
     icon='delete'
     tooltip='Drag here an element to delete'
+    error={error}
     action={({ name, type }) => {
 
       const variables = {
@@ -51,8 +56,10 @@ export const DeleteFolderChip = () => {
         name
       }
 
-      if (type === FOLDER) commitFolderMutation({ variables })
-      if (type === VIDEO) commitVideoMutation({ variables })
+      const onError = (e: Error) => setError(e as GraphQLError)
+
+      if (type === FOLDER) commitFolderMutation({ variables, onError })
+      if (type === VIDEO) commitVideoMutation({ variables, onError })
     }}
   />
 }

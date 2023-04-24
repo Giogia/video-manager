@@ -2,7 +2,9 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import { useDrop } from 'react-dnd'
 
-import { Chip, ChipProps } from './Chip.ui'
+import { Chip } from '.'
+import { ChipProps } from './Chip.ui'
+import { WithErrorProps } from './Chip.error'
 import { DRAGGABLES } from '../../utils/drag'
 
 export interface WithDropProps {
@@ -15,7 +17,7 @@ export interface WithDropProps {
 /**
  * Component Wrapper for dropping on a chip
  */
-export const ChipWithDrop = ({ action, ...props }: ChipProps & WithDropProps) => {
+export const ChipWithDrop = ({ action, ...props }: ChipProps & WithErrorProps & WithDropProps) => {
 
   const [{ isDragging, isOver }, drop] = useDrop(() => ({
     accept: DRAGGABLES,
