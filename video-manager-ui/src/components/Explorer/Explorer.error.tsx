@@ -5,13 +5,14 @@ import { ErrorBoundary } from 'react-error-boundary'
 
 import { Explorer } from "./Explorer.ui"
 import { ExplorerWithFetch, WithFetchProps } from './Explorer.fetch'
+import { getErrorMessage } from '../../utils/error'
 
 /**
  * Component wrapper for error stage
  */
 export const ExplorerError = ({ error, resetErrorBoundary }: Record<string, any>) => {
 
-    const [{ message }] = error?.source?.errors || [{}]
+    const message = getErrorMessage(error)
 
     const navigate = useNavigate()
 
