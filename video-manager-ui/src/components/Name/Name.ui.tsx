@@ -14,10 +14,6 @@ export interface NameProps {
    */
   editable?: boolean
   /**
-   * Name validation error
-   */
-  error?: string
-  /**
    * Action on name changed
    */
   onChange?: (newName: string, oldName: string) => void
@@ -30,7 +26,7 @@ export interface NameProps {
 /**
  * Primary UI component for user typewriting
  */
-export const Name = ({ name: defaultName, editable, onChange, error, sx }: NameProps) => {
+export const Name = ({ name: defaultName, editable, onChange, sx }: NameProps) => {
 
   const [name, setName] = useState(defaultName)
   const [isFocused, setIsFocused] = useState(false)
@@ -40,6 +36,7 @@ export const Name = ({ name: defaultName, editable, onChange, error, sx }: NameP
   const editName = () => {
     setIsFocused(false)
     onChange && onChange(name, defaultName)
+    setName(defaultName)
   }
 
   return (
@@ -48,32 +45,26 @@ export const Name = ({ name: defaultName, editable, onChange, error, sx }: NameP
       width='80px'
       sx={{ wordBreak: 'break-all' }}
     >
-      {!isFocused && !error ?
-        (
-          <Typography
-            variant='caption'
-            gutterBottom
-            onClick={() => setIsFocused(editable!)}
-            sx={{ opacity: editable ? 1 : 0.5, ...sx }}
-          >
-            {name}
-          </Typography>
-        ) :
-        (
-          <TextField
-            autoFocus={!error}
-            value={name}
-            variant='standard'
-            inputProps={{ sx: { fontSize: 12, marginTop: -0.25, ...sx } }}
-            multiline
-            maxRows={4}
-            error={!!error}
-            helperText={error}
-            onBlur={editName}
-            onChange={({ target }) => setName(target.value)}
-            onKeyDown={({ code, shiftKey }) => (code === 'Enter' && !shiftKey) && editName()}
-          />
-        )
+      {!isFocused ?
+        <Typography
+          variant='caption'
+          gutterBottom
+          onClick={() => setIsFocused(editable!)}
+          sx={{ opacity: editable ? 1 : 0.5, ...sx }}
+        >
+          {name}
+        </Typography> :
+        <TextField
+          autoFocus
+          value={name}
+          variant='standard'
+          inputProps={{ sx: { fontSize: 12, marginTop: -0.25, ...sx } }}
+          multiline
+          maxRows={4}
+          onBlur={editName}
+          onChange={({ target }) => setName(target.value)}
+          onKeyDown={({ code, shiftKey }) => (code === 'Enter' && !shiftKey) && editName()}
+        />
       }
     </Box>
   )

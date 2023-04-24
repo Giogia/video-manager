@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { GraphQLError } from 'graphql'
 import { useMutation } from 'react-relay'
 import { GraphQLTaggedNode, MutationParameters } from 'relay-runtime'
 import { graphql } from 'babel-plugin-relay/macro'
@@ -6,8 +7,9 @@ import { graphql } from 'babel-plugin-relay/macro'
 import { NameRenameFolderMutation } from './__generated__/NameRenameFolderMutation.graphql'
 import { NameRenameVideoMutation } from './__generated__/NameRenameVideoMutation.graphql'
 
+import { Name } from '.'
 import { NameProps } from './Name.ui'
-import { NameWithLoading, WithLoadingProps } from './Name.loading'
+import { WithLoadingProps } from './Name.loading'
 
 /**
  * Rename folder logic
@@ -40,10 +42,14 @@ const renameVideo = (
  * Component Wrapper for renaming nodes
  */
 export const Rename = <T extends MutationParameters,>({ editable, mutation, ...props }: NameProps & WithLoadingProps & { mutation: GraphQLTaggedNode }) => {
+
+  const [error, setError] = useState(new GraphQLError(""))
+
   const [commitMutation, isMutationInFlight] = useMutation<T>(mutation)
 
-  return <NameWithLoading
+  return <Name
     {...props}
+    error={error}
     editable={editable && !isMutationInFlight}
     onChange={(newName: string, oldName: string) =>
       newName !== oldName && commitMutation({
@@ -51,7 +57,8 @@ export const Rename = <T extends MutationParameters,>({ editable, mutation, ...p
           path: window.location.pathname,
           oldName,
           newName,
-        }
+        },
+        onError: e => setError(e as GraphQLError)
       })
     }
   />

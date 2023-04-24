@@ -1,8 +1,8 @@
-import { NameWithLoading } from "./Name.loading"
+import { NameWithError } from "./Name.error"
 import { RenameFolder, RenameVideo } from "./Name.mutations"
 
 export {
-  NameWithLoading as Name,
+  NameWithError as Name,
   RenameFolder,
   RenameVideo
 }
