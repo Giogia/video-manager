@@ -3,7 +3,8 @@ import Box from '@mui/material/Box'
 import { useDrag } from 'react-dnd'
 import { usePreview } from 'react-dnd-preview'
 
-import { Video, VideoProps } from './Video.ui'
+import { Video } from '.'
+import { VideoProps } from './Video.ui'
 import { VIDEO } from '../../utils/drag'
 
 /**

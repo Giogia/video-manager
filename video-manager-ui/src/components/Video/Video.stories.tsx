@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import { StoryFn, Meta } from '@storybook/react'
 
-import { Video } from './Video.ui'
+import { Video } from '.'
 
 import horizontal from './__assets__/horizontal.mov'
 import vertical from './__assets__/vertical.mov'
