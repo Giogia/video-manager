@@ -1,6 +1,6 @@
 import React from 'react'
 import Chip from '@mui/material/Chip'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { Explorer } from './Explorer.ui'
