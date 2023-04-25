@@ -2,29 +2,29 @@ import React, { useState, Fragment } from 'react'
 import MuiButton from '@mui/material/Button'
 import CardMedia from '@mui/material/CardMedia'
 import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
 
 import { Button } from '../Button'
 import { RenameVideo } from '../Name'
+import { Caption } from '../Caption'
 import { formatSize } from '../../utils/size'
 
 export interface VideoProps {
-  /**
-   * Video data source
-   */
-  source: string
-  /**
-   * Video content
-   */
-  name: string
-  /**
-   * Whether the video is loading
-   */
-  loading: boolean
-  /**
-   * Video dimension
-   */
-  size?: number
+   /**
+    * Video data source
+    */
+   source: string
+   /**
+    * Video content
+    */
+   name: string
+   /**
+    * Whether the video is loading
+    */
+   loading: boolean
+   /**
+    * Video dimension
+    */
+   size?: number
 }
 
 /**
@@ -53,12 +53,7 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
                zIndex: 10000,
             }
          }}>
-            <Wrapper {...!fullscreen && {
-               sx: {
-                  height: 50,
-                  width: 70
-               }
-            }}>
+            <Wrapper {...!fullscreen && { sx: { height: 50, width: 70 } }}>
                <CardMedia
                   component='video'
                   controls={fullscreen}
@@ -110,12 +105,10 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
                   }}
                /> :
                <Grid item>
-                  <Typography
-                     variant='caption'
-                     sx={{ fontSize: 9, opacity: 0.75 }}
-                  >
-                     {formatSize(size)}
-                  </Typography>
+                  <Caption
+                     text={formatSize(size)}
+                     loading={loading}
+                  />
                </Grid>
          }
       </Grid >

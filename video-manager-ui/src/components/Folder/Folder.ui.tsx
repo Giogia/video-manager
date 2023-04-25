@@ -1,35 +1,35 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
 
 import { Button } from '../Button'
 import { RenameFolder } from '../Name'
+import { Caption } from '../Caption'
 
 export interface FolderProps {
-  /**
-   * The number of items in a folder
-   */
-  count?: number
-  /**
-   * Whether the folder is loading
-   */
-  loading: boolean
-  /**
-   * Error associated with folder operations
-   */
-  error?: any
-  /**
-   * Folder contents
-   */
-  name: string
-  /**
-   * Opeartion called when folder is clicked
-   */
-  onClick?: (e: MouseEvent) => void
-  /**
-   * Whether the folder has been selected
-   */
-  selected?: boolean
+   /**
+    * The number of items in a folder
+    */
+   count?: number
+   /**
+    * Whether the folder is loading
+    */
+   loading: boolean
+   /**
+    * Error associated with folder operations
+    */
+   error?: any
+   /**
+    * Folder contents
+    */
+   name: string
+   /**
+    * Opeartion called when folder is clicked
+    */
+   onClick?: (e: MouseEvent) => void
+   /**
+    * Whether the folder has been selected
+    */
+   selected?: boolean
 }
 
 /**
@@ -59,15 +59,13 @@ export const Folder = ({ name, loading, error, onClick, selected, count }: Folde
             editable={!selected}
          />
       </Grid>
-      {count !== undefined && !loading &&
-      <Grid item>
-         <Typography
-            variant='caption'
-            sx={{ fontSize: 9, opacity: 0.75 }}
-         >
-            {`${count ? count : 'no'} item${count !== 1 ? 's' : ''}`}
-         </Typography>
-      </Grid>
+      {count !== undefined &&
+         <Grid item>
+            <Caption
+               text={`${count ? count : 'no'} item${count !== 1 ? 's' : ''}`}
+               loading={loading}
+            />
+         </Grid>
       }
    </Grid>
 )
