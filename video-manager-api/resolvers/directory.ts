@@ -23,7 +23,7 @@ export class DirectoryResolver {
          return directory
       }
       catch (e) {
-         throw new GraphQLError(`Cannot return directory ${directoryPath}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot return directory ${decodeURI(directoryPath)}. \n\n ${e}`)
       }
    }
 
@@ -36,7 +36,7 @@ export class DirectoryResolver {
 
          const parentNode = await findNode(path)
 
-         if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
+         if (!parentNode) throw new GraphQLError(`Directory ${decodeURI(path)} does not exists.`)
 
          const siblingNodes = await findNodes({
             path,
@@ -63,7 +63,7 @@ export class DirectoryResolver {
          return composeDirectory(path, context?.params?.query)
       }
       catch (e) {
-         throw new GraphQLError(`Cannot add directory ${directoryPath}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot add directory ${decodeURI(directoryPath)}. \n\n ${e}`)
       }
    }
 
@@ -90,12 +90,12 @@ export class DirectoryResolver {
          })
 
          if (matchedCount == 0) throw new GraphQLError("Directory does not exists.")
-         if (modifiedCount == 0) throw new GraphQLError(`Directory ${path} does not exists.`)
+         if (modifiedCount == 0) throw new GraphQLError(`Directory ${decodeURI(path)} does not exists.`)
 
          return composeDirectory(path, context?.params?.query)
       }
       catch (e) {
-         throw new GraphQLError(`Cannot move directory ${directoryPath}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot move directory ${decodeURI(directoryPath)}. \n\n ${e}`)
       }
    }
 
@@ -118,7 +118,7 @@ export class DirectoryResolver {
          return composeDirectory(path, context?.params?.query)
       }
       catch (e) {
-         throw new GraphQLError(`Cannot rename directory ${directoryPath}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot rename directory ${decodeURI(directoryPath)}. \n\n ${e}`)
       }
    }
 
@@ -144,7 +144,7 @@ export class DirectoryResolver {
          throw new GraphQLError("Directory is root.")
       }
       catch (e) {
-         throw new GraphQLError(`Cannot remove directory ${directoryPath}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot remove directory ${decodeURI(directoryPath)}. \n\n ${e}`)
       }
    }
 }

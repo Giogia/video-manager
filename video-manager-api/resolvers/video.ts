@@ -45,7 +45,7 @@ export class VideoResolver {
          })
       }
       catch (e) {
-         throw new GraphQLError(`Cannot upload video in directory ${path}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot upload video. \n\n ${e}`)
       }
 
       try {
@@ -56,7 +56,7 @@ export class VideoResolver {
          return directory
       }
       catch (e) {
-         throw new GraphQLError(`Cannot return directory ${path}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot return directory ${decodeURI(path)}. \n\n ${e}`)
       }
    }
 
@@ -79,7 +79,7 @@ export class VideoResolver {
          return composeDirectory(path, context?.params?.query)
       }
       catch (e) {
-         throw new GraphQLError(`Cannot rename video ${videoPath}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot rename video ${name}. \n\n ${e}`)
       }
    }
 
@@ -109,7 +109,7 @@ export class VideoResolver {
          throw new GraphQLError("Directory is root.")
       }
       catch (e) {
-         throw new GraphQLError(`Cannot remove video ${videoPath}. \n\n ${e}`)
+         throw new GraphQLError(`Cannot remove video ${decodeURI(videoPath)}. \n\n ${e}`)
       }
    }
 }

@@ -138,7 +138,7 @@ describe("Resolvers", () => {
             variableValues: { path: "/Parent/Dir", video: upload }
          })
 
-         expect(errors).toEqual([new GraphQLError("Cannot upload video in directory /Parent/Dir. \n\n Video horizontal.mov already exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot upload video. \n\n Video horizontal.mov already exists.")])
       })
 
       it("returns error if directory does not exists", async () => {
@@ -175,7 +175,7 @@ describe("Resolvers", () => {
             variableValues: { path: "/Parent/Dir", video: upload }
          })
 
-         expect(errors).toEqual([new GraphQLError("Cannot upload video in directory /Parent/Dir. \n\n Directory /Parent/Dir does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot upload video. \n\n Directory /Parent/Dir does not exists.")])
       })
    })
 
@@ -248,7 +248,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, renameVideoMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot rename video /Parent/horizontal.mov. \n\n Video does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot rename video horizontal.mov. \n\n Video does not exists.")])
       })
 
       it("returns error if target directory already exists", async () => {
@@ -272,7 +272,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, renameVideoMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot rename video /Parent/horizontal.mov. \n\n Video vertical.mov already exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot rename video horizontal.mov. \n\n Video vertical.mov already exists.")])
       })
    })
 
