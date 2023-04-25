@@ -11,10 +11,10 @@ import { App } from './App.ui'
  * Initial query depending on route
  */
 const appQueryRef = (path: string) => loadQuery<ExplorerQuery>(
-  environment,
-  ExplorerSchema,
-  { path, name: '' },
-  { fetchPolicy: 'store-and-network' }
+   environment,
+   ExplorerSchema,
+   { path, name: '' },
+   { fetchPolicy: 'store-and-network' }
 )
 
 /**
@@ -22,11 +22,11 @@ const appQueryRef = (path: string) => loadQuery<ExplorerQuery>(
  */
 export const AppWithFetch = ({ ...props }) => {
 
-  const { pathname } = useLocation()
+   const { pathname } = useLocation()
 
-  return (
-    <App {...props}
-      explorerQueryRef={appQueryRef(pathname)}
-    />
-  )
+   return (
+      <App {...props}
+         explorerQueryRef={appQueryRef(pathname)}
+      />
+   )
 }

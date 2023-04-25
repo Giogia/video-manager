@@ -19,24 +19,24 @@ export interface WithDropProps {
  */
 export const LinkWithDrop = ({ action, ...props }: LinkProps & WithErrorProps & WithDropProps) => {
 
-  const { href, selected } = props
+   const { href, selected } = props
 
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: DRAGGABLES,
-    drop: item => { action && action(item, href) },
-    collect: monitor => ({ isOver: !!monitor.isOver() })
-  }))
+   const [{ isOver }, drop] = useDrop(() => ({
+      accept: DRAGGABLES,
+      drop: item => { action && action(item, href) },
+      collect: monitor => ({ isOver: !!monitor.isOver() })
+   }))
 
-  return (
-    <Box ref={drop}>
-      <Link
-        {...props}
-        selected={selected || isOver}
-      />
-    </Box >
-  )
+   return (
+      <Box ref={drop}>
+         <Link
+            {...props}
+            selected={selected || isOver}
+         />
+      </Box >
+   )
 }
 
 LinkWithDrop.defaultProps = {
-  ...Link.defaultProps
+   ...Link.defaultProps
 }

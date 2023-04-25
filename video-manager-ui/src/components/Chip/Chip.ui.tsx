@@ -37,20 +37,20 @@ export interface ChipProps {
  * Primary UI component for user interaction
  */
 export const Chip = ({ action, icon, disabled, label, tooltip, sx }: ChipProps) => (
-  <Tooltip title={tooltip}>
-    <span id={`${icon}-chip`}>
-      <MuiChip
-        clickable
-        icon={<Icon id={icon} sx={{color: 'action'}}/>}
-        label={label || formatName(icon)}
-        disabled={disabled}
-        onClick={action}
-        sx={{ paddingLeft: 1, ...sx }}
-      />
-    </span>
-  </Tooltip>
+   <Tooltip title={tooltip}>
+      <span id={`${icon}-chip`}>
+         <MuiChip
+            clickable
+            icon={<Icon id={icon} sx={{color: 'action'}}/>}
+            label={label || formatName(icon)}
+            disabled={disabled}
+            onClick={action}
+            sx={{ paddingLeft: 1, ...sx }}
+         />
+      </span>
+   </Tooltip>
 )
 
 Chip.defaultProps = {
-  color: 'default'
+   color: 'default'
 }

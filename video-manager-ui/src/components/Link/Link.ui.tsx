@@ -29,30 +29,30 @@ export interface LinkProps {
  */
 export const Link = ({ name, href, isRoot, selected }: LinkProps) => {
 
-  const navigate = useNavigate()
+   const navigate = useNavigate()
 
-  return (
-    <LinkMui
-      underline={selected ? 'none' : 'hover'}
-      onClick={() => navigate(href)}
-    >
-      {isRoot ?
-        <Button
-          icon='home'
-          size='small'
-          disabled={selected}
-        /> :
-        <Box
-          padding={0.75}
-          sx={{ opacity: selected ? 0.6 : 1 }}
-        >
-          {name}
-        </Box>}
-    </LinkMui >
-  )
+   return (
+      <LinkMui
+         underline={selected ? 'none' : 'hover'}
+         onClick={() => navigate(href)}
+      >
+         {isRoot ?
+            <Button
+               icon='home'
+               size='small'
+               disabled={selected}
+            /> :
+            <Box
+               padding={0.75}
+               sx={{ opacity: selected ? 0.6 : 1 }}
+            >
+               {name}
+            </Box>}
+      </LinkMui >
+   )
 }
 
 Link.defaultProps = {
-  isRoot: false,
-  selected: false
+   isRoot: false,
+   selected: false
 }

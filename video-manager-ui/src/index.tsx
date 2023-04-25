@@ -14,11 +14,11 @@ const root = createRoot(
 )
 
 root.render(
-  <React.StrictMode>
-    <RelayEnvironmentProvider environment={environment}>
-      <DndProvider options={HTML5toTouch}>
-        <App />
-      </DndProvider>
-    </RelayEnvironmentProvider>
-  </React.StrictMode>
+   <React.StrictMode>
+      <RelayEnvironmentProvider environment={environment}>
+         <DndProvider options={HTML5toTouch}>
+            <App />
+         </DndProvider>
+      </RelayEnvironmentProvider>
+   </React.StrictMode>
 )

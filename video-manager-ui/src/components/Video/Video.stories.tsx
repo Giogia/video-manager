@@ -4,18 +4,15 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import { Video as VideoComponent } from './Video.ui'
 
-// @ts-ignore 
 import horizontal from './__assets__/horizontal.mov'
-
-// @ts-ignore 
 import vertical from './__assets__/vertical.mov'
 
 const video = Math.random() > 0.65 ? vertical : horizontal
 
 export default {
-  title: 'Composed/Video',
-  component: VideoComponent,
-  args: { ...VideoComponent.defaultProps, source: video }
+   title: 'Composed/Video',
+   component: VideoComponent,
+   args: { ...VideoComponent.defaultProps, source: video }
 } as ComponentMeta<typeof VideoComponent>
 
 const Template: ComponentStory<typeof VideoComponent> = (args) => <VideoComponent {...args} />
@@ -23,7 +20,7 @@ const Template: ComponentStory<typeof VideoComponent> = (args) => <VideoComponen
 export const Video = Template.bind({})
 
 Video.decorators = [(Story) => (
-  <Box position='relative' height={200}>
-    <Story />
-  </Box>
+   <Box position='relative' height={200}>
+      <Story />
+   </Box>
 )]

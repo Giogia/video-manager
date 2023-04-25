@@ -17,43 +17,43 @@ export interface AppProps {
 
 export const App = ({ explorerQueryRef }: AppProps) => {
 
-  const defaultTheme = getBrowserTheme()
-  const [muiTheme, setMuiTheme] = useState(defaultTheme)
+   const defaultTheme = getBrowserTheme()
+   const [muiTheme, setMuiTheme] = useState(defaultTheme)
 
-  const { palette: { mode: currentMode, background } } = muiTheme
+   const { palette: { mode: currentMode, background } } = muiTheme
 
-  const handleTheme = () => setMuiTheme(toggleMuiTheme(currentMode))
+   const handleTheme = () => setMuiTheme(toggleMuiTheme(currentMode))
 
-  return (
-    <ThemeProvider theme={muiTheme}>
-      <Box
-        id='app'
-        display='flex'
-        flexDirection='column'
-        bgcolor={background.default}
-        height='100vh'
-      >
-        <Box
-          padding={4}
-          paddingRight={8}
-          paddingBottom={1}
-        >
-          <Header
-            theme={currentMode}
-            handleTheme={handleTheme}
-          />
-        </Box>
-        <Box
-          overflow='hidden'
-          position='relative'
-          height='100%'
-          padding={2}
-        >
-          <Explorer
-            queryRef={explorerQueryRef}
-          />
-        </Box>
-      </Box>
-    </ThemeProvider >
-  )
+   return (
+      <ThemeProvider theme={muiTheme}>
+         <Box
+            id='app'
+            display='flex'
+            flexDirection='column'
+            bgcolor={background.default}
+            height='100vh'
+         >
+            <Box
+               padding={4}
+               paddingRight={8}
+               paddingBottom={1}
+            >
+               <Header
+                  theme={currentMode}
+                  handleTheme={handleTheme}
+               />
+            </Box>
+            <Box
+               overflow='hidden'
+               position='relative'
+               height='100%'
+               padding={2}
+            >
+               <Explorer
+                  queryRef={explorerQueryRef}
+               />
+            </Box>
+         </Box>
+      </ThemeProvider >
+   )
 }

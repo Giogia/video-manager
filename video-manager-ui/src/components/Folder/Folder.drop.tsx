@@ -17,24 +17,24 @@ export interface WithDropProps {
  */
 export const FolderWithDrop = ({ action, ...props }: FolderProps & WithDropProps) => {
 
-  const { name } = props
+   const { name } = props
 
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: DRAGGABLES,
-    drop: item => { action && action(item, name) },
-    collect: monitor => ({ isOver: !!monitor.isOver() })
-  }))
+   const [{ isOver }, drop] = useDrop(() => ({
+      accept: DRAGGABLES,
+      drop: item => { action && action(item, name) },
+      collect: monitor => ({ isOver: !!monitor.isOver() })
+   }))
 
-  return (
-    <Box ref={drop}>
-      <Folder
-        {...props}
-        selected={isOver}
-      />
-    </Box >
-  )
+   return (
+      <Box ref={drop}>
+         <Folder
+            {...props}
+            selected={isOver}
+         />
+      </Box >
+   )
 }
 
 FolderWithDrop.defaultProps = {
-  ...Folder.defaultProps
+   ...Folder.defaultProps
 }

@@ -1,7 +1,7 @@
-import { LinkWithError } from "./Link.error"
-import { MoveFolderLink } from "./Link.mutations"
+import { LinkWithError } from './Link.error'
+import { MoveFolderLink } from './Link.mutations'
 
 export { 
-    LinkWithError as Link, 
-    MoveFolderLink 
+   LinkWithError as Link, 
+   MoveFolderLink 
 }

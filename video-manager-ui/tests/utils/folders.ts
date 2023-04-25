@@ -1,17 +1,17 @@
-import { Page } from "@playwright/test"
+import { Page } from '@playwright/test'
 
 export function getFolder(page: Page) {
-    return page.locator("#folder-button")
+   return page.locator('#folder-button')
 }
 
 export function getFirstFolder(page: Page) {
-    return getFolder(page).first()
+   return getFolder(page).first()
 }
 
 export function getLastFolder(page: Page) {
-    return getFolder(page).last()
+   return getFolder(page).last()
 }
 
 export function getFolders(page: Page) {
-    return getFolder(page).all()
+   return getFolder(page).all()
 }

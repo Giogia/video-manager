@@ -15,7 +15,7 @@ import { WithLoadingProps } from './Name.loading'
  * Rename folder logic
  */
 const renameFolder = (
-  graphql`
+   graphql`
     mutation NameRenameFolderMutation($path: String!, $oldName: String!, $newName: String!) {
       renameDirectory(input: {path: $path, name: $oldName}, name: $newName){
         ...Explorer_directory
@@ -28,7 +28,7 @@ const renameFolder = (
  * Rename folder logic
  */
 const renameVideo = (
-  graphql`
+   graphql`
     mutation NameRenameVideoMutation($path: String!, $oldName: String!, $newName: String!) {
       renameVideo(input: {path: $path, name: $oldName}, name: $newName){
         ...Explorer_directory
@@ -43,25 +43,25 @@ const renameVideo = (
  */
 export const Rename = <T extends MutationParameters,>({ editable, mutation, ...props }: NameProps & WithLoadingProps & { mutation: GraphQLTaggedNode }) => {
 
-  const [error, setError] = useState(new GraphQLError(""))
+   const [error, setError] = useState(new GraphQLError(''))
 
-  const [commitMutation, isMutationInFlight] = useMutation<T>(mutation)
+   const [commitMutation, isMutationInFlight] = useMutation<T>(mutation)
 
-  return <Name
-    {...props}
-    error={error}
-    editable={editable && !isMutationInFlight}
-    onChange={(newName: string, oldName: string) =>
-      newName !== oldName && commitMutation({
-        variables: {
-          path: window.location.pathname,
-          oldName,
-          newName,
-        },
-        onError: e => setError(e as GraphQLError)
-      })
-    }
-  />
+   return <Name
+      {...props}
+      error={error}
+      editable={editable && !isMutationInFlight}
+      onChange={(newName: string, oldName: string) =>
+         newName !== oldName && commitMutation({
+            variables: {
+               path: window.location.pathname,
+               oldName,
+               newName,
+            },
+            onError: e => setError(e as GraphQLError)
+         })
+      }
+   />
 }
 
 
@@ -69,18 +69,18 @@ export const Rename = <T extends MutationParameters,>({ editable, mutation, ...p
  * Component Wrapper for renaming folders
  */
 export const RenameFolder = ({ ...props }: NameProps & WithLoadingProps) => (
-  <Rename<NameRenameFolderMutation>
-    {...props}
-    mutation={renameFolder}
-  />
+   <Rename<NameRenameFolderMutation>
+      {...props}
+      mutation={renameFolder}
+   />
 )
 
 /**
  * Component Wrapper for renaming videos (renames also saved file)
  */
 export const RenameVideo = ({ ...props }: NameProps & WithLoadingProps) => (
-  <Rename<NameRenameVideoMutation>
-    {...props}
-    mutation={renameVideo}
-  />
+   <Rename<NameRenameVideoMutation>
+      {...props}
+      mutation={renameVideo}
+   />
 )

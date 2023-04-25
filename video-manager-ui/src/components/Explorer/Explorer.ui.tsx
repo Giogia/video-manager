@@ -37,72 +37,72 @@ interface ExplorerProps {
  * UI component for exploring a directory
  */
 export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) => (
-  <Card id='explorer'
-    variant='outlined'
-    sx={{
-      position: 'relative',
-      overflow: 'hidden',
-      height: '100%',
-      border: 'transparent'
-    }}>
-    <CardHeader
-      title={
-        <Breadcrumbs
-          path={path}
-          loading={loading && path !== window.location.pathname}
-        />
-      }
-      action={
-        <CardActions sx={{ gap: 2 }} >
-          <DeleteFolderChip />
-          <UploadVideoButton
-            disabled={loading || error}
-          />
-          <AddFolderButton
-            disabled={loading || error}
-            optimisticResponse={{ id, children: (Array.isArray(content) ? content : [content]) }}
-          />
-        </CardActions>
-      }
-      sx={{ padding: 4 }}
-    />
-    <CardContent sx={{
-      height: '100%',
-      flex: 1,
-      overflow: 'auto',
-      padding: 6,
-      ...error && {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 'min-content',
-        gap: 2
-      }
-    }}>
-      {content &&
+   <Card id='explorer'
+      variant='outlined'
+      sx={{
+         position: 'relative',
+         overflow: 'hidden',
+         height: '100%',
+         border: 'transparent'
+      }}>
+      <CardHeader
+         title={
+            <Breadcrumbs
+               path={path}
+               loading={loading && path !== window.location.pathname}
+            />
+         }
+         action={
+            <CardActions sx={{ gap: 2 }} >
+               <DeleteFolderChip />
+               <UploadVideoButton
+                  disabled={loading || error}
+               />
+               <AddFolderButton
+                  disabled={loading || error}
+                  optimisticResponse={{ id, children: (Array.isArray(content) ? content : [content]) }}
+               />
+            </CardActions>
+         }
+         sx={{ padding: 4 }}
+      />
+      <CardContent sx={{
+         height: '100%',
+         flex: 1,
+         overflow: 'auto',
+         padding: 6,
+         ...error && {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 'min-content',
+            gap: 2
+         }
+      }}>
+         {content &&
         Array.isArray(content) ?
-        <Grid container
-          columns={{ xs: 2, sm: 4, md: 6, lg: 8, xl: 10 }}
-          spacing={4}
-        >
-          {
-            content.map((item, i) =>
-              <Grid item key={i} xs={1}>
-                {item}
-              </Grid>
-            )
-          }
-        </Grid> :
-        <>{content}</>
-      }
-    </CardContent>
-  </Card>
+            <Grid container
+               columns={{ xs: 2, sm: 4, md: 6, lg: 8, xl: 10 }}
+               spacing={4}
+            >
+               {
+                  content.map((item, i) =>
+                     <Grid item key={i} xs={1}>
+                        {item}
+                     </Grid>
+                  )
+               }
+            </Grid> :
+            <>{content}</>
+         }
+      </CardContent>
+   </Card>
 )
 
 Explorer.defaultProps = {
-  content: <></>,
-  path: '/',
-  loading: false,
-  error: false
+   content: <></>,
+   path: '/',
+   loading: false,
+   error: false
 }

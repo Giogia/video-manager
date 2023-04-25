@@ -14,12 +14,12 @@ export interface WithErrorProps {
  * Component Wrapper for error stage
  */
 export const LinkWithError = ({ error, ...props }: LinkProps & WithErrorProps) => (
-  <>
-    <Link {...props} />
-    <Snackbar error={error} />
-  </>
+   <>
+      <Link {...props} />
+      <Snackbar error={error} />
+   </>
 )
 
 LinkWithError.defaultProps = {
-  ...Link.defaultProps,
+   ...Link.defaultProps,
 }

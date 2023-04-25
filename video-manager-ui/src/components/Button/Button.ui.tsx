@@ -36,25 +36,25 @@ export interface ButtonProps {
  * Primary UI component for user interaction
  */
 export const Button = ({ action, size, icon, disabled, tooltip, sx }: ButtonProps) => (
-  <Tooltip title={tooltip && formatName(icon)}>
-    <span>
-      <IconButton
-        id={`${icon}-button`}
-        disabled={disabled}
-        onClick={action}
-        sx={sx}
-      >
-        <Icon
-          id={icon}
-          size={size}
-        />
-      </IconButton>
-    </span>
-  </Tooltip>
+   <Tooltip title={tooltip && formatName(icon)}>
+      <span>
+         <IconButton
+            id={`${icon}-button`}
+            disabled={disabled}
+            onClick={action}
+            sx={sx}
+         >
+            <Icon
+               id={icon}
+               size={size}
+            />
+         </IconButton>
+      </span>
+   </Tooltip>
 )
 
 Button.defaultProps = {
-  disabled: false,
-  size: 'medium',
-  tooltip: true
+   disabled: false,
+   size: 'medium',
+   tooltip: true
 }

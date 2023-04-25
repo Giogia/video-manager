@@ -1,7 +1,7 @@
 import React from 'react'
 import Skeleton from '@mui/material/Skeleton'
 
-import { Name,  NameProps } from './Name.ui'
+import { Name, NameProps } from './Name.ui'
 
 export interface WithLoadingProps {
   /**
@@ -14,14 +14,14 @@ export interface WithLoadingProps {
  * Component Wrapper for loading stage
  */
 export const NameWithLoading = ({ loading, ...props }: NameProps & WithLoadingProps) => (
-  loading ?
-    <Skeleton animation='wave'>
+   loading ?
+      <Skeleton animation='wave'>
+         <Name {...props} />
+      </Skeleton> :
       <Name {...props} />
-    </Skeleton> :
-    <Name {...props} />
 )
 
 NameWithLoading.defaultProps = {
-  ...Name.defaultProps,
-  loading: false
+   ...Name.defaultProps,
+   loading: false
 }

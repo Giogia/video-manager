@@ -18,7 +18,7 @@ export interface WithFetchProps {
  * Data fetching logic
  */
 const fragment = (
-  graphql`
+   graphql`
     fragment Folder on Directory{
       id
       name
@@ -39,17 +39,17 @@ const fragment = (
  * Component wrapper fetching data
  */
 export const FolderWithFetch = ({ fragmentRef, ...props }: FolderProps & WithFetchProps) => {
-  const { name, children } = useFragment<Folder$key>(fragment, fragmentRef!)
+   const { name, children } = useFragment<Folder$key>(fragment, fragmentRef!)
 
-  return (
-    <FolderWithRouter
-      {...props}
-      name={name!}
-      count={children?.length}
-    />
-  )
+   return (
+      <FolderWithRouter
+         {...props}
+         name={name!}
+         count={children?.length}
+      />
+   )
 }
 
 FolderWithFetch.defaultProps = {
-  ...FolderWithRouter.defaultProps
+   ...FolderWithRouter.defaultProps
 }

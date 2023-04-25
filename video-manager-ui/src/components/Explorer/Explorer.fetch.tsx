@@ -13,7 +13,7 @@ import { VideoWithFetch } from '../Video'
  * Data fetching logic
  */
 const query = (
-    graphql`
+   graphql`
     query ExplorerQuery($path: String!, $name: String!) {
       getDirectory(input: { path: $path, name: $name }){
         ...Explorer_directory
@@ -22,7 +22,7 @@ const query = (
   `
 )
 const fragment = (
-    graphql`
+   graphql`
     fragment Explorer_directory on Directory {
         id
         children{
@@ -35,40 +35,40 @@ const fragment = (
 )
 
 export interface WithFetchProps {
-    /**
-     * Query reference for data fetching
-     */
-    queryRef: PreloadedQuery<ExplorerQuery>
+   /**
+    * Query reference for data fetching
+    */
+   queryRef: PreloadedQuery<ExplorerQuery>
 }
 
 /**
  * Component wrapper fetching data
  */
 export const ExplorerWithFetch = ({ queryRef }: WithFetchProps) => {
-    const { getDirectory } = usePreloadedQuery<ExplorerQuery>(query, queryRef)
-    const { id, children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
+   const { getDirectory } = usePreloadedQuery<ExplorerQuery>(query, queryRef)
+   const { id, children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
 
-    return (
-        <Explorer
-            id={id}
-            path={window.location.pathname}
-            content={
-                children.map((child, i) => {
-                    return (
-                        child.__typename === 'Video' ?
-                            <VideoWithFetch
-                                fragmentRef={child}
-                                key={i}
-                            /> :
-                            child.__typename === 'Directory' ?
-                            <FolderWithFetch
-                                fragmentRef={child}
-                                key={i}
-                            /> :
+   return (
+      <Explorer
+         id={id}
+         path={window.location.pathname}
+         content={
+            children.map((child, i) => {
+               return (
+                  child.__typename === 'Video' ?
+                     <VideoWithFetch
+                        fragmentRef={child}
+                        key={i}
+                     /> :
+                     child.__typename === 'Directory' ?
+                        <FolderWithFetch
+                           fragmentRef={child}
+                           key={i}
+                        /> :
                         null
-                    )
-                })
-            }
-        />
-    )
+               )
+            })
+         }
+      />
+   )
 }

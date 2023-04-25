@@ -12,7 +12,7 @@ import { LinkProps } from './Link.ui'
  * Move folder logic
  */
 const moveFolder = (
-  graphql`
+   graphql`
     mutation LinkMoveFolderMutation($path: String!, $name: String!, $newPath: String!) {
       moveDirectory(input: {path: $path, name: $name}, path: $newPath){
         ...Explorer_directory
@@ -26,24 +26,24 @@ const moveFolder = (
  */
 export const MoveFolderLink = ({ ...props }: LinkProps & WithDropProps) => {
 
-  const [error, setError] = useState(new GraphQLError(""))
+   const [error, setError] = useState(new GraphQLError(''))
 
-  const [commitMutation] = useMutation<LinkMoveFolderMutation>(moveFolder)
+   const [commitMutation] = useMutation<LinkMoveFolderMutation>(moveFolder)
 
-  const path = window.location.pathname
+   const path = window.location.pathname
 
-  return <LinkWithDrop
-    {...props}
-    error={error}
-    action={({ name }, newPath) =>
-      path !== newPath && commitMutation({
-        variables: {
-          path,
-          name,
-          newPath
-        },
-        onError: e => setError(e as GraphQLError)
-      })
-    }
-  />
+   return <LinkWithDrop
+      {...props}
+      error={error}
+      action={({ name }, newPath) =>
+         path !== newPath && commitMutation({
+            variables: {
+               path,
+               name,
+               newPath
+            },
+            onError: e => setError(e as GraphQLError)
+         })
+      }
+   />
 }

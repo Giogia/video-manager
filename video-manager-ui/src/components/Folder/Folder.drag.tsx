@@ -12,31 +12,31 @@ import { FOLDER } from '../../utils/drag'
  */
 export const FolderWithDrag = ({ ...props }: FolderProps) => {
 
-  const { name } = props
+   const { name } = props
 
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: FOLDER,
-    item: { name, type: FOLDER },
-    collect: monitor => ({ isDragging: !!monitor.isDragging() })
-  }), [name])
+   const [{ isDragging }, drag] = useDrag(() => ({
+      type: FOLDER,
+      item: { name, type: FOLDER },
+      collect: monitor => ({ isDragging: !!monitor.isDragging() })
+   }), [name])
 
-  const { display: preview } = usePreview()
+   const { display: preview } = usePreview()
 
-  return (
-    <Box {
-      ...preview ? {
-        sx: {
-          opacity: isDragging ? 0 : 1,
-          transform: 'translate(0,0)',
-          transition: 'opacity 0.2s ease-in-out'
-        }
-      } : { ref: drag }
-    }>
-      <MoveFolderFolder {...props} />
-    </Box >
-  )
+   return (
+      <Box {
+         ...preview ? {
+            sx: {
+               opacity: isDragging ? 0 : 1,
+               transform: 'translate(0,0)',
+               transition: 'opacity 0.2s ease-in-out'
+            }
+         } : { ref: drag }
+      }>
+         <MoveFolderFolder {...props} />
+      </Box >
+   )
 }
 
 FolderWithDrag.defaultProps = {
-  ...Folder.defaultProps
+   ...Folder.defaultProps
 }

@@ -36,45 +36,45 @@ export interface FolderProps {
  * UI component for identifying a directory
  */
 export const Folder = ({ name, loading, error, onClick, selected, count }: FolderProps) => (
-  <Grid container
-    direction='column'
-    alignItems='center'
-    width='max-content'
-  >
-    <Grid item>
-      <Button
-        action={onClick}
-        disabled={selected}
-        error={error}
-        icon='folder'
-        size='large'
-        loading={loading}
-        tooltip={false}
-      />
-    </Grid>
-    <Grid item>
-      <RenameFolder
-        name={name}
-        loading={loading}
-        editable={!selected}
-      />
-    </Grid>
-    {count !== undefined && !loading &&
+   <Grid container
+      direction='column'
+      alignItems='center'
+      width='max-content'
+   >
       <Grid item>
-        <Typography
-          variant='caption'
-          sx={{ fontSize: 9, opacity: 0.75 }}
-        >
-          {`${count ? count : 'no'} item${count !== 1 ? 's' : ''}`}
-        </Typography>
+         <Button
+            action={onClick}
+            disabled={selected}
+            error={error}
+            icon='folder'
+            size='large'
+            loading={loading}
+            tooltip={false}
+         />
       </Grid>
-    }
-  </Grid>
+      <Grid item>
+         <RenameFolder
+            name={name}
+            loading={loading}
+            editable={!selected}
+         />
+      </Grid>
+      {count !== undefined && !loading &&
+      <Grid item>
+         <Typography
+            variant='caption'
+            sx={{ fontSize: 9, opacity: 0.75 }}
+         >
+            {`${count ? count : 'no'} item${count !== 1 ? 's' : ''}`}
+         </Typography>
+      </Grid>
+      }
+   </Grid>
 )
 
 Folder.defaultProps = {
-  name: 'New Folder',
-  loading: false,
-  selected: false,
-  count: 0
+   name: 'New Folder',
+   loading: false,
+   selected: false,
+   count: 0
 }

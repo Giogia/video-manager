@@ -13,7 +13,7 @@ import { combinePath } from '../../utils/path'
  * Move folder logic
  */
 const moveFolder = (
-  graphql`
+   graphql`
     mutation FolderMoveFolderMutation($path: String!, $name: String!, $newPath: String!) {
       moveDirectory(input: {path: $path, name: $name}, path: $newPath){
         ...Explorer_directory
@@ -27,24 +27,24 @@ const moveFolder = (
  */
 export const MoveFolderFolder = ({ ...props }: FolderProps) => {
   
-  const [error, setError] = useState(new GraphQLError(""))
+   const [error, setError] = useState(new GraphQLError(''))
 
-  const [commitMutation] = useMutation<FolderMoveFolderMutation>(moveFolder)
+   const [commitMutation] = useMutation<FolderMoveFolderMutation>(moveFolder)
 
-  const path = window.location.pathname
+   const path = window.location.pathname
 
-  return <FolderWithDrop
-    {...props}
-    error={error}
-    action={({ name }, targetName) =>
-      name !== targetName && commitMutation({
-        variables: {
-          path,
-          name,
-          newPath: combinePath(path, targetName)
-        },
-        onError: e => setError(e as GraphQLError)
-      })
-    }
-  />
+   return <FolderWithDrop
+      {...props}
+      error={error}
+      action={({ name }, targetName) =>
+         name !== targetName && commitMutation({
+            variables: {
+               path,
+               name,
+               newPath: combinePath(path, targetName)
+            },
+            onError: e => setError(e as GraphQLError)
+         })
+      }
+   />
 }

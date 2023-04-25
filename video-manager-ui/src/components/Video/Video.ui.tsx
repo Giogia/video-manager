@@ -32,97 +32,97 @@ export interface VideoProps {
  */
 export const Video = ({ name, source, size, loading }: VideoProps) => {
 
-  const [fullscreen, setFullscreen] = useState(false)
+   const [fullscreen, setFullscreen] = useState(false)
 
-  const Wrapper = fullscreen ? Fragment : MuiButton
+   const Wrapper = fullscreen ? Fragment : MuiButton
 
-  return (
-    <Grid container
-      direction='column'
-      alignItems='center'
-      width='max-content'
-      id="video"
-    >
-      <Grid item sx={{
-        ...fullscreen && {
-          position: 'absolute',
-          height: '100%',
-          width: '100%',
-          top: 0,
-          left: 0,
-          zIndex: 10000,
-        }
-      }}>
-        <Wrapper {...!fullscreen && {
-          sx: {
-            height: 50,
-            width: 70
-          }
-        }}>
-          <CardMedia
-            component='video'
-            controls={fullscreen}
-            src={source}
-            onClick={() =>
-              setTimeout(() =>
-                setFullscreen(true), 250)
-            }
-            sx={{
-              borderRadius: 0.5,
-              backgroundColor: 'black',
-              height: '100%',
-              width: '100%',
-            }}
-          />
-        </Wrapper>
-      </Grid>
-      <Grid item>
-        <RenameVideo
-          name={name}
-          editable={!fullscreen}
-          loading={loading}
-          sx={{
+   return (
+      <Grid container
+         direction='column'
+         alignItems='center'
+         width='max-content'
+         id="video"
+      >
+         <Grid item sx={{
             ...fullscreen && {
-              position: 'absolute',
-              top: 2,
-              left: 4,
-              padding: 1,
-              zIndex: 10001,
-              opacity: 1,
-              color: 'white',
-              fontSize: 14
+               position: 'absolute',
+               height: '100%',
+               width: '100%',
+               top: 0,
+               left: 0,
+               zIndex: 10000,
             }
-          }}
-        />
-      </Grid>
-      {
-        fullscreen ?
-          <Button
-            icon='close'
-            action={() => setFullscreen(false)}
-            tooltip={false}
-            sx={{
-              position: 'absolute',
-              top: 2,
-              right: 4,
-              zIndex: 10001,
-              color: 'white'
-            }}
-          /> :
-          <Grid item>
-            <Typography
-              variant='caption'
-              sx={{ fontSize: 9, opacity: 0.75 }}
-            >
-              {formatSize(size)}
-            </Typography>
-          </Grid>
-      }
-    </Grid >
-  )
+         }}>
+            <Wrapper {...!fullscreen && {
+               sx: {
+                  height: 50,
+                  width: 70
+               }
+            }}>
+               <CardMedia
+                  component='video'
+                  controls={fullscreen}
+                  src={source}
+                  onClick={() =>
+                     setTimeout(() =>
+                        setFullscreen(true), 250)
+                  }
+                  sx={{
+                     borderRadius: 0.5,
+                     backgroundColor: 'black',
+                     height: '100%',
+                     width: '100%',
+                  }}
+               />
+            </Wrapper>
+         </Grid>
+         <Grid item>
+            <RenameVideo
+               name={name}
+               editable={!fullscreen}
+               loading={loading}
+               sx={{
+                  ...fullscreen && {
+                     position: 'absolute',
+                     top: 2,
+                     left: 4,
+                     padding: 1,
+                     zIndex: 10001,
+                     opacity: 1,
+                     color: 'white',
+                     fontSize: 14
+                  }
+               }}
+            />
+         </Grid>
+         {
+            fullscreen ?
+               <Button
+                  icon='close'
+                  action={() => setFullscreen(false)}
+                  tooltip={false}
+                  sx={{
+                     position: 'absolute',
+                     top: 2,
+                     right: 4,
+                     zIndex: 10001,
+                     color: 'white'
+                  }}
+               /> :
+               <Grid item>
+                  <Typography
+                     variant='caption'
+                     sx={{ fontSize: 9, opacity: 0.75 }}
+                  >
+                     {formatSize(size)}
+                  </Typography>
+               </Grid>
+         }
+      </Grid >
+   )
 }
 
 Video.defaultProps = {
-  name: 'New Video',
-  loading: false,
+   name: 'New Video',
+   loading: false,
 }

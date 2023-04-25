@@ -14,14 +14,14 @@ interface WithLoadingProps {
  * Component Wrapper for loading stage
  */
 export const ChipWithLoading = ({ loading, ...props }: ChipProps & WithLoadingProps) => (
-  loading ?
-    <Skeleton variant='rounded'>
+   loading ?
+      <Skeleton variant='rounded'>
+         <Chip {...props} />
+      </Skeleton> :
       <Chip {...props} />
-    </Skeleton> :
-    <Chip {...props} />
 )
 
 ChipWithLoading.defaultProps = {
-  ...Chip.defaultProps,
-  loading: false
+   ...Chip.defaultProps,
+   loading: false
 }

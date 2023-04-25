@@ -1,5 +1,5 @@
-import { ExplorerWithFetchLoading } from "./Explorer.loading"
+import { ExplorerWithFetchLoading } from './Explorer.loading'
 
 export {
-  ExplorerWithFetchLoading as Explorer,
+   ExplorerWithFetchLoading as Explorer,
 }

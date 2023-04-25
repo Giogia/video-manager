@@ -15,12 +15,12 @@ export interface WithErrorProps {
  * Component Wrapper for error stage
  */
 export const ChipWithError = ({ error, ...props }: ChipProps & WithErrorProps) => (
-  <>
-    <ChipWithLoading {...props} />
-    <Snackbar error={error} />
-  </>
+   <>
+      <ChipWithLoading {...props} />
+      <Snackbar error={error} />
+   </>
 )
 
 ChipWithError.defaultProps = {
-  ...ChipWithLoading.defaultProps,
+   ...ChipWithLoading.defaultProps,
 }

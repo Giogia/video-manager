@@ -1,11 +1,11 @@
 
 export const composeError = (message?: string) => ({
-    source: { errors: [{ message }] }
+   source: { errors: [{ message }] }
 })
 
 export const getErrorMessage = (error: any) => {
 
-    const [{ message }] = error?.source?.errors || [{}]
+   const [{ message }] = error?.source?.errors || [{}]
 
-    return message
+   return message
 }

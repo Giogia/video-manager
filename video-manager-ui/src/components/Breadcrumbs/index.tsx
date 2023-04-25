@@ -1,5 +1,5 @@
-import { BreadcrumbsWithLoading } from "./Breadcrumbs.loading"
+import { BreadcrumbsWithLoading } from './Breadcrumbs.loading'
 
 export {
-  BreadcrumbsWithLoading as Breadcrumbs
+   BreadcrumbsWithLoading as Breadcrumbs
 }

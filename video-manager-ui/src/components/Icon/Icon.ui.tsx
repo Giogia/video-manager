@@ -1,3 +1,5 @@
+import React from 'react'
+
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import UploadFileIcon from '@mui/icons-material/VideoCameraBack'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -14,17 +16,17 @@ import { SvgIconComponent } from '@mui/icons-material'
 import { SxProps, Theme } from '@mui/material'
 
 export const icons = {
-  'folder': FolderIcon,
-  'video': MovieIcon,
-  'add-folder': CreateNewFolderIcon,
-  'upload-video': UploadFileIcon,
-  'delete': DeleteIcon,
-  'home': HomeIcon,
-  'close': CloseIcon,
-  'search': SearchIcon,
-  'no-results': FolderOffIcon,
-  'light-theme': LightModeIcon,
-  'dark-theme': DarkModeIcon,
+   'folder': FolderIcon,
+   'video': MovieIcon,
+   'add-folder': CreateNewFolderIcon,
+   'upload-video': UploadFileIcon,
+   'delete': DeleteIcon,
+   'home': HomeIcon,
+   'close': CloseIcon,
+   'search': SearchIcon,
+   'no-results': FolderOffIcon,
+   'light-theme': LightModeIcon,
+   'dark-theme': DarkModeIcon,
 }
 
 export interface IconProps {
@@ -47,12 +49,12 @@ export interface IconProps {
  */
 export const Icon = ({ id, size, sx }: IconProps) => {
 
-  const Icon = icons[id] as SvgIconComponent
+   const Icon = icons[id] as SvgIconComponent
 
-  return (
-    <Icon
-      fontSize={size}
-      sx={sx}
-    />
-  )
+   return (
+      <Icon
+         fontSize={size}
+         sx={sx}
+      />
+   )
 }

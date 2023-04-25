@@ -23,34 +23,34 @@ export interface HeaderProps {
  * UI component for switching theme and access app info
  */
 export const Header = ({ name, theme, handleTheme }: HeaderProps) => (
-  <Box
-    display='flex'
-    justifyContent='space-between'
-    alignItems='center'
-  >
-    <Box
+   <Box
       display='flex'
+      justifyContent='space-between'
       alignItems='center'
-      gap={2}
-    >
-      <img
-        src="logo.svg"
-        alt="logo"
-        height={24}
-      />
-      <Typography
-        color="textPrimary"
+   >
+      <Box
+         display='flex'
+         alignItems='center'
+         gap={2}
       >
-        {name}
-      </Typography>
-    </Box>
-    <Button
-      action={handleTheme}
-      icon={`${theme}-theme`}
-    />
-  </Box>
+         <img
+            src="logo.svg"
+            alt="logo"
+            height={24}
+         />
+         <Typography
+            color="textPrimary"
+         >
+            {name}
+         </Typography>
+      </Box>
+      <Button
+         action={handleTheme}
+         icon={`${theme}-theme`}
+      />
+   </Box>
 )
 
 Header.defaultProps = {
-  name: 'Video Manager'
+   name: 'Video Manager'
 }

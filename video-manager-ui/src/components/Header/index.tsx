@@ -1,5 +1,5 @@
-import { Header } from "./Header.ui"
+import { Header } from './Header.ui'
 
 export {
-  Header
+   Header
 }

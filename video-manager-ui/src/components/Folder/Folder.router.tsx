@@ -10,17 +10,17 @@ import { FolderProps } from './Folder.ui'
  */
 export const FolderWithRouter = ({ ...props }: FolderProps) => {
 
-  const navigate = useNavigate()
+   const navigate = useNavigate()
 
-  const path = combinePath(window.location.pathname, props.name)
+   const path = combinePath(window.location.pathname, props.name)
 
-  return (
-    <FolderWithDrag {...props}
-      onClick={() => navigate(path)}
-    />
-  )
+   return (
+      <FolderWithDrag {...props}
+         onClick={() => navigate(path)}
+      />
+   )
 }
 
 FolderWithRouter.defaultProps = {
-  ...FolderWithDrag.defaultProps
+   ...FolderWithDrag.defaultProps
 }

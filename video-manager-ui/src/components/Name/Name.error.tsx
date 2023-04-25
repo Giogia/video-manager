@@ -15,12 +15,12 @@ export interface WithErrorProps {
  * Component Wrapper for error stage
  */
 export const NameWithError = ({ error, ...props }: NameProps & WithErrorProps) => (
-  <>
-    <NameWithLoading {...props} />
-    <Snackbar error={error} />
-  </>
+   <>
+      <NameWithLoading {...props} />
+      <Snackbar error={error} />
+   </>
 )
 
 NameWithError.defaultProps = {
-  ...NameWithLoading.defaultProps,
+   ...NameWithLoading.defaultProps,
 }
