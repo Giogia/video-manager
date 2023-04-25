@@ -10031,6 +10031,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dnd-multi-backend@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "dnd-multi-backend@npm:8.0.0"
+  checksum: ce19b14c509e3740f6ab8cab725f8df2e7ad79fd04cb7d57d4b3f9e579cd5ab1f9439517b4325e014ca1caeab6152adced993085b734aff5a5d40cbb766a5da0
+  languageName: node
+  linkType: hard
+
 "dns-equal@npm:^1.0.0":
   version: 1.0.0
   resolution: "dns-equal@npm:1.0.0"
@@ -19374,6 +19381,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rdndmb-html5-to-touch@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "rdndmb-html5-to-touch@npm:8.0.0"
+  dependencies:
+    dnd-multi-backend: ^8.0.0
+    react-dnd-html5-backend: ^16.0.1
+    react-dnd-touch-backend: ^16.0.1
+  checksum: 9ede5db33820ca592f0c0aaed3b9a6cd9026cd7ffe60c2cdabd62275ab253b3a69db2b4eb909c250602b98d413bf635380ba6d5df574ca002d076fdc12f94606
+  languageName: node
+  linkType: hard
+
 "react-app-polyfill@npm:^3.0.0":
   version: 3.0.0
   resolution: "react-app-polyfill@npm:3.0.0"
@@ -19429,6 +19447,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dnd-multi-backend@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "react-dnd-multi-backend@npm:8.0.0"
+  dependencies:
+    dnd-multi-backend: ^8.0.0
+    react-dnd-preview: ^8.0.0
+  peerDependencies:
+    react: ^16.14.0 || ^17.0.2 || ^18.0.0
+    react-dom: ^16.14.0 || ^17.0.2 || ^18.0.0
+  checksum: a0871a4845df814f3a57b5c110e1601439d74d6433d2115a2078a4d49a200aa33a91b37a23d6dafaebc2ab857a25caa7d83d28cee034aa6907f7224c6257e56f
+  languageName: node
+  linkType: hard
+
 "react-dnd-preview@npm:^8.0.0":
   version: 8.0.0
   resolution: "react-dnd-preview@npm:8.0.0"
@@ -19436,6 +19467,16 @@ __metadata:
     react: ^16.14.0 || ^17.0.2 || ^18.0.0
     react-dnd: ^16.0.1
   checksum: abed644a2ccd454a8fc54fa5bc4904beeb8ccf40c1ea20fb3c5ff178733062fd9f5d657435fb671c5736c93d9e7b2ce8e7de8c07cbc9822b459f02fdbfc99b77
+  languageName: node
+  linkType: hard
+
+"react-dnd-touch-backend@npm:^16.0.1":
+  version: 16.0.1
+  resolution: "react-dnd-touch-backend@npm:16.0.1"
+  dependencies:
+    "@react-dnd/invariant": ^4.0.1
+    dnd-core: ^16.0.1
+  checksum: 5362c5f4266e3655d02c716f341dc55c61fae53e12eb3b239245bafb7a3f3cdb953e27e187e8dcb9d86c01bc738853d764d7c85b87104a49a8a8f1ecc4d35755
   languageName: node
   linkType: hard
 
@@ -23038,9 +23079,10 @@ __metadata:
     jest: ^29.3.1
     path: "npm:path-browserify@^1.0.1"
     prop-types: ^15.8.1
+    rdndmb-html5-to-touch: ^8.0.0
     react: ^18.2.0
     react-dnd: ^16.0.1
-    react-dnd-html5-backend: ^16.0.1
+    react-dnd-multi-backend: ^8.0.0
     react-dnd-preview: ^8.0.0
     react-dom: ^18.2.0
     react-dotenv: ^0.1.3

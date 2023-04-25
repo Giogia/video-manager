@@ -1,8 +1,8 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { RelayEnvironmentProvider } from 'react-relay'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd-multi-backend'
+import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 
 import environment from './environment'
 import { App } from './App'
@@ -16,7 +16,7 @@ const root = createRoot(
 root.render(
   <React.StrictMode>
     <RelayEnvironmentProvider environment={environment}>
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider options={HTML5toTouch}>
         <App />
       </DndProvider>
     </RelayEnvironmentProvider>
