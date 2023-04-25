@@ -83,7 +83,7 @@ export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) =
       {content &&
         Array.isArray(content) ?
         <Grid container
-          columns={{ xs: 2, sm: 4, md: 6, lg: 10 }}
+          columns={{ xs: 2, sm: 4, md: 6, lg: 8, xl: 10 }}
           spacing={4}
         >
           {
