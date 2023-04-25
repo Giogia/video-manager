@@ -82,10 +82,13 @@ export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) =
     }}>
       {content &&
         Array.isArray(content) ?
-        <Grid container gap={4}>
+        <Grid container
+          columns={{ xs: 2, sm: 4, md: 6, lg: 10 }}
+          spacing={4}
+        >
           {
             content.map((item, i) =>
-              <Grid item key={i}>
+              <Grid item key={i} xs={1}>
                 {item}
               </Grid>
             )
