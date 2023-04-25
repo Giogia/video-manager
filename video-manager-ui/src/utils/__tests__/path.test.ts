@@ -1,4 +1,4 @@
-import { combinePath } from '../path'
+import { combinePath, destructurePath } from '../path'
 
 describe('Path utils', () => {
 
@@ -28,6 +28,19 @@ describe('Path utils', () => {
          expect(combinePath('/test', 'test ')).toEqual('/test/test%20')
          expect(combinePath('/test', ' test ')).toEqual('/test/%20test%20')
          expect(combinePath('/test', ' te st ')).toEqual('/test/%20te%20st%20')
+      })
+   })
+
+   describe('destructurePath', () => {
+
+      test('return parent and dir', () => {
+         expect(destructurePath('/parent')).toEqual(['parent', ''])
+         expect(destructurePath('/parent/dir')).toEqual(['dir', 'parent', ''])
+         expect(destructurePath('/parent/dir/child')).toEqual(['child', 'dir', 'parent', ''])
+      })
+
+      test('return empty if root', () => {
+         expect(destructurePath('/')).toEqual(['', ''])
       })
    })
 })
