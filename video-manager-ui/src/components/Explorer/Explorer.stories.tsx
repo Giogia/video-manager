@@ -51,7 +51,7 @@ const Template: ComponentStory<typeof ExplorerComponent> = (args) =>
 export const Explorer = Template.bind({})
 
 Explorer.decorators = [(Story) => (
-  <Box height={600}>
+  <Box height={400}>
     <Story />
   </Box>
 )]
