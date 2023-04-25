@@ -11,26 +11,26 @@ import { Breadcrumbs } from '../Breadcrumbs'
 import { DeleteFolderChip } from '../Chip'
 
 interface ExplorerProps {
-  /**
-   * Explorer content
-   */
-  content: ReactNode
-  /**
-   * Whether the explorer is on error
-   */
-  error?: boolean
-  /**
-   * Whether the explorer is loading
-   */
-  loading?: boolean
-  /**
-   * Position in file system
-   */
-  path: string
-  /**
-   * Explorer identifier
-   */
-  id?: string
+   /**
+    * Explorer content
+    */
+   content: ReactNode
+   /**
+    * Whether the explorer is on error
+    */
+   error?: boolean
+   /**
+    * Whether the explorer is loading
+    */
+   loading?: boolean
+   /**
+    * Position in file system
+    */
+   path: string
+   /**
+    * Explorer identifier
+    */
+   id?: string
 }
 
 /**
@@ -41,6 +41,8 @@ export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) =
       variant='outlined'
       sx={{
          position: 'relative',
+         display: 'flex',
+         flexDirection: 'column',
          overflow: 'hidden',
          height: '100%',
          border: 'transparent'
@@ -81,18 +83,16 @@ export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) =
          }
       }}>
          {content &&
-        Array.isArray(content) ?
+            Array.isArray(content) ?
             <Grid container
                columns={{ xs: 2, sm: 4, md: 6, lg: 8, xl: 10 }}
                spacing={4}
             >
-               {
-                  content.map((item, i) =>
-                     <Grid item key={i} xs={1}>
-                        {item}
-                     </Grid>
-                  )
-               }
+               {content.map((item, i) =>
+                  <Grid item key={i} xs={1}>
+                     {item}
+                  </Grid>
+               )}
             </Grid> :
             <>{content}</>
          }
