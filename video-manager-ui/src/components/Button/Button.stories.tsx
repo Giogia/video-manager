@@ -5,6 +5,7 @@ import { expect } from '@storybook/jest'
 
 import { Button } from '.'
 import { composeError } from '../../utils/error'
+import { formatName } from '../../utils/name'
 
 export default {
    title: 'Primary/Button',
@@ -26,8 +27,21 @@ export const Playground: StoryFn<typeof Button> = (args) => (
 )
 
 Playground.play = async ({ args, canvasElement }) => {
+
    const canvas = within(canvasElement)
-   await userEvent.click(canvas.getByRole('button'))
-   await expect(args.action).toHaveBeenCalled()
+   const button = canvas.getByRole('button')
+
+   expect(button.id).toEqual(`${args.icon}-button`)
+
+   if (!args.disabled) {
+
+      if (args.tooltip) {
+         await userEvent.hover(button)
+         expect(canvas.getByLabelText(formatName(args.icon))).toBeVisible()
+      }
+
+      await userEvent.click(button)
+      expect(args.action).toHaveBeenCalledTimes(1)
+   }
 }
 
