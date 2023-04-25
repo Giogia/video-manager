@@ -1,17 +1,16 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
-import { Breadcrumbs as BreadcrumbsComponent } from './Breadcrumbs.ui'
+import { Breadcrumbs } from './Breadcrumbs.ui'
 
 export default {
    title: 'Composed/Breadcrumbs',
-   component: BreadcrumbsComponent,
+   component: Breadcrumbs,
    args: {
       path: '/Home/Giovanni/Developer/Video%20Manager'
    }
-} as ComponentMeta<typeof BreadcrumbsComponent>
+} as Meta<typeof Breadcrumbs>
 
-const Template: ComponentStory<typeof BreadcrumbsComponent> = (args) => <BreadcrumbsComponent {...args} />
-
-export const Breadcrumbs = Template.bind({})
-
+export const Playground: StoryFn<typeof Breadcrumbs> = (args) => (
+   <Breadcrumbs {...args} />
+)

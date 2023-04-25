@@ -1,30 +1,31 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
-import { Button as ButtonComponent } from '.'
+import { Button } from '.'
+import { composeError } from '../../utils/error'
 
 export default {
    title: 'Primary/Button',
-   component: ButtonComponent,
+   component: Button,
    argTypes: {
       action: { action: true },
       error: { type: 'string' }
    },
    args: {
-      ...ButtonComponent.defaultProps,
+      ...Button.defaultProps,
       icon: 'folder'
    }
-} as ComponentMeta<typeof ButtonComponent>
+} as Meta<typeof Button>
 
-const getError = (message?: string) => ({ source: { errors: [{ message }] } })
+export const Playground: StoryFn<typeof Button> = (args) => (
+   <Button {...args}
+      error={composeError(args?.error)}
+   />
+)
 
-const Template: ComponentStory<typeof ButtonComponent> = (args) => <ButtonComponent {...args} error={getError(args?.error)} />
-
-export const Button = Template.bind({})
-
-Button.play = async ({ args, canvasElement }) => {
+Playground.play = async ({ args, canvasElement }) => {
    const canvas = within(canvasElement)
    await userEvent.click(canvas.getByRole('button'))
    await expect(args.action).toHaveBeenCalled()

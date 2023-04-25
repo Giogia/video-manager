@@ -1,24 +1,25 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
-import { Chip as ChipComponent } from '.'
+import { Chip } from '.'
 import { composeError } from '../../utils/error'
 
 export default {
    title: 'Primary/Chip',
-   component: ChipComponent,
+   component: Chip,
    argTypes: {
       error: { type: 'string' }
    },
    args: {
       icon: 'delete',
       tooltip: 'Drag here an element to delete'
-   }
-} as ComponentMeta<typeof ChipComponent>
+   },
+   decorators: [
+      
+   ]
+} as Meta<typeof Chip>
 
-const Template: ComponentStory<typeof ChipComponent> = (args) =>
-   <ChipComponent {...args}
+export const Playground: StoryFn<typeof Chip> = (args) =>
+   <Chip {...args}
       error={composeError(args.error)}
    />
-
-export const Chip = Template.bind({})

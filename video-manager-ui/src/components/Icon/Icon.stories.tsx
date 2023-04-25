@@ -1,17 +1,16 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
-import { Icon as IconComponent } from '.'
+import { Icon } from '.'
 
 export default {
    title: 'Primary/Icon',
-   component: IconComponent,
+   component: Icon,
    args: {
       id: 'folder'
    }
-} as ComponentMeta<typeof IconComponent>
+} as Meta<typeof Icon>
 
-const Template: ComponentStory<typeof IconComponent> = (args) => <IconComponent {...args} />
-
-export const Icon = Template.bind({})
-
+export const Playground: StoryFn<typeof Icon> = (args) => (
+   <Icon {...args} />
+)

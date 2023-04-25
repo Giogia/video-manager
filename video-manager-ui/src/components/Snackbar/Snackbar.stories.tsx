@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
-import { Snackbar as SnackbarComponent } from '.'
+import { Snackbar } from '.'
 import { composeError } from '../../utils/error'
 
 export default {
    title: 'Primary/Snackbar',
-   component: SnackbarComponent,
+   component: Snackbar,
    argTypes: {
       error: { type: 'string' }
    }
-} as ComponentMeta<typeof SnackbarComponent>
+} as Meta<typeof Snackbar>
 
-const Template: ComponentStory<typeof SnackbarComponent> = (args) => {
+export const Playground: StoryFn<typeof Snackbar> = (args) => {
 
    const [error, setError] = useState(composeError(args.error))
 
@@ -28,9 +28,7 @@ const Template: ComponentStory<typeof SnackbarComponent> = (args) => {
             onClick={() => setError(composeError('Default Error Message.'))}
             sx={{ padding: 1 }}
          />
-         <SnackbarComponent {...args} error={error} />
+         <Snackbar {...args} error={error} />
       </Box>
    )
 }
-
-export const Snackbar = Template.bind({})

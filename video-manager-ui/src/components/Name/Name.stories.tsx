@@ -1,21 +1,20 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
-import { Name as NameComponent } from '.'
+import { Name } from '.'
 import { composeError } from '../../utils/error'
 
 export default {
    title: 'Primary/Name',
-   component: NameComponent,
+   component: Name,
    argTypes: {
       error: { type: 'string' }
    },
-   args: { ...NameComponent.defaultProps }
-} as ComponentMeta<typeof NameComponent>
+   args: { ...Name.defaultProps }
+} as Meta<typeof Name>
 
-const Template: ComponentStory<typeof NameComponent> = (args) =>
-   <NameComponent {...args}
+export const Playground: StoryFn<typeof Name> = (args) => (
+   <Name {...args}
       error={composeError(args.error)}
    />
-
-export const Name = Template.bind({})
+)

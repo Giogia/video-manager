@@ -1,21 +1,20 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
-import { Folder as FolderComponent } from '.'
+import { Folder } from '.'
 import { composeError } from '../../utils/error'
 
 export default {
    title: 'Composed/Folder',
-   component: FolderComponent,
+   component: Folder,
    argTypes: {
       error: { type: 'string' }
    },
-   args: { ...FolderComponent.defaultProps }
-} as ComponentMeta<typeof FolderComponent>
+   args: { ...Folder.defaultProps }
+} as Meta<typeof Folder>
 
-const Template: ComponentStory<typeof FolderComponent> = (args) =>
-   <FolderComponent {...args}
+export const Playground: StoryFn<typeof Folder> = (args) => (
+   <Folder {...args}
       error={composeError(args.error)}
    />
-
-export const Folder = Template.bind({})
+)

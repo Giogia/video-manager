@@ -1,20 +1,25 @@
-module.exports = {
-  "stories": [
-    "../src/**/*.stories.mdx",
+export default {
+  stories: [
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
-  "addons": [
+  staticDirs: [
+    "../public"
+  ],
+  addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/preset-create-react-app",
     "storybook-addon-material-ui",
   ],
-  "framework": "@storybook/react",
-  "core": {
-    "builder": "@storybook/builder-webpack5"
+  features: {
+    interactionsDebugger: true
   },
-  "features": {
-    "interactionsDebugger": true,
+  docs: {
+    autodocs: true
+  },
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {}
   }
 }

@@ -1,19 +1,19 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import { Header as HeaderComponent } from './Header.ui'
+import { Header } from './Header.ui'
 
 export default {
    title: 'Application/Header',
-   component: HeaderComponent,
+   component: Header,
    args: {
-      ...HeaderComponent.defaultProps,
+      ...Header.defaultProps,
       theme: 'light',
       handleTheme: action('change theme')
    }
-} as ComponentMeta<typeof HeaderComponent>
+} as Meta<typeof Header>
 
-const Template: ComponentStory<typeof HeaderComponent> = (args) => <HeaderComponent {...args} />
-
-export const Header = Template.bind({})
+export const Playground: StoryFn<typeof Header> = (args) => (
+   <Header {...args} />
+)

@@ -4,6 +4,8 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import '@fontsource/material-icons'
 
+import { themes } from '@storybook/theming'
+
 import { withMuiTheme } from './theming/Mui'
 import { withDocsTheme } from './theming/Docs'
 import { withRelayEnvironment } from './theming/Relay'
@@ -40,6 +42,10 @@ export const parameters = {
       date: /Date$/,
     },
   },
-  docs: { container: withDocsTheme },
-  viewMode: 'docs'
+  docs: { 
+    container: withDocsTheme,
+    theme: isBrowserTheme(Themes.dark) ?
+      themes.dark :
+      themes.light
+   }
 }

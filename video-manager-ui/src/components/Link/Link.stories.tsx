@@ -1,26 +1,24 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
-import { Link as LinkComponent } from '.'
+import { Link } from '.'
 import { composeError } from '../../utils/error'
 
 export default {
    title: 'Primary/Link',
-   component: LinkComponent,
+   component: Link,
    argTypes: {
       error: { type: 'string' }
    },
    args: {
       name: 'link',
       href: '/href',
-      ...LinkComponent.defaultProps,
+      ...Link.defaultProps,
    }
-} as ComponentMeta<typeof LinkComponent>
+} as Meta<typeof Link>
 
-const Template: ComponentStory<typeof LinkComponent> = (args) =>
-   <LinkComponent {...args}
+export const Playground: StoryFn<typeof Link> = (args) => (
+   <Link {...args}
       error={composeError(args.error)}
    />
-
-export const Link = Template.bind({})
-
+)

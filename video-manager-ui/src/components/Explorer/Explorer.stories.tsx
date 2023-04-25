@@ -1,9 +1,9 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import Box from '@mui/material/Box'
 
-import { Explorer as ExplorerComponent } from './Explorer.ui'
+import { Explorer } from './Explorer.ui'
 import { ExplorerError } from './Explorer.error'
 import { ExplorerLoading } from './Explorer.loading'
 import { FolderWithDrag as Folder } from '../Folder'
@@ -14,20 +14,25 @@ import vertical from '../Video/__assets__/vertical.mov'
 
 export default {
    title: 'Application/Explorer',
-   component: ExplorerComponent,
+   component: Explorer,
    argTypes: {
       content: { control: false }
    },
    args: {
-      ...ExplorerComponent.defaultProps,
+      ...Explorer.defaultProps,
       path: '/home/giovanni/developer/video-manager',
       content: Array.from({ length: 40 }).map((_, i) =>
          Math.random() > 0.65 ?
             <Video key={i} source={Math.random() > 0.65 ? vertical : horizontal} /> :
-            <Folder key={i}  />
+            <Folder key={i} />
       )
-   }
-} as ComponentMeta<typeof ExplorerComponent>
+   },
+   decorators: [(Story) => (
+      <Box height={400}>
+         <Story />
+      </Box>
+   )]
+} as Meta<typeof Explorer>
 
 const error = (
    <ExplorerError
@@ -40,15 +45,7 @@ const loading = (
    <ExplorerLoading />
 )
 
-const Template: ComponentStory<typeof ExplorerComponent> = (args) =>
+export const Playground: StoryFn<typeof Explorer> = (args) =>
    args.error ? error :
       args.loading ? loading :
-         <ExplorerComponent {...args} />
-
-export const Explorer = Template.bind({})
-
-Explorer.decorators = [(Story) => (
-   <Box height={400}>
-      <Story />
-   </Box>
-)]
+         <Explorer {...args} />
