@@ -1,5 +1,7 @@
 import React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
+import { within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
 
 import { Caption } from '.'
 
@@ -12,3 +14,11 @@ export default {
 export const Playground: StoryFn<typeof Caption> = (args: any) => (
    <Caption {...args} />
 )
+
+Playground.play = async ({ args, canvasElement }) => {
+   const canvas = within(canvasElement)
+
+   if (!args.loading) {
+      expect(canvas.getByText(args.text)).toBeVisible()
+   }
+}
