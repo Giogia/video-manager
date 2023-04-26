@@ -58,6 +58,7 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
                   component='video'
                   controls={fullscreen}
                   src={source}
+                  role='video'
                   onClick={() =>
                      setTimeout(() =>
                         setFullscreen(true), 250)
