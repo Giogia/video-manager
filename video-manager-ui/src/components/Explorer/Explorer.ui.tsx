@@ -77,7 +77,7 @@ export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) =
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             height: 'min-content',
             gap: 2
          }
