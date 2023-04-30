@@ -42,10 +42,19 @@ export const parameters = {
       date: /Date$/,
     },
   },
-  docs: { 
+  docs: {
     container: withDocsTheme,
     theme: isBrowserTheme(Themes.dark) ?
       themes.dark :
       themes.light
-   }
+  },
+  options: {
+    storySort: {
+      order: [
+        'Application', ['Header', 'Explorer'],
+        'Composed',
+        'Primary'
+      ]
+    }
+  }
 }
