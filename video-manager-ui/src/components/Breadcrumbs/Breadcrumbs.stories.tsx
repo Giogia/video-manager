@@ -23,11 +23,13 @@ Playground.play = async ({ args, canvasElement }) => {
 
    const [currentDirectory, ...directories] = destructurePath(args.path)
 
-   expect(canvas.getByRole('link', { name: currentDirectory })).toHaveAttribute('aria-disabled', 'true')
+   const link = (name: string) => canvas.getByRole('link', { name })
+
+   expect(link(currentDirectory)).toHaveAttribute('aria-disabled', 'true')
 
    directories.forEach(directory => {
-      expect(canvas.getByRole('link', { name: directory || 'Home' })).toHaveAttribute('aria-disabled', 'false')
+      expect(link(directory || 'Home')).toHaveAttribute('aria-disabled', 'false')
    })
 
-   expect(within(canvas.getByRole('link', { name: 'Home' })).getByRole('button')).toBeVisible()
+   expect(within(link('Home')).getByRole('button')).toBeVisible()
 }
