@@ -19,6 +19,7 @@ Playground.play = async ({ args, canvasElement }) => {
    const canvas = within(canvasElement)
 
    if (!args.loading) {
-      expect(canvas.getByText(args.text)).toBeVisible()
+      const caption = canvas.getByText(args.text)
+      expect(caption).toBeVisible()
    }
 }
