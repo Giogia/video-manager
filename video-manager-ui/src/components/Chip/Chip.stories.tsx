@@ -30,9 +30,10 @@ Playground.play = async ({ args, canvasElement }) => {
 
    const canvas = within(canvasElement)
    const name = formatName(args.icon)
+   const iconName = `${args.icon}-icon`
 
    const chip = canvas.getByRole('button')
-   const icon = canvas.getByTestId(`${name}Icon`)
+   const icon = canvas.getByTestId(iconName)
    const title = canvas.getByText(name)
 
    expect(chip.id).toEqual(`${args.icon}-chip`)

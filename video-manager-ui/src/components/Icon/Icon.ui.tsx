@@ -54,7 +54,7 @@ export const Icon = ({ id, size, sx }: IconProps) => {
    return (
       <Icon
          id={id}
-         role='img'
+         data-testid={`${id}-icon`}
          fontSize={size}
          sx={sx}
       />
