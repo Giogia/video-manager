@@ -11,7 +11,7 @@ export interface WithDropProps {
   /**
    * Action called on drop
    */
-  action?: (...args: any[]) => void
+  action?: (...args: unknown[]) => void
 }
 
 /**

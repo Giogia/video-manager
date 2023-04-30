@@ -10,7 +10,7 @@ export interface ChipProps {
    /**
     * Chip functionality
     */
-   action?: (e: any) => void
+   action?: (e: unknown) => void
    /**
     * Whether the chip is active
     */
