@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { NameProps } from './Name.ui'
-import { NameWithLoading } from './Name.loading'
+import { NameWithLoading, WithLoadingProps, } from './Name.loading'
 import { Snackbar } from '../Snackbar'
 
 export interface WithErrorProps {
@@ -14,7 +14,7 @@ export interface WithErrorProps {
 /**
  * Component Wrapper for error stage
  */
-export const NameWithError = ({ error, ...props }: NameProps & WithErrorProps) => (
+export const NameWithError = ({ error, ...props }: NameProps & WithLoadingProps & WithErrorProps) => (
    <>
       <NameWithLoading {...props} />
       <Snackbar error={error} />

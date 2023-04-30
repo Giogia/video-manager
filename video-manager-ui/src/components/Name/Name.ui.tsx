@@ -5,22 +5,22 @@ import Typography from '@mui/material/Typography'
 import { SxProps, Theme } from '@mui/material'
 
 export interface NameProps {
-  /**
-   * Folder contents
-  */
-  name: string
-  /**
-   * Whether the name is editable
+   /**
+    * Folder contents
    */
-  editable?: boolean
-  /**
-   * Action on name changed
-   */
-  onChange?: (newName: string, oldName: string) => void
-  /**
-   * Customize name themed style
-   */
-  sx?: SxProps<Theme>,
+   name: string
+   /**
+    * Whether the name is editable
+    */
+   editable?: boolean
+   /**
+    * Action on name changed
+    */
+   onChange?: (newName: string, oldName: string) => void
+   /**
+    * Customize name themed style
+    */
+   sx?: SxProps<Theme>,
 }
 
 /**
@@ -58,7 +58,10 @@ export const Name = ({ name: defaultName, editable, onChange, sx }: NameProps) =
                autoFocus
                value={name}
                variant='standard'
-               inputProps={{ sx: { fontSize: 12, marginTop: -0.25, ...sx } }}
+               inputProps={{
+                  sx: { fontSize: 12, marginTop: -0.25, ...sx },
+                  role: 'input'
+               }}
                multiline
                maxRows={4}
                onBlur={editName}
