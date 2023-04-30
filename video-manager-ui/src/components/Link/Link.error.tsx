@@ -2,12 +2,13 @@ import React from 'react'
 
 import { Link, LinkProps } from './Link.ui'
 import { Snackbar } from '../Snackbar'
+import { Error } from '../../utils/error'
 
 export interface WithErrorProps {
   /**
    * The error related to the link action
    */
-  error?: any
+  error?: Error
 }
 
 /**

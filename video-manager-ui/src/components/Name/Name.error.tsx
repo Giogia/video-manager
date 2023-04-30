@@ -3,12 +3,13 @@ import React from 'react'
 import { NameProps } from './Name.ui'
 import { NameWithLoading, WithLoadingProps, } from './Name.loading'
 import { Snackbar } from '../Snackbar'
+import { Error } from '../../utils/error'
 
 export interface WithErrorProps {
   /**
    * The error related to the name action
    */
-  error?: any
+  error?: Error
 }
 
 /**

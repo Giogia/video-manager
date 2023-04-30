@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid'
 import { Button } from '../Button'
 import { RenameFolder } from '../Name'
 import { Caption } from '../Caption'
+import { Error } from '../../utils/error'
 
 export interface FolderProps {
    /**
@@ -17,7 +18,7 @@ export interface FolderProps {
    /**
     * Error associated with folder operations
     */
-   error?: any
+   error?: Error
    /**
     * Folder contents
     */

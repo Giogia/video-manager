@@ -3,12 +3,13 @@ import React from 'react'
 import { ChipProps } from './Chip.ui'
 import { ChipWithLoading } from './Chip.loading'
 import { Snackbar } from '../Snackbar'
+import { Error } from '../../utils/error'
 
 export interface WithErrorProps {
   /**
    * The error related to the chip action
    */
-  error?: any
+  error?: Error
 }
 
 /**

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import SnackbarComponent from '@mui/material/Snackbar'
 import Button from '@mui/material/Button'
 
-import { getErrorMessage } from '../../utils/error'
+import { Error, getErrorMessage } from '../../utils/error'
 
 export interface ErrorProps {
   /**
    * Error to display
    */
-  error?: any
+  error?: Error
 }
 
 /**
