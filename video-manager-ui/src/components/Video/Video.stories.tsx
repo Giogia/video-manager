@@ -28,23 +28,29 @@ export const Playground: StoryFn<typeof Video> = (args) => (
 )
 
 Playground.play = async ({ args, canvasElement }) => {
+   
    const canvas = within(canvasElement)
 
    if (!args.loading) {
-      expect(canvas.getByText(args.name)).toBeVisible()
-      expect(canvas.getByText(formatSize(args.size))).toBeVisible()
 
-      await userEvent.click(canvas.getByRole('video'))
+      const video = canvas.getByRole('video')
+      const name = canvas.getByText(args.name)
+      const size = canvas.getByText(formatSize(args.size))
+
+      expect(name).toBeVisible()
+      expect(size).toBeVisible()
+
+      await userEvent.click(video)
       await sleep(4000)
 
-      expect(canvas.getByText(args.name)).toBeVisible()
+      expect(name).toBeVisible()
 
-      const button = canvas.getByRole('button')
+      const closeButton = canvas.getByRole('button')
 
-      expect(button).toBeVisible()
-      expect(button.id).toEqual('close-button')
+      expect(closeButton).toBeVisible()
+      expect(closeButton.id).toEqual('close-button')
 
-      await userEvent.click(button)
+      await userEvent.click(closeButton)
       await sleep(2000)
    }
 }
