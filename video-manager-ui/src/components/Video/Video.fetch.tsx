@@ -11,7 +11,7 @@ export interface WithFetchProps {
   /**
    * name fragment reference
    */
-  fragmentRef?: VideoFragment$key
+  fragmentRef: VideoFragment$key
 }
 
 /**
@@ -32,11 +32,11 @@ const fragment = (
  * Component wrapper fetching data
  */
 export const VideoWithFetch = ({ fragmentRef }: WithFetchProps) => {
-   const { name, url, size } = useFragment<VideoFragment$key>(fragment, fragmentRef!)
+   const { name, url, size } = useFragment<VideoFragment$key>(fragment, fragmentRef)
 
    return (
       <VideoWithDrag
-         name={name!}
+         name={name}
          source={env.BASE_URL + url}
          size={size}
       />

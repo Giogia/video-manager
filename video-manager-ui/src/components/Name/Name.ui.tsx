@@ -49,7 +49,7 @@ export const Name = ({ name: defaultName, editable, onChange, sx }: NameProps) =
             <Typography
                variant='caption'
                gutterBottom
-               onClick={() => setIsFocused(editable!)}
+               onClick={() => setIsFocused(editable || false)}
                sx={{ opacity: editable ? 1 : 0.5, ...sx }}
             >
                {name}

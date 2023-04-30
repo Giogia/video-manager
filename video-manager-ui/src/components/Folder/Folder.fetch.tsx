@@ -11,7 +11,7 @@ export interface WithFetchProps {
   /**
    * name fragment reference
    */
-  fragmentRef?: Folder$key
+  fragmentRef: Folder$key
 }
 
 /**
@@ -39,12 +39,12 @@ const fragment = (
  * Component wrapper fetching data
  */
 export const FolderWithFetch = ({ fragmentRef, ...props }: FolderProps & WithFetchProps) => {
-   const { name, children } = useFragment<Folder$key>(fragment, fragmentRef!)
+   const { name, children } = useFragment<Folder$key>(fragment, fragmentRef)
 
    return (
       <FolderWithRouter
          {...props}
-         name={name!}
+         name={name}
          count={children?.length}
       />
    )
