@@ -7,30 +7,30 @@ import { Icon, icons } from '../Icon'
 import { formatName } from '../../utils/name'
 
 export interface ChipProps {
-  /**
-   * Chip functionality
-   */
-  action?: (e: any) => void
-  /**
-   * Whether the chip is active
-   */
-  disabled?: boolean
-  /**
-   * Illustration of the chip
-   */
-  icon: keyof typeof icons
-  /**
-   * Text present on the chip
-   */
-  label?: ReactNode,
-  /**
-   * Customize chip themed style
-   */
-  sx?: SxProps<Theme>,
-  /**
-   * Message to show when hovering the chip
-   */
-  tooltip?: string
+   /**
+    * Chip functionality
+    */
+   action?: (e: any) => void
+   /**
+    * Whether the chip is active
+    */
+   disabled?: boolean
+   /**
+    * Illustration of the chip
+    */
+   icon: keyof typeof icons
+   /**
+    * Text present on the chip
+    */
+   label?: ReactNode,
+   /**
+    * Customize chip themed style
+    */
+   sx?: SxProps<Theme>,
+   /**
+    * Message to show when hovering the chip
+    */
+   tooltip?: string
 }
 
 /**
@@ -38,10 +38,11 @@ export interface ChipProps {
  */
 export const Chip = ({ action, icon, disabled, label, tooltip, sx }: ChipProps) => (
    <Tooltip title={tooltip}>
-      <span id={`${icon}-chip`}>
+      <span>
          <MuiChip
             clickable
-            icon={<Icon id={icon} sx={{color: 'action'}}/>}
+            id={`${icon}-chip`}
+            icon={<Icon id={icon} sx={{ color: 'action' }} />}
             label={label || formatName(icon)}
             disabled={disabled}
             onClick={action}
@@ -50,7 +51,3 @@ export const Chip = ({ action, icon, disabled, label, tooltip, sx }: ChipProps) 
       </span>
    </Tooltip>
 )
-
-Chip.defaultProps = {
-   color: 'default'
-}

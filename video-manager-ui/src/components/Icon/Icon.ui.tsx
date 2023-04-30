@@ -30,18 +30,18 @@ export const icons = {
 }
 
 export interface IconProps {
-  /**
-   * Icon type
-   */
-  id: keyof typeof icons
-  /**
-   * Icon dimension
-   */
-  size?: 'small' | 'medium' | 'large'
-  /**
-   * Customize icon themed style
-   */
-  sx?: SxProps<Theme>,
+   /**
+    * Icon type
+    */
+   id: keyof typeof icons
+   /**
+    * Icon dimension
+    */
+   size?: 'small' | 'medium' | 'large'
+   /**
+    * Customize icon themed style
+    */
+   sx?: SxProps<Theme>,
 }
 
 /**
@@ -53,6 +53,8 @@ export const Icon = ({ id, size, sx }: IconProps) => {
 
    return (
       <Icon
+         id={id}
+         role='img'
          fontSize={size}
          sx={sx}
       />

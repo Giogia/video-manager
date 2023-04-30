@@ -29,15 +29,21 @@ export const Playground: StoryFn<typeof Button> = (args) => (
 Playground.play = async ({ args, canvasElement }) => {
 
    const canvas = within(canvasElement)
+   const name = formatName(args.icon)
+
    const button = canvas.getByRole('button')
+   const icon = canvas.getByTestId(`${name}Icon`)
 
    expect(button.id).toEqual(`${args.icon}-button`)
+   expect(icon).toBeVisible()
 
    if (!args.disabled) {
 
       if (args.tooltip) {
          await userEvent.hover(button)
-         expect(canvas.getByLabelText(formatName(args.icon))).toBeVisible()
+
+         const tooltip = canvas.getByLabelText(name)
+         expect(tooltip).toBeVisible()
       }
 
       await userEvent.click(button)
