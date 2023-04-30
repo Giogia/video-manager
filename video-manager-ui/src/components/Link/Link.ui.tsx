@@ -6,22 +6,22 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../Button'
 
 export interface LinkProps {
-  /**
-   * Link label
-   */
-  name: string
-  /**
-   * Link redirection
-   */
-  href: string
-  /**
-   * Whether tho show home icon
-   */
-  isRoot: boolean
-  /**
-   * Whether the link has been selected
-   */
-  selected?: boolean
+   /**
+    * Link label
+    */
+   name: string
+   /**
+    * Link redirection
+    */
+   href: string
+   /**
+    * Whether tho show home icon
+    */
+   isRoot: boolean
+   /**
+    * Whether the link has been selected
+    */
+   selected?: boolean
 }
 
 /**
@@ -33,8 +33,11 @@ export const Link = ({ name, href, isRoot, selected }: LinkProps) => {
 
    return (
       <LinkMui
+         aria-disabled={selected}
          underline={selected ? 'none' : 'hover'}
          onClick={() => navigate(href)}
+         href={href}
+         role='link'
       >
          {isRoot ?
             <Button
