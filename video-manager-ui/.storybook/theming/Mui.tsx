@@ -1,5 +1,5 @@
 import React from "react"
-import { DecoratorFn } from '@storybook/react'
+import { Decorator } from '@storybook/react'
 import { themes, Theme as StorybookTheme } from "@storybook/theming"
 import { CssBaseline, Theme as MuiTheme, ThemeProvider } from "@mui/material"
 
@@ -7,7 +7,7 @@ import { baseTheme } from "./VideoManager"
 import { lightTheme } from "../../src/themes/light.theme"
 import { darkTheme } from "../../src/themes/dark.theme"
 
-export const withMuiTheme: DecoratorFn = (Story, context) => {
+export const withMuiTheme: Decorator = (Story, context) => {
   const { theme: themeKey } = context.globals
 
   const theme = themeKey == 'dark' ?
