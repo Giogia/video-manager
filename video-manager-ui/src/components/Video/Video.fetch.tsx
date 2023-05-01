@@ -8,10 +8,10 @@ import { VideoFragment$key } from './__generated__/VideoFragment.graphql'
 import { VideoWithDrag } from './Video.drag'
 
 export interface WithFetchProps {
-  /**
-   * name fragment reference
-   */
-  fragmentRef: VideoFragment$key
+   /**
+    * name fragment reference
+    */
+   fragmentRef: VideoFragment$key
 }
 
 /**
@@ -37,7 +37,7 @@ export const VideoWithFetch = ({ fragmentRef }: WithFetchProps) => {
    return (
       <VideoWithDrag
          name={name}
-         source={env.BASE_URL + url}
+         source={env.SERVER_URL + url}
          size={size}
       />
    )

@@ -1,4 +1,5 @@
 import env from 'react-dotenv'
+import { join } from 'path'
 import { Variables } from 'react-relay'
 import { CacheConfig, GraphQLResponse, ObservableFromValue, RequestParameters, UploadableMap } from 'relay-runtime'
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
@@ -39,14 +40,17 @@ const network = Network.create((
       body.append('video', video, video.name)
    }
 
-   return fetch(env.GRAPHQL_URL, {
-      method: 'POST',
-      headers: {
-         'Accept': 'application/json',
-         ...!uploadables && { 'Content-Type': 'application/json' }
-      },
-      body
-   }).then(response => response.json())
+   return fetch(
+      join(env.SERVER_URL, 'graphql'),
+      {
+         method: 'POST',
+         headers: {
+            'Accept': 'application/json',
+            ...!uploadables && { 'Content-Type': 'application/json' }
+         },
+         body
+      }
+   ).then(response => response.json())
 })
 
 const environment = new Environment({

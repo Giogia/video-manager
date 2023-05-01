@@ -93,8 +93,7 @@
   },
   "react-dotenv": {
     "whitelist": [
-      "BASE_URL",
-      "GRAPHQL_URL"
+      "SERVER_URL"
     ]
   },
   "eslintConfig": {
