@@ -10,8 +10,10 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app
 COPY schema.gql /usr/src/app
 COPY yarn.lock /usr/src/app
+COPY .yarn /usr/src/app
 
 # Install dependecies
+RUN yarn set version berry
 RUN yarn
 
 # Get all the code needed to run the app
