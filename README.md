@@ -79,7 +79,7 @@ yarn test-e2e
 <div align="left">
   <b>Tech Stack:</b>
   &nbsp
-  <img src="https://user-images.githubusercontent.com/9254840/235372806-87a8a71f-493e-4aef-852c-62df8bb6c8d7.png" height="24" align="top">
+  <img src="https://user-images.githubusercontent.com/9254840/235509375-c35ae9ee-5fc5-474c-ab40-617bdc81e0a9.png" height="24" align="top">
   <a href="https://the-guild.dev/graphql/yoga-server">Yoga Server</a>
   &nbsp
   <img src="https://user-images.githubusercontent.com/9254840/232626853-a784deeb-069f-42d5-8d83-900ff705c8a1.png" height="26" align="top"> 
