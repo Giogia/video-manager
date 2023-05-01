@@ -1,4 +1,6 @@
- <div align="center">
+ <!-- Title -->
+ 
+<div align="center">
   <a href="https://github.com/Giogia/video-manager">
     <img alt="logo" src="https://user-images.githubusercontent.com/9254840/235371514-5a19d585-4da9-4435-977e-cee40c8abca7.png" height="96">
   </a>
@@ -7,6 +9,8 @@
 </div>
 
 <br/>
+
+ <!-- Tech Stack -->
 
 <div align="center">
  <img src="https://user-images.githubusercontent.com/9254840/232627617-74388095-b8bc-4c73-b550-eb2362778a10.png" height="22" align="top">
@@ -79,12 +83,12 @@ yarn test-e2e
 <div align="left">
   <b>Tech Stack:</b>
   &nbsp
-  <img src="https://user-images.githubusercontent.com/9254840/235372806-87a8a71f-493e-4aef-852c-62df8bb6c8d7.png" height="24" align="top">
+  <img src="https://user-images.githubusercontent.com/9254840/235509375-c35ae9ee-5fc5-474c-ab40-617bdc81e0a9.png" height="24" align="top">
   <a href="https://the-guild.dev/graphql/yoga-server">Yoga Server</a>
   &nbsp
   <img src="https://user-images.githubusercontent.com/9254840/232626853-a784deeb-069f-42d5-8d83-900ff705c8a1.png" height="26" align="top"> 
   <a href="https://typegraphql.com/">Type GraphQl</a>
- </div>
+</div>
  
  <br/>
 
@@ -112,6 +116,13 @@ Then open http://localhost:4000 to interact with your server.
 
 Visit the `/graphql` endpoint to open the [`GraphiQL`](https://github.com/graphql/graphiql) editor.
 
+#### Testing <img src="https://user-images.githubusercontent.com/9254840/235440034-650982d8-bd0d-466b-8bee-04027b81c0c2.png" align="center" height="18" /> 
+
+Execute unit tests:
+```bash
+yarn test
+```
+
 <br/>
 
 ## Database
@@ -123,5 +134,20 @@ Visit the `/graphql` endpoint to open the [`GraphiQL`](https://github.com/graphq
   <a href="https://www.mongodb.com/">MongoDB</a>
   &nbsp-&nbsp
   <a href="https://www.mongodb.com/docs/drivers/node/current/fundamentals/gridfs/" />GridFS</a>
- </div>
+</div>
+
+<br/>
+
+Run a docker container:
+```bash
+docker run --name mongodb -d -p 27017:27017 mongo
+```
+
+### Connection
+
+Use the following url to connect:
+```bash
+mongodb://localhost:27017
+```
+
 <br/>
