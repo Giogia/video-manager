@@ -4,6 +4,8 @@ services:
     build:
       context: video-manager-ui
       target: development
+    environment:
+      -  SERVER_URL=http://video-manager-api:4000
     ports:
       - 3000:3000
     stdin_open: true
@@ -15,12 +17,18 @@ services:
       - react-express
     depends_on:
       - video-manager-api
-
+    expose: 
+      - 3000
+      
   video-manager-api:
     restart: always
     build:
       context: video-manager-api
       target: development
+    environment:
+      - MONGO_DB_URL=mongodb://mongo:27017/video-manager
+    ports:
+      - 4000:4000
     volumes:
       - ./video-manager-api:/usr/src/app
       - /usr/src/app/node_modules
@@ -35,6 +43,8 @@ services:
   mongo:
     restart: always
     image: mongo:5.0.0
+    ports:
+      - 27017:27017
     volumes:
       - ./data:/data/db
     networks:
