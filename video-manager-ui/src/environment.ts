@@ -1,5 +1,4 @@
 import env from 'react-dotenv'
-import { join } from 'path'
 import { Variables } from 'react-relay'
 import { CacheConfig, GraphQLResponse, ObservableFromValue, RequestParameters, UploadableMap } from 'relay-runtime'
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
@@ -41,7 +40,7 @@ const network = Network.create((
    }
 
    return fetch(
-      join(env.SERVER_URL, 'graphql'),
+      `${env.SERVER_URL}/graphql`,
       {
          method: 'POST',
          headers: {
