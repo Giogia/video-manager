@@ -16,31 +16,36 @@ export function getMaxDepth(query?: string) {
 
 export function composeChild(files: GridFSFile[], maxDepth: number, currentDepth = 0, allChildren: Node[] = []) {
 
-   return async ({ id, name, data, children = allChildren }: Node): Promise<Child> => ({
-      id,
-      name,
-      ...data ?
-         {
-            url: combinePath("/videos", data),
-            size: getFileSize(files, data)
-         } :
-         {
-            children: currentDepth <= maxDepth ?
-               await Promise.all(
-                  children
-                     .filter(({ depth, parent }: Node) => (
-                        depth === currentDepth &&
-                        parent === id
-                     ))
-                     .map(composeChild(
-                        await findFiles(children),
-                        maxDepth,
-                        currentDepth + 1,
-                        children
-                     ))
-               ) : []
-         }
-   })
+   return async ({ id, name, data, children = [] }: Node): Promise<Child> => {
+
+      const childNodes = children.length > 0 ? children : allChildren
+
+      return {
+         id,
+         name,
+         ...data ?
+            {
+               url: combinePath("/videos", data),
+               size: getFileSize(files, data)
+            } :
+            {
+               children: currentDepth <= maxDepth ?
+                  await Promise.all(
+                     childNodes
+                        .filter(({ depth, parent }: Node) => (
+                           depth === currentDepth &&
+                           parent === id
+                        ))
+                        .map(composeChild(
+                           await findFiles(childNodes),
+                           maxDepth,
+                           currentDepth + 1,
+                           childNodes
+                        ))
+                  ) : []
+            }
+      }
+   }
 }
 
 export async function composeDirectory(path: string, query?: string): Promise<Directory | null> {
