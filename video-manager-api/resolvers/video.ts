@@ -70,13 +70,17 @@ export class VideoResolver {
       const videoPath = combinePath(path, name)
 
       try {
-         const { matchedCount } = await editNode(videoPath, { name: newName }).catch(() => {
-            throw new GraphQLError(`Video ${newName} already exists.`)
-         })
+         if (newName) {
 
-         if (matchedCount == 0) throw new GraphQLError("Video does not exists.")
+            const { matchedCount } = await editNode(videoPath, { name: newName }).catch(() => {
+               throw new GraphQLError(`Video ${newName} already exists.`)
+            })
 
-         return composeDirectory(path, context?.params?.query)
+            if (matchedCount == 0) throw new GraphQLError("Video does not exists.")
+
+            return composeDirectory(path, context?.params?.query)
+         }
+         throw new GraphQLError("Video name cannot be empty.")
       }
       catch (e) {
          throw new GraphQLError(`Cannot rename video ${name}. \n\n ${e}`)
@@ -90,6 +94,7 @@ export class VideoResolver {
 
       try {
          if (!isRoot(path, name)) {
+            
             const node = await findNode(videoPath)
 
             if (!node) throw new GraphQLError("Video does not exists.")

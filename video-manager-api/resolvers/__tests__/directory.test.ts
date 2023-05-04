@@ -282,6 +282,26 @@ describe("Resolvers", () => {
 
          expect(errors).toEqual([new GraphQLError("Cannot add directory /Parent/Dir/Child. \n\n Directory /Parent/Dir does not exists.")])
       })
+
+      it("returns error if directory is root", async () => {
+
+         const addDirectoryMutation = `#graphql
+                mutation {
+                    addDirectory(input: { path: "/", name: "" }){
+                        name
+                        children {
+                            ... on Directory {
+                                name
+                            }
+                        }
+                    }
+                }
+            `
+
+         const { errors } = await graphql(schema, addDirectoryMutation)
+
+         expect(errors).toEqual([new GraphQLError("Cannot add directory /. \n\n Directory is root.")])
+      })
    })
 
    describe("moveDirectory", () => {
@@ -670,6 +690,29 @@ describe("Resolvers", () => {
 
          expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory Sibling already exists.")])
       })
+
+      it("returns error if target name is empty", async () => {
+
+         await addNode(parentNode)
+         await addNode(node)
+
+         const renameDirectoryMutation = `#graphql
+                mutation {
+                    renameDirectory(input: {path: "/Parent", name: "Dir"}, name: "") {
+                        name
+                        children {
+                            ... on Directory {
+                                name
+                            }
+                        }
+                    }
+                }
+            `
+
+         const { errors } = await graphql(schema, renameDirectoryMutation)
+
+         expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory name cannot be empty.")])
+      })
    })
 
    describe("removeDirectory", () => {
@@ -744,4 +787,3 @@ describe("Resolvers", () => {
       })
    })
 })
-

@@ -274,6 +274,29 @@ describe("Resolvers", () => {
 
          expect(errors).toEqual([new GraphQLError("Cannot rename video horizontal.mov. \n\n Video vertical.mov already exists.")])
       })
+
+      it("returns error if target name is empty", async () => {
+
+         await addNode(parentNode)
+         await addNode(videoNode(node, horizontal))
+
+         const renameVideoMutation = `#graphql
+                mutation {
+                    renameVideo(input: {path: "/Parent", name: "horizontal.mov"}, name: "") {
+                        name
+                        children {
+                            ... on Directory {
+                                name
+                            }
+                        }
+                    }
+                }
+            `
+
+         const { errors } = await graphql(schema, renameVideoMutation)
+
+         expect(errors).toEqual([new GraphQLError("Cannot rename video horizontal.mov. \n\n Video name cannot be empty.")])
+      })
    })
 
    describe("removeVideo", () => {

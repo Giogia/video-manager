@@ -33,34 +33,36 @@ export class DirectoryResolver {
       const directoryPath = combinePath(path, name)
 
       try {
+         if (!isRoot(path, name)) {
+            const parentNode = await findNode(path)
 
-         const parentNode = await findNode(path)
+            if (!parentNode) throw new GraphQLError(`Directory ${decodeURI(path)} does not exists.`)
 
-         if (!parentNode) throw new GraphQLError(`Directory ${decodeURI(path)} does not exists.`)
+            const siblingNodes = await findNodes({
+               path,
+               name: { $regex: startsWith(name) }
+            })
 
-         const siblingNodes = await findNodes({
-            path,
-            name: { $regex: startsWith(name) }
-         })
+            const existsInSiblings = siblingNodes.map(({ name }) => name).includes(name)
 
-         const existsInSiblings = siblingNodes.map(({ name }) => name).includes(name)
+            const [lastAdded] = siblingNodes
+               .sort((a, b) => getLastDigits(a.name).number - getLastDigits(b.name).number)
+               .slice(-1)
 
-         const [lastAdded] = siblingNodes
-            .sort((a, b) => getLastDigits(a.name).number - getLastDigits(b.name).number)
-            .slice(-1)
+            const node = await addNode({
+               parent: parentNode.id!,
+               name: existsInSiblings ?
+                  increaseNumber(lastAdded.name) :
+                  name
+            })
 
-         const node = await addNode({
-            parent: parentNode.id!,
-            name: existsInSiblings ?
-               increaseNumber(lastAdded.name) :
-               name
-         })
+            await node.save().catch(() => {
+               throw new GraphQLError("Directory already exists.")
+            })
 
-         await node.save().catch(() => {
-            throw new GraphQLError("Directory already exists.")
-         })
-
-         return composeDirectory(path, context?.params?.query)
+            return composeDirectory(path, context?.params?.query)
+         }
+         throw new GraphQLError("Directory is root.")
       }
       catch (e) {
          throw new GraphQLError(`Cannot add directory ${decodeURI(directoryPath)}. \n\n ${e}`)
@@ -109,13 +111,17 @@ export class DirectoryResolver {
       const directoryPath = combinePath(path, name)
 
       try {
-         const { matchedCount } = await editNode(directoryPath, { name: newName }).catch(() => {
-            throw new GraphQLError(`Directory ${newName} already exists.`)
-         })
+         if (newName) {
 
-         if (matchedCount == 0) throw new GraphQLError("Directory does not exists.")
+            const { matchedCount } = await editNode(directoryPath, { name: newName }).catch(() => {
+               throw new GraphQLError(`Directory ${newName} already exists.`)
+            })
 
-         return composeDirectory(path, context?.params?.query)
+            if (matchedCount == 0) throw new GraphQLError("Directory does not exists.")
+
+            return composeDirectory(path, context?.params?.query)
+         }
+         throw new GraphQLError("Directory name cannot be empty.")
       }
       catch (e) {
          throw new GraphQLError(`Cannot rename directory ${decodeURI(directoryPath)}. \n\n ${e}`)
@@ -129,6 +135,7 @@ export class DirectoryResolver {
 
       try {
          if (!isRoot(path, name)) {
+
             const node = await findNode(directoryPath)
 
             if (!node) throw new GraphQLError("Directory does not exists.")
