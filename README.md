@@ -114,7 +114,7 @@ Then open http://localhost:4000 to interact with your server.
 
 #### GraphiQL
 
-Visit the `/graphql` endpoint to open the [`GraphiQL`](https://github.com/graphql/graphiql) editor.
+Visit `/graphql` to open the [`GraphiQL`](https://github.com/graphql/graphiql) editor.
 
 #### Testing <img src="https://user-images.githubusercontent.com/9254840/235440034-650982d8-bd0d-466b-8bee-04027b81c0c2.png" align="center" height="18" /> 
 
