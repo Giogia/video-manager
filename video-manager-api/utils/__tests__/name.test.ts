@@ -1,4 +1,4 @@
-import { encodeName, getLastDigits, increaseNumber, startsWith } from "../name"
+import { encodeName, getLastDigits, firstMissingName, startsWith } from "../name"
 
 describe("Name utils", () => {
 
@@ -21,30 +21,34 @@ describe("Name utils", () => {
    describe("getLastDigits", () => {
 
       test("return correct number", () => {
-         expect(getLastDigits("New Folder")).toEqual({ number: NaN, position: 10 })
+         expect(getLastDigits("New Folder")).toEqual(0)
 
          Array.from({ length: 100 }).map((_, n) => {
-            expect(getLastDigits(`New Folder ${n}`)).toEqual({ number: n, position: 11 })
+            expect(getLastDigits(`New Folder ${n}`)).toEqual(n)
          })
       })
 
       test("return correct name with root", () => {
-         expect(getLastDigits("")).toEqual({ number: NaN, position: 0 })
+         expect(getLastDigits("")).toEqual(0)
       })
    })
 
-   describe("increaseNumber", () => {
+   describe("firstMissingName", () => {
+
+      const getNamesUntil = (length: number) => Array
+         .from({ length })
+         .map((_, n) => `New Folder ${n + 1}`)
 
       test("return correct number", () => {
-         expect(increaseNumber("New Folder")).toEqual("New Folder 1")
-
-         Array.from({ length: 100 }).map((_, n) => {
-            expect(increaseNumber(`New Folder ${n}`)).toEqual(`New Folder ${n + 1}`)
-         })
-      })
-
-      test("return correct name with root", () => {
-         expect(increaseNumber("")).toEqual("")
+         expect(firstMissingName("New Folder", ["New Folder"])).toEqual("New Folder 1")
+         expect(firstMissingName("New Folder", ["New Folder", "New Folder 1"])).toEqual("New Folder 2")
+         expect(firstMissingName("New Folder", ["New Folder", "New Folder 2"])).toEqual("New Folder 1")
+         expect(firstMissingName("New Folder", ["New Folder", "New Folder 3"])).toEqual("New Folder 1")
+         expect(firstMissingName("New Folder", ["New Folder", "New Folder 1", "New Folder 3"])).toEqual("New Folder 2")
+         expect(firstMissingName("New Folder", ["New Folder", ...getNamesUntil(9)])).toEqual("New Folder 10")
+         expect(firstMissingName("New Folder", ["New Folder", ...getNamesUntil(10)])).toEqual("New Folder 11")
+         expect(firstMissingName("New Folder", ["New Folder", ...getNamesUntil(99)])).toEqual("New Folder 100")
+         expect(firstMissingName("New Folder", ["New Folder", ...getNamesUntil(100)])).toEqual("New Folder 101")
       })
    })
 

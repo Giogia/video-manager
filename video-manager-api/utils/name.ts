@@ -6,23 +6,24 @@ export function encodeName(name: string | undefined) {
 
 export function getLastDigits(name: string) {
 
-   const digits = name?.match(/\d+$/)?.[0] || ""
-   const position = name?.lastIndexOf(digits)
+   const digits = name?.match(/\d+$/)?.[0] || "0"
 
-   return {
-      number: parseInt(digits),
-      position
-   }
+   return parseInt(digits)
 }
 
-export function increaseNumber(name: string) {
-   if (!name) return name
+export function firstMissingName(name: string, names: string[]) {
 
-   const { number, position } = getLastDigits(name)
+   const numbers = names
+      .map(name => getLastDigits(name))
+      .sort((a, b) => a - b)
 
-   return isNaN(number) ?
-      name + " " + 1 :
-      name.slice(0, position) + (number + 1)
+   const [start] = numbers.slice(0)
+   const [end] = numbers.slice(-1)
+
+   const index = numbers.findIndex((number, i) => number !== start + i)
+   const number = index > 0 ? index : end + 1
+
+   return [name, number].join(" ")
 }
 
 export function startsWith(name: string) {
