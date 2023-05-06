@@ -1,14 +1,14 @@
 import React from 'react'
+import { GraphQLError } from 'graphql'
 
 import { Link, LinkProps } from './Link.ui'
 import { Snackbar } from '../Snackbar'
-import { Error } from '../../utils/error'
 
 export interface WithErrorProps {
   /**
    * The error related to the link action
    */
-  error?: Error
+  error?: GraphQLError
 }
 
 /**

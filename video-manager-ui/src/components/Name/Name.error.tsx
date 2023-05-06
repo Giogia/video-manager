@@ -1,15 +1,15 @@
 import React from 'react'
+import { GraphQLError } from 'graphql'
 
 import { NameProps } from './Name.ui'
 import { NameWithLoading, WithLoadingProps, } from './Name.loading'
 import { Snackbar } from '../Snackbar'
-import { Error } from '../../utils/error'
 
 export interface WithErrorProps {
   /**
    * The error related to the name action
    */
-  error?: Error
+   error?: GraphQLError
 }
 
 /**

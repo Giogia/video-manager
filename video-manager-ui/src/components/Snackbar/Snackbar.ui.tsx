@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { GraphQLError } from 'graphql'
 import SnackbarComponent from '@mui/material/Snackbar'
 import Button from '@mui/material/Button'
 
-import { Error, getErrorMessage } from '../../utils/error'
+import { getErrorMessage } from '../../utils/error'
 
 export interface ErrorProps {
   /**
    * Error to display
    */
-  error?: Error
+  error?: GraphQLError
 }
 
 /**

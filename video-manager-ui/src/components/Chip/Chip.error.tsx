@@ -1,15 +1,15 @@
 import React from 'react'
+import { GraphQLError } from 'graphql'
 
 import { ChipProps } from './Chip.ui'
 import { ChipWithLoading } from './Chip.loading'
 import { Snackbar } from '../Snackbar'
-import { Error } from '../../utils/error'
 
 export interface WithErrorProps {
   /**
    * The error related to the chip action
    */
-  error?: Error
+  error?: GraphQLError
 }
 
 /**

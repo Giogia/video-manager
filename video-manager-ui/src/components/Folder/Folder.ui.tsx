@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid'
 import { Button } from '../Button'
 import { RenameFolder } from '../Name'
 import { Caption } from '../Caption'
-import { Error } from '../../utils/error'
+import { GraphQLError } from 'graphql'
 
 export interface FolderProps {
    /**
@@ -18,7 +18,7 @@ export interface FolderProps {
    /**
     * Error associated with folder operations
     */
-   error?: Error
+   error?: GraphQLError
    /**
     * Folder contents
     */
@@ -41,6 +41,7 @@ export const Folder = ({ name, loading, error, onClick, selected, count }: Folde
       direction='column'
       alignItems='center'
       width='max-content'
+      id='folder'
    >
       <Grid item>
          <Button

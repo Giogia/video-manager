@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import { StoryFn, Meta } from '@storybook/react'
@@ -23,6 +23,8 @@ export const Playground: StoryFn<typeof Snackbar> = (args) => {
 
    const [error, setError] = useState(composeError(args.error))
 
+   useEffect(() => setError(composeError(args.error)))
+
    return (
       <Box sx={{ textAlign: 'center' }}>
          <Chip
@@ -45,7 +47,7 @@ Playground.play = async ({ args, canvasElement }) => {
 
    userEvent.click(button)
 
-   const message = await canvas.findByText(args.error || DEFAULT_ERROR_MESSAGE)
+   const message = await canvas.findByText(args.error as unknown as string || DEFAULT_ERROR_MESSAGE)
    const closeButton = await canvas.findByRole('button', { name: 'Close' })
 
    expect(message).toBeInTheDocument()
