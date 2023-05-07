@@ -1,17 +1,10 @@
 import { Page } from '@playwright/test'
-
-export function getVideo(page: Page) {
-   return page.locator('#video-button')
-}
-
-export function getFirstVideo(page: Page) {
-   return getVideo(page).first()
-}
-
-export function getLastVideo(page: Page) {
-   return getVideo(page).last()
-}
+import { Options, getByName } from './name'
 
 export function getVideos(page: Page) {
-   return getVideo(page).all()
+   return page.locator('#video').all()
+}
+
+export function getVideo(page: Page, name: string, options?: Options) {
+   return page.locator('#video', { has: getByName(page, name, options) }).first()
 }

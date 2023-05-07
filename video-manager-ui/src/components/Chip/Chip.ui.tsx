@@ -38,10 +38,9 @@ export interface ChipProps {
  */
 export const Chip = ({ action, icon, disabled, label, tooltip, sx }: ChipProps) => (
    <Tooltip title={tooltip}>
-      <span>
+      <span id={`${icon}-chip`}>
          <MuiChip
             clickable
-            id={`${icon}-chip`}
             icon={<Icon id={icon} sx={{ color: 'action' }} />}
             label={label || formatName(icon)}
             disabled={disabled}

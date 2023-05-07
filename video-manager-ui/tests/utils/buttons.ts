@@ -1,10 +1,12 @@
 import { expect, Page } from '@playwright/test'
 import { getByName } from './name'
 
-export async function getButton(page: Page, name: string){
+export async function getButton(page: Page, name: string) {
 
-   const button = await page.locator(`#${name.toLowerCase().replace(' ', '-')}-button`)
-
+   const button = await page.locator(`#${name.toLowerCase().replace(' ', '-')}-button`).first()
+   await expect(button).toBeVisible()
+   await expect(button).toBeEnabled()
+   
    await button.hover()
    await expect(page.getByRole('tooltip', { name })).toBeVisible()
 
@@ -12,9 +14,11 @@ export async function getButton(page: Page, name: string){
 }
 
 export async function addFolder(page: Page) {
-    
+
    const addFolderButton = await getButton(page, 'Add Folder')
    await addFolderButton.click()
+
+   await getButton(page, 'Add Folder')
 }
 
 export async function uploadFile(page: Page, filename: string) {

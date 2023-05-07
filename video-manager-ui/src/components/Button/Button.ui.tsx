@@ -6,30 +6,30 @@ import { Icon, icons } from '../Icon'
 import { formatName } from '../../utils/name'
 import { SxProps, Theme } from '@mui/material'
 export interface ButtonProps {
-  /**
-   * Button functionality
-   */
-  action?: (e: unknown) => void
-  /**
-   * Whether the button is active
-   */
-  disabled?: boolean
-  /**
-   * Button icon
-   */
-  icon: keyof typeof icons
-  /**
-   * Button dimension
-   */
-  size?: 'small' | 'medium' | 'large',
-  /**
-   * Customize button themed style
-   */
-  sx?: SxProps<Theme>,
-  /**
-   * Whether to show a button description on hover
-   */
-  tooltip: boolean
+   /**
+    * Button functionality
+    */
+   action?: (e: unknown) => void
+   /**
+    * Whether the button is active
+    */
+   disabled?: boolean
+   /**
+    * Button icon
+    */
+   icon: keyof typeof icons
+   /**
+    * Button dimension
+    */
+   size?: 'small' | 'medium' | 'large',
+   /**
+    * Customize button themed style
+    */
+   sx?: SxProps<Theme>,
+   /**
+    * Whether to show a button description on hover
+    */
+   tooltip: boolean
 }
 
 /**
@@ -37,9 +37,8 @@ export interface ButtonProps {
  */
 export const Button = ({ action, size, icon, disabled, tooltip, sx }: ButtonProps) => (
    <Tooltip title={tooltip && formatName(icon)}>
-      <span>
+      <span id={`${icon}-button`}>
          <IconButton
-            id={`${icon}-button`}
             disabled={disabled}
             onClick={action}
             role='button'

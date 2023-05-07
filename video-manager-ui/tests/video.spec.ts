@@ -1,10 +1,11 @@
 import { test, expect, Page } from '@playwright/test'
 
-import { launch, reload, close } from './utils/page'
-import { dragToDeleteChip } from './utils/drag'
-import { getByName } from './utils/name'
+import { launch, reload, close, repeat } from './utils/page'
 import { getButton, uploadFile } from './utils/buttons'
-import { getVideos, getLastVideo } from './utils/video'
+import { getVideos, getVideo } from './utils/video'
+import { getChip } from './utils/chips'
+
+const assets = ['horizontal.mov', 'vertical.mov']
 
 let page: Page
 
@@ -25,34 +26,55 @@ test.afterAll(async () => {
    await close(page)
 })
 
-test('upload video', async () => {
-   const videos = await getVideos(page)
+test('upload videos', async () => {
 
-   await uploadFile(page, 'horizontal.mov')
+   await repeat(assets.length, async (i) => {
 
-   const newVideos = await getVideos(page)
+      const videoName = assets[i]
 
-   await expect(newVideos.length).toEqual(videos.length + 1)
+      await getButton(page, 'Upload Video')
 
-   await reload(page)
-   await expect(newVideos.length).toEqual(videos.length + 1)
+      const videos = await getVideos(page)
+
+      await uploadFile(page, videoName)
+
+      const video = await getVideo(page, videoName)
+      const newVideos = await getVideos(page)
+
+      await expect(video).toBeVisible()
+      await expect(newVideos.length).toEqual(videos.length + 1)
+
+      await reload(page)
+
+      await expect(video).toBeVisible()
+      await expect(newVideos.length).toEqual(videos.length + 1)
+   })
 })
 
-test('delete video', async () => {
+test('delete videos', async () => {
 
-   const videos = await getVideos(page)
+   await repeat(assets.length, async (i) => {
 
-   const video = await getLastVideo(page)
-   await expect(video).toBeVisible()
+      const videoName = assets[i]
 
-   await expect(getByName(page, 'horizontal.mov')).toBeVisible()
+      const video = await getVideo(page, videoName)
+      await expect(video).toBeVisible()
+      
+      const videos = await getVideos(page)
 
-   await dragToDeleteChip(page, video)
+      const deleteChip = await getChip(page, 'Delete')
 
-   const newVideos = await getVideos(page)
+      await video.dragTo(deleteChip)
 
-   await expect(newVideos.length).toEqual(videos.length - 1)
+      const newVideos = await getVideos(page)
+      console.log('🚀 ~ file: video.spec.ts:71 ~ awaitrepeat ~ newVideos:', newVideos)
 
-   await page.reload()
-   await expect(newVideos.length).toEqual(videos.length - 1)
+      await expect(video).not.toBeVisible()
+      await expect(newVideos.length).toEqual(videos.length - 1)
+
+      await page.reload()
+
+      await expect(video).not.toBeVisible()
+      await expect(newVideos.length).toEqual(videos.length - 1)
+   })
 })

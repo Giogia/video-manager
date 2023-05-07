@@ -1,17 +1,10 @@
 import { Page } from '@playwright/test'
-
-export function getFolder(page: Page) {
-   return page.locator('#folder-button')
-}
-
-export function getFirstFolder(page: Page) {
-   return getFolder(page).first()
-}
-
-export function getLastFolder(page: Page) {
-   return getFolder(page).last()
-}
+import { Options, getByName } from './name'
 
 export function getFolders(page: Page) {
-   return getFolder(page).all()
+   return page.locator('#folder-button').all()
+}
+
+export function getFolder(page: Page, name: string, options?: Options) {
+   return page.locator('#folder', { has: getByName(page, name, options) }).first()
 }
