@@ -25,7 +25,14 @@ async function start() {
       maxFiles: 1
    }))
 
-   app.get("/videos/:id", async ({ params, headers }, res) => {
+   app.use("/graphql", createYoga({
+      schema,
+      graphiql: { title: "API Documentation" }
+   }))
+
+   app.get("/videos/:id", async (req, res) => {
+
+      const { params, headers } = req
 
       const { id } = params
       const { range } = headers
@@ -39,13 +46,13 @@ async function start() {
          "Content-Type": "video/mp4",
       })
 
-      streamFile(id, { start, end }).pipe(res)
+      streamFile(id, { start, end })
+         .on("error", (err) => {
+            console.error(`Error while streaming file: ${err}`)
+            res.sendStatus(500)
+         })
+         .pipe(res)
    })
-
-   app.use("/graphql", createYoga({
-      schema,
-      graphiql: { title: "API Documentation" }
-   }))
 
    app.listen(4000, () => {
       loadDatabase()

@@ -8,7 +8,7 @@ export function uploadFile(id: string) {
       .openUploadStream(id)
 }
 
-export function streamFile(id: string, options: GridFSBucketReadStreamOptions) {
+export function streamFile(id: string, options?: GridFSBucketReadStreamOptions) {
    return loadBucket()
       .openDownloadStreamByName(id, options)
 }
@@ -42,17 +42,19 @@ export async function removeFile(id: string) {
 
 export async function getRangeValues(id: string, range = "bytes=0-") {
 
-   const [{ chunkSize, length }] = await findFile(id)
+   const { chunkSize, length } = await findFile(id)
 
    const [start, end] = range
       .replace("bytes=", "")
       .split("-")
-      .map(n => Number(n))
+      .map(n => parseInt(n))
+
+   const endFile = end || Math.min(start + chunkSize, length)
 
    return {
       start,
-      end: end || Math.min(start + chunkSize, length - 1),
-      chunkSize,
+      end: endFile,
+      chunkSize: Math.min(chunkSize, endFile - start),
       length
    }
 }
