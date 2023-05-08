@@ -81,10 +81,11 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
                   ...fullscreen && {
                      position: 'absolute',
                      top: 2,
-                     left: 4,
+                     left: 0,
+                     right: 0,
                      padding: 1,
                      zIndex: 10001,
-                     opacity: 1,
+                     opacity: 0.8,
                      color: 'white',
                      fontSize: 14
                   }
