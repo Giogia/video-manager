@@ -20,18 +20,32 @@
  <a href="https://graphql.org">GraphQL</a> 
 </div>
 
+<br/>
+<br/>
+
+### Get Started
+
+Clone git repository:
+```bash
+git clone https://github.com/Giogia/video-manager.git
+```
+
+<br/>
+
+Then, install packages:
+
 ## Client
 
 <div align="left">
   <b>Tech Stack:</b>
   &nbsp
-  <img src="https://user-images.githubusercontent.com/9254840/232625553-4b50459b-a1b3-4c1d-a847-fc30dd485565.png" height="18" align="center">
+  <img src="https://user-images.githubusercontent.com/9254840/236691098-41a20c83-ff5d-452e-bb39-49eb0db9bf9f.png" height="24" align="top">
   <a href="https://mui.com/">MUI</a>
   &nbsp
-  <img src="https://user-images.githubusercontent.com/9254840/235443073-7aeda39e-9c33-4d8e-a540-3f4f1f94765a.png" height="20" align="center">
+  <img src="https://user-images.githubusercontent.com/9254840/236691251-3cd72510-58d3-49b9-804c-073c2a86c96d.png" height="24" align="top">
   <a href="https://react.dev/">React</a>
   &nbsp
-  <img src="https://user-images.githubusercontent.com/9254840/235369121-76e3c138-eebb-406f-b2f7-041561a390bd.png" height="18" width="28" align="center">
+  <img src="https://user-images.githubusercontent.com/9254840/236691358-aa3f4d20-37d0-4e59-9c74-efb53a04fc87.png" height="24" align="top">
   <a href="https://relay.dev/">Relay</a>
 </div>
 
@@ -64,7 +78,7 @@ Explore client components:
 yarn storybook
 ```
 
-#### Testing <img src="https://user-images.githubusercontent.com/9254840/235440034-650982d8-bd0d-466b-8bee-04027b81c0c2.png" align="center" height="18" /> <img src="https://user-images.githubusercontent.com/9254840/235439798-a784e1d8-69c9-4086-a73a-399e9149256b.png" align="top" height="22" />
+#### Testing <img src="https://user-images.githubusercontent.com/9254840/235440034-650982d8-bd0d-466b-8bee-04027b81c0c2.png" align="center" height="20" /> <img src="https://user-images.githubusercontent.com/9254840/235439798-a784e1d8-69c9-4086-a73a-399e9149256b.png" align="center" height="24" />
 
 Execute unit tests:
 ```bash
@@ -86,7 +100,7 @@ yarn test-e2e
   <img src="https://user-images.githubusercontent.com/9254840/235509375-c35ae9ee-5fc5-474c-ab40-617bdc81e0a9.png" height="24" align="top">
   <a href="https://the-guild.dev/graphql/yoga-server">Yoga Server</a>
   &nbsp
-  <img src="https://user-images.githubusercontent.com/9254840/232626853-a784deeb-069f-42d5-8d83-900ff705c8a1.png" height="26" align="top"> 
+  <img src="https://user-images.githubusercontent.com/9254840/232626853-a784deeb-069f-42d5-8d83-900ff705c8a1.png" height="24" align="top"> 
   <a href="https://typegraphql.com/">Type GraphQl</a>
 </div>
  
@@ -116,7 +130,7 @@ Then open http://localhost:4000 to interact with your server.
 
 Visit `/graphql` to open the [`GraphiQL`](https://github.com/graphql/graphiql) editor.
 
-#### Testing <img src="https://user-images.githubusercontent.com/9254840/235440034-650982d8-bd0d-466b-8bee-04027b81c0c2.png" align="center" height="18" /> 
+#### Testing <img src="https://user-images.githubusercontent.com/9254840/235440034-650982d8-bd0d-466b-8bee-04027b81c0c2.png" align="center" height="20" /> 
 
 Execute unit tests:
 ```bash
