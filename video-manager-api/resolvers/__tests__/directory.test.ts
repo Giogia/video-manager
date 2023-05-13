@@ -159,7 +159,7 @@ describe("Resolvers", () => {
          expect(data).toEqual({ getDirectory: directory })
       })
 
-      it("returns error if directory does not exists", async () => {
+      it("returns error if directory does not exist", async () => {
 
          await addNode(parentNode)
 
@@ -178,7 +178,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, getDirectoryQuery)
 
-         expect(errors).toEqual([new GraphQLError("Cannot return directory /Parent/Dir. \n\n Directory does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot return directory /Parent/Dir. \n\n Directory does not exist.")])
       })
    })
 
@@ -261,7 +261,7 @@ describe("Resolvers", () => {
          })
       })
 
-      it("returns error if directory does not exists", async () => {
+      it("returns error if directory does not exist", async () => {
 
          await addNode(parentNode)
 
@@ -280,7 +280,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, addDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot add directory /Parent/Dir/Child. \n\n Directory /Parent/Dir does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot add directory /Parent/Dir/Child. \n\n Directory /Parent/Dir does not exist.")])
       })
 
       it("returns error if directory is root", async () => {
@@ -525,7 +525,7 @@ describe("Resolvers", () => {
          })
       })
 
-      it("returns error if directory does not exists", async () => {
+      it("returns error if directory does not exist", async () => {
 
          await addNode(parentNode)
          await addNode(newParentNode)
@@ -545,10 +545,10 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, moveDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot move directory /Parent/Dir. \n\n Directory does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot move directory /Parent/Dir. \n\n Directory does not exist.")])
       })
 
-      it("returns error if target directory does not exists", async () => {
+      it("returns error if target directory does not exist", async () => {
 
          await addNode(parentNode)
          await addNode(node)
@@ -568,7 +568,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, moveDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot move directory /Parent/Dir. \n\n Directory /New%20Parent does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot move directory /Parent/Dir. \n\n Directory /New%20Parent does not exist.")])
       })
 
       it("returns error if directory already exists in target directory", async () => {
@@ -645,7 +645,7 @@ describe("Resolvers", () => {
          })
       })
 
-      it("returns error if directory does not exists", async () => {
+      it("returns error if directory does not exist", async () => {
 
          await addNode(parentNode)
 
@@ -664,7 +664,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, renameDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot rename directory /Parent/Dir. \n\n Directory does not exist.")])
       })
 
       it("returns error if target directory already exists", async () => {
@@ -742,7 +742,7 @@ describe("Resolvers", () => {
          expect(await findNode(childNode)).toEqual(null)
       })
 
-      it("returns error if directory does not exists", async () => {
+      it("returns error if directory does not exist", async () => {
 
          await addNode(parentNode)
 
@@ -761,7 +761,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, removeDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot remove directory /Parent/Dir. \n\n Directory does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot remove directory /Parent/Dir. \n\n Directory does not exist.")])
       })
 
       it("returns error if directory is root", async () => {

@@ -141,7 +141,7 @@ describe("Resolvers", () => {
          expect(errors).toEqual([new GraphQLError("Cannot upload video. \n\n Video horizontal.mov already exists.")])
       })
 
-      it("returns error if directory does not exists", async () => {
+      it("returns error if directory does not exist", async () => {
 
          await addNode(parentNode)
 
@@ -175,7 +175,7 @@ describe("Resolvers", () => {
             variableValues: { path: "/Parent/Dir", video: upload }
          })
 
-         expect(errors).toEqual([new GraphQLError("Cannot upload video. \n\n Directory /Parent/Dir does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot upload video. \n\n Directory /Parent/Dir does not exist.")])
       })
    })
 
@@ -225,7 +225,7 @@ describe("Resolvers", () => {
          })
       })
 
-      it("returns error if directory does not exists", async () => {
+      it("returns error if directory does not exist", async () => {
 
          await addNode(parentNode)
 
@@ -248,7 +248,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, renameVideoMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot rename video horizontal.mov. \n\n Video does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot rename video horizontal.mov. \n\n Video does not exist.")])
       })
 
       it("returns error if target directory already exists", async () => {
@@ -342,7 +342,7 @@ describe("Resolvers", () => {
          expect(await findNode(videoNode(siblingNode, horizontal))).toEqual(null)
       })
 
-      it("returns error if video does not exists", async () => {
+      it("returns error if video does not exist", async () => {
 
          await addNode(parentNode)
 
@@ -365,10 +365,10 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, removeVideoMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot remove video /Parent/horizontal.mov. \n\n Video does not exists.")])
+         expect(errors).toEqual([new GraphQLError("Cannot remove video /Parent/horizontal.mov. \n\n Video does not exist.")])
       })
 
-      it("returns error if video file does not exists", async () => {
+      it("returns error if video file does not exist", async () => {
 
          await addNode(parentNode)
          await addNode(node)
