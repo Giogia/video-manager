@@ -10,6 +10,7 @@ import { combinePath, isRoot } from "../utils/path"
 
 @Resolver(() => Directory)
 export class DirectoryResolver {
+   
    /**
     * Query resolver that retrieves a directory.
     *
