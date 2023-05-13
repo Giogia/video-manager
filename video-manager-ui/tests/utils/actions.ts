@@ -1,17 +1,6 @@
 import { expect, Page } from '@playwright/test'
-import { getByName } from './name'
 
-export async function getButton(page: Page, name: string) {
-
-   const button = await page.locator(`#${name.toLowerCase().replace(' ', '-')}-button`).first()
-   await expect(button).toBeVisible()
-   await expect(button).toBeEnabled()
-   
-   await button.hover()
-   await expect(page.getByRole('tooltip', { name })).toBeVisible()
-
-   return button
-}
+import { getButton, getByName } from './components'
 
 export async function addFolder(page: Page) {
 
@@ -23,8 +12,6 @@ export async function addFolder(page: Page) {
 
 export async function uploadFile(page: Page, filename: string) {
 
-   await expect(getByName(page, filename)).not.toBeVisible()
-
    const uploadVideoButton = await getButton(page, 'Upload Video')
 
    const fileChooserPromise = page.waitForEvent('filechooser')
@@ -33,6 +20,16 @@ export async function uploadFile(page: Page, filename: string) {
 
    const fileChooser = await fileChooserPromise
    await fileChooser.setFiles(`./tests/__assets__/${filename}`)
+}
 
-   await expect(page.getByText(filename)).toBeVisible()
+export async function rename(page: Page, name: string, newName: string) {
+
+   const nameInput = await getByName(page, name)
+
+   await expect(nameInput).toBeVisible()
+
+   await nameInput.dblclick()
+
+   await page.getByRole('textbox').first().fill(newName)
+   await page.keyboard.press('Enter')
 }

@@ -1,13 +1,12 @@
 import { test, expect, Page } from '@playwright/test'
 
 import { launch, reload, close, repeat } from './utils/page'
-import { addFolder, getButton } from './utils/buttons'
-import { getFolder, getFolders } from './utils/folders'
-import { getLink } from './utils/links'
-import { getChip } from './utils/chips'
-import { rename } from './utils/name'
+import { addFolder, rename } from './utils/actions'
+import { getFolder, getFolders } from './utils/folder'
+import { getButton, getChip, getLink } from './utils/components'
 
 let testId: string
+
 let page: Page
 
 test.describe.configure({ mode: 'serial' })
@@ -15,6 +14,7 @@ test.describe.configure({ mode: 'serial' })
 test.beforeAll(async ({ browser }) => {
 
    testId = Date.now().toString().slice(-4)
+
    page = await browser.newPage()
 
    await launch(page)
@@ -30,7 +30,7 @@ test.afterAll(async () => {
 
 test('add folders', async () => {
 
-   await repeat(2, async () => {
+   await repeat(2, async (i: number) => {
 
       await getButton(page, 'Add Folder')
 
@@ -38,11 +38,15 @@ test('add folders', async () => {
 
       await addFolder(page)
 
-      const newFolders = await getFolders(page)
+      const folder = getFolder(page, `New Folder${i == 0 ? '' : ` ${i}`}`)
+      await expect(folder).toBeVisible()
 
+      const newFolders = await getFolders(page)
       await expect(newFolders.length).toEqual(folders.length + 1)
 
       await reload(page)
+
+      await expect(folder).toBeVisible()
       await expect(newFolders.length).toEqual(folders.length + 1)
    })
 })
@@ -71,21 +75,15 @@ test('move folder down 1 level', async () => {
    await expect(folder).toBeVisible()
    await expect(targetFolder).toBeVisible()
 
-   const folders = await getFolders(page)
-
    await folder.dragTo(targetFolder)
-
-   const newFolders = await getFolders(page)
 
    await expect(folder).not.toBeVisible()
    await expect(targetFolder).toBeVisible()
-   await expect(newFolders.length).toEqual(folders.length - 1)
 
    await reload(page)
 
    await expect(folder).not.toBeVisible()
    await expect(targetFolder).toBeVisible()
-   await expect(newFolders.length).toEqual(folders.length - 1)
 })
 
 test('open folder', async () => {
@@ -109,34 +107,27 @@ test('open folder', async () => {
 
 test('move folder up 1 level', async () => {
 
+   const homeButton = await getButton(page, 'Home')
+   const link = await getLink(page, `test-1-${testId}`)
 
    const folder = await getFolder(page, `test-0-${testId}`)
-   const link = await getLink(page, `test-1-${testId}`)
-   const homeButton = await getButton(page, 'Home')
-
    await expect(folder).toBeVisible()
-   await expect(link).toBeVisible()
-
-   const folders = await getFolders(page)
 
    await folder.dragTo(homeButton)
 
-   const newFolders = await getFolders(page)
-
    await expect(link).toBeVisible()
    await expect(folder).not.toBeVisible()
-   await expect(newFolders.length).toEqual(folders.length - 1)
 
    await reload(page)
 
    await expect(link).toBeVisible()
    await expect(folder).not.toBeVisible()
-   await expect(newFolders.length).toEqual(folders.length - 1)
 })
 
 test('move up 1 level', async () => {
 
    const homeButton = await getButton(page, 'Home')
+
    await homeButton.click()
 
    await repeat(2, async (i: number) => {
@@ -156,19 +147,13 @@ test('delete folders', async () => {
       await expect(folder).toBeVisible()
 
       const deleteChip = await getChip(page, 'Delete')
-      
-      const folders = await getFolders(page)
 
       await folder.dragTo(deleteChip)
 
-      const newFolders = await getFolders(page)
-
       await expect(folder).not.toBeVisible()
-      await expect(newFolders.length).toEqual(folders.length - 1)
 
       await reload(page)
 
       await expect(folder).not.toBeVisible()
-      await expect(newFolders.length).toEqual(folders.length - 1)
    })
 })

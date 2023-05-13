@@ -13,7 +13,7 @@ export async function close(page: Page) {
    await page.close()
 }
 
-export async function repeat(n, test) {
+export async function repeat(n: number, test: (args) => Promise<void>) {
    for await (const i of Array.from({ length: n }, (_, i) => i)) {
       await test(i)
    }
