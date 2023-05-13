@@ -40,13 +40,13 @@ async function start() {
       try {
          if (range) {
 
-            const { start, end, chunkSize, length } = await getRangeValues(id, range)
+            const { start, end, chunkSize, length, contentType } = await getRangeValues(id, range)
 
             res.writeHead(206, {
                "Content-Range": `bytes ${start}-${end}/${length}`,
                "Accept-Ranges": "bytes",
                "Content-Length": chunkSize,
-               "Content-Type": "video/mp4",
+               "Content-Type": contentType,
             })
 
             streamFile(id, { start, end }).pipe(res)

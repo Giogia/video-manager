@@ -52,7 +52,7 @@ export async function removeFiles(parent: string) {
 
 export async function getRangeValues(id: string, range = "bytes=0-") {
 
-   const { chunkSize, length, contentType } = await findFile(id)
+   const { chunkSize, length, contentType = "video/mp4" } = await findFile(id)
 
    const [start, end] = range
       .replace("bytes=", "")
@@ -66,7 +66,7 @@ export async function getRangeValues(id: string, range = "bytes=0-") {
       end: endFile,
       chunkSize: Math.min(chunkSize, endFile - start),
       length,
-      contentType: contentType || "video/mp4"
+      contentType
    }
 }
 
