@@ -101,7 +101,7 @@ yarn test-e2e
   <a href="https://the-guild.dev/graphql/yoga-server">Yoga Server</a>
   &nbsp
   <img src="https://user-images.githubusercontent.com/9254840/232626853-a784deeb-069f-42d5-8d83-900ff705c8a1.png" height="24" align="top"> 
-  <a href="https://typegraphql.com/">Type GraphQl</a>
+  <a href="https://typegraphql.com/">TypeGraphQL</a>
 </div>
  
  <br/>
