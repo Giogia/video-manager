@@ -30,12 +30,13 @@ export const MoveFolderLink = ({ ...props }: LinkProps & WithDropProps) => {
 
    const [commitMutation] = useMutation<LinkMoveFolderMutation>(moveFolder)
 
-   const path = window.location.pathname
-
    return <LinkWithDrop
       {...props}
       error={error}
-      action={({ name }, newPath) =>
+      action={({ name }, newPath) => {
+
+         const path = window.location.pathname
+
          path !== newPath && commitMutation({
             variables: {
                path,
@@ -44,6 +45,6 @@ export const MoveFolderLink = ({ ...props }: LinkProps & WithDropProps) => {
             },
             onError: e => setError(e as GraphQLError)
          })
-      }
+      }}
    />
 }

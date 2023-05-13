@@ -31,20 +31,21 @@ export const MoveFolderFolder = ({ ...props }: FolderProps) => {
 
    const [commitMutation] = useMutation<FolderMoveFolderMutation>(moveFolder)
 
-   const path = window.location.pathname
-
    return <FolderWithDrop
       {...props}
       error={error}
-      action={({ name }, targetName) =>
+      action={({ name }, targetName) => {
+
+         const path = window.location.pathname
+
          name !== targetName && commitMutation({
             variables: {
-               path,
                name,
+               path,
                newPath: combinePath(path, targetName)
             },
             onError: e => setError(e as GraphQLError)
          })
-      }
+      }}
    />
 }

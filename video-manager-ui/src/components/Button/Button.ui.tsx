@@ -9,7 +9,7 @@ export interface ButtonProps {
    /**
     * Button functionality
     */
-   action?: (e: unknown) => void
+   action?: (e: any) => void
    /**
     * Whether the button is active
     */

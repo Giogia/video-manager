@@ -56,8 +56,6 @@ export const AddFolderButton = ({ ...props }: Partial<ButtonProps> & WithRespons
 
    const [commitMutation, isMutationInFlight] = useMutation<ButtonAddFolderMutation>(addFolder)
 
-   const path = window.location.pathname
-
    // const { id, children } = optimisticResponse
 
    return <Button {...props}
@@ -66,7 +64,7 @@ export const AddFolderButton = ({ ...props }: Partial<ButtonProps> & WithRespons
       loading={isMutationInFlight}
       action={() => commitMutation({
          variables: {
-            path,
+            path: window.location.pathname,
             name: NEW_FOLDER
          },
          onError: e => setError(e as GraphQLError)
@@ -94,8 +92,6 @@ export const UploadVideoButton = ({ ...props }: Partial<ButtonProps>) => {
 
    const [commitMutation, isMutationInFlight] = useMutation<ButtonUploadVideoMutation>(uploadVideo)
 
-   const path = window.location.pathname
-
    return (
       <UploadButton {...props}
          error={error}
@@ -104,7 +100,7 @@ export const UploadVideoButton = ({ ...props }: Partial<ButtonProps>) => {
          action={(video) => commitMutation({
             uploadables: { video },
             variables: {
-               path,
+               path: window.location.pathname,
                video: null
             },
             onError: e => setError(e as GraphQLError)

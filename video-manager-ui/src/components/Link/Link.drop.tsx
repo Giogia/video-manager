@@ -8,10 +8,10 @@ import { WithErrorProps } from './Link.error'
 import { DRAGGABLES } from '../../utils/drag'
 
 export interface WithDropProps {
-  /**
-   * Action called on drop
-   */
-  action?: (...args: unknown[]) => void
+   /**
+    * Action called on drop
+    */
+   action?: (...args: any[]) => void
 }
 
 /**
