@@ -28,6 +28,7 @@ export class Video {
    @Field()
    size!: number
 }
+
 @InputType()
 export class VideoInput {
    /**

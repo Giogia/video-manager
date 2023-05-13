@@ -7,6 +7,7 @@ import { composeDirectory } from "../utils/directory"
 import { firstMissingName, startsWith } from "../utils/name"
 import { addNode, findNode, findNodes, editNode, removeNode } from "../utils/node"
 import { combinePath, isRoot } from "../utils/path"
+
 @Resolver(() => Directory)
 export class DirectoryResolver {
    /**
