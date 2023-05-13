@@ -2,6 +2,7 @@ import { GridFSBucketReadStreamOptions, GridFSBucketWriteStreamOptions, GridFSFi
 
 import { Node } from "../schema/node"
 import { loadBucket } from "./database"
+import { findChildren } from "./node"
 
 export function uploadFile(id: string, options?: GridFSBucketWriteStreamOptions) {
    return loadBucket()
@@ -22,13 +23,7 @@ export async function findFile(id: string): Promise<GridFSFile> {
 
 export async function findFiles(nodes: Node[]): Promise<GridFSFile[]> {
    return loadBucket()
-      .find({
-         filename: {
-            $in: nodes
-               .filter(({ data }) => data)
-               .map(({ data }) => data!)
-         }
-      })
+      .find({ filename: { $in: getFileIds(nodes) } })
       .toArray()
 }
 
@@ -40,9 +35,24 @@ export async function removeFile(id: string) {
       .delete(_id)
 }
 
+export async function removeFiles(parent: string) {
+
+   const childrenNodes = await findChildren(parent)
+
+   const files = childrenNodes.reduce((ids, { data, children = [] }) => ([
+      ...ids,
+      ...data ? [data] : [],
+      ...getFileIds(children)
+   ]), [] as string[])
+
+   return Promise.all(
+      files.map(file => removeFile(file))
+   )
+}
+
 export async function getRangeValues(id: string, range = "bytes=0-") {
 
-   const { chunkSize, length } = await findFile(id)
+   const { chunkSize, length, contentType } = await findFile(id)
 
    const [start, end] = range
       .replace("bytes=", "")
@@ -55,8 +65,15 @@ export async function getRangeValues(id: string, range = "bytes=0-") {
       start,
       end: endFile,
       chunkSize: Math.min(chunkSize, endFile - start),
-      length
+      length,
+      contentType: contentType || "video/mp4"
    }
+}
+
+export function getFileIds(nodes: Node[]): string[] {
+   return nodes
+      .filter(({ data }) => data)
+      .map(({ data }) => data!)
 }
 
 export function getFileSize(files: GridFSFile[], id: string): number {

@@ -7,10 +7,11 @@ import { composeDirectory } from "../utils/directory"
 import { firstMissingName, startsWith } from "../utils/name"
 import { addNode, findNode, findNodes, editNode, removeNode } from "../utils/node"
 import { combinePath, isRoot } from "../utils/path"
+import { removeFiles } from "../utils/file"
 
 @Resolver(() => Directory)
 export class DirectoryResolver {
-   
+
    /**
     * Query resolver that retrieves a directory.
     *
@@ -216,6 +217,10 @@ export class DirectoryResolver {
             if (!node) throw new GraphQLError("Directory does not exist.")
 
             const { id } = node
+
+            await removeFiles(id).catch(() => {
+               console.log("Failed to remove directory files.")
+            })
 
             await removeNode(id).catch(() => {
                throw new GraphQLError("Directory does not exist.")

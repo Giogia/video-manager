@@ -31,11 +31,9 @@ export async function removeNode(parent: string) {
 
    const ids = childrenNodes.reduce((ids, { id, children = [] }) => ([
       ...ids,
-      ...children.map(({ id }: Node) => id),
+      ...children.map(({ id }) => id),
       id
    ]), [parent])
-
-   // TODO get video ids to delete
 
    return NodeModel.deleteMany({
       id: { $in: ids }

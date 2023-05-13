@@ -7,7 +7,7 @@ import { findNode, findChildren } from "./node"
 import { combinePath } from "./path"
 
 export function getMaxDepth(query?: string) {
-   
+
    return query
       ?.match(/children/g)
       ?.slice(1, -1)
