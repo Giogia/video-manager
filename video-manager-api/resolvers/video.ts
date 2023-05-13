@@ -20,12 +20,12 @@ export class VideoResolver {
 
          if (!parentNode) throw new GraphQLError(`Directory ${path} does not exists.`)
 
-         const { filename, createReadStream } = await video
+         const { filename, createReadStream, mimetype } = await video
 
          const id = Date.now().toString()
 
-         const uploadStream = uploadFile(id)
          const readStream = createReadStream()
+         const uploadStream = uploadFile(id, { contentType: mimetype })
 
          await new Promise(resolve => readStream.pipe(uploadStream)
             .on("close", resolve)
@@ -94,7 +94,7 @@ export class VideoResolver {
 
       try {
          if (!isRoot(path, name)) {
-            
+
             const node = await findNode(videoPath)
 
             if (!node) throw new GraphQLError("Video does not exists.")

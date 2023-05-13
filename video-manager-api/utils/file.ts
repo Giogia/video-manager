@@ -1,11 +1,11 @@
-import { GridFSBucketReadStreamOptions, GridFSFile } from "mongodb"
+import { GridFSBucketReadStreamOptions, GridFSBucketWriteStreamOptions, GridFSFile } from "mongodb"
 
 import { Node } from "../schema/node"
 import { loadBucket } from "./database"
 
-export function uploadFile(id: string) {
+export function uploadFile(id: string, options?: GridFSBucketWriteStreamOptions) {
    return loadBucket()
-      .openUploadStream(id)
+      .openUploadStream(id, options)
 }
 
 export function streamFile(id: string, options?: GridFSBucketReadStreamOptions) {

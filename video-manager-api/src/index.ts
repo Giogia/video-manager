@@ -37,21 +37,25 @@ async function start() {
       const { id } = params
       const { range } = headers
 
-      const { start, end, chunkSize, length } = await getRangeValues(id, range)
+      try {
+         if (range) {
 
-      res.writeHead(206, {
-         "Content-Range": `bytes ${start}-${end}/${length}`,
-         "Accept-Ranges": "bytes",
-         "Content-Length": chunkSize,
-         "Content-Type": "video/mp4",
-      })
+            const { start, end, chunkSize, length } = await getRangeValues(id, range)
 
-      streamFile(id, { start, end })
-         .on("error", (err) => {
-            console.error(`Error while streaming file: ${err}`)
-            res.sendStatus(500)
-         })
-         .pipe(res)
+            res.writeHead(206, {
+               "Content-Range": `bytes ${start}-${end}/${length}`,
+               "Accept-Ranges": "bytes",
+               "Content-Length": chunkSize,
+               "Content-Type": "video/mp4",
+            })
+
+            streamFile(id, { start, end }).pipe(res)
+         }
+         streamFile(id).pipe(res)
+      }
+      catch (e) {
+         console.log(e)
+      }
    })
 
    app.listen(4000, () => {

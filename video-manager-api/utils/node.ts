@@ -35,6 +35,8 @@ export async function removeNode(parent: string) {
       id
    ]), [parent])
 
+   // TODO get video ids to delete
+
    return NodeModel.deleteMany({
       id: { $in: ids }
    })
