@@ -23,7 +23,9 @@ export const Playground: StoryFn<typeof Snackbar> = (args) => {
 
    const [error, setError] = useState(composeError(args.error))
 
-   useEffect(() => setError(composeError(args.error)))
+   useEffect(() => {
+      if (args.error) setError(composeError(args.error))
+   }, [args.error])
 
    return (
       <Box sx={{ textAlign: 'center' }}>
