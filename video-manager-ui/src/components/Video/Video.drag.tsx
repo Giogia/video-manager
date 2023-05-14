@@ -27,8 +27,7 @@ export const VideoWithDrag = ({ ...props }: VideoProps) => {
          ...preview ? {
             sx: {
                opacity: isDragging ? 0 : 1,
-               transform: 'translate(0,0)',
-               transition: 'opacity 0.2s ease-in-out'
+               transform: 'translate(0,0)'
             }
          } : { ref: drag }
       }>
