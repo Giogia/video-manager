@@ -3,6 +3,10 @@ import Typography from '@mui/material/Typography'
 
 export interface CaptionProps {
    /**
+    * Whether the caption is active
+    */
+   disabled?: boolean
+   /**
     * Description of the caption
    */
    text: string
@@ -11,15 +15,19 @@ export interface CaptionProps {
 /**
  * Primary UI component for giving descriptions
  */
-export const Caption = ({ text }: CaptionProps) => (
+export const Caption = ({ text, disabled }: CaptionProps) => (
    <Typography
       variant='caption'
-      sx={{ fontSize: 9, opacity: 0.75 }}
+      sx={{ 
+         fontSize: 9, 
+         opacity: disabled ? 0.5 : 0.75 
+      }}
    >
       {text}
    </Typography>
 )
 
 Caption.defaultProps = {
+   disabled: false,
    text: 'caption'
 }

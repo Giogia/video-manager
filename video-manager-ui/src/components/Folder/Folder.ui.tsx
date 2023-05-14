@@ -66,6 +66,7 @@ export const Folder = ({ name, loading, error, onClick, selected, count }: Folde
             <Caption
                text={`${count ? count : 'no'} item${count !== 1 ? 's' : ''}`}
                loading={loading}
+               disabled={selected}
             />
          </Grid>
       }
