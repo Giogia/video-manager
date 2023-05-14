@@ -59,12 +59,9 @@ export async function getRangeValues(id: string, range = "bytes=0-") {
       .split("-")
       .map(n => parseInt(n))
 
-   const endFile = end || Math.min(start + chunkSize, length)
-
    return {
       start,
-      end: endFile,
-      chunkSize: Math.min(chunkSize, endFile - start),
+      end: end || Math.min(start + chunkSize, length),
       length,
       contentType
    }

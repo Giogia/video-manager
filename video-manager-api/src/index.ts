@@ -40,16 +40,19 @@ async function start() {
       try {
          if (range) {
 
-            const { start, end, chunkSize, length, contentType } = await getRangeValues(id, range)
+            const { start, end, length, contentType } = await getRangeValues(id, range)
+            
+            if (end < length) {
 
-            res.writeHead(206, {
-               "Content-Range": `bytes ${start}-${end}/${length}`,
-               "Accept-Ranges": "bytes",
-               "Content-Length": chunkSize,
-               "Content-Type": contentType,
-            })
+               res.writeHead(206, {
+                  "Content-Range": `bytes ${start}-${end}/${length}`,
+                  "Accept-Ranges": "bytes",
+                  "Content-Length": end - start,
+                  "Content-Type": contentType,
+               })
 
-            streamFile(id, { start, end }).pipe(res)
+               streamFile(id, { start, end }).pipe(res)
+            }
          }
          streamFile(id).pipe(res)
       }
