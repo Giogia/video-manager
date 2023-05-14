@@ -51,7 +51,7 @@ export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) =
          title={
             <Breadcrumbs
                path={path}
-               loading={loading && path !== window.location.pathname}
+               loading={loading}
             />
          }
          action={

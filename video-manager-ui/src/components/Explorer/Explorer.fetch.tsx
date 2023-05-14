@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'babel-plugin-relay/macro'
 import { PreloadedQuery, usePreloadedQuery, useFragment } from 'react-relay'
+import { useLocation } from 'react-router-dom'
 
 import { Explorer_directory$key } from './__generated__/Explorer_directory.graphql'
 import { ExplorerQuery } from './__generated__/ExplorerQuery.graphql'
@@ -48,10 +49,12 @@ export const ExplorerWithFetch = ({ queryRef }: WithFetchProps) => {
    const { getDirectory } = usePreloadedQuery<ExplorerQuery>(query, queryRef)
    const { id, children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
 
+   const { pathname } = useLocation()
+
    return (
       <Explorer
          id={id}
-         path={window.location.pathname}
+         path={pathname}
          content={
             children.map((child, i) => {
                return (

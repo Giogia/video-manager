@@ -8,7 +8,7 @@ export interface CaptionProps {
    disabled?: boolean
    /**
     * Description of the caption
-   */
+    */
    text: string
 }
 

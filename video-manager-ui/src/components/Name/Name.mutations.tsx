@@ -51,16 +51,19 @@ export const Rename = <T extends MutationParameters,>({ editable, mutation, ...p
       {...props}
       error={error}
       editable={editable && !isMutationInFlight}
-      onChange={(newName: string, oldName: string) =>
+      onChange={(newName: string, oldName: string) => {
+
+         const path = window.location.pathname
+
          newName !== oldName && commitMutation({
             variables: {
-               path: window.location.pathname,
+               path,
                oldName,
                newName,
             },
             onError: e => setError(e as GraphQLError)
          })
-      }
+      }}
    />
 }
 

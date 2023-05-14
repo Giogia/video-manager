@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { combinePath } from '../../utils/path'
 
 import { FolderWithDrag } from './Folder.drag'
@@ -12,7 +12,9 @@ export const FolderWithRouter = ({ ...props }: FolderProps) => {
 
    const navigate = useNavigate()
 
-   const path = combinePath(window.location.pathname, props.name)
+   const { pathname } = useLocation()
+
+   const path = combinePath(pathname, props.name)
 
    return (
       <FolderWithDrag {...props}

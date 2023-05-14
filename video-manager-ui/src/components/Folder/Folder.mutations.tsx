@@ -26,7 +26,7 @@ const moveFolder = (
  * Component Wrapper for creating new folders
  */
 export const MoveFolderFolder = ({ ...props }: FolderProps) => {
-  
+
    const [error, setError] = useState(new GraphQLError(''))
 
    const [commitMutation] = useMutation<FolderMoveFolderMutation>(moveFolder)

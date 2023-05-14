@@ -4,10 +4,10 @@ import { sep } from 'path'
 import { MoveFolderLink } from '../Link'
 
 export interface BreadcrumbsProps {
-  /**
-   * Current Directory
-   */
-  path: string
+   /**
+    * Current Directory
+    */
+   path: string
 }
 
 /**

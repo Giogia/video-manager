@@ -35,7 +35,10 @@ export const Link = ({ name, href, isRoot, selected }: LinkProps) => {
       <LinkMui
          aria-disabled={selected}
          underline={selected ? 'none' : 'hover'}
-         onClick={() => navigate(href)}
+         onClick={(e) => {
+            e.preventDefault()
+            navigate(href)
+         }}
          href={href}
          role='link'
       >

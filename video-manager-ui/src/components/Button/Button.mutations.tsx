@@ -38,13 +38,13 @@ const uploadVideo = (
   `
 )
 export interface WithResponseProps {
-  /**
-   * Explorer content after add folder mutation
-   */
-  optimisticResponse: {
-    id?: string
-    children: { props: { id: string, name: string, path: string } }[]
-  }
+   /**
+    * Explorer content after add folder mutation
+    */
+   optimisticResponse: {
+      id?: string
+      children: { props: { id: string, name: string, path: string } }[]
+   }
 }
 
 /**
@@ -68,17 +68,17 @@ export const AddFolderButton = ({ ...props }: Partial<ButtonProps> & WithRespons
             name: NEW_FOLDER
          },
          onError: e => setError(e as GraphQLError)
-      // optimisticResponse: {
-      //   addDirectory: {
-      //     id,
-      //     children: [
-      //       ...children, {
-      //         name: NEW_FOLDER,
-      //         path: combinePath(path, NEW_FOLDER)
-      //       }
-      //     ]
-      //   }
-      // }
+         // optimisticResponse: {
+         //   addDirectory: {
+         //     id,
+         //     children: [
+         //       ...children, {
+         //         name: NEW_FOLDER,
+         //         path: combinePath(path, NEW_FOLDER)
+         //       }
+         //     ]
+         //   }
+         // }
       })}
    />
 }
