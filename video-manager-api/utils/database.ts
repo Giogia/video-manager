@@ -1,12 +1,14 @@
 import mongoose from "mongoose"
 import { GridFSBucketOptions } from "mongodb"
+import { log } from "console"
 
 export async function loadDatabase(dbName = "video-manager", options: mongoose.ConnectOptions = {}) {
    await mongoose.connect(process.env.MONGO_DB_URL!, {
       dbName,
       ...options
    })
-   console.log(`Connected to ${dbName} Database`)
+   
+   log(`Connected to ${dbName} Database`)
 }
 
 export function loadBucket(bucketName = "uploads", options: GridFSBucketOptions = {}) {
@@ -18,5 +20,6 @@ export function loadBucket(bucketName = "uploads", options: GridFSBucketOptions 
 
 export async function disconnect() {
    await mongoose.connection.close()
-   console.log("Disconnected from Database")
+   
+   log("Disconnected from Database")
 }

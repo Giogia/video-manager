@@ -1,3 +1,4 @@
+import { log } from "console"
 import { GraphQLError } from "graphql"
 import { YogaInitialContext } from "graphql-yoga"
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql"
@@ -219,7 +220,7 @@ export class DirectoryResolver {
             const { id } = node
 
             await removeFiles(id).catch(() => {
-               console.log("Failed to remove directory files.")
+               log("Failed to remove directory files.")
             })
 
             await removeNode(id).catch(() => {

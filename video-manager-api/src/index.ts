@@ -7,9 +7,9 @@ import { createYoga } from "graphql-yoga"
 
 import { DirectoryResolver } from "../resolvers/directory"
 import { VideoResolver } from "../resolvers/video"
-import { loadDatabase } from "../utils/database"
-import { getRangeValues, streamFile } from "../utils/file"
 import { graphqlUploadExpress } from "../utils/upload"
+import { loadDatabase } from "../utils/database"
+import { streamVideo } from "../utils/stream"
 
 async function start() {
 
@@ -30,40 +30,9 @@ async function start() {
       graphiql: { title: "API Documentation" }
    }))
 
-   app.get("/videos/:id", async (req, res) => {
+   app.get("/videos/:id", streamVideo)
 
-      const { params, headers } = req
-
-      const { id } = params
-      const { range } = headers
-
-      try {
-         if (range) {
-
-            const { start, end, length, contentType } = await getRangeValues(id, range)
-            
-            if (end < length) {
-
-               res.writeHead(206, {
-                  "Content-Range": `bytes ${start}-${end}/${length}`,
-                  "Accept-Ranges": "bytes",
-                  "Content-Length": end - start,
-                  "Content-Type": contentType,
-               })
-
-               streamFile(id, { start, end }).pipe(res)
-            }
-         }
-         streamFile(id).pipe(res)
-      }
-      catch (e) {
-         console.log(e)
-      }
-   })
-
-   app.listen(4000, () => {
-      loadDatabase()
-   })
+   app.listen(4000, loadDatabase)
 }
 
 start()

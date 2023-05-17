@@ -50,23 +50,6 @@ export async function removeFiles(parent: string) {
    )
 }
 
-export async function getRangeValues(id: string, range = "bytes=0-") {
-
-   const { chunkSize, length, contentType = "video/mp4" } = await findFile(id)
-
-   const [start, end] = range
-      .replace("bytes=", "")
-      .split("-")
-      .map(n => parseInt(n))
-
-   return {
-      start,
-      end: end || Math.min(start + chunkSize, length),
-      length,
-      contentType
-   }
-}
-
 export function getFileIds(nodes: Node[]): string[] {
    return nodes
       .filter(({ data }) => data)
