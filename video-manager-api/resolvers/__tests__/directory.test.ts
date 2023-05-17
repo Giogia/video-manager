@@ -245,7 +245,8 @@ describe("Resolvers", () => {
 
          expect(data1).toEqual({
             addDirectory: {
-               ...directory, children: [childDirectory,
+               ...directory, children: [
+                  childDirectory,
                   { ...childDirectory, name: "Child 1" }
                ]
             }
@@ -409,9 +410,7 @@ describe("Resolvers", () => {
                ...parentDirectory, children: [
                   {
                      ...siblingDirectory, children: [
-                        {
-                           ...directory, children: []
-                        },
+                        { ...directory, children: [] },
                         siblingChildDirectory,
                      ]
                   }

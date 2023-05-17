@@ -69,6 +69,7 @@ export class DirectoryResolver {
 
       try {
          if (!isRoot(path, name)) {
+            
             const parentNode = await findNode(path)
 
             if (!parentNode) throw new GraphQLError(`Directory ${decodeURI(path)} does not exist.`)

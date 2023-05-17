@@ -1,3 +1,8 @@
+/**
+ * The import statements in this module reference package files without available type definitions.
+ * This directive disables type checking for the imported files.
+ */
+
 // @ts-nocheck
 
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs"

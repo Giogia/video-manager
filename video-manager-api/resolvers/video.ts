@@ -11,7 +11,7 @@ import { removeFile, uploadFile } from "../utils/file"
 
 @Resolver(() => Video)
 export class VideoResolver {
-   
+
    /**
     * Mutation resolver that uploads a video.
     *

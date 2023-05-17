@@ -6,16 +6,32 @@ import { findFiles, getFileSize } from "./file"
 import { findNode, findChildren } from "./node"
 import { combinePath } from "./path"
 
-export function getMaxDepth(query?: string) {
-
+/**
+ * Calculates the maximum depth of nested "children" in the provided query string.
+ * @param query - The query string to search for "children" occurrences.
+ * @returns The maximum depth of nested "children" or 0 if no "children" occurrences are found.
+ */
+export function getMaxDepth(query?: string): number {
    return query
       ?.match(/children/g)
       ?.slice(1, -1)
       .length || 0
 }
 
-export function composeChild(files: GridFSFile[], maxDepth: number, currentDepth = 0, allChildren: Node[] = []) {
-
+/**
+ * Composes a child object for a given node, recursively generating child objects based on the specified maximum depth.
+ * @param files - The array of GridFS files.
+ * @param maxDepth - The maximum depth for generating child objects.
+ * @param currentDepth - The current depth in the composition process (default: 0).
+ * @param allChildren - All available children nodes (default: []).
+ * @returns An asynchronous function that composes a child object for a given node.
+ */
+export function composeChild(
+   files: GridFSFile[],
+   maxDepth: number,
+   currentDepth = 0,
+   allChildren: Node[] = []
+) {
    return async ({ id, name, data, children = [] }: Node): Promise<Child> => {
 
       const childNodes = children.length > 0 ? children : allChildren
@@ -48,6 +64,12 @@ export function composeChild(files: GridFSFile[], maxDepth: number, currentDepth
    }
 }
 
+/**
+ * Composes a directory object with its children based on the specified path and optional query.
+ * @param path - The path of the directory.
+ * @param query - The optional query string for determining the maximum depth of nested "children".
+ * @returns A Promise that resolves to the composed directory object or null if the directory is not found.
+ */
 export async function composeDirectory(path: string, query?: string): Promise<Directory | null> {
 
    const maxDepth = getMaxDepth(query)
@@ -71,8 +93,7 @@ export async function composeDirectory(path: string, query?: string): Promise<Di
          }
       }
       return null
-   }
-   catch (e) {
+   } catch (e) {
       return null
    }
 }
