@@ -18,9 +18,6 @@ EXPOSE 3000
 # Serve the app
 CMD ["yarn", "start"]
 
-# Launch Storybook
-CMD ["yarn", "storybook"]
-
 FROM development as dev-envs
 RUN <<EOF
 apt-get update
