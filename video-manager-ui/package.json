@@ -10,6 +10,7 @@
     "lint": "npx eslint '**/*.ts' '**/*.tsx' --fix --ignore-pattern node_modules/",
     "eject": "react-scripts eject",
     "test": "react-scripts test",
+    "test-components": "test-storybook --watch",
     "test-e2e": "playwright test --ui",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
