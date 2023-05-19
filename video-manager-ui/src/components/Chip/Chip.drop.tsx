@@ -36,11 +36,10 @@ export const ChipWithDrop = ({ action, ...props }: ChipProps & WithErrorProps & 
             sx={{
                ...props.sx,
                padding: 2.1,
-               paddingLeft: isOver ? 3 : 1,
-               paddingRight: isOver ? 3 : 1,
-               backgroundColor: isDragging ? 'background.default' : 'transparent',
+               paddingRight: isOver ? 8 : 1,
                color: isOver ? 'error.light' : 'default',
-               transitionProperty: 'padding, background-color, opacity',
+               backgroundColor: isDragging ? 'background.default' : 'transparent',
+               transitionProperty: 'padding, background-color,  color',
                transitionDuration: '0.15s',
                transitionTimingFunction: 'ease-in-out'
             }}
