@@ -6,11 +6,6 @@ FROM node:lts-buster-slim AS development
 # Create app directory
 WORKDIR /usr/src/app
 
-# Copy dependency definitions
-# COPY package.json /usr/src/app
-# COPY schema.gql /usr/src/app
-# COPY yarn.lock /usr/src/app
-
 # Get all the code needed to run the app
 COPY . /usr/src/app
 
