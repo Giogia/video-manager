@@ -32,10 +32,10 @@ Playground.play = async ({ args, canvasElement }) => {
    const name = formatName(args.icon)
    const iconName = `${args.icon}-icon`
 
-   const button = canvas.getByRole('button')
+   const button = canvas.getByTestId(`${args.icon}-button`)
    const icon = canvas.getByTestId(iconName)
 
-   expect(button.id).toEqual(`${args.icon}-button`)
+   expect(button).toBeVisible()
    expect(icon).toBeVisible()
 
    if (!args.disabled) {

@@ -24,9 +24,8 @@ export const Playground: StoryFn<typeof Folder> = (args) => (
 Playground.play = async ({ args, canvasElement }) => {
    const canvas = within(canvasElement)
 
-   const button = canvas.getByRole('button')
+   const button = canvas.getByTestId('folder-button')
    expect(button).toBeVisible()
-   expect(button.id).toEqual('folder-button')
 
    if (!args.loading) {
       expect(canvas.getByText(args.name)).toBeVisible()

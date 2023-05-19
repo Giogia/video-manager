@@ -45,10 +45,8 @@ Playground.play = async ({ args, canvasElement }) => {
 
       expect(name).toBeVisible()
 
-      const closeButton = canvas.getByRole('button')
-
+      const closeButton = canvas.getByTestId('close-button')
       expect(closeButton).toBeVisible()
-      expect(closeButton.id).toEqual('close-button')
 
       await userEvent.click(closeButton)
       await sleep(2000)

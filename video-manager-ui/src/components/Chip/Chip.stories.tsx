@@ -29,13 +29,12 @@ Playground.play = async ({ args, canvasElement }) => {
 
    const canvas = within(canvasElement)
    const name = formatName(args.icon)
-   const iconName = `${args.icon}-icon`
 
-   const chip = canvas.getByRole('button')
-   const icon = canvas.getByTestId(iconName)
+   const chip = canvas.getByTestId(`${args.icon}-chip`)
+   const icon = canvas.getByTestId(`${args.icon}-icon`)
    const title = canvas.getByText(name)
 
-   expect(chip.id).toEqual(`${args.icon}-chip`)
+   expect(chip).toBeVisible()
    expect(icon).toBeVisible()
    expect(title).toBeVisible()
 

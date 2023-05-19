@@ -39,6 +39,7 @@ export const Button = ({ action, size, icon, disabled, tooltip, sx }: ButtonProp
    <Tooltip title={tooltip && formatName(icon)}>
       <span id={`${icon}-button`}>
          <IconButton
+            data-testid={`${icon}-button`}
             disabled={disabled}
             onClick={action}
             role='button'
