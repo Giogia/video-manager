@@ -85,6 +85,11 @@ Execute unit tests:
 yarn test
 ```
 
+Execute interaction tests using Storybook [`test runner`](https://storybook.js.org/docs/react/writing-tests/test-runner):
+```bash
+yarn test-components
+```
+
 Execute E2E Tests using [`Playwright`](https://playwright.dev/) runner tool:
 ```bash
 yarn test-e2e
