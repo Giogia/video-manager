@@ -1,6 +1,12 @@
 import { Page, expect } from '@playwright/test'
 import { Theme } from '@mui/material'
 
+/**
+ * Converts a hexadecimal color code to an RGB color code.
+ *
+ * @param hex - The hexadecimal color code to convert.
+ * @returns The RGB color code.
+ */
 export function hexToRgb(hex: string): string {
    hex = hex.replace(/^#/, '')
 
@@ -13,6 +19,12 @@ export function hexToRgb(hex: string): string {
    return `rgb(${red}, ${green}, ${blue})`
 }
 
+/**
+ * Checks if the page has a specified theme applied.
+ *
+ * @param page - The page to check.
+ * @param theme - The theme to check against.
+ */
 export async function hasTheme(page: Page, theme: Theme) {
 
    await expect(page.locator('#app')).toHaveCSS(

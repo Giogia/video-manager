@@ -9,6 +9,9 @@ import { App } from './App'
 
 import './index.css'
 
+/**
+ * The root element for rendering the React application.
+ */
 const root = createRoot(
   document.getElementById('root') as HTMLElement
 )

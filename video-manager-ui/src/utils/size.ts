@@ -1,3 +1,10 @@
+/**
+ * Formats a number representing a size into a human-readable string with the appropriate unit.
+ *
+ * @param number - The number representing the size.
+ * @param digits - The number of digits to include after the decimal point (default: 1).
+ * @returns A formatted string representing the size with the appropriate unit.
+ */
 export const formatSize = (number = 0, digits = 1): string => {
     
    const sizes = [
