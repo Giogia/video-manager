@@ -7,16 +7,15 @@ FROM node:lts-buster-slim AS development
 WORKDIR /usr/src/app
 
 # Copy dependency definitions
-COPY package.json /usr/src/app
-COPY schema.gql /usr/src/app
-COPY yarn.lock /usr/src/app
-
-# Install dependecies
-ENV YARN_VERSION=3.3.0
-RUN yarn install
+# COPY package.json /usr/src/app
+# COPY schema.gql /usr/src/app
+# COPY yarn.lock /usr/src/app
 
 # Get all the code needed to run the app
 COPY . /usr/src/app
+
+# Install dependecies
+RUN yarn install
 
 # Expose the port the app runs in
 EXPOSE 4000
