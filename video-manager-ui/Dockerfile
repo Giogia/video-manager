@@ -13,10 +13,10 @@ COPY . /usr/src/app
 RUN yarn install
 
 # Expose the port the app runs in
-EXPOSE 3000
+EXPOSE 3000 6000
 
 # Serve the app
-CMD ["yarn", "start"]
+CMD ["yarn", "start", "&&", "yarn", "storybook"]
 
 FROM development as dev-envs
 RUN <<EOF
@@ -31,4 +31,4 @@ usermod -aG docker vscode
 EOF
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
-CMD [ "yarn", "start" ]
+CMD ["yarn", "start", "&&", "yarn", "storybook"]
