@@ -21,7 +21,15 @@
 </div>
 
 <br/>
-<br/>
+<br/> 
+
+<div align="center">
+ <img src="https://github.com/Giogia/video-manager/assets/9254840/7f2cf17e-8003-438a-8b04-a4a82d794211" height="48">
+</div>
+
+<div align="center">
+  <a href="https://open.docker.com/dashboard/dev-envs?url=https://github.com/Giogia/video-manager.git">Open in Docker Dev Environments</a> 
+</div>
 
 ### Get Started
 
