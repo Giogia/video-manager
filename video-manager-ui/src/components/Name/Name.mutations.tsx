@@ -79,7 +79,7 @@ export const RenameFolder = ({ ...props }: NameProps & WithLoadingProps) => (
 )
 
 /**
- * Component Wrapper for renaming videos (renames also saved file)
+ * Component Wrapper for renaming videos
  */
 export const RenameVideo = ({ ...props }: NameProps & WithLoadingProps) => (
    <Rename<NameRenameVideoMutation>

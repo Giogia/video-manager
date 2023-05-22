@@ -36,7 +36,7 @@ const deleteVideo = (
 )
 
 /**
- * Component Wrapper for creating new folders
+ * Component Wrapper for deleting folders or videos
  */
 export const DeleteFolderChip = () => {
 

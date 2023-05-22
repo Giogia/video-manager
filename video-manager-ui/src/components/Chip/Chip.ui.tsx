@@ -37,7 +37,9 @@ export interface ChipProps {
  * Primary UI component for user interaction
  */
 export const Chip = ({ action, icon, disabled, label, tooltip, sx }: ChipProps) => (
-   <Tooltip title={tooltip}>
+   <Tooltip
+      title={tooltip}
+   >
       <span id={`${icon}-chip`}>
          <MuiChip
             data-testid={`${icon}-chip`}

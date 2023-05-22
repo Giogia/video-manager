@@ -5,6 +5,7 @@ import Tooltip from '@mui/material/Tooltip'
 import { Icon, icons } from '../Icon'
 import { formatName } from '../../utils/name'
 import { SxProps, Theme } from '@mui/material'
+
 export interface ButtonProps {
    /**
     * Button functionality
@@ -36,7 +37,9 @@ export interface ButtonProps {
  * Primary UI component for user interaction
  */
 export const Button = ({ action, size, icon, disabled, tooltip, sx }: ButtonProps) => (
-   <Tooltip title={tooltip && formatName(icon)}>
+   <Tooltip
+      title={tooltip && formatName(icon)}
+   >
       <span id={`${icon}-button`}>
          <IconButton
             data-testid={`${icon}-button`}

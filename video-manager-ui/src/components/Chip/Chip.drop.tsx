@@ -21,7 +21,9 @@ export const ChipWithDrop = ({ action, ...props }: ChipProps & WithErrorProps & 
 
    const [{ isDragging, isOver }, drop] = useDrop(() => ({
       accept: DRAGGABLES,
-      drop: item => { action && action(item) },
+      drop: item => { 
+         action && action(item) 
+      },
       collect: monitor => ({
          isDragging: DRAGGABLES.includes(monitor.getItemType() as string),
          isOver: !!monitor.isOver()

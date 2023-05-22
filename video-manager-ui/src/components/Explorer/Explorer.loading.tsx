@@ -5,6 +5,10 @@ import { WithFetchProps } from './Explorer.fetch'
 import { Folder } from '../Folder'
 import { ExplorerWithError } from './Explorer.error'
 
+/**
+ * Represents the number of elements used to compose a loading skeleton,
+ * based on the width of the window.
+ */
 const length = Math.floor((window.innerWidth - 100) / 100)
 
 /**
@@ -20,7 +24,9 @@ export const ExplorerLoading = () => (
 )
 
 export const ExplorerWithFetchLoading = (props: WithFetchProps) => (
-   <Suspense fallback={<ExplorerLoading />}>
+   <Suspense
+      fallback={<ExplorerLoading />}
+   >
       <ExplorerWithError {...props} />
    </Suspense>
 )

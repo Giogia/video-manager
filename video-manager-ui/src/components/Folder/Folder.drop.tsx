@@ -21,8 +21,12 @@ export const FolderWithDrop = ({ action, ...props }: FolderProps & WithDropProps
 
    const [{ isOver }, drop] = useDrop(() => ({
       accept: DRAGGABLES,
-      drop: item => { action && action(item, name) },
-      collect: monitor => ({ isOver: !!monitor.isOver() })
+      drop: item => { 
+         action && action(item, name) 
+      },
+      collect: monitor => ({ 
+         isOver: !!monitor.isOver() 
+      })
    }))
 
    return (

@@ -57,7 +57,9 @@ const network = Network.create((
          method: 'POST',
          headers: {
             'Accept': 'application/json',
-            ...!uploadables && { 'Content-Type': 'application/json' }
+            ...!uploadables && {
+               'Content-Type': 'application/json'
+            }
          },
          body
       }

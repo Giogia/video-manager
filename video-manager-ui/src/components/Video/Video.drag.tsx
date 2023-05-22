@@ -17,7 +17,9 @@ export const VideoWithDrag = ({ ...props }: VideoProps) => {
    const [{ isDragging }, drag] = useDrag(() => ({
       type: VIDEO,
       item: { name, type: VIDEO },
-      collect: monitor => ({ isDragging: !!monitor.isDragging() })
+      collect: monitor => ({ 
+         isDragging: !!monitor.isDragging() 
+      })
    }))
 
    const { display: preview } = usePreview()

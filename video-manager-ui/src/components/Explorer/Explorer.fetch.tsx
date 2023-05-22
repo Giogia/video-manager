@@ -22,6 +22,7 @@ const query = (
     }
   `
 )
+
 const fragment = (
    graphql`
     fragment Explorer_directory on Directory {
@@ -46,14 +47,14 @@ export interface WithFetchProps {
  * Component wrapper fetching data
  */
 export const ExplorerWithFetch = ({ queryRef }: WithFetchProps) => {
+   
    const { getDirectory } = usePreloadedQuery<ExplorerQuery>(query, queryRef)
-   const { id, children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
+   const { children } = useFragment<Explorer_directory$key>(fragment, getDirectory)
 
    const { pathname } = useLocation()
 
    return (
       <Explorer
-         id={id}
          path={pathname}
          content={
             children.map((child, i) => {

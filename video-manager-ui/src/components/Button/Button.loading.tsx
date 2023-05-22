@@ -5,10 +5,10 @@ import Skeleton from '@mui/material/Skeleton'
 import { Button, ButtonProps } from './Button.ui'
 
 interface WithLoadingProps {
-  /**
-   * Whether the button is loading
-   */
-  loading: boolean
+   /**
+    * Whether the button is loading
+    */
+   loading: boolean
 }
 
 /**
@@ -18,7 +18,10 @@ export const ButtonWithLoading = ({ loading, ...props }: ButtonProps & WithLoadi
    <Box sx={{ ...loading && { position: 'relative' } }}>
       {loading ?
          <>
-            <Skeleton variant='circular' sx={{ position: 'absolute', top: 0, left: 0 }}>
+            <Skeleton
+               variant='circular'
+               sx={{ position: 'absolute', top: 0, left: 0 }}
+            >
                <Button {...props} disabled />
             </Skeleton>
             <Button {...props} disabled />

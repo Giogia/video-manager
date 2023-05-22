@@ -53,7 +53,11 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
                zIndex: 10000,
             }
          }}>
-            <Wrapper {...!fullscreen && { sx: { height: 50, width: 70 } }}>
+            <Wrapper {
+               ...!fullscreen && {
+                  sx: { height: 50, width: 70 }
+               }}
+            >
                <CardMedia
                   component='video'
                   controls={fullscreen}

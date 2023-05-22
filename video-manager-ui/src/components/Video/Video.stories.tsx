@@ -5,10 +5,10 @@ import { userEvent, within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
 import { Video } from '.'
+import { formatSize } from '../../utils/size'
 
 import horizontal from './__assets__/horizontal.mov'
 import vertical from './__assets__/vertical.mov'
-import { formatSize } from '../../utils/size'
 
 const video = Math.random() > 0.65 ? vertical : horizontal
 

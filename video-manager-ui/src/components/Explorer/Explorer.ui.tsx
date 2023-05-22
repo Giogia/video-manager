@@ -27,16 +27,12 @@ interface ExplorerProps {
     * Position in file system
     */
    path: string
-   /**
-    * Explorer identifier
-    */
-   id?: string
 }
 
 /**
  * UI component for exploring a directory
  */
-export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) => (
+export const Explorer = ({ content, path, loading, error }: ExplorerProps) => (
    <Card id='explorer'
       variant='outlined'
       sx={{
@@ -62,7 +58,6 @@ export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) =
                />
                <AddFolderButton
                   disabled={loading || error}
-                  optimisticResponse={{ id, children: (Array.isArray(content) ? content : [content]) }}
                />
             </CardActions>
          }
@@ -82,8 +77,7 @@ export const Explorer = ({ content, path, loading, error, id }: ExplorerProps) =
             gap: 2
          }
       }}>
-         {content &&
-            Array.isArray(content) ?
+         {Array.isArray(content) ?
             <Grid container
                columns={{ xs: 2, sm: 4, md: 6, lg: 8, xl: 10 }}
                spacing={4}

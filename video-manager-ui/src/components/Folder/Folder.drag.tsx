@@ -17,7 +17,9 @@ export const FolderWithDrag = ({ ...props }: FolderProps) => {
    const [{ isDragging }, drag] = useDrag(() => ({
       type: FOLDER,
       item: { name, type: FOLDER },
-      collect: monitor => ({ isDragging: !!monitor.isDragging() })
+      collect: monitor => ({ 
+         isDragging: !!monitor.isDragging() 
+      })
    }), [name])
 
    const { display: preview } = usePreview()

@@ -50,7 +50,10 @@ export const Name = ({ name: defaultName, editable, onChange, sx }: NameProps) =
                variant='caption'
                gutterBottom
                onClick={() => setIsFocused(editable || false)}
-               sx={{ opacity: editable ? 1 : 0.5, ...sx }}
+               sx={{
+                  opacity: editable ? 1 : 0.5,
+                  ...sx
+               }}
             >
                {name}
             </Typography> :
@@ -59,8 +62,11 @@ export const Name = ({ name: defaultName, editable, onChange, sx }: NameProps) =
                value={name}
                variant='standard'
                inputProps={{
-                  sx: { fontSize: 12, marginTop: -0.25, ...sx },
-                  role: 'input'
+                  role: 'input',
+                  sx: {
+                     fontSize: 12, marginTop: -0.25,
+                     ...sx
+                  }
                }}
                multiline
                maxRows={4}

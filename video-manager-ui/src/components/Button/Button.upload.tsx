@@ -9,16 +9,16 @@ import { WithErrorProps } from './Button.error'
  */
 const handleChange = (action: ButtonProps['action']) =>
    async (event: React.ChangeEvent<HTMLInputElement>) => {
+
       if (
+         action &&
          event.target.files !== null &&
          event.target?.files?.length > 0
       ) {
+
          const file = event.target.files[0]
 
-         if (file?.type?.startsWith('video/')) {
-
-            action && action(file)
-         }
+         file?.type?.startsWith('video/') && action(file)
       }
    }
 

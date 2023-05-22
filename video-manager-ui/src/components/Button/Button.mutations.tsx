@@ -37,26 +37,15 @@ const uploadVideo = (
     }
   `
 )
-export interface WithResponseProps {
-   /**
-    * Explorer content after add folder mutation
-    */
-   optimisticResponse: {
-      id?: string
-      children: { props: { id: string, name: string, path: string } }[]
-   }
-}
 
 /**
  * Component Wrapper for creating new folders
  */
-export const AddFolderButton = ({ ...props }: Partial<ButtonProps> & WithResponseProps) => {
+export const AddFolderButton = ({ ...props }: Partial<ButtonProps>) => {
 
    const [error, setError] = useState(new GraphQLError(''))
 
    const [commitMutation, isMutationInFlight] = useMutation<ButtonAddFolderMutation>(addFolder)
-
-   // const { id, children } = optimisticResponse
 
    return <Button {...props}
       icon='add-folder'
@@ -68,17 +57,6 @@ export const AddFolderButton = ({ ...props }: Partial<ButtonProps> & WithRespons
             name: NEW_FOLDER
          },
          onError: e => setError(e as GraphQLError)
-         // optimisticResponse: {
-         //   addDirectory: {
-         //     id,
-         //     children: [
-         //       ...children, {
-         //         name: NEW_FOLDER,
-         //         path: combinePath(path, NEW_FOLDER)
-         //       }
-         //     ]
-         //   }
-         // }
       })}
    />
 }
