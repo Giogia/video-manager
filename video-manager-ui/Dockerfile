@@ -13,7 +13,7 @@ COPY . /usr/src/app
 RUN yarn install
 
 # Expose the port the app runs in
-EXPOSE 3000 6000
+EXPOSE 3000 6006
 
 # Serve the app
 CMD ["yarn", "start", "&&", "yarn", "storybook"]
