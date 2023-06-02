@@ -15,7 +15,7 @@ services:
       - ./video-manager-ui:/usr/src/app
       - /usr/src/app/node_modules
     networks:
-      - react-express
+      - client-server
     depends_on:
       - server
     expose: 
@@ -52,13 +52,13 @@ services:
     depends_on:
       - mongo
     networks:
-      - express-mongo
-      - react-express
+      - client-server
+      - server-database
     expose: 
       - 4000
 
-  mongo:
-    container_name: mongo
+  database:
+    container_name: database
     restart: always
     image: mongo:5.0.0
     ports:
@@ -66,10 +66,10 @@ services:
     volumes:
       - ./data:/data/db
     networks:
-      - express-mongo
+      - server-database
     expose:
       - 27017
 
 networks:
-  react-express:
-  express-mongo:
+  client-server:
+  server-database:
