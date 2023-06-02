@@ -1,7 +1,7 @@
 services:
 
-  video-manager-ui:
-    container_name: video-manager-ui
+  client:
+    container_name: client
     restart: always
     build:
       context: video-manager-ui
@@ -34,12 +34,12 @@ services:
       - ./video-manager-ui:/usr/src/app
       - /usr/src/app/node_modules
     depends_on:
-      - video-manager-api
+      - video-manager-ui
     expose: 
       - 6006
 
-  video-manager-api:
-    container_name: video-manager-api
+  server:
+    container_name: server
     restart: always
     build:
       context: video-manager-api
