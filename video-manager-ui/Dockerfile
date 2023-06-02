@@ -16,7 +16,7 @@ RUN yarn install
 EXPOSE 3000 6006
 
 # Serve the app
-CMD ["yarn", "start", "&&", "yarn", "storybook"]
+CMD ["yarn", "start"]
 
 FROM development as dev-envs
 RUN <<EOF
@@ -31,4 +31,4 @@ usermod -aG docker vscode
 EOF
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
-CMD ["yarn", "start", "&&", "yarn", "storybook"]
+CMD ["yarn", "start"]

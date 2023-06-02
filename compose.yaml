@@ -10,7 +10,6 @@ services:
       -  SERVER_URL=http://localhost:4000
     ports:
       - 3000:3000
-      - 6006:6006
     stdin_open: true
     volumes:
       - ./video-manager-ui:/usr/src/app
@@ -21,8 +20,24 @@ services:
       - video-manager-api
     expose: 
       - 3000
+
+  storybook:
+    container_name: storybook
+    restart: always
+    command: yarn storybook
+    build:
+      context: video-manager-ui
+      target: development
+    ports:
+      - 6006:6006
+    volumes:
+      - ./video-manager-ui:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - video-manager-api
+    expose: 
       - 6006
-      
+
   video-manager-api:
     container_name: video-manager-api
     restart: always
