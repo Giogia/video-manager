@@ -58,22 +58,25 @@ export const Video = ({ name, source, size, loading }: VideoProps) => {
                   sx: { height: 50, width: 70 }
                }}
             >
-               <CardMedia
-                  component='video'
-                  controls={fullscreen}
-                  src={source}
-                  role='video'
-                  onClick={() =>
-                     setTimeout(() =>
-                        setFullscreen(true), 250)
-                  }
-                  sx={{
-                     borderRadius: 0.5,
-                     backgroundColor: 'black',
-                     height: '100%',
-                     width: '100%',
-                  }}
-               />
+               {loading ?
+                  <Button icon='video' loading /> :
+                  <CardMedia
+                     component='video'
+                     controls={fullscreen}
+                     src={source}
+                     role='video'
+                     onClick={() =>
+                        setTimeout(() =>
+                           setFullscreen(true), 250)
+                     }
+                     sx={{
+                        borderRadius: 0.5,
+                        backgroundColor: 'black',
+                        height: '100%',
+                        width: '100%',
+                     }}
+                  />
+               }
             </Wrapper>
          </Grid>
          <Grid item>

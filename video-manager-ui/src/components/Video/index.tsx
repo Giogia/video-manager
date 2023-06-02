@@ -1,9 +1,9 @@
-import { VideoWithLoading } from './Video.loading'
+import { Video } from './Video.ui'
 import { VideoWithDrag } from './Video.drag'
 import { VideoWithFetch } from './Video.fetch'
 
 export {
-   VideoWithLoading as Video,
+   Video,
    VideoWithDrag,
    VideoWithFetch
 }
