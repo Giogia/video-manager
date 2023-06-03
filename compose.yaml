@@ -23,7 +23,7 @@ services:
 
   storybook:
     container_name: storybook
-    restart: no
+    restart: "no"
     command: yarn storybook
     build:
       context: video-manager-ui
