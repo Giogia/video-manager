@@ -3,6 +3,9 @@
 # Create image based on the official Node image from dockerhub
 FROM node:lts-buster AS development
 
+# Add Playwright image 
+FROM mcr.microsoft.com/playwright:jammy
+
 # Create app directory
 WORKDIR /usr/src/app
 
