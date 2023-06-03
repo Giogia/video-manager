@@ -3,9 +3,6 @@
 # Create image based on the official Node image from dockerhub
 FROM node:lts-buster AS development
 
-# Get the latest version of Playwright
-FROM mcr.microsoft.com/playwright:focal
-
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -25,7 +22,6 @@ FROM development as dev-envs
 RUN <<EOF
 apt-get update
 apt-get install -y --no-install-recommends git
-apt-get install -y libnss3 libatk-bridge2.0-0 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libatspi2.0-0 libxshmfence-dev
 EOF
 
 RUN <<EOF
