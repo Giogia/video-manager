@@ -4,7 +4,7 @@
 FROM node:lts-buster AS development
 
 # Add Playwright image 
-FROM mcr.microsoft.com/playwright:jammy
+FROM mcr.microsoft.com/playwright:next-jammy
 
 # Create app directory
 WORKDIR /usr/src/app
