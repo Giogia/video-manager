@@ -28,7 +28,7 @@ export interface VideoProps {
 }
 
 /**
- * UI component for identifying a directory
+ * UI component for displaying a video file
  */
 export const Video = ({ name, source, size, loading }: VideoProps) => {
 
