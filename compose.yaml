@@ -23,7 +23,7 @@ services:
 
   storybook:
     container_name: storybook
-    restart: always
+    restart: no
     command: yarn storybook
     build:
       context: video-manager-ui
@@ -50,7 +50,7 @@ services:
       - ./video-manager-api:/usr/src/app
       - /usr/src/app/node_modules
     depends_on:
-      - mongo
+      - database
     networks:
       - client-server
       - server-database
