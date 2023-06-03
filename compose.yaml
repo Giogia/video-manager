@@ -10,6 +10,7 @@ services:
       -  SERVER_URL=http://localhost:4000
     ports:
       - 3000:3000
+      - 6006:6006
     stdin_open: true
     volumes:
       - ./video-manager-ui:/usr/src/app
@@ -20,22 +21,8 @@ services:
       - server
     expose: 
       - 3000
-
-  storybook:
-    container_name: storybook
-    restart: "no"
-    command: yarn storybook
-    build:
-      context: video-manager-ui
-      target: development
-    ports:
-      - 6006:6006
-    volumes:
-      - ./video-manager-ui:/usr/src/app
-      - /usr/src/app/node_modules
-    expose: 
       - 6006
-
+      
   server:
     container_name: server
     restart: always
@@ -43,7 +30,7 @@ services:
       context: video-manager-api
       target: development
     environment:
-      - MONGO_DB_URL=mongodb://mongo:27017/video-manager
+      - MONGO_DB_URL=mongodb://database:27017/video-manager
     ports:
       - 4000:4000
     volumes:
