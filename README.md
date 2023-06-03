@@ -27,6 +27,7 @@
 
 <div align="center">
  <a href="https://docs.docker.com/desktop/dev-environments/">
+  <img src="https://github.com/Giogia/video-manager/assets/9254840/56d2f890-a7a3-4734-a574-a21c1de0d50f" height="48">
  </a>
 </div>
 
