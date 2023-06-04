@@ -3,12 +3,22 @@ import { StoryFn, Meta } from '@storybook/react'
 import { userEvent, within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
+import { Name as NameComponent } from './Name.ui'
 import { Name } from '.'
 import { composeError } from '../../utils/error'
+
+const [{ description }] = Object.values(NameComponent).slice(-1)
 
 export default {
    title: 'Primary/Name',
    component: Name,
+   parameters: {
+      docs: {
+         description: {
+            component: description
+         }
+      }
+   },
    argTypes: {
       error: { type: 'string' }
    },

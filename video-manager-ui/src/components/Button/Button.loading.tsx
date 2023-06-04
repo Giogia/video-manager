@@ -4,7 +4,7 @@ import Skeleton from '@mui/material/Skeleton'
 
 import { Button, ButtonProps } from './Button.ui'
 
-interface WithLoadingProps {
+export interface WithLoadingProps {
    /**
     * Whether the button is loading
     */

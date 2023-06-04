@@ -4,12 +4,22 @@ import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
 import { Chip } from '.'
+import { Chip as ChipComponent } from './Chip.ui'
 import { composeError } from '../../utils/error'
 import { formatName } from '../../utils/name'
+
+const [{description}] = Object.values(ChipComponent).slice(-1)
 
 export default {
    title: 'Primary/Chip',
    component: Chip,
+   parameters: {
+      docs: {
+         description: {
+            component: description
+         }
+      }
+   },
    argTypes: {
       action: { action: true },
       error: { type: 'string' }

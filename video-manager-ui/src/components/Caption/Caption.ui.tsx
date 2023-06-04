@@ -13,7 +13,7 @@ export interface CaptionProps {
 }
 
 /**
- * Primary UI component for giving descriptions
+ * Primary UI component for brief descriptions
  */
 export const Caption = ({ text, disabled }: CaptionProps) => (
    <Typography

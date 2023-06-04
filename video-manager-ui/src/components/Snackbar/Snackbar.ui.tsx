@@ -13,7 +13,7 @@ export interface ErrorProps {
 }
 
 /**
- * Primary UI component for user interaction
+ * Primary UI component for user interaction through messages
  */
 export const Snackbar = ({ error }: ErrorProps) => {
 

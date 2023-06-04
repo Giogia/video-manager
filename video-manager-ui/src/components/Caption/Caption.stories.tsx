@@ -4,14 +4,26 @@ import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
 import { Caption } from '.'
+import { Caption as CaptionComponent } from './Caption.ui'
+
+const [{ description }] = Object.values(CaptionComponent).slice(-1)
 
 export default {
    title: 'Primary/Caption',
    component: Caption,
-   args: { ...Caption.defaultProps }
+   parameters: {
+      docs: {
+         description: {
+            component: description
+         }
+      }
+   },
+   args: {
+      ...Caption.defaultProps
+   }
 } as Meta<typeof Caption>
 
-export const Playground: StoryFn<typeof Caption> = (args: any) => (
+export const Playground: StoryFn<typeof Caption> = (args) => (
    <Caption {...args} />
 )
 

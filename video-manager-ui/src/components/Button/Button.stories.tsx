@@ -2,14 +2,23 @@ import React from 'react'
 import { StoryFn, Meta } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
-
-import { Button } from '.'
+import { Button } from './'
+import { Button as ButtonComponent } from './Button.ui'
 import { composeError } from '../../utils/error'
 import { formatName } from '../../utils/name'
+
+const [{description}] = Object.values(ButtonComponent).slice(-1)
 
 export default {
    title: 'Primary/Button',
    component: Button,
+   parameters: {
+      docs: {
+         description: {
+            component: description
+         }
+      }
+   },
    argTypes: {
       action: { action: true },
       error: { type: 'string' }
