@@ -52,10 +52,14 @@ export async function streamVideo(req: Request, res: Response) {
                "Content-Type": contentType,
             })
 
-            streamFile(id, { start, end }).pipe(res)
+            streamFile(id, { start, end })
+               .pipe(res)
+               .on("error", error => log(error))
          }
       }
-      streamFile(id).pipe(res)
+      streamFile(id)
+         .pipe(res)
+         .on("error", error => log(error))
    }
    catch (e) {
       log(`Cannot stream video ${id}. \n\n ${e}`)

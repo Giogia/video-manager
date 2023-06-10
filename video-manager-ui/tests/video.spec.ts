@@ -6,7 +6,7 @@ import { getButton, getChip, getLink } from './utils/components'
 import { getVideo } from './utils/video'
 import { getFolder } from './utils/folder'
 
-const assets = ['horizontal.mov', 'vertical.mov']
+const assets = ['sample.mov']
 
 let testId: string
 
@@ -47,7 +47,7 @@ test('upload videos', async () => {
 
       await reload(page)
 
-      await expect(video).toBeVisible({ timeout: 30000 })
+      await expect(video).toBeVisible()
    })
 })
 

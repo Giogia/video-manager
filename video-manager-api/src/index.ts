@@ -28,8 +28,8 @@ async function start() {
 
    // Enable file uploads
    app.use(graphqlUploadExpress({
-      // maxFileSize: 1000000,
-      maxFiles: 10
+      // maxFileSize: 1000000000,
+      // maxFiles: 10
    }))
 
    // Set up the Yoga server and GraphiQL
