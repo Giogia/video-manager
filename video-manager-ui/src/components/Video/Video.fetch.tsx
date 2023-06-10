@@ -32,10 +32,11 @@ const fragment = (
  * Component wrapper fetching data
  */
 export const VideoWithFetch = ({ fragmentRef }: WithFetchProps) => {
-   const { name, url, size } = useFragment<VideoFragment$key>(fragment, fragmentRef)
+   const { id, name, url, size } = useFragment<VideoFragment$key>(fragment, fragmentRef)
 
    return (
       <VideoWithDrag
+         key={id}
          name={name}
          source={env.SERVER_URL + url}
          size={size}
