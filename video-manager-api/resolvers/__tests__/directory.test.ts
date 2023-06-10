@@ -567,7 +567,7 @@ describe("Resolvers", () => {
 
          const { errors } = await graphql(schema, moveDirectoryMutation)
 
-         expect(errors).toEqual([new GraphQLError("Cannot move directory /Parent/Dir. \n\n Directory /New%20Parent does not exist.")])
+         expect(errors).toEqual([new GraphQLError("Cannot move directory /Parent/Dir. \n\n Directory /New Parent does not exist.")])
       })
 
       it("returns error if directory already exists in target directory", async () => {

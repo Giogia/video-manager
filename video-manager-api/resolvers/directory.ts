@@ -128,7 +128,7 @@ export class DirectoryResolver {
       try {
          const newParentNode = await findNode(newPath)
 
-         if (!newParentNode) throw new GraphQLError(`Directory ${newPath} does not exist.`)
+         if (!newParentNode) throw new GraphQLError(`Directory ${decodeURI(newPath)} does not exist.`)
 
          const update = {
             parent: newParentNode.id!
