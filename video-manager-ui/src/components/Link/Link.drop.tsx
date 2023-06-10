@@ -24,7 +24,7 @@ export const LinkWithDrop = ({ action, ...props }: LinkProps & WithErrorProps & 
    const [{ isOver }, drop] = useDrop(() => ({
       accept: DRAGGABLES,
       drop: item => { 
-         action && action(item, href) 
+         action?.(item, href) 
       },
       collect: monitor => ({ 
          isOver: !!monitor.isOver() 
