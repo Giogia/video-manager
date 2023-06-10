@@ -6,7 +6,7 @@ import { getButton, getChip, getLink } from './utils/components'
 import { getVideo } from './utils/video'
 import { getFolder } from './utils/folder'
 
-const assets = ['sample.mov']
+const assets = ['horizontal.mov', 'vertical.mov']
 
 let testId: string
 
