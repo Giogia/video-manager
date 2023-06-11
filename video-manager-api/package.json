@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon --exec ts-node -r dotenv/config src/index.ts",
     "lint": "npx eslint '**/*.ts' --fix --ignore-pattern node_modules/",
-    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --watch"
+    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --watchAll"
   },
   "dependencies": {
     "@typegoose/typegoose": "^9.13.1",
