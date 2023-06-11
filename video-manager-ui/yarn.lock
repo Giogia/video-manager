@@ -3765,19 +3765,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.32.1":
-  version: 1.32.1
-  resolution: "@playwright/test@npm:1.32.1"
+"@playwright/test@npm:^1.35.0":
+  version: 1.35.0
+  resolution: "@playwright/test@npm:1.35.0"
   dependencies:
     "@types/node": "*"
     fsevents: 2.3.2
-    playwright-core: 1.32.1
+    playwright-core: 1.35.0
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: f997f3d235cdd5fc3e42eb89d639bc4cc4ee2817ddb7b7a7494a856194fa626dd4dafd62ee7815a4a0e751ede0b55aa68811d766c1d3c07c0a4e4513c17ac1f6
+  checksum: c63a281d8711ec817906d7618563709842aaa013ac02919bb7bbef7f7162d4ace0fc1351c6aac94a8957df4d107b38440e55488e99455a07f55e1ace6bb07959
   languageName: node
   linkType: hard
 
@@ -15572,7 +15572,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.32.1, playwright-core@npm:>=1.2.0":
+"playwright-core@npm:1.35.0":
+  version: 1.35.0
+  resolution: "playwright-core@npm:1.35.0"
+  bin:
+    playwright-core: cli.js
+  checksum: e23050c9de128e02b16ffbeb1adaca6dddd85a6fd581e71da38947f66b3c910504d628285340e3d6de8c099a488ab9dad14241aefe615f65c01a5a3e3b6e633d
+  languageName: node
+  linkType: hard
+
+"playwright-core@npm:>=1.2.0":
   version: 1.32.1
   resolution: "playwright-core@npm:1.32.1"
   bin:
@@ -19635,7 +19644,7 @@ __metadata:
     "@mdx-js/react": ^2.1.5
     "@mui/icons-material": ^5.10.16
     "@mui/material": ^5.10.16
-    "@playwright/test": ^1.32.1
+    "@playwright/test": ^1.35.0
     "@storybook/addon-actions": ^7.0.7
     "@storybook/addon-docs": ^7.0.7
     "@storybook/addon-essentials": ^7.0.7

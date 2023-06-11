@@ -10,8 +10,8 @@
     "lint": "npx eslint '**/*.ts' '**/*.tsx' --fix --ignore-pattern node_modules/",
     "eject": "react-scripts eject",
     "test": "react-scripts test",
-    "test-components": "test-storybook --watch",
-    "test-e2e": "playwright test --ui",
+    "test-components": "playwright install && test-storybook --watchAll",
+    "test-e2e": "playwright install && playwright test --ui",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook --browsers chromium firefox webkit"
@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@mdx-js/react": "^2.1.5",
-    "@playwright/test": "^1.32.1",
+    "@playwright/test": "^1.35.0",
     "@storybook/addon-actions": "^7.0.7",
     "@storybook/addon-docs": "^7.0.7",
     "@storybook/addon-essentials": "^7.0.7",
