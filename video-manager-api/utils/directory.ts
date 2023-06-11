@@ -19,6 +19,16 @@ export function getMaxDepth(query?: string): number {
 }
 
 /**
+ * Sorts an array of children by name in ascending order.
+ * @param children - The array of children to be sorted.
+ * @returns The sorted array of children.
+ */
+export function sortByName(children: Child[]): Child[] {
+   return children
+      .sort((a, b) => a.name > b.name ? 1 : -1)
+}
+
+/**
  * Composes a child object for a given node, recursively generating child objects based on the specified maximum depth.
  * @param files - The array of GridFS files.
  * @param maxDepth - The maximum depth for generating child objects.
@@ -45,20 +55,22 @@ export function composeChild(
                size: getFileSize(files, data)
             } :
             {
-               children: currentDepth <= maxDepth ?
-                  await Promise.all(
-                     childNodes
-                        .filter(({ depth, parent }: Node) => (
-                           depth === currentDepth &&
-                           parent === id
-                        ))
-                        .map(composeChild(
-                           await findFiles(childNodes),
-                           maxDepth,
-                           currentDepth + 1,
-                           childNodes
-                        ))
-                  ) : []
+               children: currentDepth > maxDepth ? [] :
+                  await Promise
+                     .all(
+                        childNodes
+                           .filter(({ depth, parent }: Node) => (
+                              depth === currentDepth &&
+                              parent === id
+                           ))
+                           .map(composeChild(
+                              await findFiles(childNodes),
+                              maxDepth,
+                              currentDepth + 1,
+                              childNodes
+                           ))
+                     )
+                     .then(sortByName)
             }
       }
    }
@@ -87,9 +99,9 @@ export async function composeDirectory(path: string, query?: string): Promise<Di
          return {
             id: id || "root",
             name,
-            children: await Promise.all(
-               children.map(composeChild(files, maxDepth))
-            )
+            children: await Promise
+               .all(children.map(composeChild(files, maxDepth)))
+               .then(sortByName)
          }
       }
       return null
