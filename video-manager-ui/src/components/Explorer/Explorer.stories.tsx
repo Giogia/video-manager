@@ -21,9 +21,9 @@ export default {
    args: {
       ...Explorer.defaultProps,
       path: '/home/giovanni/developer/video-manager',
-      content: Array.from({ length: 40 }).map((_, i) =>
-         Math.random() > 0.65 ?
-            <Video key={i} source={Math.random() > 0.65 ? vertical : horizontal} /> :
+      content: Array.from({ length: 20 }).map((_, i) =>
+         Math.random() < 0.15 ?
+            <Video key={i} source={Math.random() > 0.5 ? vertical : horizontal} /> :
             <Folder key={i} />
       )
    },
