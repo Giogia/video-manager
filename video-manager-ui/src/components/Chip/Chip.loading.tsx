@@ -22,5 +22,6 @@ export const ChipWithLoading = ({ loading, ...props }: ChipProps & WithLoadingPr
 )
 
 ChipWithLoading.defaultProps = {
+   ...Chip.defaultProps,
    loading: false
 }

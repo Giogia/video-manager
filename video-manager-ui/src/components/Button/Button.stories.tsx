@@ -7,7 +7,7 @@ import { Button as ButtonComponent } from './Button.ui'
 import { composeError } from '../../utils/error'
 import { formatName } from '../../utils/name'
 
-const [{description}] = Object.values(ButtonComponent).slice(-1)
+const [{ description }] = Object.values(ButtonComponent).slice(-1)
 
 export default {
    title: 'Primary/Button',
@@ -24,8 +24,8 @@ export default {
       error: { type: 'string' }
    },
    args: {
-      ...Button.defaultProps,
-      icon: 'folder'
+      icon: 'folder',
+      ...Button.defaultProps
    }
 } as Meta<typeof Button>
 

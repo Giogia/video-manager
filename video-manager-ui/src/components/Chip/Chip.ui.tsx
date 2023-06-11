@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import MuiChip from '@mui/material/Chip'
 import Tooltip from '@mui/material/Tooltip'
 import { SxProps, Theme } from '@mui/material'
@@ -22,7 +22,7 @@ export interface ChipProps {
    /**
     * Text present on the chip
     */
-   label?: ReactNode,
+   label?: string,
    /**
     * Customize chip themed style
     */
@@ -53,3 +53,7 @@ export const Chip = ({ action, icon, disabled, label, tooltip, sx }: ChipProps) 
       </span>
    </Tooltip>
 )
+
+Chip.defaultProps = {
+   disabled: false
+}

@@ -8,7 +8,7 @@ import { Chip as ChipComponent } from './Chip.ui'
 import { composeError } from '../../utils/error'
 import { formatName } from '../../utils/name'
 
-const [{description}] = Object.values(ChipComponent).slice(-1)
+const [{ description }] = Object.values(ChipComponent).slice(-1)
 
 export default {
    title: 'Primary/Chip',
@@ -26,7 +26,8 @@ export default {
    },
    args: {
       icon: 'delete',
-      tooltip: 'Drag here an element to delete'
+      tooltip: 'Drag here an element to delete',
+      ...Chip.defaultProps
    }
 } as Meta<typeof Chip>
 
