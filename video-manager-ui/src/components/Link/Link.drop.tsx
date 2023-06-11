@@ -23,16 +23,22 @@ export const LinkWithDrop = ({ action, ...props }: LinkProps & WithErrorProps & 
 
    const [{ isOver }, drop] = useDrop(() => ({
       accept: DRAGGABLES,
-      drop: item => { 
-         action?.(item, href) 
+      drop: item => {
+         action?.(item, href)
       },
-      collect: monitor => ({ 
-         isOver: !!monitor.isOver() 
+      collect: monitor => ({
+         isOver: !!monitor.isOver()
       })
    }))
 
    return (
-      <Box ref={drop}>
+      <Box
+         ref={drop}
+         sx={{
+            ...!selected && isOver && { transform: 'scale(0.95)' },
+            transition: 'transform 0.15s ease-in-out'
+         }}
+      >
          <Link
             {...props}
             selected={selected || isOver}

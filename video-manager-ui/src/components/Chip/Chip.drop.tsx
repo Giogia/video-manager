@@ -8,9 +8,9 @@ import { WithErrorProps } from './Chip.error'
 import { DRAGGABLES } from '../../utils/drag'
 
 export interface WithDropProps {
-  /**
-   * Action called on drop
-   */
+   /**
+    * Action called on drop
+    */
    action?: (...args: any[]) => void
 }
 
@@ -21,8 +21,8 @@ export const ChipWithDrop = ({ action, ...props }: ChipProps & WithErrorProps & 
 
    const [{ isDragging, isOver }, drop] = useDrop(() => ({
       accept: DRAGGABLES,
-      drop: item => { 
-         action?.(item) 
+      drop: item => {
+         action?.(item)
       },
       collect: monitor => ({
          isDragging: DRAGGABLES.includes(monitor.getItemType() as string),
@@ -38,10 +38,10 @@ export const ChipWithDrop = ({ action, ...props }: ChipProps & WithErrorProps & 
             sx={{
                ...props.sx,
                padding: 2.1,
-               paddingRight: isOver ? 8 : 1,
+               transform: isOver ? 'scale(1.1)' : 'none',
                color: isOver ? 'error.light' : 'default',
                backgroundColor: isDragging ? 'background.default' : 'transparent',
-               transitionProperty: 'padding, background-color,  color',
+               transitionProperty: 'transform, background-color,  color',
                transitionDuration: '0.15s',
                transitionTimingFunction: 'ease-in-out'
             }}
