@@ -5,7 +5,7 @@
     <img alt="logo" src="https://user-images.githubusercontent.com/9254840/235371514-5a19d585-4da9-4435-977e-cee40c8abca7.png" height="96">
   </a>
   <h1> Video Manager </h1>
-  <span> Synthesia Full Stack Developer Technical Challenge </span>
+  <span> Full Stack Developer Technical Showcase </span>
 </div>
 
 <br/>
@@ -27,7 +27,7 @@
 
 <div align="center">
  <a href="https://docs.docker.com/desktop/dev-environments/">
-  <img src="https://github.com/Giogia/video-manager/assets/9254840/56d2f890-a7a3-4734-a574-a21c1de0d50f" height="48">
+  <img src="https://github.com/Giogia/video-manager/assets/9254840/564bd950-a2a9-45a1-8fcf-2b07f92eb4da" height="48">
  </a>
 </div>
 
