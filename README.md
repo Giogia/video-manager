@@ -5,7 +5,7 @@
     <img alt="logo" src="https://user-images.githubusercontent.com/9254840/235371514-5a19d585-4da9-4435-977e-cee40c8abca7.png" height="96">
   </a>
   <h1> Video Manager </h1>
-  <span> Synthesia Full Stack Developer Technical Challenge </span>
+  <span> Sample web application designed to stream and organize in folders your video files </span>
 </div>
 
 <br/>
